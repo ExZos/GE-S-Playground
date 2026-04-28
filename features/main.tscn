@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bma1wwsbpu2ns"]
+
+[ext_resource type="Script" uid="uid://c6klmyhqcx6dx" path="res://features/core/input_manager.gd" id="1_x8lcq"]
+[ext_resource type="Script" uid="uid://beea524pg8c0" path="res://features/player/player.gd" id="2_2sjb8"]
+
+[sub_resource type="SGCircleShape2D" id="SGCircleShape2D_ig7tw"]
+radius = 3276800
+
+[sub_resource type="SGCapsuleShape2D" id="SGCapsuleShape2D_ig7tw"]
+radius = 3276800
+height = 32768000
+
+[node name="Node2D" type="Node2D" unique_id=1000359239]
+
+[node name="InputManager" type="Node" parent="." unique_id=1473816164]
+script = ExtResource("1_x8lcq")
+
+[node name="SGCharacterBody2D" type="SGCharacterBody2D" parent="." unique_id=1849633126]
+script = ExtResource("2_2sjb8")
+
+[node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="SGCharacterBody2D" unique_id=1975225781]
+shape = SubResource("SGCircleShape2D_ig7tw")
+
+[node name="Camera2D" type="Camera2D" parent="SGCharacterBody2D" unique_id=594209437]
+position_smoothing_enabled = true
+
+[node name="SGStaticBody2D" type="SGStaticBody2D" parent="." unique_id=59827568]
+fixed_position_x = 32768000
+position = Vector2(500, 0)
+
+[node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="SGStaticBody2D" unique_id=361673819]
+shape = SubResource("SGCapsuleShape2D_ig7tw")
