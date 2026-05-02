@@ -1,0 +1,67 @@
+extends SGCharacterBody2D
+
+class_name Projectile
+
+signal deactivated(projectile: Projectile)
+
+# Default stats
+const DEFAULT_SPEED: int = 5
+
+# Stats
+@export var speed: int = DEFAULT_SPEED:
+	set(new_speed):
+		speed = new_speed
+		_sg_speed = SGFixed.from_int(new_speed)
+		
+# Non-stat properties
+@export var source: Node2D = null # TODO: ignore collisions/interactions with host
+@export var dir_x: int = 0
+@export var dir_y: int = 0
+
+# SG converted properties
+var _sg_speed: int = SGFixed.from_int(speed)
+
+func activate(new_source: Node2D, fixed_pos_x: int, fixed_pos_y: int, new_dir_x: int, new_dir_y: int) -> void:
+	source = new_source
+	
+	fixed_position.x = fixed_pos_x
+	fixed_position.y = fixed_pos_y
+	sync_to_physics_engine()
+	
+	dir_x = sign(new_dir_x)
+	dir_y = sign(new_dir_y)
+	compute_velocity()
+	
+	set_physics_process(true)
+	$SGCollisionShape2D.disabled = false
+	show()
+
+func deactivate() -> void:
+	set_physics_process(false)
+	$SGCollisionShape2D.disabled = true
+	hide()
+	
+	source = null
+	
+	velocity.x = 0
+	velocity.y = 0
+	
+	deactivated.emit(self)
+
+func compute_velocity() -> void:
+	velocity.x = dir_x * _sg_speed
+	velocity.y = dir_y * _sg_speed
+
+func _physics_process(_delta: float) -> void:
+	var collision = move_and_collide(velocity)
+	if collision:
+		print(collision_layer, ": ", collision_mask)
+		deactivate()
+		
+		var collider = collision.get_collider()
+		if collider is Player:
+			print("TODO: player hit")
+	
+	# TODO: manually check for collision if velocity is 0
+	# TODO: check if that solves collisions from behind
+	

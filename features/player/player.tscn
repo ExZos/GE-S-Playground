@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bk7ksdidmq8ap"]
+
+[ext_resource type="Script" uid="uid://beea524pg8c0" path="res://features/player/player.gd" id="1_sjcu7"]
+
+[sub_resource type="SGCircleShape2D" id="SGCircleShape2D_ao3hl"]
+radius = 3276800
+
+[node name="Player" type="SGCharacterBody2D" unique_id=2004616098]
+script = ExtResource("1_sjcu7")
+
+[node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="." unique_id=944140082]
+shape = SubResource("SGCircleShape2D_ao3hl")
