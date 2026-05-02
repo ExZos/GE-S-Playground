@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bma1wwsbpu2ns"]
 
+[ext_resource type="Script" uid="uid://chnm4a6v3t7eq" path="res://features/core/game_manager.gd" id="1_stixs"]
 [ext_resource type="Script" uid="uid://c6klmyhqcx6dx" path="res://features/core/input_manager.gd" id="1_x8lcq"]
 [ext_resource type="Script" uid="uid://bxuayk5f3f5mo" path="res://features/core/projectile_manager.gd" id="2_f78yt"]
 [ext_resource type="PackedScene" uid="uid://bk7ksdidmq8ap" path="res://features/player/player.tscn" id="2_x8lcq"]
@@ -10,6 +11,12 @@ radius = 3276800
 height = 32768000
 
 [node name="Node2D" type="Node2D" unique_id=1000359239]
+
+[node name="GameManager" type="Node" parent="." unique_id=468958604 node_paths=PackedStringArray("inputManager", "player", "projectileManager")]
+script = ExtResource("1_stixs")
+inputManager = NodePath("../InputManager")
+player = NodePath("../Player")
+projectileManager = NodePath("../ProjectileManager")
 
 [node name="InputManager" type="Node" parent="." unique_id=1473816164]
 script = ExtResource("1_x8lcq")
@@ -26,13 +33,6 @@ position = Vector2(500, 0)
 shape = SubResource("SGCapsuleShape2D_ig7tw")
 
 [node name="Player" parent="." unique_id=2004616098 instance=ExtResource("2_x8lcq")]
-collision_layer = 2
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=594209437]
 position_smoothing_enabled = true
-
-[node name="Projectile" parent="." unique_id=153145806 instance=ExtResource("3_2sjb8")]
-collision_layer = 4
-collision_mask = 3
-fixed_position_x = -32768000
-position = Vector2(-500, 0)

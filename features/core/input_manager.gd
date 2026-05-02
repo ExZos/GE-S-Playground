@@ -1,6 +1,6 @@
 extends Node
 
-@onready var player: Player = get_node("../Player")
+class_name InputManager
 
 const INPUT_MAP: Dictionary[StringName, int] = {
 	&"ui_up": InputConstants.Bit.MOVE_UP,
@@ -30,7 +30,7 @@ func _input(event: InputEvent) -> void:
 			if event.is_pressed(): _curr_raw_input_mask |= INPUT_MAP[action]
 			elif event.is_released(): _curr_raw_input_mask &= ~INPUT_MAP[action]
 
-func _physics_process(_delta: float) -> void:
+func get_input_mask() -> int:
 	var just_pressed_mask: int = _curr_raw_input_mask & ~_prev_raw_input_mask
 	
 	# Keep track of last vertical movement input
@@ -59,5 +59,5 @@ func _physics_process(_delta: float) -> void:
 	# Add inputs that don't need to be resolved
 	input_mask |= _curr_raw_input_mask & ~InputConstants.BitGroup.MOVE
 	
-	player.execute_input(input_mask)
 	_prev_raw_input_mask = _curr_raw_input_mask
+	return input_mask
