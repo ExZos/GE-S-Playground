@@ -1,6 +1,9 @@
-extends SGCharacterBody2D
+extends SGArea2D
 
-class_name Projectile
+# TODO: use ProjectileData
+class_name SensorProjectile
+
+@export var collision_shape: SGCollisionShape2D
 
 # Default stats
 const DEFAULT_SPEED: int = 5
@@ -12,7 +15,8 @@ const DEFAULT_SPEED: int = 5
 		_fixed_speed = SGFixed.from_int(value)
 		
 # Non-stat properties
-@export var source: Node2D = null # TODO: ignore collisions/interactions with host
+var source_scene: PackedScene = null
+@export var source: Node2D = null
 @export var dir_x: int = 0
 @export var dir_y: int = 0
 var is_deactivated: bool = false
@@ -21,17 +25,30 @@ var is_deactivated: bool = false
 var _fixed_speed: int = SGFixed.from_int(speed)
 
 func advance_frame() -> void:
-	var collision = move_and_collide(velocity)
-	if collision:
-		print(collision_layer, ": ", collision_mask)
-		deactivate()
-		
-		var collider = collision.get_collider()
-		if collider is Player:
-			print("TODO: player hit")
+	fixed_position_x += dir_x * _fixed_speed
+	fixed_position_y += dir_y * _fixed_speed
+	sync_to_physics_engine()
 	
-	# TODO: manually check for collision if velocity is 0
-	# TODO: check if that solves collisions from behind
+	var overlaping_bodies: Array = get_overlapping_bodies()
+	for body: Node2D in overlaping_bodies:
+		if body == source:
+			print("SOURCE")
+			return;	
+		elif body is Player:
+			print("TODO: player hit")
+			
+		deactivate()
+	
+	#if collision:
+		#var collider: Node2D = collision.get_collider()
+		#
+		#if collider == source:
+			#print("SOURCE")
+			#return;
+		#elif collider is Player:
+			#print("TODO: player hit")
+		#
+		#deactivate()
 
 func activate(_source: Node2D, fixed_pos_x: int, fixed_pos_y: int, _dir_x: int, _dir_y: int) -> void:
 	is_deactivated = false
@@ -44,24 +61,20 @@ func activate(_source: Node2D, fixed_pos_x: int, fixed_pos_y: int, _dir_x: int, 
 	
 	dir_x = _dir_x
 	dir_y = _dir_y
-	compute_velocity()
+	#compute_velocity()
 	
 	set_physics_process(true)
-	$SGCollisionShape2D.disabled = false
+	collision_shape.disabled = false
 	show()
 
 func deactivate() -> void:
 	is_deactivated = true
 	
 	set_physics_process(false)
-	$SGCollisionShape2D.disabled = true
+	collision_shape.disabled = true
 	hide()
 	
 	source = null
 	
-	velocity.x = 0
-	velocity.y = 0
-
-func compute_velocity() -> void:
-	velocity.x = dir_x * _fixed_speed
-	velocity.y = dir_y * _fixed_speed
+	#velocity.x = 0
+	#velocity.y = 0

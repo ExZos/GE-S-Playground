@@ -13,7 +13,10 @@ const INPUT_MAP: Dictionary[StringName, int] = {
 	&"shoot_left": InputConstants.Bit.SHOOT_LEFT,
 	&"shoot_right": InputConstants.Bit.SHOOT_RIGHT,
 	
-	&"ui_select": InputConstants.Bit.SPRINT
+	&"ui_select": InputConstants.Bit.SPRINT,
+	
+	&"equip_1": InputConstants.Bit.EQUIP_1,
+	&"equip_2": InputConstants.Bit.EQUIP_2
 }
 
 # Raw input

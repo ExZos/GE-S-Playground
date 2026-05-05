@@ -4,7 +4,17 @@
 [ext_resource type="Script" uid="uid://c6klmyhqcx6dx" path="res://features/core/input_manager.gd" id="1_x8lcq"]
 [ext_resource type="Script" uid="uid://bxuayk5f3f5mo" path="res://features/core/projectile_manager.gd" id="2_f78yt"]
 [ext_resource type="PackedScene" uid="uid://bk7ksdidmq8ap" path="res://features/player/player.tscn" id="2_x8lcq"]
-[ext_resource type="PackedScene" uid="uid://ddcypeu7hpk42" path="res://features/projectiles/projectile.tscn" id="3_2sjb8"]
+[ext_resource type="Script" uid="uid://dqk2livkncmja" path="res://features/core/projectile_data.gd" id="7_kec3v"]
+[ext_resource type="Resource" uid="uid://4bwwhvk6e0lk" path="res://features/projectiles/sensor_projectile/sensor_projectile.tres" id="8_is02o"]
+[ext_resource type="Resource" uid="uid://cvqehutr40ohu" path="res://features/projectiles/solid_projectile/solid_projectile.tres" id="9_ss1m1"]
+
+[sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_stixs"]
+extents_x = 88604672
+extents_y = 6553600
+
+[sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_qvctj"]
+extents_x = 6553600
+extents_y = 55705600
 
 [sub_resource type="SGCapsuleShape2D" id="SGCapsuleShape2D_ig7tw"]
 radius = 3276800
@@ -23,7 +33,28 @@ script = ExtResource("1_x8lcq")
 
 [node name="ProjectileManager" type="Node" parent="." unique_id=534493029]
 script = ExtResource("2_f78yt")
-projectile_scene = ExtResource("3_2sjb8")
+
+[node name="Bounds" type="SGStaticBody2D" parent="." unique_id=1732037479]
+
+[node name="TopBound" type="SGCollisionShape2D" parent="Bounds" unique_id=1427477539]
+shape = SubResource("SGRectangleShape2D_stixs")
+fixed_position_y = -49152000
+position = Vector2(0, -750)
+
+[node name="BottomBound" type="SGCollisionShape2D" parent="Bounds" unique_id=1422391976]
+shape = SubResource("SGRectangleShape2D_stixs")
+fixed_position_y = 49152000
+position = Vector2(0, 750)
+
+[node name="LeftBound" type="SGCollisionShape2D" parent="Bounds" unique_id=9205694]
+shape = SubResource("SGRectangleShape2D_qvctj")
+fixed_position_x = -82051072
+position = Vector2(-1252, 0)
+
+[node name="RightBound" type="SGCollisionShape2D" parent="Bounds" unique_id=345453922]
+shape = SubResource("SGRectangleShape2D_qvctj")
+fixed_position_x = 82051072
+position = Vector2(1252, 0)
 
 [node name="SGStaticBody2D" type="SGStaticBody2D" parent="." unique_id=59827568]
 fixed_position_x = 32768000
@@ -32,7 +63,10 @@ position = Vector2(500, 0)
 [node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="SGStaticBody2D" unique_id=361673819]
 shape = SubResource("SGCapsuleShape2D_ig7tw")
 
-[node name="Player" parent="." unique_id=2004616098 instance=ExtResource("2_x8lcq")]
-
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=594209437]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=594209437]
+zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
+
+[node name="Player" parent="." unique_id=2004616098 instance=ExtResource("2_x8lcq")]
+floor_max_angle = 51472
+loadout = Array[ExtResource("7_kec3v")]([ExtResource("8_is02o"), ExtResource("9_ss1m1")])

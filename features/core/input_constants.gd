@@ -15,6 +15,9 @@ class Bit:
 	const SHOOT_RIGHT: int = 1 << 7
 
 	const SPRINT: int = 1 << 8
+	
+	const EQUIP_1: int = 1 << 9
+	const EQUIP_2: int = 1 << 10
 
 # Bit position groupings
 class BitGroup:

@@ -2,7 +2,8 @@ extends SGCharacterBody2D
 
 class_name Player
 
-@export var collisionShape: SGCollisionShape2D
+@export var collision_shape: SGCollisionShape2D
+@export var loadout: Array[ProjectileData]
 
 # Default stats
 const DEFAULT_BASE_SPEED: int = 10
@@ -25,18 +26,24 @@ var _speed: int = base_speed:
 		_speed = value
 		_fixed_speed = SGFixed.from_int(value)
 
+# Equip
+var equipped: ProjectileData
+
 # Dimensions
 var _fixed_radius: int:
 	get:
-		return collisionShape.shape.radius
+		return collision_shape.shape.radius
 
-# SG converted properties
+# Fixed-point converted properties
 var _fixed_speed: int = SGFixed.from_int(_speed)
 
 # Input history
 var _prev_input_mask: int = 0
 
 var _projectile_request: ProjectileRequest = null
+
+func _ready() -> void:
+	equipped = loadout[0]
 
 func _compute_speed() -> void:
 	_speed = base_speed * speed_mult
@@ -45,16 +52,22 @@ func advance_frame(input_mask: int) -> void:
 	var just_pressed_mask: int = input_mask & ~_prev_input_mask
 	var just_released_mask: int = ~input_mask & _prev_input_mask
 	
+	# Equip
+	if just_pressed_mask & InputConstants.Bit.EQUIP_1:
+		equipped = loadout[0]
+	elif just_pressed_mask & InputConstants.Bit.EQUIP_2:
+		equipped = loadout[1]
+	
 	# Shooting
 	# TODO: recovery frames
 	if just_pressed_mask & InputConstants.Bit.SHOOT_UP:
-		_projectile_request = ProjectileRequest.new(self, fixed_position_x, fixed_position_y - _fixed_radius, 0, -1)
+		_projectile_request = ProjectileRequest.new(self, equipped, fixed_position_x, fixed_position_y - _fixed_radius, 0, -1)
 	elif just_pressed_mask & InputConstants.Bit.SHOOT_DOWN:
-		_projectile_request = ProjectileRequest.new(self, fixed_position_x, fixed_position_y + _fixed_radius, 0, 1)
+		_projectile_request = ProjectileRequest.new(self, equipped, fixed_position_x, fixed_position_y + _fixed_radius, 0, 1)
 	elif just_pressed_mask & InputConstants.Bit.SHOOT_LEFT:
-		_projectile_request = ProjectileRequest.new(self, fixed_position_x - _fixed_radius, fixed_position_y, -1, 0)
+		_projectile_request = ProjectileRequest.new(self, equipped, fixed_position_x - _fixed_radius, fixed_position_y, -1, 0)
 	elif just_pressed_mask & InputConstants.Bit.SHOOT_RIGHT:
-		_projectile_request = ProjectileRequest.new(self, fixed_position_x + _fixed_radius, fixed_position_y, 1, 0)
+		_projectile_request = ProjectileRequest.new(self, equipped, fixed_position_x + _fixed_radius, fixed_position_y, 1, 0)
 	
 	# Sprint
 	if just_pressed_mask & InputConstants.Bit.SPRINT: speed_mult += 1
@@ -72,6 +85,6 @@ func advance_frame(input_mask: int) -> void:
 	
 	velocity.x = x_input * _fixed_speed
 	velocity.y = y_input * _fixed_speed
-	move_and_slide()
 	
+	move_and_slide()
 	_prev_input_mask = input_mask
