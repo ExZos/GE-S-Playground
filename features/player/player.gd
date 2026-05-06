@@ -5,29 +5,20 @@ class_name Player
 @export var collision_shape: SGCollisionShape2D
 @export var loadout: Array[ProjectileData]
 
-# Default stats
-const DEFAULT_BASE_SPEED: int = 10
-
-# Base stats
-@export var base_speed: int = DEFAULT_BASE_SPEED:
+# Stats
+@export var speed: int = 10:
 	set(value):
-		base_speed = value
-		_compute_speed()
+		speed = value
+		_fixed_speed = SGFixed.from_int(value)
 
 # Stat modifiers
 @export var speed_mult: int = 1:
 	set(value):
 		speed_mult = value
-		_compute_speed()
-
-# Stats
-var _speed: int = base_speed:
-	set(value):
-		_speed = value
-		_fixed_speed = SGFixed.from_int(value)
+		speed = value * speed_mult
 
 # Equip
-var equipped: ProjectileData
+@export var equipped: ProjectileData
 
 # Dimensions
 var _fixed_radius: int:
@@ -35,7 +26,7 @@ var _fixed_radius: int:
 		return collision_shape.shape.radius
 
 # Fixed-point converted properties
-var _fixed_speed: int = SGFixed.from_int(_speed)
+var _fixed_speed: int = SGFixed.from_int(speed)
 
 # Input history
 var _prev_input_mask: int = 0
@@ -44,9 +35,6 @@ var _projectile_request: ProjectileRequest = null
 
 func _ready() -> void:
 	equipped = loadout[0]
-
-func _compute_speed() -> void:
-	_speed = base_speed * speed_mult
 
 func advance_frame(input_mask: int) -> void:
 	var just_pressed_mask: int = input_mask & ~_prev_input_mask

@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://bma1wwsbpu2ns"]
 
-[ext_resource type="Script" uid="uid://chnm4a6v3t7eq" path="res://features/core/game_manager.gd" id="1_stixs"]
-[ext_resource type="Script" uid="uid://c6klmyhqcx6dx" path="res://features/core/input_manager.gd" id="1_x8lcq"]
-[ext_resource type="Script" uid="uid://bxuayk5f3f5mo" path="res://features/core/projectile_manager.gd" id="2_f78yt"]
+[ext_resource type="Script" uid="uid://chnm4a6v3t7eq" path="res://features/core/managers/game_manager.gd" id="1_stixs"]
+[ext_resource type="Script" uid="uid://c6klmyhqcx6dx" path="res://features/core/managers/input_manager.gd" id="1_x8lcq"]
+[ext_resource type="Script" uid="uid://bxuayk5f3f5mo" path="res://features/core/managers/projectile_manager.gd" id="2_f78yt"]
 [ext_resource type="PackedScene" uid="uid://bk7ksdidmq8ap" path="res://features/player/player.tscn" id="2_x8lcq"]
-[ext_resource type="Script" uid="uid://dqk2livkncmja" path="res://features/core/projectile_data.gd" id="7_kec3v"]
-[ext_resource type="Resource" uid="uid://4bwwhvk6e0lk" path="res://features/projectiles/sensor_projectile/sensor_projectile.tres" id="8_is02o"]
-[ext_resource type="Resource" uid="uid://cvqehutr40ohu" path="res://features/projectiles/solid_projectile/solid_projectile.tres" id="9_ss1m1"]
+[ext_resource type="Resource" uid="uid://cvqehutr40ohu" path="res://features/projectiles/solid/solid_projectile.tres" id="7_55vp2"]
+[ext_resource type="Script" uid="uid://dqk2livkncmja" path="res://features/core/types/projectile_data.gd" id="7_kec3v"]
+[ext_resource type="Resource" uid="uid://4bwwhvk6e0lk" path="res://features/projectiles/sensor/sensor_projectile.tres" id="8_is02o"]
 
 [sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_stixs"]
 extents_x = 88604672
@@ -69,4 +69,4 @@ position_smoothing_enabled = true
 
 [node name="Player" parent="." unique_id=2004616098 instance=ExtResource("2_x8lcq")]
 floor_max_angle = 51472
-loadout = Array[ExtResource("7_kec3v")]([ExtResource("8_is02o"), ExtResource("9_ss1m1")])
+loadout = Array[ExtResource("7_kec3v")]([ExtResource("8_is02o"), ExtResource("7_55vp2")])

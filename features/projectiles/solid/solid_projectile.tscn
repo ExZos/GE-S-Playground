@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://ddcypeu7hpk42"]
 
-[ext_resource type="Script" uid="uid://df2vg8tw1qjun" path="res://features/projectiles/solid_projectile/solid_projectile.gd" id="1_b8bi8"]
+[ext_resource type="Script" uid="uid://df2vg8tw1qjun" path="res://features/projectiles/solid/solid_projectile.gd" id="1_b8bi8"]
 
 [sub_resource type="SGCircleShape2D" id="SGCircleShape2D_6tg3g"]
 
-[node name="Projectile" type="SGCharacterBody2D" unique_id=153145806 node_paths=PackedStringArray("collision_shape")]
+[node name="SolidProjectile" type="SGCharacterBody2D" unique_id=153145806 node_paths=PackedStringArray("collision_shape")]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_b8bi8")

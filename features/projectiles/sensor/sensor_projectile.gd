@@ -1,28 +1,23 @@
 extends SGArea2D
 
-# TODO: use ProjectileData
 class_name SensorProjectile
 
 @export var collision_shape: SGCollisionShape2D
 
-# Default stats
-const DEFAULT_SPEED: int = 5
+# Core
+var source: Node2D = null
+var dir_x: int = 0
+var dir_y: int = 0
 
-# Stats
-@export var speed: int = DEFAULT_SPEED:
-	set(value):
-		speed = value
-		_fixed_speed = SGFixed.from_int(value)
-		
-# Non-stat properties
-var source_scene: PackedScene = null
-@export var source: Node2D = null
-@export var dir_x: int = 0
-@export var dir_y: int = 0
-var is_deactivated: bool = false
+# Misc - used by other nodes
+var source_scene: PackedScene = null # Key for determining which pool it belongs to
+var is_deactivated: bool = false # Reflects current state
 
 # Fixed-point converted properties
-var _fixed_speed: int = SGFixed.from_int(speed)
+var _fixed_speed: int = 0
+
+func init(data: ProjectileData) -> void:
+	_fixed_speed = SGFixed.from_int(data.speed)
 
 func advance_frame() -> void:
 	fixed_position_x += dir_x * _fixed_speed
@@ -32,23 +27,12 @@ func advance_frame() -> void:
 	var overlaping_bodies: Array = get_overlapping_bodies()
 	for body: Node2D in overlaping_bodies:
 		if body == source:
-			print("SOURCE")
+			print("SensorProjectile: Hit self")
 			return;	
 		elif body is Player:
-			print("TODO: player hit")
+			print("SensorProjectile: Hit player")
 			
 		deactivate()
-	
-	#if collision:
-		#var collider: Node2D = collision.get_collider()
-		#
-		#if collider == source:
-			#print("SOURCE")
-			#return;
-		#elif collider is Player:
-			#print("TODO: player hit")
-		#
-		#deactivate()
 
 func activate(_source: Node2D, fixed_pos_x: int, fixed_pos_y: int, _dir_x: int, _dir_y: int) -> void:
 	is_deactivated = false
@@ -61,7 +45,6 @@ func activate(_source: Node2D, fixed_pos_x: int, fixed_pos_y: int, _dir_x: int, 
 	
 	dir_x = _dir_x
 	dir_y = _dir_y
-	#compute_velocity()
 	
 	set_physics_process(true)
 	collision_shape.disabled = false
@@ -75,6 +58,3 @@ func deactivate() -> void:
 	hide()
 	
 	source = null
-	
-	#velocity.x = 0
-	#velocity.y = 0

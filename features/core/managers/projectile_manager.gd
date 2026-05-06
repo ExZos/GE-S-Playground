@@ -3,8 +3,8 @@ extends Node
 class_name ProjectileManager
 
 class PoolInitData:
-	var type: ProjectileData.ProjectileType
-	var size: int
+	var data: ProjectileData
+	var total_size: int
 
 # Solid projectile pools
 var _solid_inactive: Dictionary[PackedScene, Array] = {}
@@ -24,20 +24,24 @@ func init_pools(data_map: Dictionary[PackedScene, PoolInitData]) -> void:
 		var inactive_pool: Dictionary[PackedScene, Array]
 		
 		# Determine type of inactive pool to fill
-		if pool_data.type == ProjectileData.ProjectileType.SOLID:
+		var projectile_type = pool_data.data.type
+		if projectile_type == ProjectileData.ProjectileType.SOLID:
 			inactive_pool = _solid_inactive
-		elif pool_data.type == ProjectileData.ProjectileType.SENSOR:
+		elif projectile_type == ProjectileData.ProjectileType.SENSOR:
 			inactive_pool = _sensor_inactive
 		else:
 			push_error("ProjectileManager: Projectile type of UNKNOWN")
 			return
 		
 		# Fill projectile's inactive pool
+		var projectile_data = pool_data.data
+		var total_size = pool_data.total_size
 		inactive_pool[scene] = []
-		for i in range(pool_data.size):
+		for i in range(total_size):
 			var projectile: Node2D = scene.instantiate()
 			
 			projectile.source_scene = scene
+			projectile.init(projectile_data)
 			projectile.deactivate()
 			
 			add_child(projectile)
@@ -74,6 +78,7 @@ func spawn_projectile(req: ProjectileRequest) -> void:
 		projectile = requested_scene.instantiate()
 		
 		projectile.source_scene = requested_scene
+		projectile.init(req.data)
 		projectile.activate(req.source, req.fixed_pos_x, req.fixed_pos_y, req.dir_x, req.dir_y)
 		
 		add_child(projectile)

@@ -5,6 +5,7 @@ class_name ProjectileData
 
 enum ProjectileType { SOLID, SENSOR, UNKNOWN }
 
+@export_group("Core")
 @export var scene: PackedScene:
 	set(value):
 		scene = value
@@ -13,23 +14,15 @@ enum ProjectileType { SOLID, SENSOR, UNKNOWN }
 		if Engine.is_editor_hint():
 			_update_type()
 		
-@export var pool_size: int
-var type: ProjectileType
+@export var type: ProjectileType
+@export_range(0, 500) var pool_size: int # TODO: automatically compute based on stats
 
-# Manually handle showing properties in inspector
-func _get_property_list() -> Array:
-	var projectile_type_keys = ",".join(ProjectileType.keys())
-	
-	var properties = []
-	properties.append({
-		"name": "type",
-		"type": TYPE_INT,
-		"usage": PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_READ_ONLY,
-		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": projectile_type_keys
-	})
-	
-	return properties
+@export_group("Stats")
+@export var speed: int
+
+func _validate_property(property: Dictionary):
+	if property.name == "type":
+		property.usage |= PROPERTY_USAGE_READ_ONLY
 
 # Set type based on the scene's root node type, the key characteristic of each projectile type
 func _update_type() -> void:

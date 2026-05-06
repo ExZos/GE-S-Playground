@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://drukoei2oscs0"]
 
-[ext_resource type="Script" uid="uid://dr4npjwtj0ytp" path="res://features/projectiles/sensor_projectile/sensor_projectile.gd" id="1_ehg0q"]
+[ext_resource type="Script" uid="uid://dr4npjwtj0ytp" path="res://features/projectiles/sensor/sensor_projectile.gd" id="1_48nlb"]
 
 [sub_resource type="SGCircleShape2D" id="SGCircleShape2D_48nlb"]
 
 [node name="SensorProjectile" type="SGArea2D" unique_id=292994411 node_paths=PackedStringArray("collision_shape")]
 collision_layer = 4
 collision_mask = 3
-script = ExtResource("1_ehg0q")
+script = ExtResource("1_48nlb")
 collision_shape = NodePath("SGCollisionShape2D")
 
 [node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="." unique_id=1688444965]
