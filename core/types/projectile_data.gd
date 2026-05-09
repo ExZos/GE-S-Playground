@@ -20,6 +20,10 @@ enum ProjectileType { SOLID, SENSOR, UNKNOWN }
 @export_group("Stats")
 @export var speed: int
 
+@export_group("Cooldowns")
+@export var recovery_ticks: int
+@export var cooldown_ticks: int
+
 func _validate_property(property: Dictionary):
 	if property.name == "type":
 		property.usage |= PROPERTY_USAGE_READ_ONLY

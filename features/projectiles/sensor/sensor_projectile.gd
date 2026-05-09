@@ -5,7 +5,7 @@ class_name SensorProjectile
 @export var collision_shape: SGCollisionShape2D
 
 # Core
-var source: Node2D = null
+var source: SGFixedNode2D = null
 var dir_x: int = 0
 var dir_y: int = 0
 
@@ -13,11 +13,13 @@ var dir_y: int = 0
 var source_scene: PackedScene = null # Key for determining which pool it belongs to
 var is_deactivated: bool = false # Reflects current state
 
-# Fixed-point converted properties
+# Stats
 var _fixed_speed: int = 0
+var _recovery_ticks: int = 0
 
 func init(data: ProjectileData) -> void:
 	_fixed_speed = SGFixed.from_int(data.speed)
+	_recovery_ticks = data.recovery_ticks
 
 func advance_frame() -> void:
 	fixed_position_x += dir_x * _fixed_speed
@@ -25,7 +27,7 @@ func advance_frame() -> void:
 	sync_to_physics_engine()
 	
 	var overlaping_bodies: Array = get_overlapping_bodies()
-	for body: Node2D in overlaping_bodies:
+	for body: SGFixedNode2D in overlaping_bodies:
 		if body == source:
 			print("SensorProjectile: Hit self")
 			return;	
@@ -34,7 +36,7 @@ func advance_frame() -> void:
 			
 		deactivate()
 
-func activate(_source: Node2D, fixed_pos_x: int, fixed_pos_y: int, _dir_x: int, _dir_y: int) -> void:
+func activate(_source: SGFixedNode2D, fixed_pos_x: int, fixed_pos_y: int, _dir_x: int, _dir_y: int) -> void:
 	is_deactivated = false
 	
 	source = _source

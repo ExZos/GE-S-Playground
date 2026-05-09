@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://crsxml2f03w1u"]
+
+[ext_resource type="Script" uid="uid://c84uyqd6w2k0" path="res://features/skills/shoot/shoot.gd" id="1_fvpqq"]
+[ext_resource type="Resource" uid="uid://cvqehutr40ohu" path="res://features/projectiles/solid/solid_projectile.tres" id="2_neybm"]
+
+[node name="Solid" type="SGFixedNode2D" unique_id=1717010018]
+script = ExtResource("1_fvpqq")
+projectile = ExtResource("2_neybm")
+metadata/_custom_type_script = "uid://c84uyqd6w2k0"

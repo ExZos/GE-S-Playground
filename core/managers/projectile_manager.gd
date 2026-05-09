@@ -18,7 +18,7 @@ func advance_frame() -> void:
 	_process_pool(_solid_inactive, _solid_active)
 	_process_pool(_sensor_inactive, _sensor_active)
 
-func init_pools(data_map: Dictionary[PackedScene, PoolInitData]) -> void:
+func init(data_map: Dictionary[PackedScene, PoolInitData]) -> void:
 	for scene: PackedScene in data_map:
 		var pool_data: PoolInitData = data_map[scene]
 		var inactive_pool: Dictionary[PackedScene, Array]
@@ -38,18 +38,17 @@ func init_pools(data_map: Dictionary[PackedScene, PoolInitData]) -> void:
 		var total_size = pool_data.total_size
 		inactive_pool[scene] = []
 		for i in range(total_size):
-			var projectile: Node2D = scene.instantiate()
+			var projectile: SGFixedNode2D = scene.instantiate()
 			
 			projectile.source_scene = scene
 			projectile.init(projectile_data)
 			projectile.deactivate()
 			
 			add_child(projectile)
-			
 			inactive_pool[scene].push_back(projectile)
 
 func spawn_projectile(req: ProjectileRequest) -> void:
-	var projectile: Node2D
+	var projectile: SGFixedNode2D
 	
 	# Will point to the arrays for this projectile
 	var inactive_pool: Array
@@ -87,7 +86,7 @@ func spawn_projectile(req: ProjectileRequest) -> void:
 
 func _process_pool(inactive_pool: Dictionary[PackedScene, Array], active_pool: Array) -> void:
 	for i in range(active_pool.size() -1, -1, -1):
-		var projectile: Node2D = active_pool[i]
+		var projectile: SGFixedNode2D = active_pool[i]
 		
 		projectile.advance_frame()
 		if projectile.is_deactivated:

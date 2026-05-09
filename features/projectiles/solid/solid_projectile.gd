@@ -5,7 +5,7 @@ class_name SolidProjectile
 @export var collision_shape: SGCollisionShape2D
 
 # Core
-var source: Node2D = null
+var source: SGFixedNode2D = null
 var dir_x: int = 0
 var dir_y: int = 0
 
@@ -13,17 +13,19 @@ var dir_y: int = 0
 var source_scene: PackedScene = null # Key for determining which pool it belongs to
 var is_deactivated: bool = false # Reflects current state
 
-# Fixed-point converted properties
+# Stats
 var _fixed_speed: int
+var _recovery_ticks: int = 0
 
 func init(data: ProjectileData) -> void:
 	_fixed_speed = SGFixed.from_int(data.speed)
+	_recovery_ticks = data.recovery_ticks
 
 func advance_frame() -> void:
 	var collision = move_and_collide(velocity)
 	
 	if collision:
-		var collider: Node2D = collision.get_collider()
+		var collider: SGFixedNode2D = collision.get_collider()
 		
 		if collider == source:
 			print("SolidProjectile: Hit self")
@@ -33,7 +35,7 @@ func advance_frame() -> void:
 		
 		deactivate()
 
-func activate(_source: Node2D, fixed_pos_x: int, fixed_pos_y: int, _dir_x: int, _dir_y: int) -> void:
+func activate(_source: SGFixedNode2D, fixed_pos_x: int, fixed_pos_y: int, _dir_x: int, _dir_y: int) -> void:
 	is_deactivated = false
 	
 	source = _source

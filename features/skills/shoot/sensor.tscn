@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://d0ps3eq5sbkws"]
+
+[ext_resource type="Script" uid="uid://c84uyqd6w2k0" path="res://features/skills/shoot/shoot.gd" id="1_v8maj"]
+[ext_resource type="Resource" uid="uid://4bwwhvk6e0lk" path="res://features/projectiles/sensor/sensor_projectile.tres" id="2_xyjpa"]
+
+[node name="Sensor" type="SGFixedNode2D" unique_id=1495047109]
+script = ExtResource("1_v8maj")
+projectile = ExtResource("2_xyjpa")
+metadata/_custom_type_script = "uid://c84uyqd6w2k0"

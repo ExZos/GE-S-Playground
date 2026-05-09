@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://0hy1cdpwv2d6"]
+
+[ext_resource type="Script" uid="uid://c1if0vl26t5e6" path="res://features/skills/sprint/sprint.gd" id="1_3rhq1"]
+
+[node name="Sprint" type="SGFixedNode2D" unique_id=2033090108]
+script = ExtResource("1_3rhq1")
+metadata/_custom_type_script = "uid://ch5y6tb3qvg6l"

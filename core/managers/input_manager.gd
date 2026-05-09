@@ -1,0 +1,82 @@
+extends Node
+
+class_name InputManager
+
+const INPUT_MAP: Dictionary[StringName, int] = {
+	&"move_up": InputConstants.Bit.MOVE_UP,
+	&"move_down": InputConstants.Bit.MOVE_DOWN,
+	&"move_left": InputConstants.Bit.MOVE_LEFT,
+	&"move_right": InputConstants.Bit.MOVE_RIGHT,
+	
+	&"atk_up": InputConstants.Bit.ATK_UP,
+	&"atk_down": InputConstants.Bit.ATK_DOWN,
+	&"atk_left": InputConstants.Bit.ATK_LEFT,
+	&"atk_right": InputConstants.Bit.ATK_RIGHT,
+	
+	&"skill_1": InputConstants.Bit.SKILL_1,
+	&"skill_2": InputConstants.Bit.SKILL_2,
+	&"skill_3": InputConstants.Bit.SKILL_3
+}
+
+# Raw input
+var _curr_raw_input_mask: int = 0
+var _prev_raw_input_mask: int = 0
+
+# Attack input history
+var _last_atk_input: int = 0
+
+# Movement input history
+var _last_x_move_input: int = 0
+var _last_y_move_input: int = 0
+
+func _input(event: InputEvent) -> void:
+	for action in INPUT_MAP:
+		if event.is_action(action):
+			if event.is_pressed(): _curr_raw_input_mask |= INPUT_MAP[action]
+			elif event.is_released(): _curr_raw_input_mask &= ~INPUT_MAP[action]
+
+func get_input_mask() -> int:
+	var just_pressed_mask: int = _curr_raw_input_mask & ~_prev_raw_input_mask
+	
+	# Keep track of last attack input (without diagonals)
+	var atk_just_pressed_mask: int = just_pressed_mask & InputConstants.BitGroup.ATK
+	if atk_just_pressed_mask:
+		_last_atk_input = atk_just_pressed_mask & -atk_just_pressed_mask
+	
+	# Keep track of last vertical movement input
+	if just_pressed_mask & InputConstants.Bit.MOVE_UP: _last_y_move_input = InputConstants.Bit.MOVE_UP
+	elif just_pressed_mask & InputConstants.Bit.MOVE_DOWN: _last_y_move_input = InputConstants.Bit.MOVE_DOWN
+	
+	# Keep track of last horizontal movement input
+	if just_pressed_mask & InputConstants.Bit.MOVE_LEFT: _last_x_move_input = InputConstants.Bit.MOVE_LEFT
+	elif just_pressed_mask & InputConstants.Bit.MOVE_RIGHT: _last_x_move_input = InputConstants.Bit.MOVE_RIGHT
+	
+	# Determine the input mask to be used
+	var input_mask: int = 0
+	
+	# Resolve attack input conflicts
+	if _curr_raw_input_mask & _last_atk_input:
+		input_mask |= _last_atk_input
+	else:
+		# Get held attack input (without diagonals)
+		var atk_input_mask: int = _curr_raw_input_mask & InputConstants.BitGroup.ATK
+		if atk_input_mask:
+			input_mask |= atk_input_mask & -atk_input_mask
+	
+	# Resolve up and down movement input conflicts
+	if (_curr_raw_input_mask & InputConstants.BitGroup.MOVE_Y) == InputConstants.BitGroup.MOVE_Y:
+		input_mask |= _last_y_move_input
+	else:
+		input_mask |= _curr_raw_input_mask & InputConstants.BitGroup.MOVE_Y
+	
+	# Resolve left and right movement input conflicts
+	if (_curr_raw_input_mask & InputConstants.BitGroup.MOVE_X) == InputConstants.BitGroup.MOVE_X:
+		input_mask |= _last_x_move_input
+	else:
+		input_mask |= _curr_raw_input_mask & InputConstants.BitGroup.MOVE_X
+	
+	# Add inputs that don't need to be resolved
+	input_mask |= _curr_raw_input_mask & ~(InputConstants.BitGroup.MOVE | InputConstants.BitGroup.ATK)
+	
+	_prev_raw_input_mask = _curr_raw_input_mask
+	return input_mask
