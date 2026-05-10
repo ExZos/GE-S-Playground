@@ -11,12 +11,12 @@ func _ready() -> void:
 	var data_map: Dictionary[PackedScene, ProjectileManager.PoolInitData] = {}
 	
 	# Get data from equipped projectile for pool initialization
-	var basic_attack = player.basic_attack
+	var basic_attack = player._basic_attack
 	if basic_attack and basic_attack is ShootSkill and basic_attack.projectile:
 		_map_projectile_init_data(data_map, basic_attack.projectile)
 	
 	# Get data from skills for pool initialization
-	for skill: Skill in player.skills:
+	for skill: Skill in player._skills:
 		if skill is ShootSkill and skill.projectile:
 			_map_projectile_init_data(data_map, skill.projectile)
 	

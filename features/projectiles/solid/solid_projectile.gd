@@ -6,8 +6,7 @@ class_name SolidProjectile
 
 # Core
 var source: SGFixedNode2D = null
-var dir_x: int = 0
-var dir_y: int = 0
+var dir: Vector2i = Vector2i.ZERO
 
 # Misc - used by other nodes
 var source_scene: PackedScene = null # Key for determining which pool it belongs to
@@ -35,7 +34,7 @@ func advance_frame() -> void:
 		
 		deactivate()
 
-func activate(_source: SGFixedNode2D, fixed_pos_x: int, fixed_pos_y: int, _dir_x: int, _dir_y: int) -> void:
+func activate(_source: SGFixedNode2D, fixed_pos_x: int, fixed_pos_y: int, _dir: Vector2i) -> void:
 	is_deactivated = false
 	
 	source = _source
@@ -44,8 +43,7 @@ func activate(_source: SGFixedNode2D, fixed_pos_x: int, fixed_pos_y: int, _dir_x
 	fixed_position.y = fixed_pos_y
 	sync_to_physics_engine()
 	
-	dir_x = _dir_x
-	dir_y = _dir_y
+	dir = _dir
 	compute_velocity()
 	
 	set_physics_process(true)
@@ -61,9 +59,8 @@ func deactivate() -> void:
 	
 	source = null
 	
-	velocity.x = 0
-	velocity.y = 0
+	velocity.clear()
 
 func compute_velocity() -> void:
-	velocity.x = dir_x * _fixed_speed
-	velocity.y = dir_y * _fixed_speed
+	velocity.x = dir.x * _fixed_speed
+	velocity.y = dir.y * _fixed_speed

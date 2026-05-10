@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://bma1wwsbpu2ns"]
 
-[ext_resource type="Script" uid="uid://chnm4a6v3t7eq" path="res://core/managers/game_manager.gd" id="1_stixs"]
-[ext_resource type="Script" uid="uid://c6klmyhqcx6dx" path="res://core/managers/input_manager.gd" id="1_x8lcq"]
-[ext_resource type="Script" uid="uid://bxuayk5f3f5mo" path="res://core/managers/projectile_manager.gd" id="2_f78yt"]
-[ext_resource type="PackedScene" uid="uid://bk7ksdidmq8ap" path="res://features/player/player.tscn" id="2_x8lcq"]
-[ext_resource type="PackedScene" uid="uid://0hy1cdpwv2d6" path="res://features/skills/sprint/sprint.tscn" id="5_qvctj"]
-[ext_resource type="PackedScene" uid="uid://d0ps3eq5sbkws" path="res://features/skills/shoot/sensor.tscn" id="6_55vp2"]
-[ext_resource type="PackedScene" uid="uid://crsxml2f03w1u" path="res://features/skills/shoot/solid.tscn" id="7_55vp2"]
+[ext_resource type="Script" uid="uid://chnm4a6v3t7eq" path="res://core/managers/game_manager.gd" id="1_272bh"]
+[ext_resource type="Script" uid="uid://c6klmyhqcx6dx" path="res://core/managers/input_manager.gd" id="2_5vw27"]
+[ext_resource type="Script" uid="uid://bxuayk5f3f5mo" path="res://core/managers/projectile_manager.gd" id="3_kek77"]
+[ext_resource type="PackedScene" uid="uid://bk7ksdidmq8ap" path="res://features/player/player.tscn" id="4_4c57u"]
+[ext_resource type="PackedScene" uid="uid://d0ps3eq5sbkws" path="res://features/skills/shoot/sensor.tscn" id="5_efxa6"]
+[ext_resource type="PackedScene" uid="uid://0hy1cdpwv2d6" path="res://features/skills/sprint/sprint.tscn" id="6_dg77c"]
+[ext_resource type="PackedScene" uid="uid://crsxml2f03w1u" path="res://features/skills/shoot/solid.tscn" id="7_ycdy4"]
 
 [sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_stixs"]
 extents_x = 88604672
@@ -23,16 +23,16 @@ height = 32768000
 [node name="SGFixedNode2D" type="SGFixedNode2D" unique_id=1836307939]
 
 [node name="GameManager" type="Node" parent="." unique_id=468958604 node_paths=PackedStringArray("inputManager", "player", "projectileManager")]
-script = ExtResource("1_stixs")
+script = ExtResource("1_272bh")
 inputManager = NodePath("../InputManager")
 player = NodePath("../Player")
 projectileManager = NodePath("../ProjectileManager")
 
 [node name="InputManager" type="Node" parent="." unique_id=1473816164]
-script = ExtResource("1_x8lcq")
+script = ExtResource("2_5vw27")
 
 [node name="ProjectileManager" type="Node" parent="." unique_id=534493029]
-script = ExtResource("2_f78yt")
+script = ExtResource("3_kek77")
 
 [node name="Bounds" type="SGStaticBody2D" parent="." unique_id=1732037479]
 
@@ -67,7 +67,7 @@ shape = SubResource("SGCapsuleShape2D_ig7tw")
 zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
 
-[node name="Player" parent="." unique_id=2004616098 instance=ExtResource("2_x8lcq")]
+[node name="Player" parent="." unique_id=2004616098 instance=ExtResource("4_4c57u")]
 floor_max_angle = 51472
-basic_attack_scene = ExtResource("6_55vp2")
-skill_scenes = Array[PackedScene]([ExtResource("5_qvctj"), ExtResource("6_55vp2"), ExtResource("7_55vp2")])
+basic_attack_scene = ExtResource("5_efxa6")
+skill_scenes = Array[PackedScene]([ExtResource("6_dg77c"), ExtResource("5_efxa6"), ExtResource("7_ycdy4")])

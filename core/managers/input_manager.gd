@@ -22,9 +22,6 @@ const INPUT_MAP: Dictionary[StringName, int] = {
 var _curr_raw_input_mask: int = 0
 var _prev_raw_input_mask: int = 0
 
-# Attack input history
-var _last_atk_input: int = 0
-
 # Movement input history
 var _last_x_move_input: int = 0
 var _last_y_move_input: int = 0
@@ -38,11 +35,6 @@ func _input(event: InputEvent) -> void:
 func get_input_mask() -> int:
 	var just_pressed_mask: int = _curr_raw_input_mask & ~_prev_raw_input_mask
 	
-	# Keep track of last attack input (without diagonals)
-	var atk_just_pressed_mask: int = just_pressed_mask & InputConstants.BitGroup.ATK
-	if atk_just_pressed_mask:
-		_last_atk_input = atk_just_pressed_mask & -atk_just_pressed_mask
-	
 	# Keep track of last vertical movement input
 	if just_pressed_mask & InputConstants.Bit.MOVE_UP: _last_y_move_input = InputConstants.Bit.MOVE_UP
 	elif just_pressed_mask & InputConstants.Bit.MOVE_DOWN: _last_y_move_input = InputConstants.Bit.MOVE_DOWN
@@ -53,15 +45,6 @@ func get_input_mask() -> int:
 	
 	# Determine the input mask to be used
 	var input_mask: int = 0
-	
-	# Resolve attack input conflicts
-	if _curr_raw_input_mask & _last_atk_input:
-		input_mask |= _last_atk_input
-	else:
-		# Get held attack input (without diagonals)
-		var atk_input_mask: int = _curr_raw_input_mask & InputConstants.BitGroup.ATK
-		if atk_input_mask:
-			input_mask |= atk_input_mask & -atk_input_mask
 	
 	# Resolve up and down movement input conflicts
 	if (_curr_raw_input_mask & InputConstants.BitGroup.MOVE_Y) == InputConstants.BitGroup.MOVE_Y:
@@ -76,7 +59,7 @@ func get_input_mask() -> int:
 		input_mask |= _curr_raw_input_mask & InputConstants.BitGroup.MOVE_X
 	
 	# Add inputs that don't need to be resolved
-	input_mask |= _curr_raw_input_mask & ~(InputConstants.BitGroup.MOVE | InputConstants.BitGroup.ATK)
+	input_mask |= _curr_raw_input_mask & ~InputConstants.BitGroup.MOVE
 	
 	_prev_raw_input_mask = _curr_raw_input_mask
 	return input_mask

@@ -6,15 +6,14 @@ class_name SensorProjectile
 
 # Core
 var source: SGFixedNode2D = null
-var dir_x: int = 0
-var dir_y: int = 0
+var dir: Vector2i
 
 # Misc - used by other nodes
 var source_scene: PackedScene = null # Key for determining which pool it belongs to
 var is_deactivated: bool = false # Reflects current state
 
 # Stats
-var _fixed_speed: int = 0
+var _fixed_speed: int
 var _recovery_ticks: int = 0
 
 func init(data: ProjectileData) -> void:
@@ -22,8 +21,8 @@ func init(data: ProjectileData) -> void:
 	_recovery_ticks = data.recovery_ticks
 
 func advance_frame() -> void:
-	fixed_position_x += dir_x * _fixed_speed
-	fixed_position_y += dir_y * _fixed_speed
+	fixed_position_x += dir.x * _fixed_speed
+	fixed_position_y += dir.y * _fixed_speed
 	sync_to_physics_engine()
 	
 	var overlaping_bodies: Array = get_overlapping_bodies()
@@ -36,7 +35,7 @@ func advance_frame() -> void:
 			
 		deactivate()
 
-func activate(_source: SGFixedNode2D, fixed_pos_x: int, fixed_pos_y: int, _dir_x: int, _dir_y: int) -> void:
+func activate(_source: SGFixedNode2D, fixed_pos_x: int, fixed_pos_y: int, _dir: Vector2i) -> void:
 	is_deactivated = false
 	
 	source = _source
@@ -45,8 +44,7 @@ func activate(_source: SGFixedNode2D, fixed_pos_x: int, fixed_pos_y: int, _dir_x
 	fixed_position.y = fixed_pos_y
 	sync_to_physics_engine()
 	
-	dir_x = _dir_x
-	dir_y = _dir_y
+	dir = _dir
 	
 	set_physics_process(true)
 	collision_shape.disabled = false

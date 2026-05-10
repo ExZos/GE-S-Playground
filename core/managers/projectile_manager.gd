@@ -70,7 +70,7 @@ func spawn_projectile(req: ProjectileRequest) -> void:
 	# Take inactive projectile or create a new one
 	if !inactive_pool.is_empty():
 		projectile = inactive_pool.pop_back()
-		projectile.activate(req.source, req.fixed_pos_x, req.fixed_pos_y, req.dir_x, req.dir_y)
+		projectile.activate(req.source, req.fixed_pos_x, req.fixed_pos_y, req.dir)
 	else:
 		print("No projectiles available, creating one. Active projectiles: ", active_pool.size())
 		
@@ -78,7 +78,7 @@ func spawn_projectile(req: ProjectileRequest) -> void:
 		
 		projectile.source_scene = requested_scene
 		projectile.init(req.data)
-		projectile.activate(req.source, req.fixed_pos_x, req.fixed_pos_y, req.dir_x, req.dir_y)
+		projectile.activate(req.source, req.fixed_pos_x, req.fixed_pos_y, req.dir)
 		
 		add_child(projectile)
 		
