@@ -4,4 +4,5 @@
 
 [node name="Sprint" type="SGFixedNode2D" unique_id=2033090108]
 script = ExtResource("1_3rhq1")
+max_stamina = 50
 metadata/_custom_type_script = "uid://ch5y6tb3qvg6l"
