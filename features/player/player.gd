@@ -4,7 +4,7 @@ class_name Player
 
 @export var collision_shape: SGCollisionShape2D
 @export var basic_attack_scene: PackedScene
-@export var skill_scenes: Array[PackedScene]
+@export var skill_scenes: Array[PackedScene] # TODO: swap for resources
 
 # Stats
 @export var base_speed: int = 10
@@ -64,6 +64,12 @@ func advance_frame(input_mask: int) -> void:
 	_just_released_mask = ~input_mask & _prev_input_mask
 	_prev_input_mask = input_mask
 	
+	# Process tickers
+	_basic_attack.process_tickers()
+	
+	for skill: Skill in _skills:
+		skill.process_tickers()
+	
 	if recovery_ticks > 0:
 		recovery_ticks -= 1
 		return
@@ -87,8 +93,8 @@ func advance_frame(input_mask: int) -> void:
 	elif _just_pressed_mask & InputConstants.Bit.ATK_RIGHT: atk_dir = Vector2i.RIGHT
 	
 	# Skills
-	for i in range(_skills.size()):
-		_skills[i].advance_frame(self, input_mask, _just_pressed_mask, _just_released_mask, skill_dir)
+	for skill: Skill in _skills:
+		skill.advance_frame(self, input_mask, _just_pressed_mask, _just_released_mask, skill_dir)
 	
 	# Basic attack
 	if _basic_attack != null:

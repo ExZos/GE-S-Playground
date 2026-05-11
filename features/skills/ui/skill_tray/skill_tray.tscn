@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cdc67etsdo3xs"]
+
+[ext_resource type="Script" uid="uid://bkieqj07ovr1s" path="res://features/skills/ui/skill_tray/skill_tray.gd" id="1_u5hkl"]
+[ext_resource type="PackedScene" uid="uid://0heelq1anlpv" path="res://features/skills/ui/skill_tray/skill_slots/stamina_skill_slot.tscn" id="2_rxpj2"]
+
+[node name="SkillTray" type="HBoxContainer" unique_id=543452041]
+script = ExtResource("1_u5hkl")
+stamina_skill_slot_scene = ExtResource("2_rxpj2")

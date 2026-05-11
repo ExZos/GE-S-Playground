@@ -14,11 +14,9 @@ var is_deactivated: bool = false # Reflects current state
 
 # Stats
 var _fixed_speed: int
-var _recovery_ticks: int = 0
 
 func init(data: ProjectileData) -> void:
 	_fixed_speed = SGFixed.from_int(data.speed)
-	_recovery_ticks = data.recovery_ticks
 
 func advance_frame() -> void:
 	fixed_position_x += dir.x * _fixed_speed

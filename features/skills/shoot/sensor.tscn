@@ -6,4 +6,6 @@
 [node name="Sensor" type="SGFixedNode2D" unique_id=1495047109]
 script = ExtResource("1_v8maj")
 projectile = ExtResource("2_xyjpa")
+cooldown = 15
+recovery = 10
 metadata/_custom_type_script = "uid://c84uyqd6w2k0"

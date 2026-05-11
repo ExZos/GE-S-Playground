@@ -1,4 +1,4 @@
-extends Skill
+extends CooldownSkill
 
 class_name ShootSkill
 
@@ -6,7 +6,6 @@ class_name ShootSkill
 
 func advance_frame(source: Player, _input_mask: int, just_pressed_mask: int, _just_released_mask: int, dir: Vector2i) -> void:
 	if cd_ticks > 0:
-		cd_ticks -= 1
 		return
 	
 	if not just_pressed_mask & key_bit or dir == Vector2i.ZERO:
@@ -20,5 +19,9 @@ func advance_frame(source: Player, _input_mask: int, just_pressed_mask: int, _ju
 		dir
 	)
 	
-	source.recovery_ticks = projectile.recovery_ticks
-	cd_ticks = projectile.cooldown_ticks
+	source.recovery_ticks = recovery
+	cd_ticks = cooldown
+
+func process_tickers() -> void:
+	if cd_ticks > 0:
+		cd_ticks -= 1

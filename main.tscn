@@ -4,7 +4,9 @@
 [ext_resource type="Script" uid="uid://c6klmyhqcx6dx" path="res://core/managers/input_manager.gd" id="2_5vw27"]
 [ext_resource type="Script" uid="uid://bxuayk5f3f5mo" path="res://core/managers/projectile_manager.gd" id="3_kek77"]
 [ext_resource type="PackedScene" uid="uid://bk7ksdidmq8ap" path="res://features/player/player.tscn" id="4_4c57u"]
+[ext_resource type="PackedScene" uid="uid://cdc67etsdo3xs" path="res://features/skills/ui/skill_tray/skill_tray.tscn" id="4_5vw27"]
 [ext_resource type="PackedScene" uid="uid://d0ps3eq5sbkws" path="res://features/skills/shoot/sensor.tscn" id="5_efxa6"]
+[ext_resource type="PackedScene" uid="uid://f8eje3vkaupx" path="res://features/skills/ui/skill_tray/skill_slots/cooldown_skill_slot.tscn" id="5_kek77"]
 [ext_resource type="PackedScene" uid="uid://0hy1cdpwv2d6" path="res://features/skills/sprint/sprint.tscn" id="6_dg77c"]
 [ext_resource type="PackedScene" uid="uid://crsxml2f03w1u" path="res://features/skills/shoot/solid.tscn" id="7_ycdy4"]
 
@@ -33,6 +35,12 @@ script = ExtResource("2_5vw27")
 
 [node name="ProjectileManager" type="Node" parent="." unique_id=534493029]
 script = ExtResource("3_kek77")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=890362404]
+
+[node name="SkillTray" parent="CanvasLayer" unique_id=543452041 node_paths=PackedStringArray("player") instance=ExtResource("4_5vw27")]
+cooldown_skill_slot_scene = ExtResource("5_kek77")
+player = NodePath("../../Player")
 
 [node name="Bounds" type="SGStaticBody2D" parent="." unique_id=1732037479]
 
