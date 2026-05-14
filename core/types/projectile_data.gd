@@ -35,7 +35,7 @@ func _update_type() -> void:
 	var state: SceneState = scene.get_state()
 	if state == null:
 		notify_property_list_changed()
-		push_warning("ProjectileData: Scene state is null")
+		push_error("ProjectileData: Scene state is null")
 		return
 		
 	var root_type: StringName = state.get_node_type(0)
@@ -43,6 +43,6 @@ func _update_type() -> void:
 		&"SGCharacterBody2D": type = ProjectileType.SOLID
 		&"SGArea2D": type = ProjectileType.SENSOR
 		
-		_: push_warning("ProjectileData: Root node type '%s' not supported" % root_type)
+		_: push_error("ProjectileData: Root node type '%s' not supported" % root_type)
 	
 	notify_property_list_changed()

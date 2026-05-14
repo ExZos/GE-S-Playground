@@ -1,42 +1,45 @@
 [gd_scene format=3 uid="uid://0heelq1anlpv"]
 
 [ext_resource type="Script" uid="uid://cloql544h4jxl" path="res://features/skills/ui/skill_tray/skill_slots/stamina_skill_slot.gd" id="1_y5evk"]
+[ext_resource type="Texture2D" uid="uid://b0wm32a08ye0u" path="res://shared/ui/textures/circle_white.tres" id="2_ism0n"]
+[ext_resource type="Texture2D" uid="uid://c6q4tjnfmycv7" path="res://shared/ui/textures/circle_border_white.tres" id="3_nkbcm"]
+[ext_resource type="LabelSettings" uid="uid://c8tt6lggdl8l" path="res://shared/ui/label_settings/skill_slot_key.tres" id="4_f5r0g"]
+[ext_resource type="LabelSettings" uid="uid://b0dqld51kajy0" path="res://shared/ui/label_settings/skill_slot_progress.tres" id="5_evcht"]
 
-[sub_resource type="Gradient" id="Gradient_y5evk"]
-offsets = PackedFloat32Array(0.9935065, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ou374"]
-gradient = SubResource("Gradient_y5evk")
-width = 50
-height = 50
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 0)
-
-[sub_resource type="LabelSettings" id="LabelSettings_8a5dc"]
-font_color = Color(0, 0, 0, 1)
-
-[node name="SkillSlot" type="Control" unique_id=1374403534 node_paths=PackedStringArray("progress_bar", "label")]
+[node name="StaminaSkillSlot" type="Control" unique_id=1374403534 node_paths=PackedStringArray("progress_bar", "key_label", "percentage")]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_y5evk")
 progress_bar = NodePath("TextureProgressBar")
-label = NodePath("Label")
+key_label = NodePath("Key")
+percentage = NodePath("Percentage")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1032074006]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 55.0
+offset_bottom = 55.0
 fill_mode = 5
-texture_progress = SubResource("GradientTexture2D_ou374")
+texture_under = ExtResource("2_ism0n")
+texture_over = ExtResource("3_nkbcm")
+texture_progress = ExtResource("2_ism0n")
+tint_under = Color(0.53333336, 0.53333336, 0.53333336, 1)
+tint_over = Color(0.53333336, 0.53333336, 0.53333336, 1)
 
-[node name="Label" type="Label" parent="." unique_id=1440307108]
+[node name="Key" type="Label" parent="." unique_id=1440307108]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+label_settings = ExtResource("4_f5r0g")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Percentage" type="Label" parent="." unique_id=448522290]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
-label_settings = SubResource("LabelSettings_8a5dc")
+label_settings = ExtResource("5_evcht")
 horizontal_alignment = 1
 vertical_alignment = 1

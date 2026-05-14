@@ -1,42 +1,45 @@
 [gd_scene format=3 uid="uid://f8eje3vkaupx"]
 
 [ext_resource type="Script" uid="uid://bjvdup2im5ou2" path="res://features/skills/ui/skill_tray/skill_slots/cooldown_skill_slot.gd" id="1_slmhi"]
+[ext_resource type="Texture2D" uid="uid://b0wm32a08ye0u" path="res://shared/ui/textures/circle_white.tres" id="2_1slro"]
+[ext_resource type="Texture2D" uid="uid://c6q4tjnfmycv7" path="res://shared/ui/textures/circle_border_white.tres" id="3_f8y55"]
+[ext_resource type="LabelSettings" uid="uid://c8tt6lggdl8l" path="res://shared/ui/label_settings/skill_slot_key.tres" id="4_08ypx"]
+[ext_resource type="LabelSettings" uid="uid://b0dqld51kajy0" path="res://shared/ui/label_settings/skill_slot_progress.tres" id="5_m8iev"]
 
-[sub_resource type="Gradient" id="Gradient_slmhi"]
-offsets = PackedFloat32Array(0.9935065, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_1slro"]
-gradient = SubResource("Gradient_slmhi")
-width = 50
-height = 50
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 0)
-
-[sub_resource type="LabelSettings" id="LabelSettings_slmhi"]
-font_color = Color(0, 0, 0, 1)
-
-[node name="CooldownSkillSlot" type="Control" unique_id=115668837 node_paths=PackedStringArray("progress_bar", "label")]
+[node name="CooldownSkillSlot" type="Control" unique_id=115668837 node_paths=PackedStringArray("progress_bar", "key_label", "timer_label")]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_slmhi")
 progress_bar = NodePath("TextureProgressBar")
-label = NodePath("Label")
+key_label = NodePath("Key")
+timer_label = NodePath("Timer")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=794291755]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 fill_mode = 5
-texture_progress = SubResource("GradientTexture2D_1slro")
+texture_under = ExtResource("2_1slro")
+texture_over = ExtResource("3_f8y55")
+texture_progress = ExtResource("2_1slro")
+tint_under = Color(0.53333336, 0.53333336, 0.53333336, 1)
+tint_over = Color(0.53333336, 0.53333336, 0.53333336, 1)
 
-[node name="Label" type="Label" parent="." unique_id=1493565851]
+[node name="Key" type="Label" parent="." unique_id=1493565851]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
-label_settings = SubResource("LabelSettings_slmhi")
+label_settings = ExtResource("4_08ypx")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Timer" type="Label" parent="." unique_id=1265407401]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = ExtResource("5_m8iev")
 horizontal_alignment = 1
 vertical_alignment = 1
