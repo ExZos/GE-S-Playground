@@ -5,10 +5,7 @@
 [ext_resource type="Script" uid="uid://bxuayk5f3f5mo" path="res://core/managers/projectile_manager.gd" id="3_kek77"]
 [ext_resource type="PackedScene" uid="uid://bk7ksdidmq8ap" path="res://features/player/player.tscn" id="4_4c57u"]
 [ext_resource type="PackedScene" uid="uid://cdc67etsdo3xs" path="res://features/skills/ui/skill_tray/skill_tray.tscn" id="4_5vw27"]
-[ext_resource type="PackedScene" uid="uid://d0ps3eq5sbkws" path="res://features/skills/shoot/sensor.tscn" id="5_efxa6"]
 [ext_resource type="PackedScene" uid="uid://f8eje3vkaupx" path="res://features/skills/ui/skill_tray/skill_slots/cooldown_skill_slot.tscn" id="5_kek77"]
-[ext_resource type="PackedScene" uid="uid://0hy1cdpwv2d6" path="res://features/skills/sprint/sprint.tscn" id="6_dg77c"]
-[ext_resource type="PackedScene" uid="uid://crsxml2f03w1u" path="res://features/skills/shoot/solid.tscn" id="7_ycdy4"]
 
 [sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_stixs"]
 extents_x = 88604672
@@ -77,5 +74,3 @@ position_smoothing_enabled = true
 
 [node name="Player" parent="." unique_id=2004616098 instance=ExtResource("4_4c57u")]
 floor_max_angle = 51472
-basic_attack_scene = ExtResource("5_efxa6")
-skill_scenes = Array[PackedScene]([ExtResource("6_dg77c"), ExtResource("5_efxa6"), ExtResource("7_ycdy4")])

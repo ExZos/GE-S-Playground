@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://bk7ksdidmq8ap"]
 
 [ext_resource type="Script" uid="uid://beea524pg8c0" path="res://features/player/player.gd" id="1_sjcu7"]
+[ext_resource type="Resource" uid="uid://bh2f8amnbm7du" path="res://features/player/default_player.tres" id="2_6xbq4"]
+[ext_resource type="PackedScene" uid="uid://d0ps3eq5sbkws" path="res://features/skills/shoot/sensor.tscn" id="2_i250s"]
+[ext_resource type="PackedScene" uid="uid://0hy1cdpwv2d6" path="res://features/skills/sprint/sprint.tscn" id="3_6xbq4"]
+[ext_resource type="PackedScene" uid="uid://crsxml2f03w1u" path="res://features/skills/shoot/solid.tscn" id="4_y2cyt"]
 
 [sub_resource type="SGCircleShape2D" id="SGCircleShape2D_ao3hl"]
 radius = 3276800
@@ -9,6 +13,9 @@ radius = 3276800
 collision_layer = 2
 script = ExtResource("1_sjcu7")
 collision_shape = NodePath("SGCollisionShape2D")
+player_stats = ExtResource("2_6xbq4")
+basic_attack_scene = ExtResource("2_i250s")
+skill_scenes = Array[PackedScene]([ExtResource("3_6xbq4"), ExtResource("2_i250s"), ExtResource("4_y2cyt")])
 
 [node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="." unique_id=944140082]
 shape = SubResource("SGCircleShape2D_ao3hl")

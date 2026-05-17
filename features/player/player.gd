@@ -3,34 +3,34 @@ extends SGCharacterBody2D
 class_name Player
 
 @export var collision_shape: SGCollisionShape2D
+@export var player_stats: PlayerStats
 @export var basic_attack_scene: PackedScene
 @export var skill_scenes: Array[PackedScene] # TODO: swap for resources
 
 # Stats
-@export var base_speed: int = 10
+var fp_base_speed: int:
+	set(value):
+		fp_base_speed = value
+		_compute_speed()
 
 # Stat modifiers
-@export var speed_mult: int = 1:
+var fp_speed_mult: int = SGFixed.ONE:
 	set(value):
-		speed_mult = value
-		_speed = base_speed * speed_mult
+		fp_speed_mult = value
+		_compute_speed()
 
 # Computed stats
-var _speed: int = 10:
-	set(value):
-		_speed = value
-		_fixed_speed = SGFixed.from_int(value)
+var fp_speed: int
 
-# Equipment
+# Loadout
 var _basic_attack: Skill
 var _skills: Array[Skill] = []
 
 # Tickers
-var recovery_ticks: int = 0
+var fp_recovery_ticks: int = 0
 
-# Fixed-point converted properties
-var _fixed_speed: int = SGFixed.from_int(_speed)
-var _fixed_radius: int:
+# Dimensions
+var _fp_half_width: int:
 	get:
 		return collision_shape.shape.radius
 
@@ -42,6 +42,10 @@ var _prev_input_mask: int = 0
 var _projectile_request: ProjectileRequest = null
 
 func init() -> void:
+	fp_base_speed = SGFixed.from_int(player_stats.base_speed)
+	fp_speed_mult = fp_speed_mult
+	print(fp_base_speed, " : ", fp_speed_mult)
+	
 	# Initialize attack
 	if basic_attack_scene != null:
 		_basic_attack = basic_attack_scene.instantiate()
@@ -70,8 +74,8 @@ func advance_frame(input_mask: int) -> void:
 	for skill: Skill in _skills:
 		skill.process_tickers()
 	
-	if recovery_ticks > 0:
-		recovery_ticks -= 1
+	if fp_recovery_ticks > 0:
+		fp_recovery_ticks -= SGFixed.ONE
 		return
 	
 	# Determine skill direction using held attack direction or movement direction otherwise
@@ -110,7 +114,10 @@ func advance_frame(input_mask: int) -> void:
 	if input_mask & InputConstants.Bit.MOVE_UP: y_input = -1
 	elif input_mask & InputConstants.Bit.MOVE_DOWN: y_input = 1
 	
-	velocity.x = x_input * _fixed_speed
-	velocity.y = y_input * _fixed_speed
+	velocity.x = x_input * fp_speed
+	velocity.y = y_input * fp_speed
 	
 	move_and_slide()
+
+func _compute_speed() -> void:
+	fp_speed = SGFixed.mul(fp_base_speed, fp_speed_mult)

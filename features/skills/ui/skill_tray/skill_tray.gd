@@ -9,7 +9,7 @@ var _fps: int
 
 func _ready() -> void:
 	_fps = Engine.get_physics_ticks_per_second()
-	var float_fps = float(_fps)
+	var fp_fps = SGFixed.from_int(_fps)
 	
 	await player.ready
 	for skill in player._skills:
@@ -17,7 +17,7 @@ func _ready() -> void:
 		
 		if skill is CooldownSkill:
 			skill_slot = cooldown_skill_slot_scene.instantiate()
-			skill_slot._float_fps = float_fps
+			skill_slot.fp_fps = fp_fps
 		elif skill is StaminaSkill:
 			skill_slot = stamina_skill_slot_scene.instantiate()
 		else:

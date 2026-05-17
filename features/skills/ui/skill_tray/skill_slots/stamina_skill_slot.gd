@@ -12,12 +12,12 @@ var key_text: String
 
 func _ready() -> void:
 	progress_bar.min_value = 0
-	progress_bar.max_value = skill.max_stamina
+	progress_bar.max_value = skill._fp_max_stamina
 	
 	key_label.text = key_text
 
 func _process(_delta: float) -> void:
-	progress_bar.value = skill.stamina
+	progress_bar.value = skill.fp_stamina
 	
 	if progress_bar.value < progress_bar.max_value:
 		percentage.text = "%d%%" % (progress_bar.ratio * 100)
