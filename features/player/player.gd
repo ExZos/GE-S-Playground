@@ -49,6 +49,7 @@ func init() -> void:
 	if basic_attack_scene != null:
 		_basic_attack = basic_attack_scene.instantiate()
 		
+		_basic_attack.source = self
 		_basic_attack.key_bit = InputConstants.BitGroup.ATK
 		
 		add_child(_basic_attack)
@@ -57,6 +58,7 @@ func init() -> void:
 	for i in range(skill_scenes.size()):
 		var skill: Skill = skill_scenes[i].instantiate()
 		
+		skill.source = self
 		skill.key_bit = InputConstants.BitList.SKILLS[i]
 		
 		add_child(skill)
@@ -97,11 +99,11 @@ func advance_frame(input_mask: int) -> void:
 	
 	# Skills
 	for skill: Skill in _skills:
-		skill.advance_frame(self, input_mask, _just_pressed_mask, _just_released_mask, skill_dir)
+		skill.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, skill_dir)
 	
 	# Basic attack
 	if _basic_attack != null:
-		_basic_attack.advance_frame(self, input_mask, _just_pressed_mask, _just_released_mask, atk_dir)
+		_basic_attack.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, atk_dir)
 	
 	# Movement
 	var x_input: int = 0

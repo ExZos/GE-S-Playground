@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cdc67etsdo3xs" path="res://features/skills/ui/skill_tray/skill_tray.tscn" id="4_5vw27"]
 [ext_resource type="PackedScene" uid="uid://0hy1cdpwv2d6" path="res://features/skills/sprint/sprint.tscn" id="7_5vw27"]
 [ext_resource type="PackedScene" uid="uid://crsxml2f03w1u" path="res://features/skills/shoot/solid.tscn" id="8_5vw27"]
-[ext_resource type="PackedScene" uid="uid://duchy48fspu5y" path="res://features/skills/reflect/reflect.tscn" id="8_kek77"]
+[ext_resource type="PackedScene" uid="uid://duchy48fspu5y" path="res://features/skills/telekinesis/telekinesis.tscn" id="8_kek77"]
 
 [sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_stixs"]
 extents_x = 88604672
