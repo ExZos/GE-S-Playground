@@ -5,15 +5,17 @@
 [ext_resource type="Texture2D" uid="uid://c6q4tjnfmycv7" path="res://shared/ui/textures/circle_border_white.tres" id="3_f8y55"]
 [ext_resource type="LabelSettings" uid="uid://c8tt6lggdl8l" path="res://shared/ui/label_settings/skill_slot_key.tres" id="4_08ypx"]
 [ext_resource type="LabelSettings" uid="uid://b0dqld51kajy0" path="res://shared/ui/label_settings/skill_slot_progress.tres" id="5_m8iev"]
+[ext_resource type="LabelSettings" uid="uid://bwo2qw6uln4fp" path="res://shared/ui/label_settings/skill_slot_charges.tres" id="6_x173l"]
 
-[node name="CooldownSkillSlot" type="Control" unique_id=115668837 node_paths=PackedStringArray("progress_bar", "key_label", "timer_label")]
+[node name="CooldownSkillSlot" type="Control" unique_id=115668837 node_paths=PackedStringArray("progress_bar", "key_label", "cooldown_label", "charges_label")]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_slmhi")
 progress_bar = NodePath("TextureProgressBar")
 key_label = NodePath("Key")
-timer_label = NodePath("Timer")
+cooldown_label = NodePath("Cooldown")
+charges_label = NodePath("Charges")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=794291755]
 layout_mode = 0
@@ -35,7 +37,7 @@ label_settings = ExtResource("4_08ypx")
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Timer" type="Label" parent="." unique_id=1265407401]
+[node name="Cooldown" type="Label" parent="." unique_id=1265407401]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 0
 offset_right = 40.0
@@ -43,3 +45,11 @@ offset_bottom = 23.0
 label_settings = ExtResource("5_m8iev")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Charges" type="Label" parent="." unique_id=1255852220]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = ExtResource("6_x173l")
+horizontal_alignment = 2

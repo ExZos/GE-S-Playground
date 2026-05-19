@@ -4,7 +4,8 @@ class_name CooldownSkillSlot
 
 @export var progress_bar: TextureProgressBar
 @export var key_label: Label
-@export var timer_label: Label
+@export var cooldown_label: Label
+@export var charges_label: Label
 
 @export var skill: CooldownSkill
 
@@ -15,13 +16,21 @@ var fp_fps: float
 func _ready() -> void:
 	progress_bar.min_value = 0
 	progress_bar.max_value = skill._fp_cooldown
-	
-	key_label.text = key_text
-
-func _process(_delta: float) -> void:
 	progress_bar.value = progress_bar.max_value - skill.fp_cd_ticks
 	
-	if progress_bar.value < progress_bar.max_value:
-		timer_label.text = "%.1fs" % (skill.fp_cd_ticks / fp_fps)
+	key_label.text = key_text
+	charges_label.text = str(skill.starting_charges)
+	
+	skill.charges_changed.connect(_on_charges_changed)
+	if skill.max_charges <= 1:
+		charges_label.visible = false
+
+func _process(_delta: float) -> void:
+	if skill.cooling_down:
+		progress_bar.value = progress_bar.max_value - skill.fp_cd_ticks
+		cooldown_label.text = "%.1fs" % (skill.fp_cd_ticks / fp_fps)
 	else:
-		timer_label.text = ""
+		cooldown_label.text = ""
+
+func _on_charges_changed(charges: int) -> void:
+	charges_label.text = str(charges)

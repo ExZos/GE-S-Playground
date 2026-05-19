@@ -1,8 +1,12 @@
 [gd_scene format=3 uid="uid://cdc67etsdo3xs"]
 
 [ext_resource type="Script" uid="uid://bkieqj07ovr1s" path="res://features/skills/ui/skill_tray/skill_tray.gd" id="1_u5hkl"]
+[ext_resource type="PackedScene" uid="uid://f8eje3vkaupx" path="res://features/skills/ui/skill_tray/skill_slots/cooldown_skill_slot.tscn" id="2_1b5r8"]
 [ext_resource type="PackedScene" uid="uid://0heelq1anlpv" path="res://features/skills/ui/skill_tray/skill_slots/stamina_skill_slot.tscn" id="2_rxpj2"]
+[ext_resource type="PackedScene" uid="uid://c8qlsn7ks2b6p" path="res://features/skills/ui/skill_tray/skill_slots/charge_skill_slot.tscn" id="4_j4cel"]
 
 [node name="SkillTray" type="HBoxContainer" unique_id=543452041]
 script = ExtResource("1_u5hkl")
+cooldown_skill_slot_scene = ExtResource("2_1b5r8")
 stamina_skill_slot_scene = ExtResource("2_rxpj2")
+charge_skill_slot_scene = ExtResource("4_j4cel")

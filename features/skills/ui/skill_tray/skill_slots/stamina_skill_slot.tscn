@@ -6,14 +6,14 @@
 [ext_resource type="LabelSettings" uid="uid://c8tt6lggdl8l" path="res://shared/ui/label_settings/skill_slot_key.tres" id="4_f5r0g"]
 [ext_resource type="LabelSettings" uid="uid://b0dqld51kajy0" path="res://shared/ui/label_settings/skill_slot_progress.tres" id="5_evcht"]
 
-[node name="StaminaSkillSlot" type="Control" unique_id=1374403534 node_paths=PackedStringArray("progress_bar", "key_label", "percentage")]
+[node name="StaminaSkillSlot" type="Control" unique_id=1374403534 node_paths=PackedStringArray("progress_bar", "key_label", "percentage_label")]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_y5evk")
 progress_bar = NodePath("TextureProgressBar")
 key_label = NodePath("Key")
-percentage = NodePath("Percentage")
+percentage_label = NodePath("Percentage")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1032074006]
 layout_mode = 0

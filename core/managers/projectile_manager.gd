@@ -78,7 +78,7 @@ func spawn_projectile(req: ProjectileRequest) -> void:
 		
 		projectile.source_scene = requested_scene
 		projectile.init(req.data)
-		projectile.activate(req.source, req.fixed_pos_x, req.fixed_pos_y, req.dir)
+		projectile.activate(req.source, req.fp_pos_x, req.fp_pos_y, req.dir)
 		
 		add_child(projectile)
 		

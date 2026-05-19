@@ -8,4 +8,6 @@ script = ExtResource("1_fvpqq")
 projectile = ExtResource("2_neybm")
 cooldown = 10
 recovery = 5
+max_charges = 5
+starting_charges = 5
 metadata/_custom_type_script = "uid://c84uyqd6w2k0"

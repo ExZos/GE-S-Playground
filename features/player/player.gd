@@ -20,7 +20,7 @@ var fp_speed_mult: int = SGFixed.ONE:
 		_compute_speed()
 
 # Computed stats
-var fp_speed: int
+var _fp_speed: int
 
 # Loadout
 var _basic_attack: Skill
@@ -44,7 +44,6 @@ var _projectile_request: ProjectileRequest = null
 func init() -> void:
 	fp_base_speed = SGFixed.from_int(player_stats.base_speed)
 	fp_speed_mult = fp_speed_mult
-	print(fp_base_speed, " : ", fp_speed_mult)
 	
 	# Initialize attack
 	if basic_attack_scene != null:
@@ -114,10 +113,10 @@ func advance_frame(input_mask: int) -> void:
 	if input_mask & InputConstants.Bit.MOVE_UP: y_input = -1
 	elif input_mask & InputConstants.Bit.MOVE_DOWN: y_input = 1
 	
-	velocity.x = x_input * fp_speed
-	velocity.y = y_input * fp_speed
+	velocity.x = x_input * _fp_speed
+	velocity.y = y_input * _fp_speed
 	
 	move_and_slide()
 
 func _compute_speed() -> void:
-	fp_speed = SGFixed.mul(fp_base_speed, fp_speed_mult)
+	_fp_speed = SGFixed.mul(fp_base_speed, fp_speed_mult)
