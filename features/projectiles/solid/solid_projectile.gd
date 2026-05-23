@@ -6,7 +6,10 @@ class_name SolidProjectile
 
 # Core
 var source: SGFixedNode2D = null
-var dir: Vector2i = Vector2i.ZERO
+var dir: Vector2i = Vector2i.ZERO:
+	set(value):
+		dir = value
+		_compute_velocity()
 
 # Stats
 var fp_base_speed: int:
@@ -29,7 +32,6 @@ var is_deactivated: bool = false # Reflects current state
 
 func init(data: ProjectileData) -> void:
 	fp_base_speed = SGFixed.from_int(data.speed)
-	fp_speed_mult = fp_speed_mult
 
 func advance_frame() -> void:
 	var collision = move_and_collide(velocity)
@@ -46,6 +48,8 @@ func advance_frame() -> void:
 		deactivate()
 
 func activate(_source: SGFixedNode2D, fp_pos_x: int, fp_pos_y: int, _dir: Vector2i) -> void:
+	fp_speed_mult = SGFixed.ONE
+	
 	is_deactivated = false
 	
 	source = _source
@@ -55,7 +59,6 @@ func activate(_source: SGFixedNode2D, fp_pos_x: int, fp_pos_y: int, _dir: Vector
 	sync_to_physics_engine()
 	
 	dir = _dir
-	compute_velocity()
 	
 	set_physics_process(true)
 	collision_shape.disabled = false
@@ -72,7 +75,7 @@ func deactivate() -> void:
 	
 	velocity.clear()
 
-func compute_velocity() -> void:
+func _compute_velocity() -> void:
 	velocity.x = dir.x * _fp_speed
 	velocity.y = dir.y * _fp_speed
 

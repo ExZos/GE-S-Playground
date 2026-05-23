@@ -20,7 +20,7 @@ var fp_speed_mult: int = SGFixed.ONE:
 		fp_speed_mult = value
 		_compute_speed()
 
-# Compute stats
+# Computed stats
 var _fp_speed: int
 
 # Misc - used by other nodes
@@ -29,7 +29,6 @@ var is_deactivated: bool = false # Reflects current state
 
 func init(data: ProjectileData) -> void:
 	fp_base_speed = SGFixed.from_int(data.speed)
-	fp_speed_mult = fp_speed_mult
 
 func advance_frame() -> void:
 	fixed_position_x += dir.x * _fp_speed
@@ -47,6 +46,8 @@ func advance_frame() -> void:
 		deactivate()
 
 func activate(_source: SGFixedNode2D, fp_pos_x: int, fp_pos_y: int, _dir: Vector2i) -> void:
+	fp_speed_mult = SGFixed.ONE
+	
 	is_deactivated = false
 	
 	source = _source

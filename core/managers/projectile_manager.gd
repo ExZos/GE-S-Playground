@@ -47,42 +47,50 @@ func init(data_map: Dictionary[PackedScene, PoolInitData]) -> void:
 			add_child(projectile)
 			inactive_pool[scene].push_back(projectile)
 
-func spawn_projectile(req: ProjectileRequest) -> void:
-	var projectile: SGFixedNode2D
+func handle_requests(requests: Array[ProjectileRequest]) -> void:
+	for req in requests:
+		var projectile: SGFixedNode2D
 	
-	# Will point to the arrays for this projectile
-	var inactive_pool: Array
-	var active_pool: Array
-	
-	# Determine which arrays to take from and put into
-	var requested_scene: PackedScene = req.data.scene
-	var requested_type: ProjectileData.ProjectileType = req.data.type
-	if requested_type == ProjectileData.ProjectileType.SOLID:
-		inactive_pool = _solid_inactive[requested_scene]
-		active_pool = _solid_active
-	elif requested_type == ProjectileData.ProjectileType.SENSOR:
-		inactive_pool = _sensor_inactive[requested_scene]
-		active_pool = _sensor_active
-	else:
-		push_error("ProjectileManager: Projectile type of UNKNOWN")
-		return
+		# Will point to the arrays for this projectile
+		var inactive_pool: Array
+		var active_pool: Array
 		
-	# Take inactive projectile or create a new one
-	if !inactive_pool.is_empty():
-		projectile = inactive_pool.pop_back()
-		projectile.activate(req.source, req.fp_pos_x, req.fp_pos_y, req.dir)
-	else:
-		print("No projectiles available, creating one. Active projectiles: ", active_pool.size())
+		# Determine which arrays to take from and put into
+		var requested_scene: PackedScene = req.data.scene
+		var requested_type: ProjectileData.ProjectileType = req.data.type
+		if requested_type == ProjectileData.ProjectileType.SOLID:
+			inactive_pool = _solid_inactive[requested_scene]
+			active_pool = _solid_active
+		elif requested_type == ProjectileData.ProjectileType.SENSOR:
+			inactive_pool = _sensor_inactive[requested_scene]
+			active_pool = _sensor_active
+		else:
+			push_error("ProjectileManager: Projectile type of UNKNOWN")
+			return
+			
+		# Take inactive projectile or create a new one
+		if !inactive_pool.is_empty():
+			projectile = inactive_pool.pop_back()
+			projectile.activate(req.source, req.fp_pos_x, req.fp_pos_y, req.dir)
+		else:
+			print("No projectiles available, creating one. Active projectiles: ", active_pool.size())
+			
+			projectile = requested_scene.instantiate()
+			
+			projectile.source_scene = requested_scene
+			projectile.init(req.data)
+			projectile.activate(req.source, req.fp_pos_x, req.fp_pos_y, req.dir)
+			
+			add_child(projectile)
+			
+		active_pool.append(projectile)
+
+func handle_modifiers(modifiers: Array[ProjectileModifier]) -> void:
+	for mod in modifiers:
+		mod.apply_modification(_solid_active)
+		mod.apply_modification(_sensor_active)
 		
-		projectile = requested_scene.instantiate()
-		
-		projectile.source_scene = requested_scene
-		projectile.init(req.data)
-		projectile.activate(req.source, req.fp_pos_x, req.fp_pos_y, req.dir)
-		
-		add_child(projectile)
-		
-	active_pool.append(projectile)
+		mod.check_applied()
 
 func _process_pool(inactive_pool: Dictionary[PackedScene, Array], active_pool: Array) -> void:
 	for i in range(active_pool.size() -1, -1, -1):

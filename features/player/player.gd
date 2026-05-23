@@ -39,7 +39,9 @@ var _just_pressed_mask: int = 0
 var _just_released_mask: int = 0
 var _prev_input_mask: int = 0
 
-var _projectile_request: ProjectileRequest = null
+# 
+var _projectile_requests: Array[ProjectileRequest] = []
+var _projectile_modifiers: Array[ProjectileModifier] = []
 
 func init() -> void:
 	fp_base_speed = SGFixed.from_int(player_stats.base_speed)

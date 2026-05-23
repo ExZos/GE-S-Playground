@@ -35,7 +35,7 @@ func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask
 	if state == State.CHARGING:
 		# Key not pressed, check if fully charged
 		if not (input_mask & key_bit):
-			if fp_charge_ticks >= _fp_charge_time: # Full charged, activate
+			if fp_charge_ticks >= _fp_charge_time and _can_activate(dir): # Full charged, activate
 				_on_activate(dir)
 				fp_cd_ticks += _fp_cooldown
 				state = State.COOLDOWN
@@ -61,6 +61,7 @@ func process_tickers() -> void:
 	elif state == State.CHARGING and fp_charge_ticks < _fp_charge_time:
 		fp_charge_ticks += SGFixed.ONE
 
+func _can_activate(_dir: Vector2i) -> bool: return true
 func _on_activate(_dir: Vector2i) -> void: pass
 func _on_charging_start(_dir: Vector2i) -> void: pass
 func _on_charging_cancelled(_dir: Vector2i) -> void: pass
