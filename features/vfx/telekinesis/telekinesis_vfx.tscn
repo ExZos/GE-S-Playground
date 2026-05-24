@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bm4dgl6hwxmbg"]
+
+[ext_resource type="Texture2D" uid="uid://c6q4tjnfmycv7" path="res://shared/ui/textures/circle_border_white.tres" id="1_yr8ne"]
+[ext_resource type="Script" uid="uid://5jyc6x3qoasv" path="res://features/vfx/types/particle_one_shot.gd" id="2_c33b6"]
+
+[sub_resource type="Curve" id="Curve_c33b6"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_c33b6"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="TelekinesisVfx" type="CPUParticles2D" unique_id=618246672]
+emitting = false
+amount = 1
+texture = ExtResource("1_yr8ne")
+lifetime = 0.25
+one_shot = true
+direction = Vector2(0, 0)
+gravity = Vector2(0, 0)
+scale_amount_curve = SubResource("Curve_c33b6")
+color_ramp = SubResource("Gradient_c33b6")
+script = ExtResource("2_c33b6")

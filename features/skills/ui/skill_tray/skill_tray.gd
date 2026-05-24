@@ -45,7 +45,7 @@ func _get_key_text(key_bit: int) -> String:
 		
 	var events: Array[InputEvent] = InputMap.action_get_events(action_name)
 	if events.size() == 0:
-		push_warning("SkillTray: Action name '%s' does not any events")
+		push_warning("SkillTray: Action name '%s' does not any events" % action_name)
 		return "?"
 	
 	return events[0].as_text_physical_keycode()

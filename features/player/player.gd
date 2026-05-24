@@ -1,5 +1,6 @@
 extends SGCharacterBody2D
 
+# TODO: refactor with skill manager and registry
 class_name Player
 
 @export var collision_shape: SGCollisionShape2D
@@ -42,6 +43,7 @@ var _prev_input_mask: int = 0
 # 
 var _projectile_requests: Array[ProjectileRequest] = []
 var _projectile_modifiers: Array[ProjectileModifier] = []
+var _vfx_events: Array[VFXEvent] = []
 
 func init() -> void:
 	fp_base_speed = SGFixed.from_int(player_stats.base_speed)

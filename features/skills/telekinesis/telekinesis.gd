@@ -27,6 +27,10 @@ class VelocityModifier extends ProjectileModifier:
 				proj.dir = dir
 			
 			applied = true
+			source._vfx_events.append(VFXEvent.new(
+				VFXData.Type.TELEKINESIS,
+				proj.position
+			))
 	
 	func check_applied() -> void:
 		if not applied:
