@@ -1,6 +1,6 @@
 extends Node
 
-# refactor with projectile registry
+# TODO: refactor with projectile registry
 class_name ProjectileManager
 
 class PoolInitData:

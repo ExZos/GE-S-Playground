@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bk7ksdidmq8ap"]
 
 [ext_resource type="Script" uid="uid://beea524pg8c0" path="res://features/player/player.gd" id="1_sjcu7"]
-[ext_resource type="Resource" uid="uid://bh2f8amnbm7du" path="res://features/player/default_player.tres" id="2_6xbq4"]
+[ext_resource type="Resource" uid="uid://bh2f8amnbm7du" path="res://features/player/resources/default_player_stats.tres" id="2_6xbq4"]
 [ext_resource type="PackedScene" uid="uid://d0ps3eq5sbkws" path="res://features/skills/shoot/sensor.tscn" id="2_i250s"]
 [ext_resource type="PackedScene" uid="uid://0hy1cdpwv2d6" path="res://features/skills/sprint/sprint.tscn" id="3_6xbq4"]
 [ext_resource type="PackedScene" uid="uid://crsxml2f03w1u" path="res://features/skills/shoot/solid.tscn" id="4_y2cyt"]

@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://bma1wwsbpu2ns"]
 
 [ext_resource type="Script" uid="uid://b1iphtfxsb15w" path="res://features/vfx/vfx_manager.gd" id="1_5vw27"]
-[ext_resource type="Script" uid="uid://chnm4a6v3t7eq" path="res://core/managers/game_manager.gd" id="1_272bh"]
-[ext_resource type="Script" uid="uid://c6klmyhqcx6dx" path="res://core/managers/input_manager.gd" id="2_5vw27"]
-[ext_resource type="Script" uid="uid://bxuayk5f3f5mo" path="res://core/managers/projectile_manager.gd" id="3_kek77"]
+[ext_resource type="Script" uid="uid://chnm4a6v3t7eq" path="res://features/game/game_manager.gd" id="1_272bh"]
+[ext_resource type="Script" uid="uid://c6klmyhqcx6dx" path="res://core/input/input_manager.gd" id="2_5vw27"]
+[ext_resource type="Script" uid="uid://bxuayk5f3f5mo" path="res://features/projectiles/projectile_manager.gd" id="3_kek77"]
 [ext_resource type="PackedScene" uid="uid://bk7ksdidmq8ap" path="res://features/player/player.tscn" id="4_4c57u"]
 [ext_resource type="PackedScene" uid="uid://cdc67etsdo3xs" path="res://features/skills/ui/skill_tray/skill_tray.tscn" id="4_5vw27"]
-[ext_resource type="Resource" uid="uid://b7jdxy4rvlbs8" path="res://features/vfx/main_vfx_registry.tres" id="5_4c57u"]
+[ext_resource type="Resource" uid="uid://b7jdxy4rvlbs8" path="res://features/vfx/resources/main_vfx_registry.tres" id="5_4c57u"]
 [ext_resource type="PackedScene" uid="uid://0hy1cdpwv2d6" path="res://features/skills/sprint/sprint.tscn" id="7_5vw27"]
 [ext_resource type="PackedScene" uid="uid://crsxml2f03w1u" path="res://features/skills/shoot/solid.tscn" id="8_5vw27"]
 [ext_resource type="PackedScene" uid="uid://duchy48fspu5y" path="res://features/skills/telekinesis/telekinesis.tscn" id="8_kek77"]
@@ -24,6 +24,8 @@ radius = 3276800
 height = 32768000
 
 [node name="SGFixedNode2D" type="SGFixedNode2D" unique_id=1836307939]
+fixed_scale_x = 65772
+scale = Vector2(1.0036011, 1)
 
 [node name="GameManager" type="Node" parent="." unique_id=468958604 node_paths=PackedStringArray("inputManager", "player", "projectileManager")]
 script = ExtResource("1_272bh")

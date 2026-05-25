@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="VFXData" format=3 uid="uid://brkitga4mysbu"]
-
-[ext_resource type="PackedScene" uid="uid://bm4dgl6hwxmbg" path="res://features/vfx/telekinesis/telekinesis_vfx.tscn" id="1_v40m4"]
-[ext_resource type="Script" uid="uid://byhx3104gpsiw" path="res://features/vfx/types/vfx_data.gd" id="2_srakr"]
-
-[resource]
-script = ExtResource("2_srakr")
-scene = ExtResource("1_v40m4")
-metadata/_custom_type_script = "uid://byhx3104gpsiw"

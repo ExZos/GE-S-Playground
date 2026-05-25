@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bm4dgl6hwxmbg"]
 
 [ext_resource type="Texture2D" uid="uid://c6q4tjnfmycv7" path="res://shared/ui/textures/circle_border_white.tres" id="1_yr8ne"]
-[ext_resource type="Script" uid="uid://5jyc6x3qoasv" path="res://features/vfx/types/particle_one_shot.gd" id="2_c33b6"]
+[ext_resource type="Script" uid="uid://5jyc6x3qoasv" path="res://features/vfx/one_shot_particle.gd" id="2_c33b6"]
 
 [sub_resource type="Curve" id="Curve_c33b6"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
