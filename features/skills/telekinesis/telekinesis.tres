@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://c4bmrg0llsrhm"]
+
+[ext_resource type="PackedScene" uid="uid://duchy48fspu5y" path="res://features/skills/telekinesis/telekinesis.tscn" id="1_4fnec"]
+[ext_resource type="Script" uid="uid://ci283va12p2w8" path="res://features/skills/skill_data.gd" id="1_x2hvm"]
+
+[resource]
+script = ExtResource("1_x2hvm")
+type = 3
+scene = ExtResource("1_4fnec")
+metadata/_custom_type_script = "uid://ci283va12p2w8"

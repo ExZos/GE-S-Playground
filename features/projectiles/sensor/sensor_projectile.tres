@@ -9,6 +9,4 @@ scene = ExtResource("1_qdryc")
 type = 1
 pool_size = 10
 speed = 5
-recovery_ticks = 10
-cooldown_ticks = 15
 metadata/_custom_type_script = "uid://dqk2livkncmja"

@@ -13,7 +13,7 @@ func _ready() -> void:
 	var fp_fps = SGFixed.from_int(_fps)
 	
 	await player.ready
-	for skill in player._skills:
+	for skill in player.skill_manager._skills:
 		var skill_slot: Control
 		
 		if skill is CooldownSkill:

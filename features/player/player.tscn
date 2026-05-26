@@ -2,20 +2,27 @@
 
 [ext_resource type="Script" uid="uid://beea524pg8c0" path="res://features/player/player.gd" id="1_sjcu7"]
 [ext_resource type="Resource" uid="uid://bh2f8amnbm7du" path="res://features/player/resources/default_player_stats.tres" id="2_6xbq4"]
-[ext_resource type="PackedScene" uid="uid://d0ps3eq5sbkws" path="res://features/skills/shoot/sensor.tscn" id="2_i250s"]
+[ext_resource type="PackedScene" uid="uid://d0ps3eq5sbkws" path="res://features/skills/shoot/shoot_sensor/shoot_sensor.tscn" id="2_i250s"]
 [ext_resource type="PackedScene" uid="uid://0hy1cdpwv2d6" path="res://features/skills/sprint/sprint.tscn" id="3_6xbq4"]
-[ext_resource type="PackedScene" uid="uid://crsxml2f03w1u" path="res://features/skills/shoot/solid.tscn" id="4_y2cyt"]
+[ext_resource type="PackedScene" uid="uid://crsxml2f03w1u" path="res://features/skills/shoot/shoot_solid/shoot_solid.tscn" id="4_y2cyt"]
+[ext_resource type="Script" uid="uid://bsppv81iiunqj" path="res://features/skills/skill_manager.gd" id="6_y2cyt"]
+[ext_resource type="Resource" uid="uid://dqopbcpjavjob" path="res://features/skills/resources/main_skill_registry.tres" id="7_7mbft"]
 
 [sub_resource type="SGCircleShape2D" id="SGCircleShape2D_ao3hl"]
 radius = 3276800
 
-[node name="Player" type="SGCharacterBody2D" unique_id=2004616098 node_paths=PackedStringArray("collision_shape")]
+[node name="Player" type="SGCharacterBody2D" unique_id=2004616098 node_paths=PackedStringArray("collision_shape", "skill_manager")]
 collision_layer = 2
 script = ExtResource("1_sjcu7")
 collision_shape = NodePath("SGCollisionShape2D")
 player_stats = ExtResource("2_6xbq4")
+skill_manager = NodePath("SkillManager")
 basic_attack_scene = ExtResource("2_i250s")
 skill_scenes = Array[PackedScene]([ExtResource("3_6xbq4"), ExtResource("2_i250s"), ExtResource("4_y2cyt")])
+
+[node name="SkillManager" type="Node" parent="." unique_id=1042245462]
+script = ExtResource("6_y2cyt")
+skill_registry = ExtResource("7_7mbft")
 
 [node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="." unique_id=944140082]
 shape = SubResource("SGCircleShape2D_ao3hl")

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://btsof3lgj8nuh"]
+
+[ext_resource type="Script" uid="uid://ci283va12p2w8" path="res://features/skills/skill_data.gd" id="1_4yhx4"]
+[ext_resource type="PackedScene" uid="uid://0hy1cdpwv2d6" path="res://features/skills/sprint/sprint.tscn" id="1_fwwao"]
+
+[resource]
+script = ExtResource("1_4yhx4")
+type = 2
+scene = ExtResource("1_fwwao")
+metadata/_custom_type_script = "uid://ci283va12p2w8"

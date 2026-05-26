@@ -1,8 +1,11 @@
 extends RegistryData
 
-class_name VFXData
+class_name SkillData
 
 enum Type {
+	SHOOT_SENSOR,
+	SHOOT_SOLID,
+	SPRINT,
 	TELEKINESIS
 }
 

@@ -1,14 +1,11 @@
-extends Resource
+extends BaseRegistry
 
 class_name VFXRegistry
 
-@export var visual_effects: Array[VFXData]
+@export var registry_data: Array[VFXData]
 
-var _lookup: Dictionary[VFXData.Type, PackedScene] = {}
-
-func init() -> void:
-	for effect in visual_effects:
-		_lookup[effect.type] = effect.scene
+func _get_resources() -> Array[VFXData]:
+	return registry_data
 
 func get_scene(type: VFXData.Type) -> PackedScene:
-	return _lookup.get(type)
+	return _get_generic_scene(type)
