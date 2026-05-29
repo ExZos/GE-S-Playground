@@ -27,10 +27,11 @@ var fp_speed_mult: int = SGFixed.ONE:
 var _fp_speed: int
 
 # Misc - used by other nodes
-var source_scene: PackedScene = null # Key for determining which pool it belongs to
+var type: ProjectileData.Type # Key for determining which pool it belongs to
 var is_deactivated: bool = false # Reflects current state
 
 func init(data: ProjectileData) -> void:
+	type = data.type
 	fp_base_speed = SGFixed.from_int(data.speed)
 
 func advance_frame() -> void:

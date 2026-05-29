@@ -7,5 +7,5 @@ class_name SkillRegistry
 func _get_resources() -> Array:
 	return skill_data
 
-func get_scene(type: SkillData.Type) -> PackedScene:
+func get_data(type: SkillData.Type) -> SkillData:
 	return _lookup.get(type)

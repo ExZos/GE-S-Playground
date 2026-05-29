@@ -78,5 +78,11 @@ func advance_frame(input_mask: int) -> void:
 	
 	move_and_slide()
 
+func get_basic_attack() -> Skill:
+	return skill_manager._basic_attack
+
+func get_skills() -> Array[Skill]:
+	return skill_manager._skills
+
 func _compute_speed() -> void:
 	_fp_speed = SGFixed.mul(fp_base_speed, fp_speed_mult)

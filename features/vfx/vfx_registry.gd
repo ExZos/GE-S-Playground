@@ -7,5 +7,5 @@ class_name VFXRegistry
 func _get_resources() -> Array[VFXData]:
 	return registry_data
 
-func get_scene(type: VFXData.Type) -> PackedScene:
-	return _get_generic_scene(type)
+func get_data(type: VFXData.Type) -> RegistryData:
+	return _get_generic_data(type)

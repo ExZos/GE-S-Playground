@@ -16,9 +16,9 @@ func init(source: SGFixedNode2D, basic_attack_type: SkillData.Type, skill_types:
 	
 	# Initialize basic attack
 	if basic_attack_type != null:
-		var scene: PackedScene = skill_registry.get_scene(basic_attack_type)
-		if scene:
-			_basic_attack = scene.instantiate()
+		var skill_data: SkillData = skill_registry.get_data(basic_attack_type)
+		if skill_data:
+			_basic_attack = skill_data.scene.instantiate()
 			
 			_basic_attack.source = source
 			_basic_attack.key_bit = InputConstants.BitGroup.ATK
@@ -29,12 +29,12 @@ func init(source: SGFixedNode2D, basic_attack_type: SkillData.Type, skill_types:
 	
 	# Initialize skills
 	for i in range(skill_types.size()):
-		var scene: PackedScene = skill_registry.get_scene(skill_types[i])
-		if not scene:
+		var skill_data: SkillData = skill_registry.get_data(skill_types[i])
+		if not skill_data:
 			push_warning("SkillManager: Skill type '%s' not recognized" % skill_types[i])
 			continue
 		
-		var skill: Skill = scene.instantiate()
+		var skill: Skill = skill_data.scene.instantiate()
 		
 		skill.source = source
 		skill.key_bit = InputConstants.BitList.SKILLS[i]
