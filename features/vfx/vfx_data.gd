@@ -3,6 +3,7 @@ extends RegistryData
 class_name VFXData
 
 enum Type {
+	NONE,
 	TELEKINESIS
 }
 

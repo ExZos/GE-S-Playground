@@ -15,6 +15,10 @@ run/main_scene="uid://bma1wwsbpu2ns"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://assets/icon.svg"
 
+[autoload]
+
+RegistryManager="*uid://djs6um4xaklck"
+
 [input]
 
 move_up={

@@ -2,8 +2,6 @@ extends Node
 
 class_name ProjectileManager
 
-@export var projectile_registry: ProjectileRegistry
-
 # Solid projectile pools
 var _solid_inactive: Dictionary[ProjectileData.Type, Array] = {}
 var _solid_active: Array[SolidProjectile] = []
@@ -17,10 +15,8 @@ func advance_frame() -> void:
 	_process_pool(_sensor_inactive, _sensor_active)
 
 func init(projectile_types: Array[ProjectileData.Type]) -> void:
-	projectile_registry.init()
-	
 	for type: ProjectileData.Type in projectile_types:
-		var projectile_data: ProjectileData = projectile_registry.get_data(type)
+		var projectile_data: ProjectileData = RegistryManager.get_projectile_data(type)
 		if not projectile_data:
 			push_warning("ProjectileManager: Projectile type '%s' not recognized" % type)
 			continue
@@ -57,7 +53,7 @@ func handle_requests(requests: Array[ProjectileRequest]) -> void:
 		var inactive_pool: Array
 		var active_pool: Array
 		
-		var projectile_data: ProjectileData = projectile_registry.get_data(req.type)
+		var projectile_data: ProjectileData = RegistryManager.get_projectile_data(req.type)
 		if not projectile_data:
 			push_warning("ProjectileManager: Projectile type '%s' not recognized" % req.type)
 			continue

@@ -4,7 +4,7 @@
 
 [node name="ShootSolid" type="SGFixedNode2D" unique_id=1717010018]
 script = ExtResource("1_kjxku")
-projectile_type = 1
+projectile_type = 2
 cooldown = 10
 recovery = 5
 max_charges = 5

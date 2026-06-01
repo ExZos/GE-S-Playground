@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("1_jhtr8")
-base = 1
+type = 1
+base = 2
 pool_size = 10
 speed = 5
 scene = ExtResource("1_qdryc")

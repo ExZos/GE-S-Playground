@@ -5,6 +5,8 @@ extends Node
 @export var projectile_manager: ProjectileManager
 
 func _ready() -> void:
+	RegistryManager.init()
+	
 	player.init()
 	
 	# Used to store data for pool initialization
@@ -38,17 +40,3 @@ func _physics_process(_delta: float) -> void:
 		player._projectile_modifiers.clear()
 	
 	projectile_manager.advance_frame()
-
-# Get the projectile's init-relevant data and add it to the map
-#func _map_projectile_init_data(data_map: Dictionary[ProjectileData.Type, ProjectileManager.PoolInitData], projectile_type: ProjectileData.Type) -> void:
-	#var projectile_data: ProjectileData = projectile_registry.get_data()
-	#
-	#if data_map.has(projectile_type):
-		#data_map[projectile_type].total_size += projectile_data.pool_size
-	#else:
-		#var pool_data: ProjectileManager.PoolInitData = ProjectileManager.PoolInitData.new()
-		#
-		#pool_data.data = projectile_data
-		#pool_data.total_size = projectile_data.pool_size
-		#
-		#data_map[projectile_data.scene] = pool_data

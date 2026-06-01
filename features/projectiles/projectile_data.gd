@@ -4,11 +4,12 @@ extends RegistryData
 class_name ProjectileData
 
 enum Type {
+	NONE,
 	SENSOR,
 	SOLID
 }
 
-enum Base { SOLID, SENSOR, UNKNOWN }
+enum Base { NONE, SOLID, SENSOR }
 
 @export_group("Core")
 @export var type: Type:
@@ -35,7 +36,7 @@ func _validate_property(property: Dictionary):
 
 # Set base according to scene's root node type, the key characteristic of each projectile type
 func _update_base() -> void:
-	base = Base.UNKNOWN
+	base = Base.NONE
 	
 	if scene == null:
 		notify_property_list_changed()
@@ -46,7 +47,7 @@ func _update_base() -> void:
 		notify_property_list_changed()
 		push_error("ProjectileData: Scene state is null")
 		return
-		
+	
 	var root_type: StringName = state.get_node_type(0)
 	match root_type:
 		&"SGCharacterBody2D": base = Base.SOLID

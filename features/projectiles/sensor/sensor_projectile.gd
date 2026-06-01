@@ -24,7 +24,7 @@ var fp_speed_mult: int = SGFixed.ONE:
 var _fp_speed: int
 
 # Misc - used by other nodes
-var type: ProjectileData.Type # Key for determining which pool it belongs to
+var type: ProjectileData.Type = ProjectileData.Type.SENSOR # Key for determining which pool it belongs to
 var is_deactivated: bool = false # Reflects current state
 
 func init(data: ProjectileData) -> void:

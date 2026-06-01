@@ -2,8 +2,6 @@ extends Node
 
 class_name SkillManager
 
-@export var skill_registry: SkillRegistry
-
 var _source: SGFixedNode2D
 
 var _basic_attack: Skill
@@ -12,11 +10,9 @@ var _skills: Array[Skill] = []
 func init(source: SGFixedNode2D, basic_attack_type: SkillData.Type, skill_types: Array[SkillData.Type]) -> void:
 	_source = source
 	
-	skill_registry.init()
-	
 	# Initialize basic attack
 	if basic_attack_type != null:
-		var skill_data: SkillData = skill_registry.get_data(basic_attack_type)
+		var skill_data: SkillData = RegistryManager.get_skill_data(basic_attack_type)
 		if skill_data:
 			_basic_attack = skill_data.scene.instantiate()
 			
@@ -29,7 +25,7 @@ func init(source: SGFixedNode2D, basic_attack_type: SkillData.Type, skill_types:
 	
 	# Initialize skills
 	for i in range(skill_types.size()):
-		var skill_data: SkillData = skill_registry.get_data(skill_types[i])
+		var skill_data: SkillData = RegistryManager.get_skill_data(skill_types[i])
 		if not skill_data:
 			push_warning("SkillManager: Skill type '%s' not recognized" % skill_types[i])
 			continue

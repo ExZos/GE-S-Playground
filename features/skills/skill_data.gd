@@ -3,6 +3,7 @@ extends RegistryData
 class_name SkillData
 
 enum Type {
+	NONE,
 	SHOOT_SENSOR,
 	SHOOT_SOLID,
 	SPRINT,
