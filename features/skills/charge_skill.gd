@@ -28,26 +28,26 @@ func _ready() -> void:
 	_fp_cooldown = SGFixed.from_int(cooldown)
 	_fp_recovery = SGFixed.from_int(recovery)
 
-func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask: int, dir: Vector2i) -> void:
+func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask: int, mov_dir: Vector2i, aim_dir: Vector2i) -> void:
 	if state == State.COOLDOWN:
 		return
 	
 	if state == State.CHARGING:
 		# Key not pressed, check if fully charged
 		if not (input_mask & key_bit):
-			if fp_charge_ticks >= _fp_charge_time and _can_activate(dir): # Full charged, activate
-				_on_activate(dir)
+			if fp_charge_ticks >= _fp_charge_time and _can_activate(mov_dir, aim_dir): # Full charged, activate
+				_on_activate(mov_dir, aim_dir)
 				fp_cd_ticks += _fp_cooldown
 				state = State.COOLDOWN
 			else: 
-				_on_charging_cancelled(dir)
+				_on_charging_cancelled(mov_dir, aim_dir)
 				state = State.IDLE
 			
 			fp_charge_ticks = 0
 	else:
 		# Key pressed, start charging
 		if input_mask & key_bit:
-			_on_charging_start(dir)
+			_on_charging_start(mov_dir, aim_dir)
 			state = State.CHARGING
 
 func process_tickers() -> void:
@@ -61,7 +61,7 @@ func process_tickers() -> void:
 	elif state == State.CHARGING and fp_charge_ticks < _fp_charge_time:
 		fp_charge_ticks += SGFixed.ONE
 
-func _can_activate(_dir: Vector2i) -> bool: return true
-func _on_activate(_dir: Vector2i) -> void: pass
-func _on_charging_start(_dir: Vector2i) -> void: pass
-func _on_charging_cancelled(_dir: Vector2i) -> void: pass
+func _can_activate(_mov_dir: Vector2i, _aim_dir: Vector2i) -> bool: return true
+func _on_activate(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void: pass
+func _on_charging_start(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void: pass
+func _on_charging_cancelled(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void: pass

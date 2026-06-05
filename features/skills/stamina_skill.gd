@@ -35,24 +35,24 @@ func _ready() -> void:
 	
 	fp_stamina = _fp_max_stamina
 
-func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask: int, dir: Vector2i) -> void:
+func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask: int, mov_dir: Vector2i, aim_dir: Vector2i) -> void:
 	if state == State.EXHAUSTED: # Exhausted, prevent activation
 		return
 	
 	if state == State.ACTIVE:
 		# Key not pressed, deactivate
 		if not (input_mask & key_bit):
-			_on_deactivate(dir)
+			_on_deactivate(mov_dir, aim_dir)
 			state = State.IDLE
 		# Stamina depleted, set exhausted state
 		elif fp_stamina <= 0:
-			_on_exhausted(dir)
+			_on_exhausted(mov_dir, aim_dir)
 			fp_stamina = 0
 			state = State.EXHAUSTED
 	else:
 		# Key pressed, activate
 		if input_mask & key_bit:
-			_on_activate(dir)
+			_on_activate(mov_dir, aim_dir)
 			state = State.ACTIVE
 
 func process_tickers() -> void:
@@ -68,7 +68,7 @@ func process_tickers() -> void:
 		
 		fp_stamina = _fp_max_stamina
 
-func _on_activate(_dir: Vector2i) -> void: pass
-func _on_deactivate(_dir: Vector2i) -> void: pass
-func _on_exhausted(_dir: Vector2i) -> void: pass
+func _on_activate(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void: pass
+func _on_deactivate(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void: pass
+func _on_exhausted(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void: pass
 func _on_exhausted_recovery() -> void: pass

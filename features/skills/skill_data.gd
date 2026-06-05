@@ -4,6 +4,7 @@ class_name SkillData
 
 enum Type {
 	NONE,
+	DASH,
 	SHOOT_SENSOR,
 	SHOOT_SOLID,
 	SPRINT,

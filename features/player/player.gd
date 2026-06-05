@@ -32,10 +32,16 @@ var _fp_half_width: int:
 	get:
 		return collision_shape.shape.radius
 
+# 
+var mov_dir: Vector2i = Vector2i.ZERO
+
 # Input masks
 var _just_pressed_mask: int = 0
 var _just_released_mask: int = 0
 var _prev_input_mask: int = 0
+
+# 
+var _player_modifiers: Array[PlayerModifier] = []
 
 # 
 var _projectile_requests: Array[ProjectileRequest] = []
@@ -60,21 +66,27 @@ func advance_frame(input_mask: int) -> void:
 		fp_recovery_ticks -= SGFixed.ONE
 		return
 	
+	# Handle movement inputs
+	if input_mask & InputConstants.Bit.MOVE_LEFT: mov_dir.x = -1
+	elif input_mask & InputConstants.Bit.MOVE_RIGHT: mov_dir.x = 1
+	else: mov_dir.x = 0
+	
+	if input_mask & InputConstants.Bit.MOVE_UP: mov_dir.y = -1
+	elif input_mask & InputConstants.Bit.MOVE_DOWN: mov_dir.y = 1
+	else: mov_dir.y = 0
+	
 	# Skill activations
-	skill_manager.advance_frame(input_mask, _just_pressed_mask, _just_released_mask)
+	skill_manager.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, mov_dir)
+	
+	# Process modifiers
+	fp_speed_mult = SGFixed.ONE
+	for i in range(_player_modifiers.size() - 1, -1, -1):
+		if not _player_modifiers[i].apply_and_check():
+			_player_modifiers.remove_at(i)
 	
 	# Movement
-	var x_input: int = 0
-	var y_input: int = 0
-	
-	if input_mask & InputConstants.Bit.MOVE_LEFT: x_input = -1
-	elif input_mask & InputConstants.Bit.MOVE_RIGHT: x_input = 1
-	
-	if input_mask & InputConstants.Bit.MOVE_UP: y_input = -1
-	elif input_mask & InputConstants.Bit.MOVE_DOWN: y_input = 1
-	
-	velocity.x = x_input * _fp_speed
-	velocity.y = y_input * _fp_speed
+	velocity.x = mov_dir.x * _fp_speed
+	velocity.y = mov_dir.y * _fp_speed
 	
 	move_and_slide()
 

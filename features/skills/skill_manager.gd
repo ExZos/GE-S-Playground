@@ -38,7 +38,7 @@ func init(source: SGFixedNode2D, basic_attack_type: SkillData.Type, skill_types:
 		add_child(skill)
 		_skills.append(skill)
 
-func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask: int) -> void:
+func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask: int, _mov_dir: Vector2i) -> void:
 	# Determine skill direction using held attack direction or movement direction otherwise
 	var skill_dir: Vector2i = Vector2i.ZERO
 	if input_mask & InputConstants.Bit.ATK_UP: skill_dir = Vector2i.UP
@@ -52,7 +52,7 @@ func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask
 	
 	# Skill activation
 	for skill: Skill in _skills:
-		skill.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, skill_dir)
+		skill.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, _mov_dir, skill_dir)
 	
 	# Determine attack direction
 	var atk_dir: Vector2i = Vector2i.ZERO
@@ -63,7 +63,7 @@ func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask
 	
 	# Basic attack
 	if _basic_attack != null:
-		_basic_attack.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, atk_dir)
+		_basic_attack.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, _mov_dir, atk_dir)
 
 func process_tickers() -> void:
 	_basic_attack.process_tickers()

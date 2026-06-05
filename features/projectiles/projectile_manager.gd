@@ -88,8 +88,8 @@ func handle_requests(requests: Array[ProjectileRequest]) -> void:
 
 func handle_modifiers(modifiers: Array[ProjectileModifier]) -> void:
 	for mod in modifiers:
-		mod.apply_modification(_solid_active)
-		mod.apply_modification(_sensor_active)
+		mod.apply(_solid_active)
+		mod.apply(_sensor_active)
 		
 		mod.check_applied()
 

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cv6rwm858yp62"]
+
+[ext_resource type="Script" uid="uid://bk38cvvk0cab7" path="res://features/skills/dash/dash.gd" id="1_o5pv8"]
+
+[node name="Dash" type="SGFixedNode2D" unique_id=1699756301]
+script = ExtResource("1_o5pv8")
+cooldown = 120
+recovery = 30
+duration = 60
+metadata/_custom_type_script = "uid://bk38cvvk0cab7"

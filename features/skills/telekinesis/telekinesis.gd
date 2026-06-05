@@ -3,18 +3,11 @@ extends ChargeSkill
 class_name TelekinesisSkill
 
 class VelocityModifier extends ProjectileModifier:
-	var source: SGFixedNode2D
-	var skill: TelekinesisSkill
-	var dir: Vector2i
+	var dir: Vector2i = Vector2i.ZERO
 	
 	var applied: bool = false
 	
-	func _init(_source: SGFixedNode2D, _skill: TelekinesisSkill, _dir: Vector2i) -> void:
-		source = _source
-		skill = _skill
-		dir = _dir
-	
-	func apply_modification(projectiles: Array) -> void:
+	func apply(projectiles: Array) -> void:
 		applied = false
 		var neutral_dir: bool = dir == Vector2i.ZERO
 		
@@ -36,14 +29,22 @@ class VelocityModifier extends ProjectileModifier:
 		if not applied:
 			skill._on_whiff()
 
-func _on_activate(dir: Vector2i) -> void:
+var _velocity_modifier: VelocityModifier
+
+func _ready() -> void:
+	super()
+	
+	_velocity_modifier = VelocityModifier.new(
+		source,
+		self
+	)
+
+func _on_activate(_mov_dir: Vector2i, aim_dir: Vector2i) -> void:
 	print("ACTIVATE")
 	
-	source._projectile_modifiers.append(VelocityModifier.new(
-		source,
-		self,
-		dir
-	))
+	_velocity_modifier.dir = aim_dir
+	
+	source._projectile_modifiers.append(_velocity_modifier)
 	
 func _on_whiff() -> void:
 	print("WHIFF")

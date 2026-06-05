@@ -64,8 +64,8 @@ shape = SubResource("SGCapsuleShape2D_ig7tw")
 
 [node name="Player" parent="." unique_id=2004616098 instance=ExtResource("4_4c57u")]
 floor_max_angle = 51472
-basic_attack_type = 1
-skill_types = Array[int]([3, 4, 2])
+basic_attack_type = 2
+skill_types = Array[int]([4, 5, 3])
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=594209437]
 zoom = Vector2(0.5, 0.5)

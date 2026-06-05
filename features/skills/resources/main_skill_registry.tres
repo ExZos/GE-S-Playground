@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b57hqsebqv7yx" path="res://features/skills/skill_registry.gd" id="1_uujda"]
 [ext_resource type="Script" uid="uid://ci283va12p2w8" path="res://features/skills/skill_data.gd" id="2_bmc25"]
+[ext_resource type="Resource" uid="uid://banajgy0d3axf" path="res://features/skills/dash/dash.tres" id="3_3nl8h"]
 [ext_resource type="Resource" uid="uid://ip7qfp2f0231" path="res://features/skills/shoot/shoot_sensor/shoot_sensor.tres" id="3_iipfp"]
 [ext_resource type="Resource" uid="uid://bc1sw0hfq3kx3" path="res://features/skills/shoot/shoot_solid/shoot_solid.tres" id="4_3nl8h"]
 [ext_resource type="Resource" uid="uid://btsof3lgj8nuh" path="res://features/skills/sprint/sprint.tres" id="5_1kwqn"]
@@ -9,5 +10,5 @@
 
 [resource]
 script = ExtResource("1_uujda")
-skill_data = Array[ExtResource("2_bmc25")]([ExtResource("3_iipfp"), ExtResource("4_3nl8h"), ExtResource("5_1kwqn"), ExtResource("6_ok8jp")])
+skill_data = Array[ExtResource("2_bmc25")]([ExtResource("3_3nl8h"), ExtResource("3_iipfp"), ExtResource("4_3nl8h"), ExtResource("5_1kwqn"), ExtResource("6_ok8jp")])
 metadata/_custom_type_script = "uid://b57hqsebqv7yx"
