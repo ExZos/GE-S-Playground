@@ -2,10 +2,22 @@ extends StaminaSkill
 
 class_name SprintSkill
 
+@export var speed_mult_add: int = 0
+
+var _fp_speed_mult_add: int
+
 class SprintModifier extends PlayerModifier:
-	func apply_and_check() -> bool:
-		source.fp_speed_mult += SGFixed.ONE
+	var fp_speed_mult_add: int = 0
+	
+	func _init(_source: SGFixedNode2D, _fp_duration: int, _fp_speed_mult_add: int) -> void:
+		super(_source, _fp_duration)
 		
+		fp_speed_mult_add = _fp_speed_mult_add
+	
+	func apply() -> void:
+		source.fp_speed_mult += fp_speed_mult_add
+	
+	func tick_and_check() -> bool:
 		return true
 
 var _sprint_modifier: SprintModifier
@@ -13,20 +25,23 @@ var _sprint_modifier: SprintModifier
 func _ready() -> void:
 	super()
 	
+	_fp_speed_mult_add = SGFixed.from_int(speed_mult_add)
+	
 	_sprint_modifier = SprintModifier.new(
 		source,
-		1
+		1,
+		_fp_speed_mult_add
 	)
 
 func _on_activate(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
-	source._player_modifiers.append(_sprint_modifier)
+	source.add_modifier(_sprint_modifier)
 
 func _on_deactivate(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
-	source._player_modifiers.erase(_sprint_modifier)
+	source.remove_modifier(_sprint_modifier)
 
 func _on_exhausted(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
-	source._player_modifiers.erase(_sprint_modifier)
-	fp_recov_speed_mod += SGFixed.ONE
+	source.remove_modifier(_sprint_modifier)
+	fp_recov_speed_mod += SGFixed.ONE # TODO: add this as a modifier instead
 
 func _on_exhausted_recovery() -> void:
 	fp_recov_speed_mod -= SGFixed.ONE

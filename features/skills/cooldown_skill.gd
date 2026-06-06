@@ -10,7 +10,6 @@ var _fp_cooldown: int
 @export var recovery: int
 var _fp_recovery: int
 
-# TODO: here, figure out how this works with charges
 @export var duration: int
 var _fp_duration: int
 
@@ -19,7 +18,6 @@ var _fp_duration: int
 
 var cooling_down: bool = false
 var fp_cd_ticks: int = 0
-var fp_duration_ticks: int = 0
 var charges: int:
 	set(value):
 		if charges != value:

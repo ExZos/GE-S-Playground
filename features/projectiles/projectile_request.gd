@@ -5,13 +5,15 @@ class_name ProjectileRequest
 var source: Node2D
 var type: ProjectileData.Type
 
-var fp_pos_x: int
-var fp_pos_y: int
-var dir: Vector2i
+var fp_pos_x: int = 0
+var fp_pos_y: int = 0
+var dir: Vector2i = Vector2i.ZERO
 
-func _init(_source: Node2D, _type: ProjectileData.Type, _fp_pos_x: int, _fp_pos_y: int, _dir: Vector2i):
+func _init(_source: Node2D, _type: ProjectileData.Type) -> void:
 	source = _source
 	type = _type
+
+func set_trajectory(_fp_pos_x: int, _fp_pos_y: int, _dir: Vector2i) -> void:
 	fp_pos_x = _fp_pos_x
 	fp_pos_y = _fp_pos_y
 	dir = _dir.sign()

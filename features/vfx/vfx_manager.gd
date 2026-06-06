@@ -4,9 +4,9 @@ extends Node
 @export var projectile_manager: ProjectileManager
 
 func _process(_delta: float) -> void:
-	if not player._vfx_events.is_empty():
-		_handle_events(player._vfx_events)
-		player._vfx_events.clear()
+	if not player.vfx_events.is_empty():
+		_handle_events(player.vfx_events)
+		player.vfx_events.clear()
 
 func _handle_events(vfx_events: Array[VFXEvent]):
 	for event in vfx_events:

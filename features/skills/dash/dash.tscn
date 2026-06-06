@@ -4,7 +4,7 @@
 
 [node name="Dash" type="SGFixedNode2D" unique_id=1699756301]
 script = ExtResource("1_o5pv8")
+speed_mult_add = 2
 cooldown = 120
-recovery = 30
-duration = 60
+duration = 7
 metadata/_custom_type_script = "uid://bk38cvvk0cab7"

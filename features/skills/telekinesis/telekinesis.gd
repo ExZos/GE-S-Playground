@@ -2,10 +2,20 @@ extends ChargeSkill
 
 class_name TelekinesisSkill
 
+@export var speed_mult_add: int = 0
+
+var _fp_speed_mult_add: int
+
 class VelocityModifier extends ProjectileModifier:
+	var fp_speed_mult_add: int = 0
 	var dir: Vector2i = Vector2i.ZERO
 	
 	var applied: bool = false
+	
+	func _init(_source: SGFixedNode2D, _skill: Skill, _fp_speed_mult_add: int) -> void:
+		super(_source, _skill)
+		
+		fp_speed_mult_add = _fp_speed_mult_add
 	
 	func apply(projectiles: Array) -> void:
 		applied = false
@@ -15,12 +25,12 @@ class VelocityModifier extends ProjectileModifier:
 			if not source == proj.source:
 				continue
 			
-			proj.fp_speed_mult += SGFixed.ONE
+			proj.fp_speed_mult += fp_speed_mult_add
 			if not neutral_dir:
 				proj.dir = dir
 			
 			applied = true
-			source._vfx_events.append(VFXEvent.new(
+			source.vfx_events.append(VFXEvent.new(
 				VFXData.Type.TELEKINESIS,
 				proj.position
 			))
@@ -34,9 +44,12 @@ var _velocity_modifier: VelocityModifier
 func _ready() -> void:
 	super()
 	
+	_fp_speed_mult_add = SGFixed.from_int(speed_mult_add)
+	
 	_velocity_modifier = VelocityModifier.new(
 		source,
-		self
+		self,
+		_fp_speed_mult_add
 	)
 
 func _on_activate(_mov_dir: Vector2i, aim_dir: Vector2i) -> void:
@@ -44,7 +57,7 @@ func _on_activate(_mov_dir: Vector2i, aim_dir: Vector2i) -> void:
 	
 	_velocity_modifier.dir = aim_dir
 	
-	source._projectile_modifiers.append(_velocity_modifier)
+	source.projectile_modifiers.append(_velocity_modifier)
 	
 func _on_whiff() -> void:
 	print("WHIFF")

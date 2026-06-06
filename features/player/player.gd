@@ -34,6 +34,7 @@ var _fp_half_width: int:
 
 # 
 var mov_dir: Vector2i = Vector2i.ZERO
+var forced_mov_dir: Vector2i = Vector2i.ZERO
 
 # Input masks
 var _just_pressed_mask: int = 0
@@ -42,11 +43,12 @@ var _prev_input_mask: int = 0
 
 # 
 var _player_modifiers: Array[PlayerModifier] = []
+var player_modifiers_is_dirty: bool = false
 
 # 
-var _projectile_requests: Array[ProjectileRequest] = []
-var _projectile_modifiers: Array[ProjectileModifier] = []
-var _vfx_events: Array[VFXEvent] = []
+var projectile_requests: Array[ProjectileRequest] = []
+var projectile_modifiers: Array[ProjectileModifier] = []
+var vfx_events: Array[VFXEvent] = []
 
 func init() -> void:
 	fp_base_speed = SGFixed.from_int(player_stats.base_speed)
@@ -61,6 +63,10 @@ func advance_frame(input_mask: int) -> void:
 	
 	# Process tickers
 	skill_manager.process_tickers()
+	
+	for i in range(_player_modifiers.size() - 1, -1, -1):
+		if not _player_modifiers[i].tick_and_check():
+			remove_modifier_at(i)
 	
 	if fp_recovery_ticks > 0:
 		fp_recovery_ticks -= SGFixed.ONE
@@ -78,15 +84,23 @@ func advance_frame(input_mask: int) -> void:
 	# Skill activations
 	skill_manager.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, mov_dir)
 	
-	# Process modifiers
-	fp_speed_mult = SGFixed.ONE
-	for i in range(_player_modifiers.size() - 1, -1, -1):
-		if not _player_modifiers[i].apply_and_check():
-			_player_modifiers.remove_at(i)
+	# Apply modifiers
+	if player_modifiers_is_dirty:
+		# Reset stats
+		fp_speed_mult = SGFixed.ONE
+		forced_mov_dir = Vector2i.ZERO
+		
+		for mod in _player_modifiers:
+			mod.apply()
+		
+		player_modifiers_is_dirty = false
 	
 	# Movement
-	velocity.x = mov_dir.x * _fp_speed
-	velocity.y = mov_dir.y * _fp_speed
+	var effective_mov_dir: Vector2i = mov_dir
+	if forced_mov_dir != Vector2i.ZERO: effective_mov_dir = forced_mov_dir
+	
+	velocity.x = effective_mov_dir.x * _fp_speed
+	velocity.y = effective_mov_dir.y * _fp_speed
 	
 	move_and_slide()
 
@@ -95,6 +109,18 @@ func get_basic_attack() -> Skill:
 
 func get_skills() -> Array[Skill]:
 	return skill_manager._skills
+
+func add_modifier(modifier: PlayerModifier) -> void:
+	_player_modifiers.append(modifier)
+	player_modifiers_is_dirty = true
+
+func remove_modifier_at(index: int) -> void:
+	_player_modifiers.remove_at(index)
+	player_modifiers_is_dirty = true
+
+func remove_modifier(modifier: PlayerModifier) -> void:
+	_player_modifiers.erase(modifier)
+	player_modifiers_is_dirty = true
 
 func _compute_speed() -> void:
 	_fp_speed = SGFixed.mul(fp_base_speed, fp_speed_mult)
