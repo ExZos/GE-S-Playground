@@ -6,6 +6,32 @@ class_name TelekinesisSkill
 
 var _fp_speed_mult_add: int
 
+var _velocity_modifier: VelocityModifier
+
+func _ready() -> void:
+	super()
+	
+	_fp_speed_mult_add = SGFixed.from_int(speed_mult_add)
+	
+	_velocity_modifier = VelocityModifier.new(
+		source,
+		self,
+		_fp_speed_mult_add
+	)
+
+func _on_activate(_mov_dir: Vector2i, aim_dir: Vector2i) -> void:
+	print("ACTIVATE")
+	
+	_velocity_modifier.dir = aim_dir
+	
+	source.projectile_modifiers.append(_velocity_modifier)
+	
+func _on_whiff() -> void:
+	print("WHIFF")
+	
+	fp_cd_ticks = 0
+	state = State.IDLE
+
 class VelocityModifier extends ProjectileModifier:
 	var fp_speed_mult_add: int = 0
 	var dir: Vector2i = Vector2i.ZERO
@@ -38,29 +64,3 @@ class VelocityModifier extends ProjectileModifier:
 	func check_applied() -> void:
 		if not applied:
 			skill._on_whiff()
-
-var _velocity_modifier: VelocityModifier
-
-func _ready() -> void:
-	super()
-	
-	_fp_speed_mult_add = SGFixed.from_int(speed_mult_add)
-	
-	_velocity_modifier = VelocityModifier.new(
-		source,
-		self,
-		_fp_speed_mult_add
-	)
-
-func _on_activate(_mov_dir: Vector2i, aim_dir: Vector2i) -> void:
-	print("ACTIVATE")
-	
-	_velocity_modifier.dir = aim_dir
-	
-	source.projectile_modifiers.append(_velocity_modifier)
-	
-func _on_whiff() -> void:
-	print("WHIFF")
-	
-	fp_cd_ticks = 0
-	state = State.IDLE

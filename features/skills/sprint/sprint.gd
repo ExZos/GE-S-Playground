@@ -6,20 +6,6 @@ class_name SprintSkill
 
 var _fp_speed_mult_add: int
 
-class SprintModifier extends PlayerModifier:
-	var fp_speed_mult_add: int = 0
-	
-	func _init(_source: SGFixedNode2D, _fp_duration: int, _fp_speed_mult_add: int) -> void:
-		super(_source, _fp_duration)
-		
-		fp_speed_mult_add = _fp_speed_mult_add
-	
-	func apply() -> void:
-		source.fp_speed_mult += fp_speed_mult_add
-	
-	func tick_and_check() -> bool:
-		return true
-
 var _sprint_modifier: SprintModifier
 
 func _ready() -> void:
@@ -29,7 +15,6 @@ func _ready() -> void:
 	
 	_sprint_modifier = SprintModifier.new(
 		source,
-		1,
 		_fp_speed_mult_add
 	)
 
@@ -45,3 +30,18 @@ func _on_exhausted(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
 
 func _on_exhausted_recovery() -> void:
 	fp_recov_speed_mod -= SGFixed.ONE
+
+class SprintModifier extends PlayerModifier:
+	var fp_speed_mult_add: int = 0
+	
+	func _init(_source: SGFixedNode2D, _fp_speed_mult_add: int) -> void:
+		super(_source, 0)
+		
+		fp_speed_mult_add = _fp_speed_mult_add
+	
+	func apply() -> void:
+		source.fp_speed_mult += fp_speed_mult_add
+	
+	# Keep modifier from being removed
+	func tick_and_check() -> bool:
+		return true

@@ -75,7 +75,7 @@ func handle_requests(requests: Array[ProjectileRequest]) -> void:
 			projectile = inactive_pool.pop_back()
 			projectile.activate(req.source, req.fp_pos_x, req.fp_pos_y, req.dir)
 		else:
-			print("No projectile type '%s' available, creating one. Active projectiles: %d" % [req.type, active_pool.size()])
+			push_warning("No projectile type '%s' available, creating one. Active projectiles: %d" % [req.type, active_pool.size()])
 			
 			projectile = projectile_data.scene.instantiate()
 			

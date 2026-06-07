@@ -10,16 +10,10 @@ class_name Player
 @export var skill_types: Array[SkillData.Type]
 
 # Stats
-var fp_base_speed: int:
-	set(value):
-		fp_base_speed = value
-		_compute_speed()
+var fp_base_speed: int
 
 # Stat modifiers
-var fp_speed_mult: int = SGFixed.ONE:
-	set(value):
-		fp_speed_mult = value
-		_compute_speed()
+var fp_speed_mult: int = SGFixed.ONE
 
 # Computed stats
 var _fp_speed: int
@@ -32,7 +26,7 @@ var _fp_half_width: int:
 	get:
 		return collision_shape.shape.radius
 
-# 
+# Movement
 var mov_dir: Vector2i = Vector2i.ZERO
 var forced_mov_dir: Vector2i = Vector2i.ZERO
 
@@ -52,7 +46,7 @@ var vfx_events: Array[VFXEvent] = []
 
 func init() -> void:
 	fp_base_speed = SGFixed.from_int(player_stats.base_speed)
-	fp_speed_mult = fp_speed_mult
+	_compute_speed()
 	
 	skill_manager.init(self, basic_attack_type, skill_types)
 
@@ -93,6 +87,7 @@ func advance_frame(input_mask: int) -> void:
 		for mod in _player_modifiers:
 			mod.apply()
 		
+		_compute_speed()
 		player_modifiers_is_dirty = false
 	
 	# Movement
@@ -104,12 +99,14 @@ func advance_frame(input_mask: int) -> void:
 	
 	move_and_slide()
 
+# --- Skill manager getters ---
 func get_basic_attack() -> Skill:
 	return skill_manager._basic_attack
 
 func get_skills() -> Array[Skill]:
 	return skill_manager._skills
 
+# --- Player modifier wrappers ---
 func add_modifier(modifier: PlayerModifier) -> void:
 	_player_modifiers.append(modifier)
 	player_modifiers_is_dirty = true
@@ -122,5 +119,6 @@ func remove_modifier(modifier: PlayerModifier) -> void:
 	_player_modifiers.erase(modifier)
 	player_modifiers_is_dirty = true
 
+# --- Private functions ---
 func _compute_speed() -> void:
 	_fp_speed = SGFixed.mul(fp_base_speed, fp_speed_mult)
