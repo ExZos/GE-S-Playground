@@ -3,13 +3,20 @@ extends RegistryData
 
 class_name ProjectileData
 
+# Next id: 2
 enum Type {
-	NONE,
-	SENSOR,
-	SOLID
+	NONE = -1,
+	SENSOR = 0,
+	SOLID = 1
 }
 
-enum Base { NONE, SOLID, SENSOR }
+# Core behavior determined by its root node
+# Next id: 2
+enum Base {
+	NONE = -1,
+	SENSOR = 0,
+	SOLID = 1
+}
 
 @export_group("Core")
 @export var type: Type:

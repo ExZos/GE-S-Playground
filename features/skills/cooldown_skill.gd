@@ -10,9 +10,6 @@ var _fp_cooldown: int
 @export var recovery: int
 var _fp_recovery: int
 
-@export var duration: int
-var _fp_duration: int
-
 @export var max_charges: int = 1
 @export var starting_charges: int = 1
 
@@ -27,7 +24,6 @@ var charges: int:
 func _ready() -> void:
 	_fp_cooldown = SGFixed.from_int(cooldown)
 	_fp_recovery = SGFixed.from_int(recovery)
-	_fp_duration = SGFixed.from_int(duration)
 	
 	charges = starting_charges
 

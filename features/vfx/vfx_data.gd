@@ -2,9 +2,10 @@ extends RegistryData
 
 class_name VFXData
 
+# Next id: 1
 enum Type {
-	NONE,
-	TELEKINESIS
+	NONE = -1,
+	TELEKINESIS = 0
 }
 
 @export var type: Type:
