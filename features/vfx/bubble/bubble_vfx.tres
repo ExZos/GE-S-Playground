@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="VFXData" format=3 uid="uid://dd5hyu863avce"]
+
+[ext_resource type="PackedScene" uid="uid://dcgk3cuyv2bpn" path="res://features/vfx/bubble/bubble_vfx.tscn" id="1_gybe2"]
+[ext_resource type="Script" uid="uid://byhx3104gpsiw" path="res://features/vfx/vfx_data.gd" id="2_w785t"]
+
+[resource]
+script = ExtResource("2_w785t")
+scene = ExtResource("1_gybe2")
+metadata/_custom_type_script = "uid://byhx3104gpsiw"

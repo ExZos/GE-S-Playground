@@ -55,9 +55,10 @@ class VelocityModifier extends ProjectileModifier:
 				proj.dir = dir
 			
 			applied = true
-			source.vfx_events.append(VFXEvent.new(
-				VFXData.Type.TELEKINESIS,
-				proj.position
+			source.vfx_events.append(BubbleVFXEvent.new(
+				proj.position,
+				Vector2i.ZERO,
+				0
 			))
 	
 	func check_applied() -> void:

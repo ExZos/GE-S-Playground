@@ -42,6 +42,13 @@ func _on_activate(mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
 	dash_modifier._fp_duration_ticks = _fp_duration
 	
 	source.add_modifier(dash_modifier)
+	
+	# TODO: figure out a better way to determine an appropriate speed
+	source.vfx_events.append(BubbleVFXEvent.new(
+		source.position,
+		mov_dir,
+		-500
+	))
 
 class DashModifier extends PlayerModifier:
 	var fp_speed_mult_inc: int = 0

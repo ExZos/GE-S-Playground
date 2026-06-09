@@ -16,5 +16,6 @@ func _handle_events(vfx_events: Array[VFXEvent]):
 			continue
 		
 		var vfx: CPUParticles2D = vfx_data.scene.instantiate()
-		vfx.position = event.position
+		event.apply(vfx)
+		
 		add_child(vfx)

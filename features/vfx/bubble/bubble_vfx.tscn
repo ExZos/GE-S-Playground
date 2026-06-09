@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dcgk3cuyv2bpn"]
+
+[ext_resource type="Texture2D" uid="uid://c6q4tjnfmycv7" path="res://shared/ui/textures/circle_border_white.tres" id="1_owf8g"]
+[ext_resource type="Script" uid="uid://5jyc6x3qoasv" path="res://features/vfx/one_shot_particle.gd" id="2_k3v8t"]
+
+[sub_resource type="Curve" id="Curve_1w8jk"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_1w8jk"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="BubbleVfx" type="CPUParticles2D" unique_id=1289083579]
+emitting = false
+amount = 1
+texture = ExtResource("1_owf8g")
+lifetime = 0.25
+one_shot = true
+direction = Vector2(0, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+scale_amount_curve = SubResource("Curve_1w8jk")
+color_ramp = SubResource("Gradient_1w8jk")
+script = ExtResource("2_k3v8t")
