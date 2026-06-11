@@ -2,15 +2,19 @@ extends StaminaSkill
 
 class_name SprintSkill
 
-@export var speed_mult_inc: int = 0
 var _fp_speed_mult_inc: int
 
 var _sprint_modifier: SprintModifier
+				
+func _process_feature(feature: SkillFeature) -> void:
+	match feature.get_feature_type():
+		&"speed":
+			_fp_speed_mult_inc = SGFixed.from_int(feature.speed_mult_inc)
+			
+		_: super(feature)
 
 func _ready() -> void:
 	super()
-	
-	_fp_speed_mult_inc = SGFixed.from_int(speed_mult_inc)
 	
 	_sprint_modifier = SprintModifier.new(
 		source,
@@ -25,10 +29,7 @@ func _on_deactivate(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
 
 func _on_exhausted(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
 	source.remove_modifier(_sprint_modifier)
-	fp_recov_speed_mod += SGFixed.ONE # TODO: add this as a modifier instead
-
-func _on_exhausted_recovery() -> void:
-	fp_recov_speed_mod -= SGFixed.ONE
+	super(_mov_dir, _aim_dir)
 
 class SprintModifier extends PlayerModifier:
 	var fp_speed_mult_inc: int = 0

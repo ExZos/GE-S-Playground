@@ -6,33 +6,39 @@ enum State { IDLE, ACTIVE, EXHAUSTED }
 
 signal state_changed(state: State)
 
-@export var max_stamina: int:
-	set(value):
-		max_stamina = value
-		_fp_max_stamina = SGFixed.from_int(value)
-var _fp_max_stamina: int
-
 var state: State = State.IDLE:
 	set(value):
 		if state != value:
 			state = value
 			state_changed.emit(state)
 
+# Stats
+var _fp_max_stamina: int
+var _fp_recov_speed_div_inc: int
+
 # Stat modifiers
-var fp_recov_speed_mod: int = SGFixed.TWO:
+var fp_recov_speed_div: int:
 	set(value): 
-		fp_recov_speed_mod = value
+		fp_recov_speed_div = value
 		_fp_recov_tick_speed = SGFixed.div(SGFixed.ONE, value)
 
 # Computed stats
 var fp_stamina: int
 var _fp_recov_tick_speed: int
 
+func init(data: SkillData) -> void:
+	for feature in data.features:
+		_process_feature(feature)
+
+func _process_feature(feature: SkillFeature) -> void:
+	match feature.get_feature_type():
+		&"stamina":
+			_fp_max_stamina = SGFixed.from_int(feature.max_stamina)
+			fp_recov_speed_div = SGFixed.from_int(feature.base_recov_speed_div)
+			_fp_recov_speed_div_inc = SGFixed.from_int(feature.recov_speed_div_inc)
+
 func _ready() -> void:
-	# Execute setters
-	_fp_max_stamina = _fp_max_stamina
-	fp_recov_speed_mod = fp_recov_speed_mod
-	
+	# Start with max stamina
 	fp_stamina = _fp_max_stamina
 
 func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask: int, mov_dir: Vector2i, aim_dir: Vector2i) -> void:
@@ -70,5 +76,9 @@ func process_tickers() -> void:
 
 func _on_activate(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void: pass
 func _on_deactivate(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void: pass
-func _on_exhausted(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void: pass
-func _on_exhausted_recovery() -> void: pass
+
+func _on_exhausted(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
+	fp_recov_speed_div += _fp_recov_speed_div_inc # TODO: add this as a modifier instead
+
+func _on_exhausted_recovery() -> void:
+	fp_recov_speed_div -= _fp_recov_speed_div_inc

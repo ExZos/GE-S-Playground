@@ -15,6 +15,7 @@ func init(source: SGFixedNode2D, basic_attack_type: SkillData.Type, skill_types:
 		var skill_data: SkillData = RegistryManager.get_skill_data(basic_attack_type)
 		if skill_data:
 			_basic_attack = skill_data.scene.instantiate()
+			_basic_attack.init(skill_data)
 			
 			_basic_attack.source = source
 			_basic_attack.key_bit = InputConstants.BitGroup.ATK
@@ -31,6 +32,7 @@ func init(source: SGFixedNode2D, basic_attack_type: SkillData.Type, skill_types:
 			continue
 		
 		var skill: Skill = skill_data.scene.instantiate()
+		skill.init(skill_data)
 		
 		skill.source = source
 		skill.key_bit = InputConstants.BitList.SKILLS[i]

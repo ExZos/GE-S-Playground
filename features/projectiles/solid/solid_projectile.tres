@@ -8,6 +8,6 @@ script = ExtResource("1_4sw8b")
 type = 1
 base = 1
 pool_size = 5
-speed = 10
+base_speed = 10
 scene = ExtResource("1_myj6k")
 metadata/_custom_type_script = "uid://dqk2livkncmja"

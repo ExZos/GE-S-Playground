@@ -9,10 +9,7 @@ var source: SGFixedNode2D = null
 var dir: Vector2i
 
 # Stats
-var fp_base_speed: int:
-	set(value):
-		fp_base_speed = value
-		_compute_speed()
+var fp_base_speed: int
 
 # Stat multipliers
 var fp_speed_mult: int = SGFixed.ONE:
@@ -29,7 +26,8 @@ var is_deactivated: bool = false # Reflects current state
 
 func init(data: ProjectileData) -> void:
 	type = data.type
-	fp_base_speed = SGFixed.from_int(data.speed)
+	fp_base_speed = SGFixed.from_int(data.base_speed)
+	_compute_speed()
 
 func advance_frame() -> void:
 	fixed_position_x += dir.x * _fp_speed

@@ -28,7 +28,7 @@ enum Base {
 @export_range(0, 500) var pool_size: int # TODO: automatically compute based on stats
 
 @export_group("Stats")
-@export var speed: int
+@export var base_speed: int
 
 func _set_scene(value: PackedScene) -> void:
 	scene = value
