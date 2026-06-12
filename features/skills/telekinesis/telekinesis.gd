@@ -1,17 +1,19 @@
-extends ChargeSkill
+extends ChargingSkill
 
 class_name TelekinesisSkill
 
-@export var speed_mult_inc: int = 0
 var _fp_speed_mult_inc: int
 
 var _velocity_modifier: VelocityModifier
 
+func _process_feature(feature: SkillFeature) -> void:
+	match feature.get_feature_type():
+		&"speed":
+			_fp_speed_mult_inc = SGFixed.from_int(feature.speed_mult_inc)
+		
+		_: super(feature)
+
 func _ready() -> void:
-	super()
-	
-	_fp_speed_mult_inc = SGFixed.from_int(speed_mult_inc)
-	
 	_velocity_modifier = VelocityModifier.new(
 		source,
 		self,

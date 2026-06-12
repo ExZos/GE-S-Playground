@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://ip7qfp2f0231"]
+
+[ext_resource type="Script" uid="uid://cdbo6tb5t6b2l" path="res://shared/resources/skill_feature.gd" id="1_651qg"]
+[ext_resource type="PackedScene" uid="uid://b50d7rb033ta7" path="res://features/skills/shoot/shoot.tscn" id="2_n38ya"]
+[ext_resource type="Script" uid="uid://bke8uj5v1b114" path="res://shared/resources/projectile_feature.gd" id="2_wo1v0"]
+[ext_resource type="Script" uid="uid://ccrrwiwidu2yr" path="res://shared/resources/charges_feature.gd" id="3_o0ybi"]
+[ext_resource type="Script" uid="uid://ci283va12p2w8" path="res://features/skills/skill_data.gd" id="3_wo1v0"]
+[ext_resource type="Script" uid="uid://cwfta0fhv3q5v" path="res://shared/resources/cooldown_feature.gd" id="4_o0ybi"]
+[ext_resource type="Script" uid="uid://ce5og15xxqp20" path="res://shared/resources/recovery_feature.gd" id="5_3ifmx"]
+
+[sub_resource type="Resource" id="Resource_o0ybi"]
+script = ExtResource("2_wo1v0")
+projectile_type = 0
+metadata/_custom_type_script = "uid://bke8uj5v1b114"
+
+[sub_resource type="Resource" id="Resource_3ifmx"]
+script = ExtResource("3_o0ybi")
+metadata/_custom_type_script = "uid://ccrrwiwidu2yr"
+
+[sub_resource type="Resource" id="Resource_kpjfl"]
+script = ExtResource("4_o0ybi")
+cooldown = 15
+metadata/_custom_type_script = "uid://cwfta0fhv3q5v"
+
+[sub_resource type="Resource" id="Resource_4u2eh"]
+script = ExtResource("5_3ifmx")
+recovery = 10
+metadata/_custom_type_script = "uid://ce5og15xxqp20"
+
+[resource]
+script = ExtResource("3_wo1v0")
+type = 1
+features = Array[ExtResource("1_651qg")]([SubResource("Resource_o0ybi"), SubResource("Resource_3ifmx"), SubResource("Resource_kpjfl"), SubResource("Resource_4u2eh")])
+scene = ExtResource("2_n38ya")
+metadata/_custom_type_script = "uid://ci283va12p2w8"

@@ -1,32 +1,34 @@
 extends Skill
 
-class_name ChargeSkill
+class_name ChargingSkill
 
 signal state_changed(state: State)
 
 enum State { IDLE, CHARGING, COOLDOWN }
-
-@export var charge_time: int
-var _fp_charge_time: int
-
-@export var cooldown: int
-var _fp_cooldown: int
-
-@export var recovery: int
-var _fp_recovery: int
 
 var state: State = State.IDLE:
 	set(value):
 		if state != value:
 			state = value
 			state_changed.emit(value)
+
+# Stats
+var _fp_charge_time: int
+var _fp_cooldown: int
+
+# Tickers
 var fp_cd_ticks: int = 0
 var fp_charge_ticks: int = 0
 
-func _ready() -> void:
-	_fp_charge_time = SGFixed.from_int(charge_time)
-	_fp_cooldown = SGFixed.from_int(cooldown)
-	_fp_recovery = SGFixed.from_int(recovery)
+func _process_feature(feature: SkillFeature) -> void:
+	match feature.get_feature_type():
+		&"charging":
+			_fp_charge_time = SGFixed.from_int(feature.charge_time)
+		
+		&"cooldown":
+			_fp_cooldown = SGFixed.from_int(feature.cooldown)
+		
+		_: super(feature)
 
 func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask: int, mov_dir: Vector2i, aim_dir: Vector2i) -> void:
 	if state == State.COOLDOWN:

@@ -1,13 +1,13 @@
 extends Control
 
-class_name CooldownSkillSlot
+class_name ChargesSkillSlot
 
 @export var progress_bar: TextureProgressBar
 @export var key_label: Label
 @export var cooldown_label: Label
 @export var charges_label: Label
 
-@export var skill: CooldownSkill
+@export var skill: ChargesSkill
 
 var key_text: String
 
@@ -19,7 +19,7 @@ func _ready() -> void:
 	progress_bar.value = progress_bar.max_value - skill.fp_cd_ticks
 	
 	key_label.text = key_text
-	charges_label.text = str(skill.starting_charges)
+	charges_label.text = str(skill.charges)
 	
 	skill.charges_changed.connect(_on_charges_changed)
 	if skill.max_charges <= 1:

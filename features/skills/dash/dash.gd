@@ -1,21 +1,22 @@
-extends CooldownSkill
+extends ChargesSkill
 
 class_name DashSkill
 
-@export var duration: int
+# Stats
 var _fp_duration: int
-
-@export var speed_mult_inc: int
 var _fp_speed_mult_inc: int
 
 var _dash_modifiers: Array[DashModifier]
 
+func _process_feature(feature: SkillFeature) -> void:
+	match feature.get_feature_type():
+		&"speed":
+			_fp_duration = SGFixed.from_int(feature.duration)
+			_fp_speed_mult_inc = SGFixed.from_int(feature.speed_mult_inc)
+		
+		_: super(feature)
+
 func _ready() -> void:
-	super()
-	
-	_fp_duration = SGFixed.from_int(duration)
-	_fp_speed_mult_inc = SGFixed.from_int(speed_mult_inc)
-	
 	for i in range(max_charges):
 		_dash_modifiers.append(DashModifier.new(
 			source,

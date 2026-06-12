@@ -5,6 +5,14 @@ class_name Skill
 var source: SGFixedNode2D
 var key_bit: int
 
+func init(data: SkillData) -> void:
+	for feature in data.features:
+		_process_feature(feature)
+
+func _process_feature(feature: SkillFeature) -> void:
+	match feature.get_feature_type():
+		_: push_warning("Skill: Feature type '%s' not recognized" % feature.get_feature_type())
+
 func advance_frame(_input_mask: int, _just_pressed_mask: int, _just_released_mask: int, _mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
 	pass
 

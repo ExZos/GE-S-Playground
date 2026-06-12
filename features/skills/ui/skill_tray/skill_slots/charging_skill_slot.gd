@@ -7,7 +7,7 @@ class_name ChargeSkillSlot
 @export var key_label: Label
 @export var progress_label: Label
 
-@export var skill: ChargeSkill
+@export var skill: ChargingSkill
 
 var key_text: String
 
@@ -26,23 +26,23 @@ func _ready() -> void:
 	skill.state_changed.connect(_on_state_changed)
 
 func _process(_delta: float) -> void:
-	if skill.state == ChargeSkill.State.COOLDOWN:
+	if skill.state == ChargingSkill.State.COOLDOWN:
 		cooldown_progress_bar.value = cooldown_progress_bar.max_value - skill.fp_cd_ticks
 		progress_label.text = "%.1fs" % (skill.fp_cd_ticks / fp_fps)
-	elif skill.state == ChargeSkill.State.CHARGING:
+	elif skill.state == ChargingSkill.State.CHARGING:
 		charge_progress_bar.value = skill.fp_charge_ticks
 		progress_label.text = "%d%%" % (charge_progress_bar.ratio * 100)
 	else:
 		progress_label.text = ""
 
-func _on_state_changed(state: ChargeSkill.State) -> void:
-	if state == ChargeSkill.State.COOLDOWN:
+func _on_state_changed(state: ChargingSkill.State) -> void:
+	if state == ChargingSkill.State.COOLDOWN:
 		charge_progress_bar.visible = false
 		cooldown_progress_bar.visible = true
 	else:
 		charge_progress_bar.visible = true
 		cooldown_progress_bar.visible = false
 		
-		if state == ChargeSkill.State.IDLE:
+		if state == ChargingSkill.State.IDLE:
 			cooldown_progress_bar.value = 0
 			charge_progress_bar.value = 0

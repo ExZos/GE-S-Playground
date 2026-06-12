@@ -1,8 +1,8 @@
 extends HBoxContainer
 
-@export var cooldown_skill_slot_scene: PackedScene
+@export var charges_skill_slot_scene: PackedScene
 @export var stamina_skill_slot_scene: PackedScene
-@export var charge_skill_slot_scene: PackedScene
+@export var charging_skill_slot_scene: PackedScene
 
 @export var player: Player
 
@@ -17,13 +17,13 @@ func _ready() -> void:
 	for skill: Skill in player_skills:
 		var skill_slot: Control
 		
-		if skill is CooldownSkill:
-			skill_slot = cooldown_skill_slot_scene.instantiate()
+		if skill is ChargesSkill:
+			skill_slot = charges_skill_slot_scene.instantiate()
 			skill_slot.fp_fps = fp_fps
 		elif skill is StaminaSkill:
 			skill_slot = stamina_skill_slot_scene.instantiate()
-		elif skill is ChargeSkill:
-			skill_slot = charge_skill_slot_scene.instantiate()
+		elif skill is ChargingSkill:
+			skill_slot = charging_skill_slot_scene.instantiate()
 			skill_slot.fp_fps = fp_fps
 		else:
 			push_warning("SkillTray: Skill type not recognized")

@@ -1,19 +1,16 @@
 extends Skill
 
-class_name CooldownSkill
+class_name ChargesSkill
 
 signal charges_changed(charges: int)
 
-@export var cooldown: int
-var _fp_cooldown: int
-
-@export var recovery: int
-var _fp_recovery: int
-
-@export var max_charges: int = 1
-@export var starting_charges: int = 1
-
 var cooling_down: bool = false
+
+# Stats
+var _fp_cooldown: int
+var max_charges: int
+
+# Tickers
 var fp_cd_ticks: int = 0
 var charges: int:
 	set(value):
@@ -21,11 +18,16 @@ var charges: int:
 			charges = value
 			charges_changed.emit(value)
 
-func _ready() -> void:
-	_fp_cooldown = SGFixed.from_int(cooldown)
-	_fp_recovery = SGFixed.from_int(recovery)
-	
-	charges = starting_charges
+func _process_feature(feature: SkillFeature) -> void:
+	match feature.get_feature_type():
+		&"charges":
+			max_charges = feature.max_charges
+			charges = feature.starting_charges
+		
+		&"cooldown":
+			_fp_cooldown = SGFixed.from_int(feature.cooldown)
+		
+		_: super(feature)
 
 func advance_frame(_input_mask: int, just_pressed_mask: int, _just_released_mask: int, mov_dir: Vector2i, aim_dir: Vector2i) -> void:
 	if not (just_pressed_mask & key_bit) or (mov_dir == Vector2i.ZERO and aim_dir == Vector2i.ZERO): # Not pressed or no direction
@@ -37,7 +39,6 @@ func advance_frame(_input_mask: int, just_pressed_mask: int, _just_released_mask
 	_on_activate(mov_dir, aim_dir)
 	
 	charges -= 1
-	source.fp_recovery_ticks = _fp_recovery
 	if not cooling_down:
 		fp_cd_ticks = _fp_cooldown
 		cooling_down = true

@@ -4,7 +4,4 @@
 
 [node name="Telekinesis" type="SGFixedNode2D" unique_id=1078953652]
 script = ExtResource("1_8niep")
-speed_mult_inc = 1
-charge_time = 60
-cooldown = 30
 metadata/_custom_type_script = "uid://dxpk57ykvp7tk"

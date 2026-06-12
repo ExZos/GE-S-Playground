@@ -14,8 +14,6 @@ func _process_feature(feature: SkillFeature) -> void:
 		_: super(feature)
 
 func _ready() -> void:
-	super()
-	
 	_sprint_modifier = SprintModifier.new(
 		source,
 		_fp_speed_mult_inc

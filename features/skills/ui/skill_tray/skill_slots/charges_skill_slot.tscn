@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://f8eje3vkaupx"]
 
-[ext_resource type="Script" uid="uid://bjvdup2im5ou2" path="res://features/skills/ui/skill_tray/skill_slots/cooldown_skill_slot.gd" id="1_slmhi"]
+[ext_resource type="Script" uid="uid://bjvdup2im5ou2" path="res://features/skills/ui/skill_tray/skill_slots/charges_skill_slot.gd" id="1_slmhi"]
 [ext_resource type="Texture2D" uid="uid://b0wm32a08ye0u" path="res://shared/ui/textures/circle_white.tres" id="2_1slro"]
 [ext_resource type="Texture2D" uid="uid://c6q4tjnfmycv7" path="res://shared/ui/textures/circle_border_white.tres" id="3_f8y55"]
 [ext_resource type="LabelSettings" uid="uid://c8tt6lggdl8l" path="res://shared/ui/label_settings/skill_slot_key.tres" id="4_08ypx"]
 [ext_resource type="LabelSettings" uid="uid://b0dqld51kajy0" path="res://shared/ui/label_settings/skill_slot_progress.tres" id="5_m8iev"]
 [ext_resource type="LabelSettings" uid="uid://bwo2qw6uln4fp" path="res://shared/ui/label_settings/skill_slot_charges.tres" id="6_x173l"]
 
-[node name="CooldownSkillSlot" type="Control" unique_id=115668837 node_paths=PackedStringArray("progress_bar", "key_label", "cooldown_label", "charges_label")]
+[node name="ChargesSkillSlot" type="Control" unique_id=115668837 node_paths=PackedStringArray("progress_bar", "key_label", "cooldown_label", "charges_label")]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 3
 anchors_preset = 0

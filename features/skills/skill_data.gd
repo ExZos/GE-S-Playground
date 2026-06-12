@@ -1,7 +1,5 @@
 extends RegistryData
 
-# TODO: array of properties (implementation that extend SkillProperty) that track what params to set
-# TODO: store stats to be loaded
 class_name SkillData
 
 # Next id: 5

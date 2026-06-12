@@ -6,5 +6,4 @@
 script = ExtResource("1_o5pv8")
 duration = 7
 speed_mult_inc = 2
-cooldown = 120
 metadata/_custom_type_script = "uid://bk38cvvk0cab7"
