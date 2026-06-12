@@ -9,6 +9,7 @@ var cooling_down: bool = false
 # Stats
 var _fp_cooldown: int
 var max_charges: int
+var charges_inc: int
 
 # Tickers
 var fp_cd_ticks: int = 0
@@ -23,6 +24,7 @@ func _process_feature(feature: SkillFeature) -> void:
 		&"charges":
 			max_charges = feature.max_charges
 			charges = feature.starting_charges
+			charges_inc = feature.charges_inc
 		
 		&"cooldown":
 			_fp_cooldown = SGFixed.from_int(feature.cooldown)
@@ -47,7 +49,7 @@ func process_tickers() -> void:
 	if fp_cd_ticks > 0:
 		fp_cd_ticks -= SGFixed.ONE
 	elif charges < max_charges:
-		charges += 1
+		charges = min(max_charges, charges + charges_inc)
 		
 		if charges != max_charges:
 			fp_cd_ticks = _fp_cooldown

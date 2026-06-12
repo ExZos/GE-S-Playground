@@ -18,5 +18,5 @@ enum Type {
 		type = value
 		id = value
 
-@export_group("Features")
+@export_group("Configuration")
 @export var features: Array[SkillFeature]
