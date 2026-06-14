@@ -18,6 +18,7 @@ metadata/_custom_type_script = "uid://cwfta0fhv3q5v"
 
 [sub_resource type="Resource" id="Resource_jrd0u"]
 script = ExtResource("4_jokf3")
+speed_mult_sum_inc = 1
 metadata/_custom_type_script = "uid://b75ylspe4o50x"
 
 [resource]

@@ -8,7 +8,9 @@ class_name SpeedFeature
 		duration = max(0, value)
 		notify_property_list_changed()
 
-@export var speed_mult_inc: int = 1
+@export var speed_add_inc: int = 0
+@export var speed_mult_sum_inc: int = 0
+@export var speed_mult_prod_inc: int = 1
 
 func get_feature_type() -> StringName:
 	return &"speed"

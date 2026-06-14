@@ -11,11 +11,23 @@ var dir: Vector2i
 # Stats
 var fp_base_speed: int
 
-# Stat multipliers
-var fp_speed_mult: int = SGFixed.ONE:
+# Stat modifier
+var fp_speed_add: int = 0:
 	set(value):
-		fp_speed_mult = value
-		_compute_speed()
+		fp_speed_add = value
+		_speed_is_dirty = true
+		
+var fp_speed_mult_sum: int = SGFixed.ONE:
+	set(value):
+		fp_speed_mult_sum = value
+		_speed_is_dirty = true
+
+var fp_speed_mult_prod: int = SGFixed.ONE:
+	set(value):
+		fp_speed_mult_prod = value
+		_speed_is_dirty = true
+		
+var _speed_is_dirty: bool = false
 
 # Computed stats
 var _fp_speed: int
@@ -30,6 +42,10 @@ func init(data: ProjectileData) -> void:
 	_compute_speed()
 
 func advance_frame() -> void:
+	if _speed_is_dirty:
+		_compute_speed()
+		_speed_is_dirty = false
+	
 	fixed_position_x += dir.x * _fp_speed
 	fixed_position_y += dir.y * _fp_speed
 	sync_to_physics_engine()
@@ -45,7 +61,9 @@ func advance_frame() -> void:
 		deactivate()
 
 func activate(_source: SGFixedNode2D, fp_pos_x: int, fp_pos_y: int, _dir: Vector2i) -> void:
-	fp_speed_mult = SGFixed.ONE
+	fp_speed_add = 0
+	fp_speed_mult_sum = SGFixed.ONE
+	fp_speed_mult_prod = SGFixed.ONE
 	
 	is_deactivated = false
 	
@@ -71,4 +89,4 @@ func deactivate() -> void:
 	source = null
 
 func _compute_speed() -> void:
-	_fp_speed = SGFixed.mul(fp_base_speed, fp_speed_mult)
+	_fp_speed = SGFixed.mul(fp_base_speed + fp_speed_add, SGFixed.mul(fp_speed_mult_sum, fp_speed_mult_prod))

@@ -13,7 +13,9 @@ class_name Player
 var fp_base_speed: int
 
 # Stat modifiers
-var fp_speed_mult: int = SGFixed.ONE
+var fp_speed_add: int = 0
+var fp_speed_mult_sum: int = SGFixed.ONE
+var fp_speed_mult_prod: int = SGFixed.ONE
 
 # Computed stats
 var _fp_speed: int
@@ -81,7 +83,9 @@ func advance_frame(input_mask: int) -> void:
 	# Apply modifiers
 	if player_modifiers_is_dirty:
 		# Reset stats
-		fp_speed_mult = SGFixed.ONE
+		fp_speed_add = 0
+		fp_speed_mult_sum = SGFixed.ONE
+		fp_speed_mult_prod = SGFixed.ONE
 		forced_mov_dir = Vector2i.ZERO
 		
 		for mod in _player_modifiers:
@@ -121,4 +125,5 @@ func remove_modifier(modifier: PlayerModifier) -> void:
 
 # --- Private functions ---
 func _compute_speed() -> void:
-	_fp_speed = SGFixed.mul(fp_base_speed, fp_speed_mult)
+	_fp_speed = SGFixed.mul(fp_base_speed + fp_speed_add, SGFixed.mul((fp_speed_mult_sum), fp_speed_mult_prod))
+	print(SGFixed.to_int(_fp_speed))
