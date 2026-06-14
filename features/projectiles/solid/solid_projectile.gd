@@ -42,7 +42,7 @@ var is_deactivated: bool = false # Reflects current state
 func init(data: ProjectileData) -> void:
 	type = data.type
 	fp_base_speed = SGFixed.from_int(data.base_speed)
-	_compute_speed()
+	_speed_is_dirty = true
 
 func advance_frame() -> void:
 	if _speed_is_dirty:

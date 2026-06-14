@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://ci283va12p2w8" path="res://features/skills/skill_data.gd" id="1_x2hvm"]
 [ext_resource type="Script" uid="uid://j7hl7qmceybr" path="res://shared/resources/charging_feature.gd" id="2_jokf3"]
 [ext_resource type="Script" uid="uid://cwfta0fhv3q5v" path="res://shared/resources/cooldown_feature.gd" id="3_fd52o"]
+[ext_resource type="Script" uid="uid://ba0y7nty6fpfh" path="res://shared/resources/action_restriction_feature.gd" id="4_d3erq"]
 [ext_resource type="Script" uid="uid://b75ylspe4o50x" path="res://shared/resources/speed_feature.gd" id="4_jokf3"]
 
 [sub_resource type="Resource" id="Resource_jokf3"]
@@ -16,6 +17,13 @@ script = ExtResource("3_fd52o")
 cooldown = 30
 metadata/_custom_type_script = "uid://cwfta0fhv3q5v"
 
+[sub_resource type="Resource" id="Resource_tv55e"]
+script = ExtResource("4_d3erq")
+speed_mult_prod_inc = 0.5
+restrict_attack = true
+restrict_skills = true
+metadata/_custom_type_script = "uid://ba0y7nty6fpfh"
+
 [sub_resource type="Resource" id="Resource_jrd0u"]
 script = ExtResource("4_jokf3")
 speed_mult_sum_inc = 1
@@ -24,6 +32,6 @@ metadata/_custom_type_script = "uid://b75ylspe4o50x"
 [resource]
 script = ExtResource("1_x2hvm")
 type = 3
-features = Array[ExtResource("1_lg76q")]([SubResource("Resource_jokf3"), SubResource("Resource_d3erq"), SubResource("Resource_jrd0u")])
+features = Array[ExtResource("1_lg76q")]([SubResource("Resource_jokf3"), SubResource("Resource_d3erq"), SubResource("Resource_tv55e"), SubResource("Resource_jrd0u")])
 scene = ExtResource("1_4fnec")
 metadata/_custom_type_script = "uid://ci283va12p2w8"

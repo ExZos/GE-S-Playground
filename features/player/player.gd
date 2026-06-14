@@ -23,6 +23,10 @@ var _fp_speed: int
 # Tickers
 var fp_recovery_ticks: int = 0
 
+# Restriction states
+var restrict_attack: bool = false
+var restrict_skills: bool = false
+
 # Dimensions
 var _fp_half_width: int:
 	get:
@@ -78,7 +82,13 @@ func advance_frame(input_mask: int) -> void:
 	else: mov_dir.y = 0
 	
 	# Skill activations
-	skill_manager.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, mov_dir)
+	# TODO: solve skill restriction conflicting with skill states (e.g. ChargingSkill)
+	if not restrict_skills:
+		skill_manager.advance_frame_skills(input_mask, _just_pressed_mask, _just_released_mask, mov_dir)
+	
+	# Attack activation
+	if not restrict_attack:
+		skill_manager.advance_frame_attack(input_mask, _just_pressed_mask, _just_released_mask, mov_dir)
 	
 	# Apply modifiers
 	if player_modifiers_is_dirty:
@@ -87,6 +97,10 @@ func advance_frame(input_mask: int) -> void:
 		fp_speed_mult_sum = SGFixed.ONE
 		fp_speed_mult_prod = SGFixed.ONE
 		forced_mov_dir = Vector2i.ZERO
+		
+		# Reset restrictions
+		restrict_attack = false
+		restrict_skills = false
 		
 		for mod in _player_modifiers:
 			mod.apply()

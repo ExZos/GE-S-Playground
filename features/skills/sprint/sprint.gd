@@ -14,7 +14,7 @@ func _process_feature(feature: SkillFeature) -> void:
 		&"speed":
 			_fp_speed_add_inc = SGFixed.from_int(feature.speed_add_inc)
 			_fp_speed_mult_sum_inc = SGFixed.from_int(feature.speed_mult_sum_inc)
-			_fp_speed_mult_prod_inc = SGFixed.from_int(feature.speed_mult_prod_inc)
+			_fp_speed_mult_prod_inc = SGFixed.from_float(feature.speed_mult_prod_inc)
 			
 		_: super(feature)
 

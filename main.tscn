@@ -63,7 +63,6 @@ position = Vector2(500, 0)
 shape = SubResource("SGCapsuleShape2D_ig7tw")
 
 [node name="Player" parent="." unique_id=2004616098 instance=ExtResource("4_4c57u")]
-floor_max_angle = 51472
 skill_types = Array[int]([0, 3, 2])
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=594209437]

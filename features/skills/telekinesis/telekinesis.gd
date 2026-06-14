@@ -2,44 +2,90 @@ extends ChargingSkill
 
 class_name TelekinesisSkill
 
-# Stats
-var _fp_speed_add_inc: int
-var _fp_speed_mult_sum_inc: int
-var _fp_speed_mult_prod_inc: int
+# Stats that affect player
+var _fp_player_speed_mult_prod_inc: int
+var _restrict_attack: bool
+var _restrict_skills: bool
 
+# Stats that affect projectile
+var _fp_projectile_speed_add_inc: int
+var _fp_projectile_speed_mult_sum_inc: int
+var _fp_projectile_speed_mult_prod_inc: int
+
+var _charging_speed_modifier: ChargingSpeedModifier
 var _velocity_modifier: VelocityModifier
 
 func _process_feature(feature: SkillFeature) -> void:
 	match feature.get_feature_type():
+		&"action_restriction":
+			_fp_player_speed_mult_prod_inc = SGFixed.from_float(feature.speed_mult_prod_inc)
+			_restrict_attack = feature.restrict_attack
+			_restrict_skills = feature.restrict_skills
+			
 		&"speed":
-			_fp_speed_add_inc = SGFixed.from_int(feature.speed_add_inc)
-			_fp_speed_mult_sum_inc = SGFixed.from_int(feature.speed_mult_sum_inc)
-			_fp_speed_mult_prod_inc = SGFixed.from_int(feature.speed_mult_prod_inc)
+			_fp_projectile_speed_add_inc = SGFixed.from_int(feature.speed_add_inc)
+			_fp_projectile_speed_mult_sum_inc = SGFixed.from_int(feature.speed_mult_sum_inc)
+			_fp_projectile_speed_mult_prod_inc = SGFixed.from_float(feature.speed_mult_prod_inc)
 		
 		_: super(feature)
 
 func _ready() -> void:
+	_charging_speed_modifier = ChargingSpeedModifier.new(
+		source,
+		_fp_player_speed_mult_prod_inc,
+		_restrict_attack,
+		_restrict_skills
+	)
+	
 	_velocity_modifier = VelocityModifier.new(
 		source,
 		self,
-		_fp_speed_add_inc,
-		_fp_speed_mult_sum_inc,
-		_fp_speed_mult_prod_inc
+		_fp_projectile_speed_add_inc,
+		_fp_projectile_speed_mult_sum_inc,
+		_fp_projectile_speed_mult_prod_inc
 	)
+
+func _on_charging_start(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
+	source.add_modifier(_charging_speed_modifier)
 
 func _on_activate(_mov_dir: Vector2i, aim_dir: Vector2i) -> void:
 	print("ACTIVATE")
 	
+	source.remove_modifier(_charging_speed_modifier)
+	
 	_velocity_modifier.dir = aim_dir
 	_velocity_modifier.applied = false
-	
 	source.projectile_modifiers.append(_velocity_modifier)
+
+func _on_charging_cancelled(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
+	source.remove_modifier(_charging_speed_modifier)
 
 func _on_whiff() -> void:
 	print("WHIFF")
 	
 	fp_cd_ticks = 0
 	state = State.IDLE
+
+class ChargingSpeedModifier extends PlayerModifier:
+	var fp_speed_mult_prod_inc: int = 0
+	var restrict_attack: bool = false
+	var restrict_skills: bool = false
+	
+	func _init(_source: SGFixedNode2D, _fp_speed_mult_prod_inc: int, _restrict_attack: bool, _restrict_skills: bool) -> void:
+		super(_source, 0)
+		
+		fp_speed_mult_prod_inc = _fp_speed_mult_prod_inc
+		restrict_attack = _restrict_attack
+		restrict_skills = _restrict_skills
+	
+	func apply() -> void:
+		source.fp_speed_mult_prod = SGFixed.mul(source.fp_speed_mult_prod, fp_speed_mult_prod_inc)
+		source.restrict_attack = restrict_attack
+		source.restrict_skills = restrict_skills
+	
+	# Keep modifier from being removed
+	func tick_and_check() -> bool:
+		return true
 
 class VelocityModifier extends ProjectileModifier:
 	var fp_speed_add_inc: int = 0
@@ -60,7 +106,7 @@ class VelocityModifier extends ProjectileModifier:
 		var neutral_dir: bool = dir == Vector2i.ZERO
 		
 		for proj: SGFixedNode2D in projectiles:
-			if not source == proj.source:
+			if source != proj.source:
 				continue
 			
 			proj.fp_speed_add += fp_speed_add_inc
