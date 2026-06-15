@@ -14,16 +14,11 @@ var state: State = State.IDLE:
 
 # Stats
 var _fp_max_stamina: int
-var _fp_recov_speed_div_inc: int
-
-# Stat modifiers
-var fp_recov_speed_div: int:
-	set(value): 
-		fp_recov_speed_div = value
-		_fp_recov_tick_speed = SGFixed.div(SGFixed.ONE, value)
+var _fp_base_regen_speed: int
+var _fp_exhausted_regen_speed: int
 
 # Computed stats
-var _fp_recov_tick_speed: int
+var _fp_regen_speed: int
 
 # Tickers
 var fp_stamina: int
@@ -32,9 +27,11 @@ func _process_feature(feature: SkillFeature) -> void:
 	match feature.get_feature_type():
 		&"stamina":
 			_fp_max_stamina = SGFixed.from_int(feature.max_stamina)
+			_fp_base_regen_speed = SGFixed.from_float(feature.base_regen_speed)
+			_fp_exhausted_regen_speed = SGFixed.from_float(feature.exhausted_regen_speed)
+			
 			fp_stamina = SGFixed.from_int(feature.starting_stamina)
-			fp_recov_speed_div = SGFixed.from_int(feature.base_recov_speed_div)
-			_fp_recov_speed_div_inc = SGFixed.from_int(feature.recov_speed_div_inc)
+			_fp_regen_speed = _fp_base_regen_speed
 		
 		_: super(feature)
 
@@ -54,7 +51,7 @@ func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask
 			state = State.EXHAUSTED
 	else:
 		# Key pressed, activate
-		if input_mask & key_bit:
+		if input_mask & key_bit and not check_restricted.call():
 			_on_activate(mov_dir, aim_dir)
 			state = State.ACTIVE
 
@@ -63,7 +60,7 @@ func process_tickers() -> void:
 		if fp_stamina > 0:
 			fp_stamina -= SGFixed.ONE
 	elif fp_stamina < _fp_max_stamina:
-		fp_stamina += _fp_recov_tick_speed
+		fp_stamina += _fp_regen_speed
 	else:
 		if state == State.EXHAUSTED:
 			_on_exhausted_recovery()
@@ -75,7 +72,7 @@ func _on_activate(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void: pass
 func _on_deactivate(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void: pass
 
 func _on_exhausted(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
-	fp_recov_speed_div += _fp_recov_speed_div_inc # TODO: add this as a modifier instead
+	_fp_regen_speed = _fp_exhausted_regen_speed
 
 func _on_exhausted_recovery() -> void:
-	fp_recov_speed_div -= _fp_recov_speed_div_inc
+	_fp_regen_speed = _fp_base_regen_speed

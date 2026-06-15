@@ -17,8 +17,8 @@ class_name StaminaFeature
 		starting_stamina = clampi(value, 0, max_stamina)
 		notify_property_list_changed()
 
-@export var base_recov_speed_div: int = 2
-@export var recov_speed_div_inc: int = 1
+@export_range(0, 1) var base_regen_speed: float = 0.5
+@export_range(0, 1) var exhausted_regen_speed: float = 0.25
 
 func get_feature_type() -> StringName:
 	return &"stamina"

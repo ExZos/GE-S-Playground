@@ -15,10 +15,7 @@ func init(source: SGFixedNode2D, basic_attack_type: SkillData.Type, skill_types:
 		var skill_data: SkillData = RegistryManager.get_skill_data(basic_attack_type)
 		if skill_data:
 			_basic_attack = skill_data.scene.instantiate()
-			_basic_attack.init(skill_data)
-			
-			_basic_attack.source = source
-			_basic_attack.key_bit = InputConstants.BitGroup.ATK
+			_basic_attack.init(source, InputConstants.BitGroup.ATK, skill_data, true)
 			
 			add_child(_basic_attack)
 		else:
@@ -32,27 +29,12 @@ func init(source: SGFixedNode2D, basic_attack_type: SkillData.Type, skill_types:
 			continue
 		
 		var skill: Skill = skill_data.scene.instantiate()
-		skill.init(skill_data)
-		
-		skill.source = source
-		skill.key_bit = InputConstants.BitList.SKILLS[i]
+		skill.init(source, InputConstants.BitList.SKILLS[i], skill_data)
 		
 		add_child(skill)
 		_skills.append(skill)
 
-func advance_frame_attack(input_mask: int, _just_pressed_mask: int, _just_released_mask: int, _mov_dir: Vector2i) -> void:
-	# Determine attack direction
-	var atk_dir: Vector2i = Vector2i.ZERO
-	if _just_pressed_mask & InputConstants.Bit.ATK_UP: atk_dir = Vector2i.UP
-	elif _just_pressed_mask & InputConstants.Bit.ATK_DOWN: atk_dir = Vector2i.DOWN
-	elif _just_pressed_mask & InputConstants.Bit.ATK_LEFT: atk_dir = Vector2i.LEFT
-	elif _just_pressed_mask & InputConstants.Bit.ATK_RIGHT: atk_dir = Vector2i.RIGHT
-	
-	# Basic attack
-	if _basic_attack != null:
-		_basic_attack.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, _mov_dir, atk_dir)
-
-func advance_frame_skills(input_mask: int, _just_pressed_mask: int, _just_released_mask: int, _mov_dir: Vector2i) -> void:
+func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask: int, _mov_dir: Vector2i) -> void:
 	# Determine skill direction using held attack direction or movement direction otherwise
 	var skill_dir: Vector2i = Vector2i.ZERO
 	if input_mask & InputConstants.Bit.ATK_UP: skill_dir = Vector2i.UP
@@ -67,6 +49,17 @@ func advance_frame_skills(input_mask: int, _just_pressed_mask: int, _just_releas
 	# Skill activation
 	for skill: Skill in _skills:
 		skill.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, _mov_dir, skill_dir)
+	
+	# Determine attack direction
+	var atk_dir: Vector2i = Vector2i.ZERO
+	if _just_pressed_mask & InputConstants.Bit.ATK_UP: atk_dir = Vector2i.UP
+	elif _just_pressed_mask & InputConstants.Bit.ATK_DOWN: atk_dir = Vector2i.DOWN
+	elif _just_pressed_mask & InputConstants.Bit.ATK_LEFT: atk_dir = Vector2i.LEFT
+	elif _just_pressed_mask & InputConstants.Bit.ATK_RIGHT: atk_dir = Vector2i.RIGHT
+	
+	# Basic attack
+	if _basic_attack != null:
+		_basic_attack.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, _mov_dir, atk_dir)
 
 func process_tickers() -> void:
 	_basic_attack.process_tickers()

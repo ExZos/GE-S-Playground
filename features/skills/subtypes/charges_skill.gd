@@ -37,7 +37,9 @@ func advance_frame(_input_mask: int, just_pressed_mask: int, _just_released_mask
 	elif charges <= 0:
 		charges = 0
 		return
-	
+	elif check_restricted.call():
+		return
+		
 	_on_activate(mov_dir, aim_dir)
 	
 	charges -= 1

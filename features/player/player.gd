@@ -24,6 +24,7 @@ var _fp_speed: int
 var fp_recovery_ticks: int = 0
 
 # Restriction states
+var is_recovering: bool = false
 var restrict_attack: bool = false
 var restrict_skills: bool = false
 
@@ -68,9 +69,9 @@ func advance_frame(input_mask: int) -> void:
 		if not _player_modifiers[i].tick_and_check():
 			remove_modifier_at(i)
 	
-	if fp_recovery_ticks > 0:
+	is_recovering = fp_recovery_ticks > 0
+	if is_recovering:
 		fp_recovery_ticks -= SGFixed.ONE
-		return
 	
 	# Handle movement inputs
 	if input_mask & InputConstants.Bit.MOVE_LEFT: mov_dir.x = -1
@@ -81,14 +82,9 @@ func advance_frame(input_mask: int) -> void:
 	elif input_mask & InputConstants.Bit.MOVE_DOWN: mov_dir.y = 1
 	else: mov_dir.y = 0
 	
-	# Skill activations
+	# Attack and skill activations (since attack is also a skill)
 	# TODO: solve skill restriction conflicting with skill states (e.g. ChargingSkill)
-	if not restrict_skills:
-		skill_manager.advance_frame_skills(input_mask, _just_pressed_mask, _just_released_mask, mov_dir)
-	
-	# Attack activation
-	if not restrict_attack:
-		skill_manager.advance_frame_attack(input_mask, _just_pressed_mask, _just_released_mask, mov_dir)
+	skill_manager.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, mov_dir)
 	
 	# Apply modifiers
 	if player_modifiers_is_dirty:
@@ -109,6 +105,9 @@ func advance_frame(input_mask: int) -> void:
 		player_modifiers_is_dirty = false
 	
 	# Movement
+	if is_recovering:
+		return
+		
 	var effective_mov_dir: Vector2i = mov_dir
 	if forced_mov_dir != Vector2i.ZERO: effective_mov_dir = forced_mov_dir
 	
@@ -116,6 +115,13 @@ func advance_frame(input_mask: int) -> void:
 	velocity.y = effective_mov_dir.y * _fp_speed
 	
 	move_and_slide()
+
+# --- Restriction utilities ---
+func check_restrict_attack() -> bool:
+	return restrict_attack or is_recovering
+
+func check_restrict_skills() -> bool:
+	return restrict_skills or is_recovering
 
 # --- Skill manager getters ---
 func get_basic_attack() -> Skill:

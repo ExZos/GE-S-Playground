@@ -48,7 +48,7 @@ func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask
 			fp_charge_ticks = 0
 	else:
 		# Key pressed, start charging
-		if input_mask & key_bit:
+		if input_mask & key_bit and not check_restricted.call():
 			_on_charging_start(mov_dir, aim_dir)
 			state = State.CHARGING
 

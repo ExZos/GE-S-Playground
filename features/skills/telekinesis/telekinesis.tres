@@ -20,7 +20,6 @@ metadata/_custom_type_script = "uid://cwfta0fhv3q5v"
 [sub_resource type="Resource" id="Resource_tv55e"]
 script = ExtResource("4_d3erq")
 speed_mult_prod_inc = 0.5
-restrict_attack = true
 restrict_skills = true
 metadata/_custom_type_script = "uid://ba0y7nty6fpfh"
 
