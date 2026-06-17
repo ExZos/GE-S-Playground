@@ -6,7 +6,7 @@ class_name Player
 @export var skill_manager: SkillManager
 
 @export var player_stats: PlayerStats
-@export var basic_attack_type: SkillData.Type
+@export var attack_type: SkillData.Type
 @export var skill_types: Array[SkillData.Type]
 
 # Stats
@@ -55,7 +55,7 @@ func init() -> void:
 	fp_base_speed = SGFixed.from_int(player_stats.base_speed)
 	_compute_speed()
 	
-	skill_manager.init(self, basic_attack_type, skill_types)
+	skill_manager.init(self, attack_type, skill_types)
 
 func advance_frame(input_mask: int) -> void:
 	_just_pressed_mask = input_mask & ~_prev_input_mask
@@ -83,7 +83,6 @@ func advance_frame(input_mask: int) -> void:
 	else: mov_dir.y = 0
 	
 	# Attack and skill activations (since attack is also a skill)
-	# TODO: solve skill restriction conflicting with skill states (e.g. ChargingSkill)
 	skill_manager.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, mov_dir)
 	
 	# Apply modifiers
@@ -124,8 +123,8 @@ func check_restrict_skills() -> bool:
 	return restrict_skills or is_recovering
 
 # --- Skill manager getters ---
-func get_basic_attack() -> Skill:
-	return skill_manager._basic_attack
+func get_attack() -> Skill:
+	return skill_manager._attack
 
 func get_skills() -> Array[Skill]:
 	return skill_manager._skills
@@ -146,4 +145,3 @@ func remove_modifier(modifier: PlayerModifier) -> void:
 # --- Private functions ---
 func _compute_speed() -> void:
 	_fp_speed = SGFixed.mul(fp_base_speed + fp_speed_add, SGFixed.mul((fp_speed_mult_sum), fp_speed_mult_prod))
-	print(SGFixed.to_int(_fp_speed))

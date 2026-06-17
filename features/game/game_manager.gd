@@ -14,9 +14,9 @@ func _ready() -> void:
 	
 	# TODO: refactor, make skills offer projectile pool init data 
 	# Get data from equipped projectile for pool initialization
-	var basic_attack: Skill = player.get_basic_attack()
-	if basic_attack and basic_attack is ShootSkill:
-		projectile_types.append(basic_attack.projectile_type)
+	var attack: Skill = player.get_attack()
+	if attack and attack is ShootSkill:
+		projectile_types.append(attack.projectile_type)
 	
 	# Get data from skills for pool initialization
 	var player_skills: Array[Skill] = player.get_skills()
