@@ -63,8 +63,8 @@ position = Vector2(500, 0)
 shape = SubResource("SGCapsuleShape2D_ig7tw")
 
 [node name="Player" parent="." unique_id=2004616098 instance=ExtResource("4_4c57u")]
-attack_type = &"ShootSensor"
-skill_types = Array[StringName]([&"Sprint", &"ShootSolid", &"Telekinesis"])
+attack_type = &"shoot_sensor"
+skill_types = Array[StringName]([&"dash", &"shoot_solid", &"telekinesis"])
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=594209437]
 zoom = Vector2(0.5, 0.5)

@@ -20,13 +20,13 @@ var charges: int:
 			charges_changed.emit(value)
 
 func _process_feature(feature: SkillFeature) -> void:
-	match feature.get_script():
-		ChargesFeature:
+	match feature.get_feature_type():
+		ChargesFeature.TYPE:
 			max_charges = feature.max_charges
 			charges = feature.starting_charges
 			charges_inc = feature.charges_inc
 		
-		CooldownFeature:
+		CooldownFeature.TYPE:
 			_fp_cooldown = SGFixed.from_int(feature.cooldown)
 		
 		_: super(feature)

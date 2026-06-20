@@ -3,6 +3,8 @@ extends SkillFeature
 
 class_name ChargesFeature
 
+const TYPE: StringName = &"charges"
+
 @export var max_charges: int = 1:
 	set(value):
 		max_charges = max(1, value)
@@ -24,3 +26,6 @@ class_name ChargesFeature
 	set(value):
 		charges_inc = clampi(value, 1, max_charges)
 		notify_property_list_changed()
+
+func get_feature_type() -> StringName:
+	return TYPE

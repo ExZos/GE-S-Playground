@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("1_jhtr8")
-type = &"Sensor"
 pool_size = 10
 base_speed = 5
+type = &"sensor"
 scene = ExtResource("1_qdryc")
 metadata/_custom_type_script = "uid://dqk2livkncmja"

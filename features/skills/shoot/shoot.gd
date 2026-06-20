@@ -8,11 +8,11 @@ var _fp_recovery: int
 var _projectile_request: ProjectileRequest
 
 func _process_feature(feature: SkillFeature) -> void:
-	match feature.get_script():
-		ProjectileFeature:
+	match feature.get_feature_type():
+		ProjectileFeature.TYPE:
 			projectile_type = feature.projectile_type
 		
-		RecoveryFeature:
+		RecoveryFeature.TYPE:
 			_fp_recovery = SGFixed.from_int(feature.recovery)
 		
 		_: super(feature)

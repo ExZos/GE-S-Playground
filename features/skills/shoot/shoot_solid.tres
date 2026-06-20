@@ -10,7 +10,7 @@
 
 [sub_resource type="Resource" id="Resource_imb1c"]
 script = ExtResource("2_0pa2d")
-projectile_type = &"Solid"
+projectile_type = &"solid"
 metadata/_custom_type_script = "uid://bke8uj5v1b114"
 
 [sub_resource type="Resource" id="Resource_iwuwq"]
@@ -32,6 +32,6 @@ metadata/_custom_type_script = "uid://ce5og15xxqp20"
 [resource]
 script = ExtResource("3_7mjm8")
 features = Array[ExtResource("1_bllw7")]([SubResource("Resource_imb1c"), SubResource("Resource_iwuwq"), SubResource("Resource_o2qlo"), SubResource("Resource_4vqer")])
-type = &"ShootSolid"
+type = &"shoot_solid"
 scene = ExtResource("2_0yejc")
 metadata/_custom_type_script = "uid://ci283va12p2w8"

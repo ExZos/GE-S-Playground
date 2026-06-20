@@ -10,7 +10,7 @@
 
 [sub_resource type="Resource" id="Resource_o0ybi"]
 script = ExtResource("2_wo1v0")
-projectile_type = &"Sensor"
+projectile_type = &"sensor"
 metadata/_custom_type_script = "uid://bke8uj5v1b114"
 
 [sub_resource type="Resource" id="Resource_4u2eh"]
@@ -30,6 +30,6 @@ metadata/_custom_type_script = "uid://ce5og15xxqp20"
 [resource]
 script = ExtResource("3_wo1v0")
 features = Array[ExtResource("1_651qg")]([SubResource("Resource_o0ybi"), SubResource("Resource_4u2eh"), SubResource("Resource_4ycjb"), SubResource("Resource_3ifmx")])
-type = &"ShootSensor"
+type = &"shoot_sensor"
 scene = ExtResource("2_n38ya")
 metadata/_custom_type_script = "uid://ci283va12p2w8"

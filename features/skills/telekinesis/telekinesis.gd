@@ -16,13 +16,13 @@ var _charging_speed_modifier: ChargingSpeedModifier
 var _velocity_modifier: VelocityModifier
 
 func _process_feature(feature: SkillFeature) -> void:
-	match feature.get_script():
-		ActionRestrictionFeature:
+	match feature.get_feature_type():
+		ActionRestrictionFeature.TYPE:
 			_fp_player_speed_mult_prod_inc = SGFixed.from_float(feature.speed_mult_prod_inc)
 			_restrict_attack = feature.restrict_attack
 			_restrict_skills = feature.restrict_skills
 			
-		SpeedFeature:
+		SpeedFeature.TYPE:
 			_fp_projectile_speed_add_inc = SGFixed.from_int(feature.speed_add_inc)
 			_fp_projectile_speed_mult_sum_inc = SGFixed.from_int(feature.speed_mult_sum_inc)
 			_fp_projectile_speed_mult_prod_inc = SGFixed.from_float(feature.speed_mult_prod_inc)

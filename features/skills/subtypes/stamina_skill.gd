@@ -24,8 +24,8 @@ var _fp_regen_speed: int
 var fp_stamina: int
 
 func _process_feature(feature: SkillFeature) -> void:
-	match feature.get_script():
-		StaminaFeature:
+	match feature.get_feature_type():
+		StaminaFeature.TYPE:
 			_fp_max_stamina = SGFixed.from_int(feature.max_stamina)
 			_fp_base_regen_speed = SGFixed.from_float(feature.base_regen_speed)
 			_fp_exhausted_regen_speed = SGFixed.from_float(feature.exhausted_regen_speed)

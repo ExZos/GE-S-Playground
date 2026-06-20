@@ -16,14 +16,9 @@ func init(_source: SGFixedNode2D, _key_bit: int, data: SkillData, is_attack: boo
 		_process_feature(feature)
 
 func _process_feature(feature: SkillFeature) -> void:
-	match feature.get_script():
-		_: 
-			var script_name: String = feature.get_script().get_global_name()
-			
-			if script_name.is_empty():
-				script_name = feature.resource_path.get_file()
-			
-			push_warning("Skill: Feature type '%s' not recognized" % script_name)
+	match feature.get_feature_type():
+		_:
+			push_warning("Skill: Feature type '%s' not recognized" % feature.TYPE)
 
 func advance_frame(_input_mask: int, _just_pressed_mask: int, _just_released_mask: int, _mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
 	pass

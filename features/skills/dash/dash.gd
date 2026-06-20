@@ -11,8 +11,8 @@ var _fp_speed_mult_prod_inc: int
 var _dash_modifiers: Array[DashModifier]
 
 func _process_feature(feature: SkillFeature) -> void:
-	match feature.get_script():
-		SpeedFeature:
+	match feature.get_feature_type():
+		SpeedFeature.TYPE:
 			_fp_duration = SGFixed.from_int(feature.duration)
 			_fp_speed_add_inc = SGFixed.from_int(feature.speed_add_inc)
 			_fp_speed_mult_sum_inc = SGFixed.from_int(feature.speed_mult_sum_inc)

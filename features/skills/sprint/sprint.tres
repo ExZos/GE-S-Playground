@@ -18,6 +18,6 @@ metadata/_custom_type_script = "uid://b75ylspe4o50x"
 [resource]
 script = ExtResource("2_fwwao")
 features = Array[ExtResource("1_txu1n")]([SubResource("Resource_laup4"), SubResource("Resource_ytgdg")])
-type = &"Sprint"
+type = &"sprint"
 scene = ExtResource("1_fwwao")
 metadata/_custom_type_script = "uid://ci283va12p2w8"

@@ -10,11 +10,11 @@ func _get_type_hint_string() -> String:
 	return Type.LIST
 
 class Type extends RefCounted:
-	const DASH: StringName = &"Dash"
-	const SHOOT_SENSOR: StringName = &"ShootSensor"
-	const SHOOT_SOLID: StringName = &"ShootSolid"
-	const SPRINT: StringName = &"Sprint"
-	const TELEKINESIS: StringName = &"Telekinesis"
+	const DASH: StringName = &"dash"
+	const SHOOT_SENSOR: StringName = &"shoot_sensor"
+	const SHOOT_SOLID: StringName = &"shoot_solid"
+	const SPRINT: StringName = &"sprint"
+	const TELEKINESIS: StringName = &"telekinesis"
 	
 	const LIST =\
 		DASH + "," +\

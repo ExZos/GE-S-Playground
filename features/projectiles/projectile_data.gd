@@ -58,8 +58,8 @@ func _update_base() -> void:
 	notify_property_list_changed()
 
 class Type extends RefCounted:
-	const SENSOR: StringName = &"Sensor"
-	const SOLID: StringName = &"Solid"
+	const SENSOR: StringName = &"sensor"
+	const SOLID: StringName = &"solid"
 	
 	const LIST =\
 		SENSOR + "," +\
