@@ -1,22 +1,24 @@
+@tool
 extends RegistryData
 
 class_name SkillData
 
-# Next id: 5
-enum Type {
-	NONE = -1,
-	DASH = 4,
-	SHOOT_SENSOR = 1,
-	SHOOT_SOLID = 2,
-	SPRINT = 0,
-	TELEKINESIS = 3
-}
-
-@export_group("Core")
-@export var type: Type:
-	set(value):
-		type = value
-		id = value
-
 @export_group("Configuration")
 @export var features: Array[SkillFeature]
+
+func _get_type_hint_string() -> String:
+	return Type.LIST
+
+class Type extends RefCounted:
+	const DASH: StringName = &"Dash"
+	const SHOOT_SENSOR: StringName = &"ShootSensor"
+	const SHOOT_SOLID: StringName = &"ShootSolid"
+	const SPRINT: StringName = &"Sprint"
+	const TELEKINESIS: StringName = &"Telekinesis"
+	
+	const LIST =\
+		DASH + "," +\
+		SHOOT_SENSOR + "," +\
+		SHOOT_SOLID + "," +\
+		SPRINT + "," +\
+		TELEKINESIS

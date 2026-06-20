@@ -1,37 +1,37 @@
 [gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://bc1sw0hfq3kx3"]
 
 [ext_resource type="Script" uid="uid://cdbo6tb5t6b2l" path="res://shared/resources/skill_feature.gd" id="1_bllw7"]
+[ext_resource type="Script" uid="uid://bke8uj5v1b114" path="res://shared/resources/projectile_feature.gd" id="2_0pa2d"]
 [ext_resource type="PackedScene" uid="uid://b50d7rb033ta7" path="res://features/skills/shoot/shoot.tscn" id="2_0yejc"]
-[ext_resource type="Script" uid="uid://bke8uj5v1b114" path="res://shared/resources/projectile_feature.gd" id="2_7mjm8"]
 [ext_resource type="Script" uid="uid://ci283va12p2w8" path="res://features/skills/skill_data.gd" id="3_7mjm8"]
-[ext_resource type="Script" uid="uid://ccrrwiwidu2yr" path="res://shared/resources/charges_feature.gd" id="3_xi7f2"]
-[ext_resource type="Script" uid="uid://cwfta0fhv3q5v" path="res://shared/resources/cooldown_feature.gd" id="4_0pa2d"]
-[ext_resource type="Script" uid="uid://ce5og15xxqp20" path="res://shared/resources/recovery_feature.gd" id="5_0pa2d"]
+[ext_resource type="Script" uid="uid://ccrrwiwidu2yr" path="res://shared/resources/charges_feature.gd" id="3_bcpys"]
+[ext_resource type="Script" uid="uid://cwfta0fhv3q5v" path="res://shared/resources/cooldown_feature.gd" id="4_0nmtx"]
+[ext_resource type="Script" uid="uid://ce5og15xxqp20" path="res://shared/resources/recovery_feature.gd" id="5_fvcsv"]
 
-[sub_resource type="Resource" id="Resource_xi7f2"]
-script = ExtResource("2_7mjm8")
-projectile_type = 1
+[sub_resource type="Resource" id="Resource_imb1c"]
+script = ExtResource("2_0pa2d")
+projectile_type = &"Solid"
 metadata/_custom_type_script = "uid://bke8uj5v1b114"
 
-[sub_resource type="Resource" id="Resource_bcpys"]
-script = ExtResource("3_xi7f2")
+[sub_resource type="Resource" id="Resource_iwuwq"]
+script = ExtResource("3_bcpys")
 max_charges = 5
 starting_charges = 5
 metadata/_custom_type_script = "uid://ccrrwiwidu2yr"
 
-[sub_resource type="Resource" id="Resource_0nmtx"]
-script = ExtResource("4_0pa2d")
+[sub_resource type="Resource" id="Resource_o2qlo"]
+script = ExtResource("4_0nmtx")
 cooldown = 10
 metadata/_custom_type_script = "uid://cwfta0fhv3q5v"
 
-[sub_resource type="Resource" id="Resource_fvcsv"]
-script = ExtResource("5_0pa2d")
+[sub_resource type="Resource" id="Resource_4vqer"]
+script = ExtResource("5_fvcsv")
 recovery = 5
 metadata/_custom_type_script = "uid://ce5og15xxqp20"
 
 [resource]
 script = ExtResource("3_7mjm8")
-type = 2
-features = Array[ExtResource("1_bllw7")]([SubResource("Resource_xi7f2"), SubResource("Resource_bcpys"), SubResource("Resource_0nmtx"), SubResource("Resource_fvcsv")])
+features = Array[ExtResource("1_bllw7")]([SubResource("Resource_imb1c"), SubResource("Resource_iwuwq"), SubResource("Resource_o2qlo"), SubResource("Resource_4vqer")])
+type = &"ShootSolid"
 scene = ExtResource("2_0yejc")
 metadata/_custom_type_script = "uid://ci283va12p2w8"

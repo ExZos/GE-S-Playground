@@ -3,13 +3,6 @@ extends RegistryData
 
 class_name ProjectileData
 
-# Next id: 2
-enum Type {
-	NONE = -1,
-	SENSOR = 0,
-	SOLID = 1
-}
-
 # Core behavior determined by its root node
 # Next id: 2
 enum Base {
@@ -19,16 +12,20 @@ enum Base {
 }
 
 @export_group("Core")
-@export var type: Type:
-	set(value):
-		type = value
-		id = value
-		
 @export var base: Base
 @export_range(0, 500) var pool_size: int # TODO: automatically compute based on stats
 
 @export_group("Stats")
 @export var base_speed: int
+
+func _validate_property(property: Dictionary):
+	super(property)
+	
+	if property.name == "base":
+		property.usage |= PROPERTY_USAGE_READ_ONLY
+
+func _get_type_hint_string() -> String:
+	return Type.LIST
 
 func _set_scene(value: PackedScene) -> void:
 	scene = value
@@ -36,10 +33,6 @@ func _set_scene(value: PackedScene) -> void:
 	# Only update when in editor
 	if Engine.is_editor_hint():
 		_update_base()
-
-func _validate_property(property: Dictionary):
-	if property.name == "base":
-		property.usage |= PROPERTY_USAGE_READ_ONLY
 
 # Set base according to scene's root node type, the key characteristic of each projectile type
 func _update_base() -> void:
@@ -63,3 +56,11 @@ func _update_base() -> void:
 		_: push_error("ProjectileData: Root node type '%s' not supported" % root_type)
 	
 	notify_property_list_changed()
+
+class Type extends RefCounted:
+	const SENSOR: StringName = &"Sensor"
+	const SOLID: StringName = &"Solid"
+	
+	const LIST =\
+		SENSOR + "," +\
+		SOLID

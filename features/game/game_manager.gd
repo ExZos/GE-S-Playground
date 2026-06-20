@@ -10,7 +10,7 @@ func _ready() -> void:
 	player.init()
 	
 	# Used to store data for pool initialization
-	var projectile_types: Array[ProjectileData.Type] = []
+	var projectile_types: Array[StringName] = []
 	
 	# TODO: refactor, make skills offer projectile pool init data 
 	# Get data from equipped projectile for pool initialization

@@ -7,5 +7,5 @@ class_name SkillRegistry
 func _get_resources() -> Array:
 	return skill_data
 
-func get_data(type: SkillData.Type) -> SkillData:
+func get_data(type: StringName) -> SkillData:
 	return _lookup.get(type)

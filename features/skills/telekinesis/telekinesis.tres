@@ -30,7 +30,7 @@ metadata/_custom_type_script = "uid://b75ylspe4o50x"
 
 [resource]
 script = ExtResource("1_x2hvm")
-type = 3
 features = Array[ExtResource("1_lg76q")]([SubResource("Resource_jokf3"), SubResource("Resource_d3erq"), SubResource("Resource_tv55e"), SubResource("Resource_jrd0u")])
+type = &"Telekinesis"
 scene = ExtResource("1_4fnec")
 metadata/_custom_type_script = "uid://ci283va12p2w8"

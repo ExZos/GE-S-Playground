@@ -1,3 +1,4 @@
+@tool
 extends SGCharacterBody2D
 
 class_name Player
@@ -6,8 +7,8 @@ class_name Player
 @export var skill_manager: SkillManager
 
 @export var player_stats: PlayerStats
-@export var attack_type: SkillData.Type
-@export var skill_types: Array[SkillData.Type]
+@export var attack_type: StringName
+@export var skill_types: Array[StringName]
 
 # Stats
 var fp_base_speed: int
@@ -50,6 +51,15 @@ var player_modifiers_is_dirty: bool = false
 var projectile_requests: Array[ProjectileRequest] = []
 var projectile_modifiers: Array[ProjectileModifier] = []
 var vfx_events: Array[VFXEvent] = []
+
+func _validate_property(property: Dictionary) -> void:
+	if property.name == "attack_type":
+		property.hint = PROPERTY_HINT_ENUM
+		property.hint_string = SkillData.Type.LIST
+		
+	if property.name == "skill_types":
+		property.hint = PROPERTY_HINT_ARRAY_TYPE
+		property.hint_string = "%d/%d:%s" % [TYPE_STRING_NAME, PROPERTY_HINT_ENUM, SkillData.Type.LIST]
 
 func init() -> void:
 	fp_base_speed = SGFixed.from_int(player_stats.base_speed)

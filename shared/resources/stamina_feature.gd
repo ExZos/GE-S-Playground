@@ -19,6 +19,3 @@ class_name StaminaFeature
 
 @export_range(0, 1) var base_regen_speed: float = 0.5
 @export_range(0, 1) var exhausted_regen_speed: float = 0.25
-
-func get_feature_type() -> StringName:
-	return &"stamina"

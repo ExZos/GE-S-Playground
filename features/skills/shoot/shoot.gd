@@ -2,17 +2,17 @@ extends ChargesSkill
 
 class_name ShootSkill
 
-var projectile_type: ProjectileData.Type
+var projectile_type: StringName
 var _fp_recovery: int
 
 var _projectile_request: ProjectileRequest
 
 func _process_feature(feature: SkillFeature) -> void:
-	match feature.get_feature_type():
-		&"projectile":
+	match feature.get_script():
+		ProjectileFeature:
 			projectile_type = feature.projectile_type
 		
-		&"recovery":
+		RecoveryFeature:
 			_fp_recovery = SGFixed.from_int(feature.recovery)
 		
 		_: super(feature)

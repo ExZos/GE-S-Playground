@@ -7,6 +7,3 @@ class_name RecoveryFeature
 	set(value):
 		recovery = max(0, value)
 		notify_property_list_changed()
-
-func get_feature_type() -> StringName:
-	return &"recovery"

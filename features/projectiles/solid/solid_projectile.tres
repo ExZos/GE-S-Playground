@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_4sw8b")
-type = 1
+type = &"Solid"
 base = 1
 pool_size = 5
 base_speed = 10

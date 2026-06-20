@@ -9,11 +9,11 @@ func init() -> void:
 	skill_registry.init()
 	vfx_registry.init()
 
-func get_projectile_data(type: ProjectileData.Type) -> ProjectileData:
+func get_projectile_data(type: StringName) -> ProjectileData:
 	return projectile_registry.get_data(type)
 
-func get_skill_data(type: SkillData.Type) -> SkillData:
+func get_skill_data(type: StringName) -> SkillData:
 	return skill_registry.get_data(type)
 
-func get_vfx_data(type: VFXData.Type) -> VFXData:
+func get_vfx_data(type: StringName) -> VFXData:
 	return vfx_registry.get_data(type)

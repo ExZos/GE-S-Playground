@@ -5,5 +5,6 @@
 
 [resource]
 script = ExtResource("2_w785t")
+type = &"BubbleVFX"
 scene = ExtResource("1_gybe2")
 metadata/_custom_type_script = "uid://byhx3104gpsiw"

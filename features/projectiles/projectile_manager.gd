@@ -3,25 +3,25 @@ extends Node
 class_name ProjectileManager
 
 # Solid projectile pools
-var _solid_inactive: Dictionary[ProjectileData.Type, Array] = {}
+var _solid_inactive: Dictionary[StringName, Array] = {}
 var _solid_active: Array[SolidProjectile] = []
 
 # Sensor projectile pools
-var _sensor_inactive: Dictionary[ProjectileData.Type, Array] = {}
+var _sensor_inactive: Dictionary[StringName, Array] = {}
 var _sensor_active: Array[SensorProjectile] = []
 
 func advance_frame() -> void:
 	_process_pool(_solid_inactive, _solid_active)
 	_process_pool(_sensor_inactive, _sensor_active)
 
-func init(projectile_types: Array[ProjectileData.Type]) -> void:
-	for type: ProjectileData.Type in projectile_types:
+func init(projectile_types: Array[StringName]) -> void:
+	for type: StringName in projectile_types:
 		var projectile_data: ProjectileData = RegistryManager.get_projectile_data(type)
 		if not projectile_data:
 			push_warning("ProjectileManager: Projectile type '%s' not recognized" % type)
 			continue
 		
-		var inactive_pool: Dictionary[ProjectileData.Type, Array]
+		var inactive_pool: Dictionary[StringName, Array]
 		
 		# Determine inactive pool to fill
 		var projectile_base = projectile_data.base
@@ -93,7 +93,7 @@ func handle_modifiers(modifiers: Array[ProjectileModifier]) -> void:
 		
 		mod.check_applied()
 
-func _process_pool(inactive_pool: Dictionary[ProjectileData.Type, Array], active_pool: Array) -> void:
+func _process_pool(inactive_pool: Dictionary[StringName, Array], active_pool: Array) -> void:
 	for i in range(active_pool.size() -1, -1, -1):
 		var projectile: SGFixedNode2D = active_pool[i]
 		

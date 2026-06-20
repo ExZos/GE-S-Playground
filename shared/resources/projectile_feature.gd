@@ -2,7 +2,4 @@ extends SkillFeature
 
 class_name ProjectileFeature
 
-@export var projectile_type: ProjectileData.Type = ProjectileData.Type.NONE
-
-func get_feature_type() -> StringName:
-	return &"projectile"
+@export_custom(PROPERTY_HINT_ENUM, ProjectileData.Type.LIST) var projectile_type: StringName

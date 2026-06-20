@@ -33,7 +33,7 @@ var _speed_is_dirty: bool = false
 var _fp_speed: int
 
 # Misc - used by other nodes
-var type: ProjectileData.Type = ProjectileData.Type.SENSOR # Key for determining which pool it belongs to
+var type: StringName = ProjectileData.Type.SENSOR # Key for determining which pool it belongs to
 var is_deactivated: bool = false # Reflects current state
 
 func init(data: ProjectileData) -> void:

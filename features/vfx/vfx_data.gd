@@ -1,14 +1,13 @@
+@tool
 extends RegistryData
 
 class_name VFXData
 
-# Next id: 1
-enum Type {
-	NONE = -1,
-	BUBBLE_VFX = 0
-}
+func _get_type_hint_string() -> String:
+	return Type.LIST
 
-@export var type: Type:
-	set(value):
-		type = value
-		id = value
+class Type extends RefCounted:
+	const BUBBLE_VFX: StringName = &"BubbleVFX"
+	
+	const LIST =\
+		BUBBLE_VFX

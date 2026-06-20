@@ -3,13 +3,13 @@ extends RefCounted
 class_name ProjectileRequest
 
 var source: Node2D
-var type: ProjectileData.Type
+var type: StringName
 
 var fp_pos_x: int = 0
 var fp_pos_y: int = 0
 var dir: Vector2i = Vector2i.ZERO
 
-func _init(_source: Node2D, _type: ProjectileData.Type) -> void:
+func _init(_source: Node2D, _type: StringName) -> void:
 	source = _source
 	type = _type
 

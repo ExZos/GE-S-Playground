@@ -7,7 +7,7 @@ var _source: SGFixedNode2D
 var _attack: Skill
 var _skills: Array[Skill] = []
 
-func init(source: SGFixedNode2D, attack_type: SkillData.Type, skill_types: Array[SkillData.Type]) -> void:
+func init(source: SGFixedNode2D, attack_type: StringName, skill_types: Array[StringName]) -> void:
 	_source = source
 	
 	# Initialize basic attack

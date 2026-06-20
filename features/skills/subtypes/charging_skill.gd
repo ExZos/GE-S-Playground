@@ -21,11 +21,11 @@ var fp_cd_ticks: int = 0
 var fp_charge_ticks: int = 0
 
 func _process_feature(feature: SkillFeature) -> void:
-	match feature.get_feature_type():
-		&"charging":
+	match feature.get_script():
+		ChargingFeature:
 			_fp_charge_time = SGFixed.from_int(feature.charge_time)
 		
-		&"cooldown":
+		CooldownFeature:
 			_fp_cooldown = SGFixed.from_int(feature.cooldown)
 		
 		_: super(feature)

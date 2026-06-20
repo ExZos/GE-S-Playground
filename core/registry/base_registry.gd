@@ -2,7 +2,7 @@ extends Resource
 
 class_name BaseRegistry
 
-var _lookup: Dictionary = {}
+var _lookup: Dictionary[StringName, RegistryData] = {}
 var is_init: bool = false
 
 func init() -> void:
@@ -11,12 +11,12 @@ func init() -> void:
 	
 	var resources: Array = _get_resources()
 	for res: RegistryData in resources:
-		_lookup[res.id] = res
+		_lookup[res.type] = res
 	
 	is_init = true
 
 func _get_resources() -> Array:
 	return []
 
-func _get_generic_data(id: int) -> RegistryData:
-	return _lookup.get(id)
+func _get_generic_data(type: StringName) -> RegistryData:
+	return _lookup.get(type)

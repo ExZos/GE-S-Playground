@@ -24,6 +24,3 @@ class_name ChargesFeature
 	set(value):
 		charges_inc = clampi(value, 1, max_charges)
 		notify_property_list_changed()
-
-func get_feature_type() -> StringName:
-	return &"charges"
