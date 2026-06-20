@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dqk2livkncmja" path="res://features/projectiles/projectile_data.gd" id="1_558i2"]
 [ext_resource type="Script" uid="uid://ddunbgpnclyi" path="res://features/projectiles/projectile_registry.gd" id="1_w0821"]
-[ext_resource type="Resource" uid="uid://4bwwhvk6e0lk" path="res://features/projectiles/sensor/sensor_projectile.tres" id="2_mdmq2"]
-[ext_resource type="Resource" uid="uid://cvqehutr40ohu" path="res://features/projectiles/solid/solid_projectile.tres" id="3_x3af3"]
+[ext_resource type="Resource" uid="uid://4bwwhvk6e0lk" path="res://features/projectiles/catalog/sensor/sensor_projectile.tres" id="2_mdmq2"]
+[ext_resource type="Resource" uid="uid://cvqehutr40ohu" path="res://features/projectiles/catalog/solid/solid_projectile.tres" id="3_x3af3"]
 
 [resource]
 script = ExtResource("1_w0821")

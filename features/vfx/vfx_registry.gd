@@ -1,11 +1,14 @@
-extends BaseRegistry
+@tool
+extends BaseSceneRegistry
 
 class_name VFXRegistry
 
-@export var registry_data: Array[VFXData]
+const scan_path = "res://features/vfx/catalog"
 
-func _get_resources() -> Array[VFXData]:
-	return registry_data
+func _validate_property(property: Dictionary) -> void:
+	if property.name == "preloads":
+		property.hint = PROPERTY_HINT_ARRAY_TYPE
+		property.hint_string = "%d/%d:%s" % [TYPE_STRING_NAME, PROPERTY_HINT_ENUM, VFXData.Type.LIST]
 
-func get_data(type: StringName) -> RegistryData:
-	return _get_generic_data(type)
+func get_scan_path() -> String:
+	return scan_path

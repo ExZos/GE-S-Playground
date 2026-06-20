@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://duchy48fspu5y"]
 
-[ext_resource type="Script" uid="uid://b7qhmi8tryl3w" path="res://features/skills/telekinesis/telekinesis.gd" id="1_8niep"]
+[ext_resource type="Script" uid="uid://b7qhmi8tryl3w" path="res://features/skills/catalog/telekinesis/telekinesis.gd" id="1_8niep"]
 
 [node name="Telekinesis" type="SGFixedNode2D" unique_id=1078953652]
 script = ExtResource("1_8niep")

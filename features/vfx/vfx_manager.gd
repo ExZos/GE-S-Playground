@@ -10,12 +10,12 @@ func _process(_delta: float) -> void:
 
 func _handle_events(vfx_events: Array[VFXEvent]):
 	for event in vfx_events:
-		var vfx_data: VFXData = RegistryManager.get_vfx_data(event.type)
-		if not vfx_data:
+		var vfx_scene: PackedScene = RegistryManager.get_vfx_scene(event.type)
+		if not vfx_scene:
 			push_warning("VFXManager: VFX type '%s' not recognized" % event.type)
 			continue
 		
-		var vfx: CPUParticles2D = vfx_data.scene.instantiate()
+		var vfx: CPUParticles2D = vfx_scene.instantiate()
 		event.apply(vfx)
 		
 		add_child(vfx)

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="VFXRegistry" format=3 uid="uid://bt3wpogny16hm"]
+
+[ext_resource type="Script" uid="uid://b8tpwyiy86y8o" path="res://features/vfx/vfx_registry.gd" id="1_44ekk"]
+
+[resource]
+script = ExtResource("1_44ekk")
+preloads = Array[StringName]([&"bubble_vfx"])
+metadata/_custom_type_script = "uid://b8tpwyiy86y8o"

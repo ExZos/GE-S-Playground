@@ -1,4 +1,4 @@
-extends BaseRegistry
+extends BaseDataRegistry
 
 class_name ProjectileRegistry
 

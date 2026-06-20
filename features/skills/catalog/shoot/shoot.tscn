@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b50d7rb033ta7"]
 
-[ext_resource type="Script" uid="uid://c84uyqd6w2k0" path="res://features/skills/shoot/shoot.gd" id="1_450se"]
+[ext_resource type="Script" uid="uid://c84uyqd6w2k0" path="res://features/skills/catalog/shoot/shoot.gd" id="1_450se"]
 
 [node name="Shoot" type="SGFixedNode2D" unique_id=1559223185]
 script = ExtResource("1_450se")

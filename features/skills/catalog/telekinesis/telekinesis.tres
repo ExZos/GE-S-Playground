@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://c4bmrg0llsrhm"]
 
-[ext_resource type="PackedScene" uid="uid://duchy48fspu5y" path="res://features/skills/telekinesis/telekinesis.tscn" id="1_4fnec"]
+[ext_resource type="PackedScene" uid="uid://duchy48fspu5y" path="res://features/skills/catalog/telekinesis/telekinesis.tscn" id="1_4fnec"]
 [ext_resource type="Script" uid="uid://cdbo6tb5t6b2l" path="res://shared/resources/skill_feature.gd" id="1_lg76q"]
 [ext_resource type="Script" uid="uid://ci283va12p2w8" path="res://features/skills/skill_data.gd" id="1_x2hvm"]
 [ext_resource type="Script" uid="uid://j7hl7qmceybr" path="res://shared/resources/charging_feature.gd" id="2_jokf3"]

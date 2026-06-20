@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://btsof3lgj8nuh"]
 
-[ext_resource type="PackedScene" uid="uid://0hy1cdpwv2d6" path="res://features/skills/sprint/sprint.tscn" id="1_fwwao"]
+[ext_resource type="PackedScene" uid="uid://0hy1cdpwv2d6" path="res://features/skills/catalog/sprint/sprint.tscn" id="1_fwwao"]
 [ext_resource type="Script" uid="uid://cdbo6tb5t6b2l" path="res://shared/resources/skill_feature.gd" id="1_txu1n"]
 [ext_resource type="Script" uid="uid://ci283va12p2w8" path="res://features/skills/skill_data.gd" id="2_fwwao"]
 [ext_resource type="Script" uid="uid://c3uaoltc8l1r2" path="res://shared/resources/stamina_feature.gd" id="2_r78xn"]

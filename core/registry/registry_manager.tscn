@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://dgcwqoabj1cpu" path="res://core/registry/registry_manager.gd" id="1_ehrob"]
 [ext_resource type="Resource" uid="uid://8i14jggo8nkg" path="res://features/projectiles/resources/main_projectile_registry.tres" id="2_b4e0q"]
 [ext_resource type="Resource" uid="uid://dqopbcpjavjob" path="res://features/skills/resources/main_skill_registry.tres" id="3_2w78g"]
-[ext_resource type="Resource" uid="uid://b7jdxy4rvlbs8" path="res://features/vfx/resources/main_vfx_registry.tres" id="4_uyfo7"]
+[ext_resource type="Resource" uid="uid://bt3wpogny16hm" path="res://features/vfx/resource/main_vfx_registry.tres" id="4_ehrob"]
 
 [node name="RegistryManager" type="Node" unique_id=1925949764]
 script = ExtResource("1_ehrob")
 projectile_registry = ExtResource("2_b4e0q")
 skill_registry = ExtResource("3_2w78g")
-vfx_registry = ExtResource("4_uyfo7")
+vfx_registry = ExtResource("4_ehrob")

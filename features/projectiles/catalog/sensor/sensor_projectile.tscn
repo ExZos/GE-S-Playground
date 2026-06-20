@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://drukoei2oscs0"]
 
-[ext_resource type="Script" uid="uid://dr4npjwtj0ytp" path="res://features/projectiles/sensor/sensor_projectile.gd" id="1_48nlb"]
+[ext_resource type="Script" uid="uid://dr4npjwtj0ytp" path="res://features/projectiles/catalog/sensor/sensor_projectile.gd" id="1_48nlb"]
 
 [sub_resource type="SGCircleShape2D" id="SGCircleShape2D_48nlb"]
 

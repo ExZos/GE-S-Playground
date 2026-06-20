@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://ip7qfp2f0231"]
 
 [ext_resource type="Script" uid="uid://cdbo6tb5t6b2l" path="res://shared/resources/skill_feature.gd" id="1_651qg"]
-[ext_resource type="PackedScene" uid="uid://b50d7rb033ta7" path="res://features/skills/shoot/shoot.tscn" id="2_n38ya"]
+[ext_resource type="PackedScene" uid="uid://b50d7rb033ta7" path="res://features/skills/catalog/shoot/shoot.tscn" id="2_n38ya"]
 [ext_resource type="Script" uid="uid://bke8uj5v1b114" path="res://shared/resources/projectile_feature.gd" id="2_wo1v0"]
 [ext_resource type="Script" uid="uid://ccrrwiwidu2yr" path="res://shared/resources/charges_feature.gd" id="3_3ifmx"]
 [ext_resource type="Script" uid="uid://ce5og15xxqp20" path="res://shared/resources/recovery_feature.gd" id="3_o0ybi"]

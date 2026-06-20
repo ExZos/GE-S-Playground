@@ -1,6 +1,6 @@
 extends Resource
 
-class_name BaseRegistry
+class_name BaseDataRegistry
 
 var _lookup: Dictionary[StringName, RegistryData] = {}
 var is_init: bool = false
