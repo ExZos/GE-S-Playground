@@ -1,11 +1,17 @@
-extends BaseDataRegistry
+@tool
+extends ResourceRegistry
 
 class_name SkillRegistry
 
-@export var skill_data: Array[SkillData]
+const SCAN_PATH = "res://features/skills/catalog"
 
-func _get_resources() -> Array:
-	return skill_data
+func _validate_property(property: Dictionary) -> void:
+	if property.name == "preload_types":
+		property.hint = PROPERTY_HINT_ARRAY_TYPE
+		property.hint_string = "%d/%d:%s" % [TYPE_STRING_NAME, PROPERTY_HINT_ENUM, SkillData.Type.LIST]
+
+func _get_scan_path() -> String:
+	return SCAN_PATH
 
 func get_data(type: StringName) -> SkillData:
-	return _lookup.get(type)
+	return _get_generic_data(type)

@@ -1,14 +1,8 @@
 [gd_resource type="Resource" script_class="SkillRegistry" format=3 uid="uid://dqopbcpjavjob"]
 
 [ext_resource type="Script" uid="uid://b57hqsebqv7yx" path="res://features/skills/skill_registry.gd" id="1_uujda"]
-[ext_resource type="Script" uid="uid://ci283va12p2w8" path="res://features/skills/skill_data.gd" id="2_bmc25"]
-[ext_resource type="Resource" uid="uid://banajgy0d3axf" path="res://features/skills/catalog/dash/dash.tres" id="3_3nl8h"]
-[ext_resource type="Resource" uid="uid://ip7qfp2f0231" path="res://features/skills/catalog/shoot/shoot_sensor.tres" id="4_3nl8h"]
-[ext_resource type="Resource" uid="uid://btsof3lgj8nuh" path="res://features/skills/catalog/sprint/sprint.tres" id="5_1kwqn"]
-[ext_resource type="Resource" uid="uid://bc1sw0hfq3kx3" path="res://features/skills/catalog/shoot/shoot_solid.tres" id="5_ok8jp"]
-[ext_resource type="Resource" uid="uid://c4bmrg0llsrhm" path="res://features/skills/catalog/telekinesis/telekinesis.tres" id="6_ok8jp"]
 
 [resource]
 script = ExtResource("1_uujda")
-skill_data = Array[ExtResource("2_bmc25")]([ExtResource("3_3nl8h"), ExtResource("4_3nl8h"), ExtResource("5_ok8jp"), ExtResource("5_1kwqn"), ExtResource("6_ok8jp")])
+preload_types = Array[StringName]([&"dash", &"shoot_sensor", &"shoot_solid", &"sprint", &"telekinesis"])
 metadata/_custom_type_script = "uid://b57hqsebqv7yx"

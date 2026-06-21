@@ -10,7 +10,7 @@
 
 [sub_resource type="Resource" id="Resource_o0ybi"]
 script = ExtResource("2_wo1v0")
-projectile_type = &"sensor"
+projectile_type = &"sensor_projectile"
 metadata/_custom_type_script = "uid://bke8uj5v1b114"
 
 [sub_resource type="Resource" id="Resource_4u2eh"]

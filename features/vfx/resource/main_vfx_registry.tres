@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_44ekk")
-preloads = Array[StringName]([&"bubble_vfx"])
+preload_types = Array[StringName]([&"bubble_vfx"])
 metadata/_custom_type_script = "uid://b8tpwyiy86y8o"
