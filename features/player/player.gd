@@ -53,13 +53,15 @@ var projectile_modifiers: Array[ProjectileModifier] = []
 var vfx_events: Array[VFXEvent] = []
 
 func _validate_property(property: Dictionary) -> void:
+	var skill_type_hint: String = ",".join(RegistryKeys.Skills.LIST)
+	
 	if property.name == "attack_type":
 		property.hint = PROPERTY_HINT_ENUM
-		property.hint_string = SkillData.Type.LIST
+		property.hint_string = skill_type_hint
 		
 	if property.name == "skill_types":
 		property.hint = PROPERTY_HINT_ARRAY_TYPE
-		property.hint_string = "%d/%d:%s" % [TYPE_STRING_NAME, PROPERTY_HINT_ENUM, SkillData.Type.LIST]
+		property.hint_string = "%d/%d:%s" % [TYPE_STRING_NAME, PROPERTY_HINT_ENUM, skill_type_hint]
 
 func init() -> void:
 	fp_base_speed = SGFixed.from_int(player_stats.base_speed)

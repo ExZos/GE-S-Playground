@@ -25,7 +25,7 @@ func _validate_property(property: Dictionary):
 		property.usage |= PROPERTY_USAGE_READ_ONLY
 
 func _get_type_hint_string() -> String:
-	return Type.LIST
+	return ",".join(RegistryKeys.Projectiles.LIST)
 
 func _set_scene(value: PackedScene) -> void:
 	scene = value
@@ -56,11 +56,3 @@ func _update_base() -> void:
 		_: push_error("ProjectileData: Root node type '%s' not supported" % root_type)
 	
 	notify_property_list_changed()
-
-class Type extends RefCounted:
-	const SENSOR: StringName = &"sensor_projectile"
-	const SOLID: StringName = &"solid_projectile"
-	
-	const LIST =\
-		SENSOR + "," +\
-		SOLID

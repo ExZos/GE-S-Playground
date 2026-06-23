@@ -2,12 +2,12 @@ extends BaseRegistry
 
 class_name SceneRegistry
 
-const TARGET_FILE_END: String = ".tscn"
+const TARGET_EXT: String = RegistryConfig.TargetExtensions.SCENE_REGISTRY
 
 var _lookup: Dictionary[StringName, PackedScene] = {}
 
-func _get_target_file_end() -> String:
-	return TARGET_FILE_END
+func _get_target_ext() -> String:
+	return TARGET_EXT
 
 func _preload_lookup() -> void:
 	for type: StringName in preload_types:
