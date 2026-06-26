@@ -53,8 +53,7 @@ func _on_activate(_mov_dir: Vector2i, aim_dir: Vector2i) -> void:
 	
 	source.remove_modifier(_charging_speed_modifier)
 	
-	_velocity_modifier.dir = aim_dir
-	_velocity_modifier.applied = false
+	_velocity_modifier.reset(aim_dir)
 	source.projectile_modifiers.append(_velocity_modifier)
 
 func _on_charging_cancelled(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
@@ -93,7 +92,9 @@ class VelocityModifier extends ProjectileModifier:
 	var fp_speed_mult_prod_inc: int = 0
 	var dir: Vector2i = Vector2i.ZERO
 	
-	var applied: bool = false
+	var _applied: bool = false
+	
+	var _group_vfx_event: GroupVFXEvent
 	
 	func _init(_source: SGFixedNode2D, _skill: Skill, _fp_speed_add_inc: int, _fp_speed_mult_sum_inc: int, _fp_speed_mult_prod_inc: int) -> void:
 		super(_source, _skill)
@@ -101,6 +102,15 @@ class VelocityModifier extends ProjectileModifier:
 		fp_speed_add_inc = _fp_speed_add_inc
 		fp_speed_mult_sum_inc = _fp_speed_mult_sum_inc
 		fp_speed_mult_prod_inc = _fp_speed_mult_prod_inc
+		
+		_group_vfx_event = GroupVFXEvent.new(
+			RegistryKeys.VFX.BUBBLE_VFX,
+			[]
+		)
+	
+	func reset(_dir: Vector2i) -> void:
+		dir = _dir
+		_applied = false
 	
 	func apply(projectiles: Array) -> void:
 		var neutral_dir: bool = dir == Vector2i.ZERO
@@ -115,13 +125,15 @@ class VelocityModifier extends ProjectileModifier:
 			if not neutral_dir:
 				proj.dir = dir
 			
-			applied = true
-			source.vfx_events.append(BubbleVFXEvent.new(
+			_applied = true
+			_group_vfx_event.add_spawn_data(
 				proj.position,
 				Vector2i.ZERO,
 				0
-			))
+			)
 	
 	func check_applied() -> void:
-		if not applied:
+		if _applied:
+			source.vfx_events.append(_group_vfx_event)
+		else:
 			skill._on_whiff()

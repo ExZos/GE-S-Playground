@@ -48,6 +48,10 @@ var _player_modifiers: Array[PlayerModifier] = []
 var player_modifiers_is_dirty: bool = false
 
 # 
+# TODO: static classes that handle arrays instead
+# TODO: turn into fixed arrays filled with nulls
+# TODO: replace append() and clear() with custom manual handling
+# TODO: find a way to determine the maximum size of each array
 var projectile_requests: Array[ProjectileRequest] = []
 var projectile_modifiers: Array[ProjectileModifier] = []
 var vfx_events: Array[VFXEvent] = []

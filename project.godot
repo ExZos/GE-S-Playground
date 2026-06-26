@@ -19,10 +19,6 @@ config/icon="res://assets/icon.svg"
 
 RegistryManager="*uid://djs6um4xaklck"
 
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/registry_key_generator/plugin.cfg")
-
 [input]
 
 move_up={

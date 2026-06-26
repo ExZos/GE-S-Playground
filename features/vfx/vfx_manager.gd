@@ -15,7 +15,7 @@ func _handle_events(vfx_events: Array[VFXEvent]):
 			push_warning("VFXManager: VFX type '%s' not recognized" % event.type)
 			continue
 		
-		var vfx: CPUParticles2D = vfx_scene.instantiate()
+		var vfx: Node2D = vfx_scene.instantiate()
 		event.apply(vfx)
 		
 		add_child(vfx)

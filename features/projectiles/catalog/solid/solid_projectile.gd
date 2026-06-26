@@ -61,6 +61,12 @@ func advance_frame() -> void:
 		elif collider is Player:
 			print("SolidProjectile: Hit player")
 		
+		source.vfx_events.append(BubbleVFXEvent.new(
+			position,
+			dir,
+			0
+		))
+		
 		deactivate()
 
 func activate(_source: SGFixedNode2D, fp_pos_x: int, fp_pos_y: int, _dir: Vector2i) -> void:
