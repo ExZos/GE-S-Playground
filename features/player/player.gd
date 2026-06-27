@@ -30,7 +30,7 @@ var restrict_attack: bool = false
 var restrict_skills: bool = false
 
 # Dimensions
-var _fp_half_width: int:
+var fp_half_width: int:
 	get:
 		return collision_shape.shape.radius
 

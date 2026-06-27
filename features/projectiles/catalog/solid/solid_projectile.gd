@@ -39,10 +39,18 @@ var _fp_speed: int
 var type: StringName = RegistryKeys.Projectiles.SOLID_PROJECTILE # Key for determining which pool it belongs to
 var is_deactivated: bool = false # Reflects current state
 
+var _bubble_vfx_event: BubbleVFXEvent
+
 func init(data: ProjectileData) -> void:
 	type = data.type
 	fp_base_speed = SGFixed.from_int(data.base_speed)
 	_speed_is_dirty = true
+	
+	_bubble_vfx_event = BubbleVFXEvent.new(
+		Vector2i.ZERO,
+		Vector2i.ZERO,
+		0
+	)
 
 func advance_frame() -> void:
 	if _speed_is_dirty:
@@ -61,11 +69,9 @@ func advance_frame() -> void:
 		elif collider is Player:
 			print("SolidProjectile: Hit player")
 		
-		source.vfx_events.append(BubbleVFXEvent.new(
-			position,
-			dir,
-			0
-		))
+		_bubble_vfx_event.pos = position
+		_bubble_vfx_event.dir = dir
+		source.vfx_events.append(_bubble_vfx_event)
 		
 		deactivate()
 

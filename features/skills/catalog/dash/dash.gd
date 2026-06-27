@@ -9,6 +9,7 @@ var _fp_speed_mult_sum_inc: int
 var _fp_speed_mult_prod_inc: int
 
 var _dash_modifiers: Array[DashModifier]
+var _bubble_vfx_event: BubbleVFXEvent
 
 func _process_feature(feature: SkillFeature) -> void:
 	match feature.get_feature_type():
@@ -28,6 +29,13 @@ func _ready() -> void:
 			_fp_speed_mult_sum_inc,
 			_fp_speed_mult_prod_inc
 		))
+	
+	# TODO: figure out a better way to determine an appropriate speed
+	_bubble_vfx_event = BubbleVFXEvent.new(
+		Vector2i.ZERO,
+		Vector2i.ZERO,
+		-500
+	)
 
 func _on_activate(mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
 	var dash_modifier: DashModifier
@@ -52,12 +60,9 @@ func _on_activate(mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
 	
 	source.add_modifier(dash_modifier)
 	
-	# TODO: figure out a better way to determine an appropriate speed
-	source.vfx_events.append(BubbleVFXEvent.new(
-		source.position,
-		mov_dir,
-		-500
-	))
+	_bubble_vfx_event.pos = source.position
+	_bubble_vfx_event.dir = mov_dir
+	source.vfx_events.append(_bubble_vfx_event)
 
 class DashModifier extends PlayerModifier:
 	var fp_speed_add_inc: int = 0

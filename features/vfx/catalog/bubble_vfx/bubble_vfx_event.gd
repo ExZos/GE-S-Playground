@@ -1,8 +1,5 @@
 extends VFXEvent
 
-# TODO: static class implementation to avoid object creation and pools headaches
-# 		pseudo-create() function that returns an array with what would normally be the class' params
-#		apply() function that takes node and created array
 # TODO: AssetRegistry with sub-registries
 class_name BubbleVFXEvent
 
