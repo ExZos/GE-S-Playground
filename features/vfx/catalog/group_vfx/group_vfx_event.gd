@@ -19,22 +19,23 @@ func _init(_vfx_type: StringName, _spawn_data_list: Array[PackedInt64Array]) -> 
 	vfx_type = _vfx_type
 	spawn_data_list = _spawn_data_list
 
-func apply(vfx_node: Node2D) -> void:
+func apply(vfx_manager: Node) -> void:
 	var vfx_scene: PackedScene = RegistryManager.get_vfx_scene(vfx_type)
 	if not vfx_scene:
 		push_warning("GroupVFXEvent: VFX type '%s' not recognized" % vfx_type)
 		return
-		
+	
+	# TODO: test with other vfx types
 	for spawn_data in spawn_data_list:
-		var vfx: Node2D = vfx_scene.instantiate()
+		var vfx_node: Node2D = vfx_manager.get_vfx_node(vfx_type)
 		
-		vfx.position.x = spawn_data[SpawnDataIndex.POS_X]
-		vfx.position.y = spawn_data[SpawnDataIndex.POS_Y]
-		vfx.direction.x = spawn_data[SpawnDataIndex.DIR_X]
-		vfx.direction.y = spawn_data[SpawnDataIndex.DIR_Y]
-		vfx.initial_velocity_min = spawn_data[SpawnDataIndex.SPEED]
+		vfx_node.position.x = spawn_data[SpawnDataIndex.POS_X]
+		vfx_node.position.y = spawn_data[SpawnDataIndex.POS_Y]
+		vfx_node.direction.x = spawn_data[SpawnDataIndex.DIR_X]
+		vfx_node.direction.y = spawn_data[SpawnDataIndex.DIR_Y]
+		vfx_node.initial_velocity_min = spawn_data[SpawnDataIndex.SPEED]
 		
-		vfx_node.add_child(vfx)
+		vfx_node.play_effect()
 	
 	spawn_data_list.clear()
 

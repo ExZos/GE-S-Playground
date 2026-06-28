@@ -27,6 +27,10 @@ func _process(_delta: float) -> void:
 	else:
 		percentage_label.text = ""
 
+func _exit_tree() -> void:
+	if skill and skill.state_changed.is_connected(_on_state_changed):
+		skill.state_changed.disconnect(_on_state_changed)
+
 func _on_state_changed(state: StaminaSkill.State) -> void:
 	if skill.state == StaminaSkill.State.EXHAUSTED:
 		progress_bar.tint_progress = Color.GRAY

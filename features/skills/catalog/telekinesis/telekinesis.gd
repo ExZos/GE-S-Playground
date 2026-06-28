@@ -54,7 +54,7 @@ func _on_activate(_mov_dir: Vector2i, aim_dir: Vector2i) -> void:
 	source.remove_modifier(_charging_speed_modifier)
 	
 	_velocity_modifier.reset(aim_dir)
-	source.projectile_modifiers.append(_velocity_modifier)
+	EventBus.modify_projectiles(_velocity_modifier)
 
 func _on_charging_cancelled(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
 	source.remove_modifier(_charging_speed_modifier)
@@ -134,6 +134,6 @@ class VelocityModifier extends ProjectileModifier:
 	
 	func check_applied() -> void:
 		if _applied:
-			source.vfx_events.append(_group_vfx_event)
+			EventBus.vfx_requested.emit(_group_vfx_event)
 		else:
 			skill._on_whiff()

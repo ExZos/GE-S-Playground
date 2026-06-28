@@ -1,6 +1,15 @@
 extends CPUParticles2D
 
 func _ready() -> void:
-	finished.connect(queue_free)
+	finished.connect(_hide)
+	visible = true
 	restart()
 	emitting = true
+
+func play_effect() -> void:
+	visible = true
+	restart()
+	emitting = true
+
+func _hide() -> void:
+	visible = false

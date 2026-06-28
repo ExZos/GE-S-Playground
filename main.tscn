@@ -73,10 +73,9 @@ position_smoothing_enabled = true
 [node name="VFXLayer" type="CanvasLayer" parent="." unique_id=763770195]
 follow_viewport_enabled = true
 
-[node name="VFXManager" type="Node" parent="VFXLayer" unique_id=1991692092 node_paths=PackedStringArray("player", "projectile_manager")]
+[node name="VFXManager" type="Node" parent="VFXLayer" unique_id=1991692092 node_paths=PackedStringArray("game_manager")]
 script = ExtResource("1_5vw27")
-player = NodePath("../../Player")
-projectile_manager = NodePath("../../ProjectileManager")
+game_manager = NodePath("../../GameManager")
 metadata/_custom_type_script = "uid://b1iphtfxsb15w"
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=890362404]

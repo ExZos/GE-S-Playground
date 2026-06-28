@@ -32,5 +32,9 @@ func _process(_delta: float) -> void:
 	else:
 		cooldown_label.text = ""
 
+func _exit_tree() -> void:
+	if skill and skill.charges_changed.is_connected(_on_charges_changed):
+		skill.charges_changed.disconnect(_on_charges_changed)
+
 func _on_charges_changed(charges: int) -> void:
 	charges_label.text = str(charges)

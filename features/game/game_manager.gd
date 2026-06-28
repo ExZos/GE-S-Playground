@@ -1,10 +1,16 @@
 extends Node
 
+class_name GameManager
+
 @export var input_manager: InputManager
 @export var player: Player
 @export var projectile_manager: ProjectileManager
 
+var projectile_modifiers: Array[ProjectileModifier] = []
+
 func _ready() -> void:
+	EventBus.register_game_manager(self)
+	
 	RegistryManager.init()
 	
 	player.init()
@@ -35,8 +41,11 @@ func _physics_process(_delta: float) -> void:
 		projectile_manager.handle_requests(player.projectile_requests)
 		player.projectile_requests.clear()
 	
-	if not player.projectile_modifiers.is_empty():
-		projectile_manager.handle_modifiers(player.projectile_modifiers)
-		player.projectile_modifiers.clear()
+	if not projectile_modifiers.is_empty():
+		projectile_manager.handle_modifiers(projectile_modifiers)
+		projectile_modifiers.clear()
 	
 	projectile_manager.advance_frame()
+
+func add_projectile_modifier(modifier: ProjectileModifier) -> void:
+	projectile_modifiers.append(modifier)

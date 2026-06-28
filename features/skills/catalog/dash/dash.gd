@@ -62,7 +62,7 @@ func _on_activate(mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
 	
 	_bubble_vfx_event.pos = source.position
 	_bubble_vfx_event.dir = mov_dir
-	source.vfx_events.append(_bubble_vfx_event)
+	EventBus.vfx_requested.emit(_bubble_vfx_event)
 
 class DashModifier extends PlayerModifier:
 	var fp_speed_add_inc: int = 0

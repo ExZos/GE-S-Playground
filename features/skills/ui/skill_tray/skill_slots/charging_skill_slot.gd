@@ -35,6 +35,10 @@ func _process(_delta: float) -> void:
 	else:
 		progress_label.text = ""
 
+func _exit_tree() -> void:
+	if skill and skill.state_changed.is_connected(_on_state_changed):
+		skill.state_changed.disconnect(_on_state_changed)
+
 func _on_state_changed(state: ChargingSkill.State) -> void:
 	if state == ChargingSkill.State.COOLDOWN:
 		charge_progress_bar.visible = false

@@ -14,7 +14,10 @@ func _init(_pos: Vector2i, _dir: Vector2i, _speed: int) -> void:
 	dir = _dir
 	speed = _speed
 
-func apply(vfx_node: Node2D) -> void:
+# TODO: investigate speed not affecting sometimes
+func apply(vfx_node: Node) -> void:
 	vfx_node.position = pos
 	vfx_node.direction = dir
 	vfx_node.initial_velocity_min = speed
+	
+	vfx_node.play_effect()

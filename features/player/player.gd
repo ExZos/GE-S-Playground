@@ -53,8 +53,6 @@ var player_modifiers_is_dirty: bool = false
 # TODO: replace append() and clear() with custom manual handling
 # TODO: find a way to determine the maximum size of each array
 var projectile_requests: Array[ProjectileRequest] = []
-var projectile_modifiers: Array[ProjectileModifier] = []
-var vfx_events: Array[VFXEvent] = []
 
 func _validate_property(property: Dictionary) -> void:
 	var skill_type_hint: String = ",".join(RegistryKeys.Skills.LIST)
