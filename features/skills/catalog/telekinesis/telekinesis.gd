@@ -87,6 +87,8 @@ class ChargingSpeedModifier extends PlayerModifier:
 		return true
 
 class VelocityModifier extends ProjectileModifier:
+	const VFX_EVENTS_POOL_SIZE: int = 50
+	
 	var fp_speed_add_inc: int = 0
 	var fp_speed_mult_sum_inc: int = 0
 	var fp_speed_mult_prod_inc: int = 0
@@ -94,7 +96,8 @@ class VelocityModifier extends ProjectileModifier:
 	
 	var _applied: bool = false
 	
-	var _group_vfx_event: GroupVFXEvent
+	var _vfx_events: Array[VFXEvent] = []
+	var _vfx_events_count: int = 0
 	
 	func _init(_source: SGFixedNode2D, _skill: Skill, _fp_speed_add_inc: int, _fp_speed_mult_sum_inc: int, _fp_speed_mult_prod_inc: int) -> void:
 		super(_source, _skill)
@@ -103,14 +106,18 @@ class VelocityModifier extends ProjectileModifier:
 		fp_speed_mult_sum_inc = _fp_speed_mult_sum_inc
 		fp_speed_mult_prod_inc = _fp_speed_mult_prod_inc
 		
-		_group_vfx_event = GroupVFXEvent.new(
-			RegistryKeys.VFX.BUBBLE_VFX,
-			[]
-		)
+		_vfx_events.resize(VFX_EVENTS_POOL_SIZE)
+		for i in range(VFX_EVENTS_POOL_SIZE):
+			_vfx_events[i] = BubbleVFXEvent.new(
+				Vector2i.ZERO,
+				Vector2i.ZERO,
+				0
+			)
 	
 	func reset(_dir: Vector2i) -> void:
 		dir = _dir
 		_applied = false
+		_vfx_events_count = 0
 	
 	func apply(projectiles: Array) -> void:
 		var neutral_dir: bool = dir == Vector2i.ZERO
@@ -126,14 +133,17 @@ class VelocityModifier extends ProjectileModifier:
 				proj.dir = dir
 			
 			_applied = true
-			_group_vfx_event.add_spawn_data(
+			
+			_vfx_events[_vfx_events_count].reset(
 				proj.position,
 				Vector2i.ZERO,
 				0
 			)
+			
+			_vfx_events_count += 1
 	
 	func check_applied() -> void:
 		if _applied:
-			EventBus.vfx_requested.emit(_group_vfx_event)
+			EventBus.vfx_batch_requested.emit(_vfx_events, _vfx_events_count)
 		else:
 			skill._on_whiff()

@@ -17,4 +17,3 @@ class Skills:
 class VFX:
 	const BUBBLE_VFX: StringName = &"bubble_vfx"
 	const LIST: PackedStringArray = [BUBBLE_VFX]
-

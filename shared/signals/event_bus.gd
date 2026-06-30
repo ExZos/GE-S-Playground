@@ -3,6 +3,8 @@ extends Node
 @warning_ignore("unused_signal")
 signal vfx_requested(vfx_event: VFXEvent)
 
+@warning_ignore("unused_signal")
+signal vfx_batch_requested(vfx_events: Array[VFXEvent], count: int)
 
 # --- GameManager simulation ---
 var _game_manager: GameManager

@@ -14,6 +14,11 @@ func _init(_pos: Vector2i, _dir: Vector2i, _speed: int) -> void:
 	dir = _dir
 	speed = _speed
 
+func reset(_pos: Vector2i, _dir: Vector2i, _speed: int) -> void:
+	pos = _pos
+	dir = _dir
+	speed = _speed
+
 # TODO: investigate speed not affecting sometimes
 func apply(vfx_node: Node) -> void:
 	vfx_node.position = pos
