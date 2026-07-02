@@ -7,5 +7,5 @@ var type: StringName
 func _init(_type: StringName) -> void:
 	type = _type
 
-func apply(_vfx_node: Node) -> void:
+func apply(_vfx: Node) -> void:
 	pass

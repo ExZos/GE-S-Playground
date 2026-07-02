@@ -46,7 +46,7 @@ func _on_activate(mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
 			break
 	
 	if not dash_modifier:
-		push_warning("No dash modifiers available. Total dash modifiers: %d" % _dash_modifiers.size())
+		push_warning("DashSkill: No dash modifiers available, creating one. Total dash modifiers: %d" % _dash_modifiers.size())
 		dash_modifier = DashModifier.new(
 			source,
 			_fp_speed_add_inc,

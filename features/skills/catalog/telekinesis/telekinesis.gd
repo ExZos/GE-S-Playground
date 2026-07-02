@@ -134,11 +134,19 @@ class VelocityModifier extends ProjectileModifier:
 			
 			_applied = true
 			
-			_vfx_events[_vfx_events_count].reset(
-				proj.position,
-				Vector2i.ZERO,
-				0
-			)
+			if _vfx_events_count < _vfx_events.size():
+				_vfx_events[_vfx_events_count].reset(
+					proj.position,
+					Vector2i.ZERO,
+					0
+				)
+			else:
+				push_warning("TelekinesisSkill: No VFX event available, creating one. Total VFX events: %d" % _vfx_events.size())
+				_vfx_events.append(BubbleVFXEvent.new(
+					proj.position,
+					Vector2i.ZERO,
+					0
+				))
 			
 			_vfx_events_count += 1
 	

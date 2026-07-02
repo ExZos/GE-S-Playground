@@ -20,9 +20,9 @@ func reset(_pos: Vector2i, _dir: Vector2i, _speed: int) -> void:
 	speed = _speed
 
 # TODO: investigate speed not affecting sometimes
-func apply(vfx_node: Node) -> void:
-	vfx_node.position = pos
-	vfx_node.direction = dir
-	vfx_node.initial_velocity_min = speed
+func apply(vfx: Node) -> void:
+	vfx.position = pos
+	vfx.direction = dir
+	vfx.initial_velocity_min = speed
 	
-	vfx_node.play_effect()
+	vfx.play_effect()
