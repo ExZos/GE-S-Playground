@@ -71,11 +71,23 @@ func get_vfx(type: StringName) -> Node2D:
 func _on_vfx_requested(event: VFXEvent) -> void:
 	# TODO: block if in rollback frame
 	
+	if _vfx_events_count == _vfx_events.size():
+		push_warning("VFXManager: No VFX event available, creating one. Total VFX events: %d" % _vfx_events.size())
+		_vfx_events.resize(_vfx_events.size() + 1)
+	
 	_vfx_events[_vfx_events_count] = event
 	_vfx_events_count += 1
 
 func _on_vfx_batch_requested(events: Array[VFXEvent], count: int) -> void:
 	# TODO: block if in rollback frame
+	
+	if count > _vfx_events.size() - _vfx_events_count:
+		var available: int = _vfx_events.size() - _vfx_events_count
+		var missing: int = count - available
+		
+		push_warning("VFXManager: Not enough VFX events available, creating %d. %d requested but %d available. Total VFX events: %d" % [missing, count, available, _vfx_events.size()])
+		_vfx_events.resize(_vfx_events.size() + missing)
+			
 	
 	for i in range(count):
 		_vfx_events[_vfx_events_count + i] = events[i]
