@@ -10,7 +10,8 @@ class_name Player
 @export var attack_type: StringName
 @export var skill_types: Array[StringName]
 
-const PLAYER_MODIFIERS_POOL_SIZE: int = 10
+const PROJECTILE_REQUESTS_POOL_SIZE: int = 5
+const PLAYER_MODIFIERS_POOL_SIZE: int = 5
 
 # Stats
 var fp_base_speed: int
@@ -52,10 +53,8 @@ var _player_modifiers_is_dirty: bool = false
 
 # 
 # TODO: static classes that handle arrays instead
-# TODO: turn into fixed arrays filled with nulls
-# TODO: replace append() and clear() with custom manual handling
-# TODO: find a way to determine the maximum size of each array
 var projectile_requests: Array[ProjectileRequest] = []
+var projectile_requests_count: int = 0
 
 func _validate_property(property: Dictionary) -> void:
 	var skill_type_hint: String = ",".join(RegistryKeys.Skills.LIST)
@@ -70,6 +69,7 @@ func _validate_property(property: Dictionary) -> void:
 
 func init() -> void:
 	_player_modifiers.resize(PLAYER_MODIFIERS_POOL_SIZE)
+	projectile_requests.resize(PROJECTILE_REQUESTS_POOL_SIZE)
 	
 	fp_base_speed = SGFixed.from_int(player_stats.base_speed)
 	_compute_speed()
@@ -180,6 +180,21 @@ func remove_modifier(modifier: PlayerModifier) -> void:
 	_player_modifiers_count -= 1
 	
 	_player_modifiers_is_dirty = true
+
+# --- Projectile request wrappers ---
+func add_projectile_request(request: ProjectileRequest) -> void:
+	if projectile_requests_count == projectile_requests.size():
+		push_warning("Player: No projectile request available, creating one. Total projectile requests: %d" % projectile_requests.size())
+		projectile_requests.resize(projectile_requests.size() + 1)
+	
+	projectile_requests[projectile_requests_count] = request
+	projectile_requests_count += 1
+
+func clear_projectile_requests() -> void:
+	for i in range(projectile_requests_count):
+		projectile_requests[i] = null
+	
+	projectile_requests_count = 0
 
 # --- Private functions ---
 func _compute_speed() -> void:

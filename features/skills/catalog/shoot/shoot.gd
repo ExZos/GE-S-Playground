@@ -30,6 +30,6 @@ func _on_activate(_mov_dir: Vector2i, aim_dir: Vector2i) -> void:
 		aim_dir
 	)
 	
-	source.projectile_requests.append(_projectile_request)
+	source.add_projectile_request(_projectile_request)
 	
 	source.fp_recovery_ticks = _fp_recovery

@@ -45,8 +45,9 @@ func init(projectile_types: Array[StringName]) -> void:
 			add_child(projectile)
 			inactive_pool[type].push_back(projectile)
 
-func handle_requests(requests: Array[ProjectileRequest]) -> void:
-	for req in requests:
+func handle_requests(requests: Array[ProjectileRequest], count: int) -> void:
+	for i in range(count):
+		var req: ProjectileRequest = requests[i]
 		var projectile: SGFixedNode2D
 	
 		# Will point to the arrays for this projectile
