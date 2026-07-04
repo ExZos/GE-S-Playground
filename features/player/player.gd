@@ -10,6 +10,8 @@ class_name Player
 @export var attack_type: StringName
 @export var skill_types: Array[StringName]
 
+const PLAYER_MODIFIERS_POOL_SIZE: int = 10
+
 # Stats
 var fp_base_speed: int
 
@@ -45,7 +47,8 @@ var _prev_input_mask: int = 0
 
 # 
 var _player_modifiers: Array[PlayerModifier] = []
-var player_modifiers_is_dirty: bool = false
+var _player_modifiers_count: int = 0
+var _player_modifiers_is_dirty: bool = false
 
 # 
 # TODO: static classes that handle arrays instead
@@ -66,6 +69,8 @@ func _validate_property(property: Dictionary) -> void:
 		property.hint_string = "%d/%d:%s" % [TYPE_STRING_NAME, PROPERTY_HINT_ENUM, skill_type_hint]
 
 func init() -> void:
+	_player_modifiers.resize(PLAYER_MODIFIERS_POOL_SIZE)
+	
 	fp_base_speed = SGFixed.from_int(player_stats.base_speed)
 	_compute_speed()
 	
@@ -80,7 +85,7 @@ func advance_frame(input_mask: int) -> void:
 	skill_manager.process_tickers()
 	
 	for i in range(_player_modifiers.size() - 1, -1, -1):
-		if not _player_modifiers[i].tick_and_check():
+		if _player_modifiers[i] and not _player_modifiers[i].tick_and_check():
 			remove_modifier_at(i)
 	
 	is_recovering = fp_recovery_ticks > 0
@@ -100,7 +105,7 @@ func advance_frame(input_mask: int) -> void:
 	skill_manager.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, mov_dir)
 	
 	# Apply modifiers
-	if player_modifiers_is_dirty:
+	if _player_modifiers_is_dirty:
 		# Reset stats
 		fp_speed_add = 0
 		fp_speed_mult_sum = SGFixed.ONE
@@ -112,10 +117,11 @@ func advance_frame(input_mask: int) -> void:
 		restrict_skills = false
 		
 		for mod in _player_modifiers:
-			mod.apply()
+			if mod:
+				mod.apply()
 		
 		_compute_speed()
-		player_modifiers_is_dirty = false
+		_player_modifiers_is_dirty = false
 	
 	# Movement
 	if is_recovering:
@@ -145,16 +151,35 @@ func get_skills() -> Array[Skill]:
 
 # --- Player modifier wrappers ---
 func add_modifier(modifier: PlayerModifier) -> void:
-	_player_modifiers.append(modifier)
-	player_modifiers_is_dirty = true
+	var next_available_index: int = -1
+	
+	if _player_modifiers_count < _player_modifiers.size():
+		for i in range(_player_modifiers.size()):
+			if not _player_modifiers[i]:
+				next_available_index = i
+				break
+	else:
+		push_warning("Player: No player modifier available, creating one. Total player modifiers: %d" % _player_modifiers.size())
+		next_available_index = _player_modifiers.size()
+		_player_modifiers.resize(_player_modifiers.size() + 1)
+	
+	_player_modifiers[next_available_index] = modifier
+	_player_modifiers_count += 1
+	
+	_player_modifiers_is_dirty = true
 
 func remove_modifier_at(index: int) -> void:
-	_player_modifiers.remove_at(index)
-	player_modifiers_is_dirty = true
+	_player_modifiers[index] = null
+	_player_modifiers_count -= 1
+	
+	_player_modifiers_is_dirty = true
 
 func remove_modifier(modifier: PlayerModifier) -> void:
-	_player_modifiers.erase(modifier)
-	player_modifiers_is_dirty = true
+	var index: int = _player_modifiers.find(modifier)
+	_player_modifiers[index] = null
+	_player_modifiers_count -= 1
+	
+	_player_modifiers_is_dirty = true
 
 # --- Private functions ---
 func _compute_speed() -> void:
