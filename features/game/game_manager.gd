@@ -6,12 +6,16 @@ class_name GameManager
 @export var player: Player
 @export var projectile_manager: ProjectileManager
 
-var projectile_modifiers: Array[ProjectileModifier] = []
+const PROJECTILE_MODIFIERS_POOL_SIZE: int = 10
+
+var _projectile_modifiers: Array[ProjectileModifier] = []
+var _projectile_modifiers_count: int = 0
 
 func _ready() -> void:
 	EventBus.register_game_manager(self)
-	
 	RegistryManager.init()
+	
+	_projectile_modifiers.resize(PROJECTILE_MODIFIERS_POOL_SIZE)
 	
 	player.init()
 	
@@ -41,11 +45,20 @@ func _physics_process(_delta: float) -> void:
 		projectile_manager.handle_requests(player.projectile_requests)
 		player.projectile_requests.clear()
 	
-	if not projectile_modifiers.is_empty():
-		projectile_manager.handle_modifiers(projectile_modifiers)
-		projectile_modifiers.clear()
+	if _projectile_modifiers_count > 0:
+		projectile_manager.handle_modifiers(_projectile_modifiers, _projectile_modifiers_count)
+		
+		for i in range(_projectile_modifiers_count):
+			_projectile_modifiers[i] = null
+		
+		_projectile_modifiers_count = 0
 	
 	projectile_manager.advance_frame()
 
 func add_projectile_modifier(modifier: ProjectileModifier) -> void:
-	projectile_modifiers.append(modifier)
+	if _projectile_modifiers_count == _projectile_modifiers.size():
+		push_warning("GameManager: No projectile modifier available, creating one. Total projectile modifiers: %d" % _projectile_modifiers.size())
+		_projectile_modifiers.resize(_projectile_modifiers.size() + 1)
+	
+	_projectile_modifiers[_projectile_modifiers_count] = modifier
+	_projectile_modifiers_count += 1

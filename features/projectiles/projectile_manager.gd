@@ -86,8 +86,10 @@ func handle_requests(requests: Array[ProjectileRequest]) -> void:
 			
 		active_pool.append(projectile)
 
-func handle_modifiers(modifiers: Array[ProjectileModifier]) -> void:
-	for mod in modifiers:
+func handle_modifiers(modifiers: Array[ProjectileModifier], count: int) -> void:
+	for i in range(count):
+		var mod: ProjectileModifier = modifiers[i]
+		
 		mod.apply(_solid_active)
 		mod.apply(_sensor_active)
 		
