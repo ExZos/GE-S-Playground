@@ -96,8 +96,7 @@ class VelocityModifier extends ProjectileModifier:
 	
 	var _applied: bool = false
 	
-	var _vfx_events: Array[VFXEvent] = []
-	var _vfx_events_count: int = 0
+	var _vfx_events: DenseFixedArray
 	
 	func _init(_source: SGFixedNode2D, _skill: Skill, _fp_speed_add_inc: int, _fp_speed_mult_sum_inc: int, _fp_speed_mult_prod_inc: int) -> void:
 		super(_source, _skill)
@@ -106,9 +105,9 @@ class VelocityModifier extends ProjectileModifier:
 		fp_speed_mult_sum_inc = _fp_speed_mult_sum_inc
 		fp_speed_mult_prod_inc = _fp_speed_mult_prod_inc
 		
-		_vfx_events.resize(VFX_EVENTS_POOL_SIZE)
-		for i in range(VFX_EVENTS_POOL_SIZE):
-			_vfx_events[i] = BubbleVFXEvent.new(
+		_vfx_events = DenseFixedArray.new(VFX_EVENTS_POOL_SIZE, BubbleVFXEvent)
+		for i in range(_vfx_events.max_size):
+			_vfx_events.data[i] = BubbleVFXEvent.new(
 				Vector2i.ZERO,
 				Vector2i.ZERO,
 				0
@@ -117,13 +116,13 @@ class VelocityModifier extends ProjectileModifier:
 	func reset(_dir: Vector2i) -> void:
 		dir = _dir
 		_applied = false
-		_vfx_events_count = 0
+		_vfx_events.count = 0
 	
 	func apply(projectiles: Array) -> void:
 		var neutral_dir: bool = dir == Vector2i.ZERO
 		
 		for proj: SGFixedNode2D in projectiles:
-			if source != proj.source:
+			if not proj or source != proj.source:
 				continue
 			
 			proj.fp_speed_add += fp_speed_add_inc
@@ -134,24 +133,27 @@ class VelocityModifier extends ProjectileModifier:
 			
 			_applied = true
 			
-			if _vfx_events_count < _vfx_events.size():
-				_vfx_events[_vfx_events_count].reset(
+			if _vfx_events.count < _vfx_events.max_size:
+				_vfx_events.data[_vfx_events.count].reset(
 					proj.position,
 					Vector2i.ZERO,
 					0
 				)
+				
+				_vfx_events.count += 1
 			else:
 				push_warning("TelekinesisSkill: No VFX event available, creating one. Total VFX events: %d" % _vfx_events.size())
-				_vfx_events.append(BubbleVFXEvent.new(
+				_vfx_events.data.resize(_vfx_events.max_size + 1)
+				_vfx_events.max_size += 1
+				
+				_vfx_events.add_item(BubbleVFXEvent.new(
 					proj.position,
 					Vector2i.ZERO,
 					0
 				))
-			
-			_vfx_events_count += 1
 	
 	func check_applied() -> void:
 		if _applied:
-			EventBus.vfx_batch_requested.emit(_vfx_events, _vfx_events_count)
+			EventBus.vfx_batch_requested.emit(_vfx_events)
 		else:
 			skill._on_whiff()

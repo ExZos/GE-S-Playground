@@ -5,8 +5,7 @@ extends Node
 # TODO: find better way to determine this for each vfx type
 const VFX_POOL_SIZE: int = 50
 
-var _vfx_events: Array[VFXEvent] = []
-var _vfx_events_count: int = 0
+var _vfx_events: DenseFixedArray
 
 var _vfx_pools: Dictionary[StringName, Array] = {}
 
@@ -30,19 +29,19 @@ func _ready() -> void:
 			add_child(vfx)
 	
 	# Determine appropriate vfx events size based on vfx pools
-	_vfx_events.resize(VFX_POOL_SIZE * _vfx_pools.size())
+	_vfx_events = DenseFixedArray.new(VFX_POOL_SIZE, VFXEvent)
 
 func _process(_delta: float) -> void:
-	if _vfx_events_count > 0:
-		for i in range(_vfx_events_count):
-			var event: VFXEvent = _vfx_events[i]
+	if _vfx_events.count > 0:
+		for i in range(_vfx_events.count):
+			var event: VFXEvent = _vfx_events.data[i]
 			
 			var vfx: Node2D = get_vfx(event.type)
 			event.apply(vfx)
 			
-			_vfx_events[i] = null
+			_vfx_events.data[i] = null
 		
-		_vfx_events_count = 0
+		_vfx_events.count = 0
 
 func _exit_tree() -> void:
 	if EventBus.vfx_requested.is_connected(_on_vfx_requested):
@@ -71,25 +70,22 @@ func get_vfx(type: StringName) -> Node2D:
 func _on_vfx_requested(event: VFXEvent) -> void:
 	# TODO: block if in rollback frame
 	
-	if _vfx_events_count == _vfx_events.size():
-		push_warning("VFXManager: No VFX event available, creating one. Total VFX events: %d" % _vfx_events.size())
-		_vfx_events.resize(_vfx_events.size() + 1)
-	
-	_vfx_events[_vfx_events_count] = event
-	_vfx_events_count += 1
+	if not _vfx_events.add_item(event):
+		push_warning("VFXManager: No VFX event available, creating one. Total VFX events: %d" % _vfx_events.max_size)
+		_vfx_events.data.resize(_vfx_events.max_size + 1)
+		_vfx_events.max_size += 1
+		
+		_vfx_events.add_item(event)
 
-func _on_vfx_batch_requested(events: Array[VFXEvent], count: int) -> void:
+func _on_vfx_batch_requested(events: DenseFixedArray) -> void:
 	# TODO: block if in rollback frame
 	
-	if count > _vfx_events.size() - _vfx_events_count:
-		var available: int = _vfx_events.size() - _vfx_events_count
-		var missing: int = count - available
+	if not _vfx_events.add_batch(events):
+		var available: int = _vfx_events.max_size - _vfx_events.count
+		var missing: int = events.count - available
 		
-		push_warning("VFXManager: Not enough VFX events available, creating %d. %d requested but %d available. Total VFX events: %d" % [missing, count, available, _vfx_events.size()])
-		_vfx_events.resize(_vfx_events.size() + missing)
-			
-	
-	for i in range(count):
-		_vfx_events[_vfx_events_count + i] = events[i]
-	
-	_vfx_events_count += count
+		push_warning("VFXManager: Not enough VFX events available, creating %d. %d requested but %d available. Total VFX events: %d" % [missing, events.count, available, _vfx_events.max_size])
+		_vfx_events.data.resize(_vfx_events.max_size + missing)
+		_vfx_events.max_size += missing
+		
+		_vfx_events.add_batch(events)
