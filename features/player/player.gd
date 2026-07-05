@@ -151,35 +151,30 @@ func get_skills() -> Array[Skill]:
 
 # --- Player modifier wrappers ---
 func add_modifier(modifier: PlayerModifier) -> void:
-	var next_available_index: int = -1
-	
-	if _player_modifiers_count < _player_modifiers.size():
-		for i in range(_player_modifiers.size()):
-			if not _player_modifiers[i]:
-				next_available_index = i
-				break
-	else:
+	if _player_modifiers_count >= _player_modifiers.size():
 		push_warning("Player: No player modifier available, creating one. Total player modifiers: %d" % _player_modifiers.size())
-		next_available_index = _player_modifiers.size()
 		_player_modifiers.resize(_player_modifiers.size() + 1)
 	
-	_player_modifiers[next_available_index] = modifier
+	_player_modifiers[_player_modifiers_count] = modifier
 	_player_modifiers_count += 1
 	
 	_player_modifiers_is_dirty = true
 
 func remove_modifier_at(index: int) -> void:
-	_player_modifiers[index] = null
-	_player_modifiers_count -= 1
+	var last_filled_index: int = _player_modifiers_count - 1
 	
+	if index == last_filled_index:
+		_player_modifiers[index] = null
+	else:
+		_player_modifiers[index] = _player_modifiers[last_filled_index]
+		_player_modifiers[last_filled_index] = null
+		
+	_player_modifiers_count -= 1
 	_player_modifiers_is_dirty = true
 
 func remove_modifier(modifier: PlayerModifier) -> void:
 	var index: int = _player_modifiers.find(modifier)
-	_player_modifiers[index] = null
-	_player_modifiers_count -= 1
-	
-	_player_modifiers_is_dirty = true
+	remove_modifier_at(index)
 
 # --- Projectile request wrappers ---
 func add_projectile_request(request: ProjectileRequest) -> void:
