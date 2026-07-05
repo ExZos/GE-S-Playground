@@ -84,15 +84,10 @@ func advance_frame(input_mask: int) -> void:
 	# Process tickers
 	skill_manager.process_tickers()
 	
-	var index: int = 0
-	while index < _player_modifiers_count:
+	for i in range(_player_modifiers.size()):
 		# Check if modifier's ticker expired
-		if not _player_modifiers[index].tick_and_check():
-			# Decrement index when swap occured during removal
-			if remove_modifier_at(index):
-				index -= 1
-		
-		index += 1
+		if _player_modifiers[i] and not _player_modifiers[i].tick_and_check():
+			remove_modifier_at(i)
 	
 	is_recovering = fp_recovery_ticks > 0
 	if is_recovering:
@@ -122,8 +117,9 @@ func advance_frame(input_mask: int) -> void:
 		restrict_attack = false
 		restrict_skills = false
 		
-		for i in range(_player_modifiers_count):
-			_player_modifiers[i].apply()
+		for mod: PlayerModifier in _player_modifiers:
+			if mod:
+				mod.apply()
 		
 		_compute_speed()
 		_player_modifiers_is_dirty = false
@@ -156,33 +152,35 @@ func get_skills() -> Array[Skill]:
 
 # --- Player modifier wrappers ---
 func add_modifier(modifier: PlayerModifier) -> void:
-	if _player_modifiers_count >= _player_modifiers.size():
+	var next_available_index: int = -1
+	
+	if _player_modifiers_count < _player_modifiers.size():
+		for i in range(_player_modifiers.size()):
+			if not _player_modifiers[i]:
+				next_available_index = i
+				break
+	else:
 		push_warning("Player: No player modifier available, creating one. Total player modifiers: %d" % _player_modifiers.size())
+		next_available_index = _player_modifiers.size()
 		_player_modifiers.resize(_player_modifiers.size() + 1)
 	
-	_player_modifiers[_player_modifiers_count] = modifier
+	_player_modifiers[next_available_index] = modifier
 	_player_modifiers_count += 1
 	
 	_player_modifiers_is_dirty = true
 
-func remove_modifier_at(index: int) -> bool:
-	var last_filled_index: int = _player_modifiers_count - 1
-	var swap_required: bool = index != last_filled_index
-	
-	if swap_required:
-		_player_modifiers[index] = _player_modifiers[last_filled_index]
-		_player_modifiers[last_filled_index] = null
-	else:
-		_player_modifiers[index] = null
-		
+func remove_modifier_at(index: int) -> void:
+	_player_modifiers[index] = null
 	_player_modifiers_count -= 1
-	_player_modifiers_is_dirty = true
 	
-	return swap_required
+	_player_modifiers_is_dirty = true
 
-func remove_modifier(modifier: PlayerModifier) -> bool:
+func remove_modifier(modifier: PlayerModifier) -> void:
 	var index: int = _player_modifiers.find(modifier)
-	return remove_modifier_at(index)
+	_player_modifiers[index] = null
+	_player_modifiers_count -= 1
+	
+	_player_modifiers_is_dirty = true
 
 # --- Projectile request wrappers ---
 func add_projectile_request(request: ProjectileRequest) -> void:
