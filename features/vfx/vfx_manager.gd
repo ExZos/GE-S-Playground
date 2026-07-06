@@ -38,10 +38,8 @@ func _process(_delta: float) -> void:
 			
 			var vfx: Node2D = get_vfx(event.type)
 			event.apply(vfx)
-			
-			_vfx_events.data[i] = null
 		
-		_vfx_events.count = 0
+		_vfx_events.clear_data()
 
 func _exit_tree() -> void:
 	if EventBus.vfx_requested.is_connected(_on_vfx_requested):

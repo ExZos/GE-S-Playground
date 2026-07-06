@@ -22,7 +22,5 @@ func add_batch(batch: DenseFixedArray) -> bool:
 	return true
 
 func clear_data() -> void:
-	for i in range(count):
-		data[i] = null
-	
+	data.fill(null)
 	count = 0

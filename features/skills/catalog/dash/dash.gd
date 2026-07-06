@@ -60,8 +60,11 @@ func _on_activate(mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
 	
 	source.add_modifier(dash_modifier)
 	
-	_bubble_vfx_event.pos = source.position
-	_bubble_vfx_event.dir = mov_dir
+	_bubble_vfx_event.setup(
+		source.position,
+		mov_dir,
+		-500
+	)
 	EventBus.vfx_requested.emit(_bubble_vfx_event)
 
 class DashModifier extends PlayerModifier:

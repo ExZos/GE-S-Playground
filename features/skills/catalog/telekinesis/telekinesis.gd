@@ -134,7 +134,7 @@ class VelocityModifier extends ProjectileModifier:
 			_applied = true
 			
 			if _vfx_events.count < _vfx_events.max_size:
-				_vfx_events.data[_vfx_events.count].reset(
+				_vfx_events.data[_vfx_events.count].setup(
 					proj.position,
 					Vector2i.ZERO,
 					0
