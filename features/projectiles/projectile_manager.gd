@@ -117,9 +117,9 @@ func handle_requests(requests: DenseFixedArray) -> void:
 		else:
 			active_pool[next_available_index] = projectile
 
-func handle_modifiers(modifiers: Array[ProjectileModifier], count: int) -> void:
-	for i in range(count):
-		var mod: ProjectileModifier = modifiers[i]
+func handle_modifiers(modifiers: DenseFixedArray) -> void:
+	for i in range(modifiers.count):
+		var mod: ProjectileModifier = modifiers.data[i]
 		
 		mod.apply(_solid_active)
 		mod.apply(_sensor_active)
