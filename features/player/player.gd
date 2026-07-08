@@ -52,9 +52,7 @@ var _player_modifiers_count: int = 0
 var _player_modifiers_is_dirty: bool = false
 
 # 
-# TODO: static classes that handle arrays instead
-var projectile_requests: Array[ProjectileRequest] = []
-var projectile_requests_count: int = 0
+var projectile_requests: DenseFixedArray
 
 func _validate_property(property: Dictionary) -> void:
 	var skill_type_hint: String = ",".join(RegistryKeys.Skills.LIST)
@@ -69,7 +67,7 @@ func _validate_property(property: Dictionary) -> void:
 
 func init() -> void:
 	_player_modifiers.resize(PLAYER_MODIFIERS_POOL_SIZE)
-	projectile_requests.resize(PROJECTILE_REQUESTS_POOL_SIZE)
+	projectile_requests = DenseFixedArray.new(PROJECTILE_REQUESTS_POOL_SIZE, ProjectileRequest)
 	
 	fp_base_speed = SGFixed.from_int(player_stats.base_speed)
 	_compute_speed()
@@ -184,18 +182,15 @@ func remove_modifier(modifier: PlayerModifier) -> void:
 
 # --- Projectile request wrappers ---
 func add_projectile_request(request: ProjectileRequest) -> void:
-	if projectile_requests_count == projectile_requests.size():
+	if not projectile_requests.add_item(request):
 		push_warning("Player: No projectile request available, creating one. Total projectile requests: %d" % projectile_requests.size())
-		projectile_requests.resize(projectile_requests.size() + 1)
-	
-	projectile_requests[projectile_requests_count] = request
-	projectile_requests_count += 1
+		projectile_requests.data.resize(projectile_requests.max_size + 1)
+		projectile_requests.max_size += 1
+		
+		projectile_requests.add_item(request)
 
 func clear_projectile_requests() -> void:
-	for i in range(projectile_requests_count):
-		projectile_requests[i] = null
-	
-	projectile_requests_count = 0
+	projectile_requests.clear_data()
 
 # --- Private functions ---
 func _compute_speed() -> void:

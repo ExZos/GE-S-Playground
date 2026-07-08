@@ -61,11 +61,11 @@ func init(projectile_types: Array[StringName]) -> void:
 	_solid_active.resize(largest_pool[ProjectileData.Base.SOLID])
 	_sensor_active.resize(largest_pool[ProjectileData.Base.SENSOR])
 
-func handle_requests(requests: Array[ProjectileRequest], count: int) -> void:
+func handle_requests(requests: DenseFixedArray) -> void:
 	var next_available_index: int = 0
 	
-	for i in range(count):
-		var req: ProjectileRequest = requests[i]
+	for i in range(requests.count):
+		var req: ProjectileRequest = requests.data[i]
 		var projectile: SGFixedNode2D
 	
 		# Will point to the arrays for this projectile

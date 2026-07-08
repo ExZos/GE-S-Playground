@@ -41,8 +41,8 @@ func _physics_process(_delta: float) -> void:
 	var input_mask: int = input_manager.get_input_mask()
 	player.advance_frame(input_mask)
 	
-	if player.projectile_requests_count > 0:
-		projectile_manager.handle_requests(player.projectile_requests, player.projectile_requests_count)
+	if player.projectile_requests.count > 0:
+		projectile_manager.handle_requests(player.projectile_requests)
 		player.clear_projectile_requests()
 	
 	if _projectile_modifiers_count > 0:
