@@ -1,5 +1,7 @@
 extends CPUParticles2D
 
+class_name OneShotParticle
+
 func _ready() -> void:
 	finished.connect(_hide)
 	visible = true

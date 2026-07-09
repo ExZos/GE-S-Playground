@@ -33,3 +33,10 @@ func remove_item(item) -> bool:
 	count -= 1
 	
 	return true
+
+func get_available(prop_name: StringName, target_value: bool) -> Variant:
+	for i in range(max_size):
+		if data[i][prop_name] == target_value:
+			return data[i]
+	
+	return null
