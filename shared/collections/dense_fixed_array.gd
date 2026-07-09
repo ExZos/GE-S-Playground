@@ -3,7 +3,7 @@ extends FixedArray
 class_name DenseFixedArray
 
 func add_item(item) -> bool:
-	if count >= data.size():
+	if count >= max_size:
 		return false
 	
 	data[count] = item
@@ -20,7 +20,3 @@ func add_batch(batch: DenseFixedArray) -> bool:
 		
 	count += batch.count
 	return true
-
-func clear_data() -> void:
-	data.fill(null)
-	count = 0

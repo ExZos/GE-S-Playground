@@ -47,8 +47,7 @@ var _just_released_mask: int = 0
 var _prev_input_mask: int = 0
 
 # 
-var _player_modifiers: Array[PlayerModifier] = []
-var _player_modifiers_count: int = 0
+var _player_modifiers: SparseFixedArray
 var _player_modifiers_is_dirty: bool = false
 
 # 
@@ -66,7 +65,7 @@ func _validate_property(property: Dictionary) -> void:
 		property.hint_string = "%d/%d:%s" % [TYPE_STRING_NAME, PROPERTY_HINT_ENUM, skill_type_hint]
 
 func init() -> void:
-	_player_modifiers.resize(PLAYER_MODIFIERS_POOL_SIZE)
+	_player_modifiers = SparseFixedArray.new(PLAYER_MODIFIERS_POOL_SIZE, PlayerModifier)
 	projectile_requests = DenseFixedArray.new(PROJECTILE_REQUESTS_POOL_SIZE, ProjectileRequest)
 	
 	fp_base_speed = SGFixed.from_int(player_stats.base_speed)
@@ -82,9 +81,9 @@ func advance_frame(input_mask: int) -> void:
 	# Process tickers
 	skill_manager.process_tickers()
 	
-	for i in range(_player_modifiers.size()):
+	for i in range(_player_modifiers.max_size):
 		# Check if modifier's ticker expired
-		if _player_modifiers[i] and not _player_modifiers[i].tick_and_check():
+		if _player_modifiers.data[i] and not _player_modifiers.data[i].tick_and_check():
 			remove_modifier_at(i)
 	
 	is_recovering = fp_recovery_ticks > 0
@@ -115,7 +114,7 @@ func advance_frame(input_mask: int) -> void:
 		restrict_attack = false
 		restrict_skills = false
 		
-		for mod: PlayerModifier in _player_modifiers:
+		for mod: PlayerModifier in _player_modifiers.data:
 			if mod:
 				mod.apply()
 		
@@ -150,34 +149,21 @@ func get_skills() -> Array[Skill]:
 
 # --- Player modifier wrappers ---
 func add_modifier(modifier: PlayerModifier) -> void:
-	var next_available_index: int = -1
-	
-	if _player_modifiers_count < _player_modifiers.size():
-		for i in range(_player_modifiers.size()):
-			if not _player_modifiers[i]:
-				next_available_index = i
-				break
-	else:
-		push_warning("Player: No player modifier available, creating one. Total player modifiers: %d" % _player_modifiers.size())
-		next_available_index = _player_modifiers.size()
-		_player_modifiers.resize(_player_modifiers.size() + 1)
-	
-	_player_modifiers[next_available_index] = modifier
-	_player_modifiers_count += 1
+	if not _player_modifiers.add_item(modifier):
+		push_warning("Player: No player modifier available, creating one. Total player modifiers: %d" % _player_modifiers.max_size)
+		_player_modifiers.data.resize(_player_modifiers.max_size + 1)
+		_player_modifiers.max_size += 1
+		
+		_player_modifiers.add_item(modifier)
 	
 	_player_modifiers_is_dirty = true
 
 func remove_modifier_at(index: int) -> void:
-	_player_modifiers[index] = null
-	_player_modifiers_count -= 1
-	
+	_player_modifiers.remove_item_at(index)
 	_player_modifiers_is_dirty = true
 
 func remove_modifier(modifier: PlayerModifier) -> void:
-	var index: int = _player_modifiers.find(modifier)
-	_player_modifiers[index] = null
-	_player_modifiers_count -= 1
-	
+	_player_modifiers.remove_item(modifier)
 	_player_modifiers_is_dirty = true
 
 # --- Projectile request wrappers ---

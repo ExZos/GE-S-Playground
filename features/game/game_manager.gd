@@ -19,6 +19,7 @@ func _ready() -> void:
 	player.init()
 	
 	# Used to store data for pool initialization
+	# TODO: make fixed-size
 	var projectile_types: Array[StringName] = []
 	
 	# TODO: refactor, make skills offer projectile pool init data 
