@@ -9,7 +9,7 @@ func _init(_source: SGFixedNode2D, _skill: Skill) -> void:
 	source = _source
 	skill = _skill
 
-func apply(_projectiles: Array) -> void:
+func apply(_projectiles: SparseFixedArray) -> void:
 	pass
 
 func check_applied() -> void:

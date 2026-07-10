@@ -34,7 +34,30 @@ func remove_item(item) -> bool:
 	
 	return true
 
-func get_available(prop_name: StringName, target_value: bool) -> Variant:
+func get_next_empty_index() -> int:
+	if count >= max_size:
+		return -1
+	
+	for i in range(max_size):
+		if not data[i]:
+			return i
+	
+	return -1
+
+func get_next_filled_index() -> int:
+	if count == 0:
+		return -1
+	
+	for i in range(max_size):
+		if data[i]:
+			return i
+	
+	return -1
+
+func get_next_with_prop(prop_name: StringName, target_value: bool) -> Variant:
+	if count >= max_size:
+		return null
+	
 	for i in range(max_size):
 		if data[i][prop_name] == target_value:
 			return data[i]

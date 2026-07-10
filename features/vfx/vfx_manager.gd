@@ -50,7 +50,7 @@ func _exit_tree() -> void:
 func get_vfx(type: StringName) -> Node2D:
 	var pool: SparseFixedArray = _vfx_pools[type]
 	
-	var vfx: OneShotParticle = pool.get_available(&"visible", false)
+	var vfx: OneShotParticle = pool.get_next_with_prop(&"visible", false)
 	if not vfx:
 		push_warning("VFXManager: No VFX type '%s' available, creating one. Total VFX: %d" % [type, _vfx_pools[type].max_size])
 		
