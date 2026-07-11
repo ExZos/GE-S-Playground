@@ -45,7 +45,7 @@ func get_next_empty_index() -> int:
 	return -1
 
 func get_next_filled_index() -> int:
-	if count == 0:
+	if count <= 0:
 		return -1
 	
 	for i in range(max_size):
@@ -59,7 +59,7 @@ func get_next_with_prop(prop_name: StringName, target_value: bool) -> Variant:
 		return null
 	
 	for i in range(max_size):
-		if data[i][prop_name] == target_value:
+		if data[i] and data[i][prop_name] == target_value:
 			return data[i]
 	
 	return null

@@ -24,4 +24,4 @@ func apply(vfx: Node) -> void:
 	vfx.direction = dir
 	vfx.initial_velocity_min = speed
 	
-	vfx.play_effect()
+	vfx.activate()

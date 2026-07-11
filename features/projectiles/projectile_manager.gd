@@ -6,7 +6,6 @@ class_name ProjectileManager
 var _solid_inactive: Dictionary[StringName, SparseFixedArray] = {}
 var _solid_active: SparseFixedArray
 
-
 # Sensor projectile pools
 var _sensor_inactive: Dictionary[StringName, SparseFixedArray] = {}
 var _sensor_active: SparseFixedArray
@@ -93,7 +92,7 @@ func handle_requests(requests: DenseFixedArray) -> void:
 			push_error("ProjectileManager: Projectile base '%s' not recognized" % requested_base)
 			return
 			
-		# Take inactive projectile or create a new one
+		# Get inactive projectile or create one if none available
 		var next_filled_index: int = typed_inactive_pool.get_next_filled_index()
 		if next_filled_index > -1:
 			projectile = typed_inactive_pool.data[next_filled_index]
@@ -109,7 +108,7 @@ func handle_requests(requests: DenseFixedArray) -> void:
 			
 			add_child(projectile)
 		
-		# Get next available index
+		# Get next empty index
 		var next_empty_index: int = active_pool.get_next_empty_index()
 		if next_empty_index == -1:
 			push_warning("ProjectileManager: No active pool space for projectile base '%s', creating one. Total '%s' active pool space: %d" % [requested_base, requested_base, active_pool.max_size])

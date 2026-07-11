@@ -3,15 +3,14 @@ extends CPUParticles2D
 class_name OneShotParticle
 
 func _ready() -> void:
-	finished.connect(_hide)
-	visible = true
-	restart()
-	emitting = true
+	finished.connect(deactivate)
 
-func play_effect() -> void:
+func activate() -> void:
 	visible = true
-	restart()
 	emitting = true
+	
+	restart()
 
-func _hide() -> void:
+func deactivate() -> void:
 	visible = false
+	emitting = false

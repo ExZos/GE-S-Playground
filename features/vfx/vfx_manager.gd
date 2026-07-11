@@ -24,6 +24,8 @@ func _ready() -> void:
 		_vfx_pools[type] = SparseFixedArray.new(VFX_POOL_SIZE, OneShotParticle)
 		for i in range(VFX_POOL_SIZE):
 			var vfx: OneShotParticle = vfx_scene.instantiate()
+			vfx.deactivate()
+			
 			_vfx_pools[type].data[i] = vfx
 			add_child(vfx)
 	
@@ -47,7 +49,7 @@ func _exit_tree() -> void:
 	if EventBus.vfx_batch_requested.is_connected(_on_vfx_batch_requested):
 		EventBus.vfx_batch_requested.disconnect(_on_vfx_batch_requested)
 
-func get_vfx(type: StringName) -> Node2D:
+func get_vfx(type: StringName) -> OneShotParticle:
 	var pool: SparseFixedArray = _vfx_pools[type]
 	
 	var vfx: OneShotParticle = pool.get_next_with_prop(&"visible", false)
@@ -62,6 +64,7 @@ func get_vfx(type: StringName) -> Node2D:
 		vfx = vfx_scene.instantiate()
 		_vfx_pools[type].data.append(vfx)
 		_vfx_pools[type].max_size += 1
+		
 		add_child(vfx)
 	
 	return vfx
