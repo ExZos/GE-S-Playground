@@ -7,7 +7,7 @@ const VFX_POOL_SIZE: int = 50
 
 var _vfx_events: DenseFixedArray
 
-var _vfx_pools: Dictionary[StringName, SparseFixedArray] = {}
+var _vfx_pools: Dictionary[StringName, SparsePassiveArray] = {}
 
 func _ready() -> void:
 	EventBus.vfx_requested.connect(_on_vfx_requested)
@@ -21,7 +21,7 @@ func _ready() -> void:
 			continue
 		
 		# TODO: might need to expand vfx types
-		_vfx_pools[type] = SparseFixedArray.new(VFX_POOL_SIZE, OneShotParticle)
+		_vfx_pools[type] = SparsePassiveArray.new(VFX_POOL_SIZE, OneShotParticle)
 		for i in range(VFX_POOL_SIZE):
 			var vfx: OneShotParticle = vfx_scene.instantiate()
 			vfx.deactivate()
@@ -50,29 +50,30 @@ func _exit_tree() -> void:
 		EventBus.vfx_batch_requested.disconnect(_on_vfx_batch_requested)
 
 func get_vfx(type: StringName) -> OneShotParticle:
-	var pool: SparseFixedArray = _vfx_pools[type]
+	var pool: SparsePassiveArray = _vfx_pools[type]
 	
-	var vfx: OneShotParticle = pool.get_next_with_prop(&"visible", false)
-	if not vfx:
-		push_warning("VFXManager: No VFX type '%s' available, creating one. Total VFX: %d" % [type, _vfx_pools[type].max_size])
-		
+	var vfx: OneShotParticle = pool.get_next_inactive()
+	if not vfx: # PROGRESS: decide whether to make a fallback function or not
 		var vfx_scene: PackedScene = RegistryManager.get_vfx_scene(type)
 		if not vfx_scene:
 			push_warning("VFXManager: VFX type '%s' not recognized" % type)
 			return null
 		
-		vfx = vfx_scene.instantiate()
-		_vfx_pools[type].data.append(vfx)
-		_vfx_pools[type].max_size += 1
+		var old_pool_max_size: int = pool.max_size
+		pool.forced_expand("VFXManager -> VFX '%s' pool" % type, 1)
+		for i in range(old_pool_max_size, pool.max_size):
+			vfx = vfx_scene.instantiate()
+			pool.data[i] = vfx
+			add_child(vfx)
 		
-		add_child(vfx)
+		vfx = pool.data[old_pool_max_size]
 	
 	return vfx
 
 func _on_vfx_requested(event: VFXEvent) -> void:
 	# TODO: block if in rollback frame
 	
-	if not _vfx_events.add_item(event):
+	if _vfx_events.add_item(event) == -1:
 		push_warning("VFXManager: No VFX event available, creating one. Total VFX events: %d" % _vfx_events.max_size)
 		_vfx_events.data.resize(_vfx_events.max_size + 1)
 		_vfx_events.max_size += 1

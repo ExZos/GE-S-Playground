@@ -51,7 +51,7 @@ func _physics_process(_delta: float) -> void:
 	projectile_manager.advance_frame()
 
 func add_projectile_modifier(modifier: ProjectileModifier) -> void:
-	if not _projectile_modifiers.add_item(modifier):
+	if _projectile_modifiers.add_item(modifier) == -1:
 		push_warning("GameManager: No projectile modifier available, creating one. Total projectile modifiers: %d" % _projectile_modifiers.max_size)
 		_projectile_modifiers.data.resize(_projectile_modifiers.max_size + 1)
 		_projectile_modifiers.max_size += 1

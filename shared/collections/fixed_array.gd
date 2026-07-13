@@ -16,10 +16,6 @@ func _init(_max_size: int, target_script: Script) -> void:
 	
 	data = Array(base_array, TYPE_OBJECT, target_class_name, target_script)
 
-func add_item(_item) -> bool:
-	assert(false, "FixedArray: Subclass must override add_item()")
-	return false
-
 func clear_data() -> void:
 	data.fill(null)
 	count = 0

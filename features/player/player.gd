@@ -149,10 +149,8 @@ func get_skills() -> Array[Skill]:
 
 # --- Player modifier wrappers ---
 func add_modifier(modifier: PlayerModifier) -> void:
-	if not _player_modifiers.add_item(modifier):
-		push_warning("Player: No player modifier available, creating one. Total player modifiers: %d" % _player_modifiers.max_size)
-		_player_modifiers.data.resize(_player_modifiers.max_size + 1)
-		_player_modifiers.max_size += 1
+	if _player_modifiers.add_item(modifier) == -1:
+		_player_modifiers.forced_expand("Player -> Player modifiers", 1)
 		
 		_player_modifiers.add_item(modifier)
 	
@@ -168,7 +166,7 @@ func remove_modifier(modifier: PlayerModifier) -> void:
 
 # --- Projectile request wrappers ---
 func add_projectile_request(request: ProjectileRequest) -> void:
-	if not projectile_requests.add_item(request):
+	if projectile_requests.add_item(request) == -1:
 		push_warning("Player: No projectile request available, creating one. Total projectile requests: %d" % projectile_requests.max_size)
 		projectile_requests.data.resize(projectile_requests.max_size + 1)
 		projectile_requests.max_size += 1

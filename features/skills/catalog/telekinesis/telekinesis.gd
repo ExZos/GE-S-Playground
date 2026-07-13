@@ -147,6 +147,7 @@ class VelocityModifier extends ProjectileModifier:
 				_vfx_events.data.resize(_vfx_events.max_size + 1)
 				_vfx_events.max_size += 1
 				
+				# TODO: handle unsuccessful
 				_vfx_events.add_item(BubbleVFXEvent.new(
 					proj.position,
 					Vector2i.ZERO,

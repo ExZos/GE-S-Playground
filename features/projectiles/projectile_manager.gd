@@ -134,7 +134,7 @@ func _process_pool(inactive_pool: Dictionary[StringName, SparseFixedArray], acti
 			continue
 		
 		projectile.advance_frame()
-		if projectile.is_deactivated:
+		if not projectile.is_active:
 			projectile.reset()
 			
 			active_pool.data[i] = null

@@ -37,7 +37,7 @@ var _fp_speed: int
 
 # Misc - used by other nodes
 var type: StringName = RegistryKeys.Projectiles.SOLID_PROJECTILE # Key for determining which pool it belongs to
-var is_deactivated: bool = false # Reflects current state
+var is_active: bool = false
 
 var _bubble_vfx_event: BubbleVFXEvent
 
@@ -76,7 +76,7 @@ func advance_frame() -> void:
 		deactivate()
 
 func activate(_source: SGFixedNode2D, fp_pos_x: int, fp_pos_y: int, _dir: Vector2i) -> void:
-	is_deactivated = false
+	is_active = true
 	
 	source = _source
 	
@@ -91,7 +91,7 @@ func activate(_source: SGFixedNode2D, fp_pos_x: int, fp_pos_y: int, _dir: Vector
 	sync_to_physics_engine()
 
 func deactivate() -> void:
-	is_deactivated = true
+	is_active = false
 
 func reset() -> void:
 	source = null
