@@ -3,7 +3,6 @@ extends RefCounted
 class_name FixedArray
 
 var data: Array
-var count: int = 0
 var max_size: int = 0
 
 func _init(_max_size: int, target_script: Script) -> void:
@@ -15,7 +14,3 @@ func _init(_max_size: int, target_script: Script) -> void:
 	base_array.resize(_max_size)
 	
 	data = Array(base_array, TYPE_OBJECT, target_class_name, target_script)
-
-func clear_data() -> void:
-	data.fill(null)
-	count = 0

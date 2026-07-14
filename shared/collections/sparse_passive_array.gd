@@ -35,7 +35,6 @@ func get_next_inactive() -> Variant:
 	
 	return null
 
-# Does not handle filling the array
 func forced_expand(debug_name: String, expand_size: int) -> void:
 	if expand_size <= 0:
 		push_error(debug_name, ": Array full. Expansion failed. Cannot expand by ", expand_size)

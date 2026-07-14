@@ -45,8 +45,7 @@ func init(projectile_types: Array[StringName]) -> void:
 			return
 		
 		# Fill projectile's inactive pool
-		typed_inactive_pool.data.resize(typed_inactive_pool.max_size + projectile_data.pool_size)
-		typed_inactive_pool.max_size += projectile_data.pool_size
+		typed_inactive_pool.forced_expand("ProjectileManager -> Inactive '%s' pool" % projectile_data.type, projectile_data.pool_size, true)
 		for i in range(projectile_data.pool_size):
 			var projectile: SGFixedNode2D = projectile_data.scene.instantiate()
 			
@@ -54,10 +53,8 @@ func init(projectile_types: Array[StringName]) -> void:
 			projectile.deactivate()
 			projectile.reset()
 			
-			typed_inactive_pool.data[i] = projectile
+			typed_inactive_pool.add_item(projectile)
 			add_child(projectile)
-		
-		typed_inactive_pool.count += projectile_data.pool_size
 		
 		# Keep track of largest pool per base
 		if largest_pool[projectile_base] < typed_inactive_pool.max_size: 
@@ -69,7 +66,6 @@ func init(projectile_types: Array[StringName]) -> void:
 func handle_requests(requests: DenseFixedArray) -> void:
 	for i in range(requests.count):
 		var req: ProjectileRequest = requests.data[i]
-		var projectile: SGFixedNode2D
 	
 		# Will point to the arrays for this projectile
 		var typed_inactive_pool: SparseFixedArray
@@ -93,12 +89,8 @@ func handle_requests(requests: DenseFixedArray) -> void:
 			return
 			
 		# Get inactive projectile or create one if none available
-		var next_filled_index: int = typed_inactive_pool.get_next_filled_index()
-		if next_filled_index > -1:
-			projectile = typed_inactive_pool.data[next_filled_index]
-			typed_inactive_pool.data[next_filled_index] = null
-			typed_inactive_pool.count -= 1
-			
+		var projectile: SGFixedNode2D = typed_inactive_pool.remove_next_item()
+		if projectile:
 			projectile.activate(req.source, req.fp_pos_x, req.fp_pos_y, req.dir)
 		else:
 			projectile = projectile_data.scene.instantiate()
@@ -108,15 +100,10 @@ func handle_requests(requests: DenseFixedArray) -> void:
 			
 			add_child(projectile)
 		
-		# Get next empty index
-		var next_empty_index: int = active_pool.get_next_empty_index()
-		if next_empty_index == -1:
-			push_warning("ProjectileManager: No active pool space for projectile base '%s', creating one. Total '%s' active pool space: %d" % [requested_base, requested_base, active_pool.max_size])
-			active_pool.data.resize(active_pool.max_size + 1)
-			active_pool.max_size += 1
-		
-		active_pool.data[next_empty_index] = projectile
-		active_pool.count += 1
+		# Add projectile to its active pool
+		if active_pool.add_item(projectile) == -1:
+			active_pool.forced_expand("ProjectileManager -> Active '%s' pool" % requested_base, 1)
+			active_pool.add_item(projectile)
 
 func handle_modifiers(modifiers: DenseFixedArray) -> void:
 	for i in range(modifiers.count):
@@ -137,15 +124,9 @@ func _process_pool(inactive_pool: Dictionary[StringName, SparseFixedArray], acti
 		if not projectile.is_active:
 			projectile.reset()
 			
-			active_pool.data[i] = null
-			active_pool.count -= 1
+			active_pool.remove_item_at(i)
 			
-			var typed_inactive_pool: SparseFixedArray = inactive_pool[projectile.type] 
-			var next_empty_index: int = typed_inactive_pool.get_next_empty_index()
-			if next_empty_index == -1:
-				push_warning("ProjectileManager: No inactive pool space for projectile type '%s', creating one. Total '%s' inactive pool space: %d" % [projectile.type, projectile.type, typed_inactive_pool.max_size])
-				typed_inactive_pool.data.resize(typed_inactive_pool.max_size + 1)
-				typed_inactive_pool.max_size += 1
-			
-			typed_inactive_pool.data[next_empty_index] = projectile
-			typed_inactive_pool.count += 1
+			var typed_inactive_pool: SparseFixedArray = inactive_pool[projectile.type]
+			if typed_inactive_pool.add_item(projectile) == -1:
+				typed_inactive_pool.forced_expand("ProjectileManager -> Inactive '%s' pool" % projectile.type, 1)
+				typed_inactive_pool.add_item(projectile)

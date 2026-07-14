@@ -53,12 +53,13 @@ func get_vfx(type: StringName) -> OneShotParticle:
 	var pool: SparsePassiveArray = _vfx_pools[type]
 	
 	var vfx: OneShotParticle = pool.get_next_inactive()
-	if not vfx: # PROGRESS: decide whether to make a fallback function or not
+	if not vfx:
 		var vfx_scene: PackedScene = RegistryManager.get_vfx_scene(type)
 		if not vfx_scene:
 			push_warning("VFXManager: VFX type '%s' not recognized" % type)
 			return null
 		
+		# Expand pool and manually fill
 		var old_pool_max_size: int = pool.max_size
 		pool.forced_expand("VFXManager -> VFX '%s' pool" % type, 1)
 		for i in range(old_pool_max_size, pool.max_size):
