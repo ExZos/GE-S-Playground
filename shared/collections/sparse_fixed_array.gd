@@ -2,13 +2,13 @@ extends FixedArray
 
 class_name SparseFixedArray
 
-var _next_free: PackedInt64Array
+var _next_free: PackedInt32Array
 var _head_next_free: int = 0
 
 func _init(_max_size: int, target_script: Script) -> void:
 	super(_max_size, target_script)
 	
-	_next_free = PackedInt64Array()
+	_next_free = PackedInt32Array()
 	if max_size > 0:
 		_next_free.resize(_max_size)
 		for i in range(_max_size):
@@ -66,7 +66,7 @@ func remove_next_item() -> Variant:
 	
 	return null
 
-func forced_expand(debug_name: String, expand_size: int, is_silent: bool = false) -> void:
+func forced_expand(debug_name: String, expand_size: int) -> void:
 	if expand_size <= 0:
 		push_error(debug_name, ": Array full. Expansion failed. Cannot expand by ", expand_size)
 		return
@@ -80,5 +80,4 @@ func forced_expand(debug_name: String, expand_size: int, is_silent: bool = false
 		_next_free[i] = i  + 1
 	_next_free[max_size - 1] = -1
 	
-	if not is_silent:
-		push_warning(debug_name, ": Array full. Expanding by %d. New max_size: %d" % [expand_size, max_size])
+	push_warning(debug_name, ": Array full. Expanding by %d. New max_size: %d" % [expand_size, max_size])

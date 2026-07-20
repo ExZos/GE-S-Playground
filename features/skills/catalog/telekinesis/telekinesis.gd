@@ -118,12 +118,12 @@ class VelocityModifier extends ProjectileModifier:
 		_applied = false
 		_vfx_events.count = 0
 	
-	func apply(projectiles: SparseFixedArray) -> void:
+	func apply(projectiles: SparseTypedFixedArray) -> void:
 		var neutral_dir: bool = dir == Vector2i.ZERO
 		
-		for i in range(projectiles.max_size):
-			var proj: SGFixedNode2D = projectiles.data[i]
-			if not proj or source != proj.source:
+		for i in range(projectiles.active_list_count - 1, -1, -1):
+			var proj: SGFixedNode2D = projectiles.data[projectiles.active_list[i]]
+			if source != proj.source:
 				continue
 			
 			proj.fp_speed_add += fp_speed_add_inc

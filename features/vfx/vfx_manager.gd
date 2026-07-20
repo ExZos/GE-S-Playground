@@ -7,7 +7,7 @@ const VFX_POOL_SIZE: int = 50
 
 var _vfx_events: DenseFixedArray
 
-var _vfx_pools: Dictionary[StringName, SparsePassiveArray] = {}
+var _vfx_pools: Dictionary[StringName, SparsePassiveFixedArray] = {}
 
 func _ready() -> void:
 	EventBus.vfx_requested.connect(_on_vfx_requested)
@@ -21,7 +21,7 @@ func _ready() -> void:
 			continue
 		
 		# TODO: might need to expand vfx types
-		_vfx_pools[type] = SparsePassiveArray.new(VFX_POOL_SIZE, OneShotParticle)
+		_vfx_pools[type] = SparsePassiveFixedArray.new(VFX_POOL_SIZE, OneShotParticle)
 		for i in range(VFX_POOL_SIZE):
 			var vfx: OneShotParticle = vfx_scene.instantiate()
 			vfx.deactivate()
@@ -50,7 +50,7 @@ func _exit_tree() -> void:
 		EventBus.vfx_batch_requested.disconnect(_on_vfx_batch_requested)
 
 func get_vfx(type: StringName) -> OneShotParticle:
-	var pool: SparsePassiveArray = _vfx_pools[type]
+	var pool: SparsePassiveFixedArray = _vfx_pools[type]
 	
 	var vfx: OneShotParticle = pool.get_next_inactive()
 	if not vfx:

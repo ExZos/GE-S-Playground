@@ -3,7 +3,7 @@ extends FixedArray
 # Use when:
 # - Random deletion is a requirement
 # - Data items are fire-and-forget, their transition from active to inactive is not tracked outwardly
-class_name SparsePassiveArray
+class_name SparsePassiveFixedArray
 
 const ACTIVE_FLAG_NAME: StringName = &"is_active"
 
@@ -25,7 +25,7 @@ func _init(_max_size: int, target_script: Script) -> void:
 			
 		current_script = current_script.get_base_script()
 	
-	assert(has_active_flag, "SparsePassiveArray: Array items of type '%s' must have the property '%s'" % [target_script.get_global_name(), ACTIVE_FLAG_NAME])
+	assert(has_active_flag, "SparsePassiveFixedArray: Array items of type '%s' must have the property '%s'" % [target_script.get_global_name(), ACTIVE_FLAG_NAME])
 
 # TODO: make flag check optional?
 func get_next_inactive() -> Variant:
