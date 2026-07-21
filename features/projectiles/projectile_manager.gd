@@ -74,7 +74,7 @@ func handle_requests(requests: DenseFixedArray) -> void:
 		else:
 			# Expand pool and manually fill
 			var old_pool_max_size: int = projectile_pool.max_size
-			projectile_pool.forced_expand("ProjectileManager -> Projectile base '%s'" % projectile_data.base, 1, projectile_data.type)
+			projectile_pool.forced_expand("ProjectileManager -> Projectile base '%s' pool" % projectile_data.base, 1, projectile_data.type)
 			for j in range(old_pool_max_size, projectile_pool.max_size):
 				projectile = projectile_data.scene.instantiate()
 				

@@ -1,6 +1,10 @@
 extends FixedArray
 
 # TODO: flatten array and use row_count and col_count, manually tracking 2dness
+# Use when:
+# - Random deletion is a requirement
+# - Data's active items are tracked
+# - Data needs to be sorted into types, determined by a StringName
 class_name SparseTypedFixedArray
 
 var active_list: PackedInt32Array
@@ -58,7 +62,6 @@ func free_typed_item(type: StringName, index: int) -> Variant:
 	
 	return data[index]
 
-# TODO: finish
 func forced_expand(debug_name: String, expand_size: int, type: StringName) -> void:
 	if expand_size <= 0:
 		push_error(debug_name, ": Array full. Expansion failed. Cannot expand by ", expand_size)
@@ -67,7 +70,6 @@ func forced_expand(debug_name: String, expand_size: int, type: StringName) -> vo
 	_head_next_free[type] = max_size
 	max_size += expand_size
 	data.resize(max_size)
-	# TODO: insert projectile object
 	
 	_next_free.resize(max_size)
 	for i in range(_head_next_free[type], max_size - 1):

@@ -75,9 +75,7 @@ func _on_vfx_requested(event: VFXEvent) -> void:
 	# TODO: block if in rollback frame
 	
 	if _vfx_events.add_item(event) == -1:
-		push_warning("VFXManager: No VFX event available, creating one. Total VFX events: %d" % _vfx_events.max_size)
-		_vfx_events.data.resize(_vfx_events.max_size + 1)
-		_vfx_events.max_size += 1
+		_vfx_events.forced_expand("VFXManager -> VFX events", 1)
 		
 		_vfx_events.add_item(event)
 
@@ -88,8 +86,6 @@ func _on_vfx_batch_requested(events: DenseFixedArray) -> void:
 		var available: int = _vfx_events.max_size - _vfx_events.count
 		var missing: int = events.count - available
 		
-		push_warning("VFXManager: Not enough VFX events available, creating %d. %d requested but %d available. Total VFX events: %d" % [missing, events.count, available, _vfx_events.max_size])
-		_vfx_events.data.resize(_vfx_events.max_size + missing)
-		_vfx_events.max_size += missing
+		_vfx_events.forced_expand("VFXManager -> VFX events", missing)
 		
 		_vfx_events.add_batch(events)

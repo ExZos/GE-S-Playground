@@ -27,7 +27,6 @@ func _init(_max_size: int, target_script: Script) -> void:
 	
 	assert(has_active_flag, "SparsePassiveFixedArray: Array items of type '%s' must have the property '%s'" % [target_script.get_global_name(), ACTIVE_FLAG_NAME])
 
-# TODO: make flag check optional?
 func get_next_inactive() -> Variant:
 	for i in range(max_size):
 		if data[i] and not data[i].is_active:

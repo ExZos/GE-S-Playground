@@ -134,6 +134,7 @@ class VelocityModifier extends ProjectileModifier:
 			
 			_applied = true
 			
+			# TODO: optimize to use add_batch
 			if _vfx_events.count < _vfx_events.max_size:
 				_vfx_events.data[_vfx_events.count].setup(
 					proj.position,
@@ -143,11 +144,8 @@ class VelocityModifier extends ProjectileModifier:
 				
 				_vfx_events.count += 1
 			else:
-				push_warning("TelekinesisSkill: No VFX event available, creating one. Total VFX events: %d" % _vfx_events.size())
-				_vfx_events.data.resize(_vfx_events.max_size + 1)
-				_vfx_events.max_size += 1
+				_vfx_events.forced_expand("TelekinesisSkill -> VFX events", 1)
 				
-				# TODO: handle unsuccessful
 				_vfx_events.add_item(BubbleVFXEvent.new(
 					proj.position,
 					Vector2i.ZERO,

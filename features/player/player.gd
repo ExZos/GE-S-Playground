@@ -167,9 +167,7 @@ func remove_modifier(modifier: PlayerModifier) -> void:
 # --- Projectile request wrappers ---
 func add_projectile_request(request: ProjectileRequest) -> void:
 	if projectile_requests.add_item(request) == -1:
-		push_warning("Player: No projectile request available, creating one. Total projectile requests: %d" % projectile_requests.max_size)
-		projectile_requests.data.resize(projectile_requests.max_size + 1)
-		projectile_requests.max_size += 1
+		projectile_requests.forced_expand("Player -> Projectile requests", 1)
 		
 		projectile_requests.add_item(request)
 
