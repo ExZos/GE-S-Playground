@@ -52,8 +52,8 @@ func reserve_typed_item(type: StringName) -> Variant:
 	return data[reserved_item_index]
 
 func free_typed_item(type: StringName, index: int) -> Variant:
-	if index < 0:
-		return null
+	#if index < 0:
+		#return null
 	
 	_next_free[index] = _head_next_free[type]
 	_head_next_free[type] = index
@@ -61,6 +61,12 @@ func free_typed_item(type: StringName, index: int) -> Variant:
 	_remove_from_active_list(index)
 	
 	return data[index]
+
+func get_nth_active_item(index: int) -> Variant:
+	#if index < 0:
+		#return null
+	
+	return data[active_list[index]]
 
 func forced_expand(debug_name: String, expand_size: int, type: StringName) -> void:
 	if expand_size <= 0:

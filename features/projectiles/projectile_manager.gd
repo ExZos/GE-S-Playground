@@ -96,7 +96,7 @@ func handle_modifiers(modifiers: DenseFixedArray) -> void:
 
 func _process_pool(projectile_pool: SparseTypedFixedArray) -> void:
 	for i in range(projectile_pool.active_list_count - 1, -1, -1):
-		var projectile: SGFixedNode2D = projectile_pool.data[projectile_pool.active_list[i]]
+		var projectile: SGFixedNode2D = projectile_pool.get_nth_active_item(i)
 		
 		projectile.advance_frame()
 		if not projectile.is_active:

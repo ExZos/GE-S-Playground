@@ -3,6 +3,7 @@ extends FixedArray
 # Use when:
 # - Random deletion is a requirement
 # - Data items are fire-and-forget, their transition from active to inactive is not tracked outwardly
+# - Data items are all one type
 class_name SparsePassiveFixedArray
 
 const ACTIVE_FLAG_NAME: StringName = &"is_active"

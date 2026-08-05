@@ -122,7 +122,7 @@ class VelocityModifier extends ProjectileModifier:
 		var neutral_dir: bool = dir == Vector2i.ZERO
 		
 		for i in range(projectiles.active_list_count - 1, -1, -1):
-			var proj: SGFixedNode2D = projectiles.data[projectiles.active_list[i]]
+			var proj: SGFixedNode2D = projectiles.get_nth_active_item(i)
 			if source != proj.source:
 				continue
 			

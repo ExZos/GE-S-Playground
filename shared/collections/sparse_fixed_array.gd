@@ -1,5 +1,9 @@
 extends FixedArray
 
+# Use when:
+# - Random deletion is a requirement
+# - Data's active items are tracked
+# - Data items are all one type
 class_name SparseFixedArray
 
 var _next_free: PackedInt32Array
@@ -17,7 +21,6 @@ func _init(_max_size: int, target_script: Script) -> void:
 	else:
 		_head_next_free = -1
 
-# --- Functions for a nullable array ---
 func add_item(item) -> int:
 	if _head_next_free == -1:
 		return -1
