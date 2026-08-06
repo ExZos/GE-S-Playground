@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bxuayk5f3f5mo" path="res://features/projectiles/projectile_manager.gd" id="3_kek77"]
 [ext_resource type="PackedScene" uid="uid://bk7ksdidmq8ap" path="res://features/player/player.tscn" id="4_4c57u"]
 [ext_resource type="PackedScene" uid="uid://cdc67etsdo3xs" path="res://features/skills/ui/skill_tray/skill_tray.tscn" id="4_5vw27"]
+[ext_resource type="PackedScene" uid="uid://bpl36k5ghpm73" path="res://features/training/dummy.tscn" id="5_272bh"]
 
 [sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_stixs"]
 extents_x = 88604672
@@ -15,20 +16,17 @@ extents_y = 6553600
 extents_x = 6553600
 extents_y = 55705600
 
-[sub_resource type="SGCapsuleShape2D" id="SGCapsuleShape2D_ig7tw"]
-radius = 3276800
-height = 32768000
-
 [node name="SGFixedNode2D" type="SGFixedNode2D" unique_id=1836307939]
 
 [node name="InputManager" type="Node" parent="." unique_id=1473816164]
 script = ExtResource("2_5vw27")
 
-[node name="GameManager" type="Node" parent="." unique_id=468958604 node_paths=PackedStringArray("input_manager", "player", "projectile_manager")]
+[node name="GameManager" type="Node" parent="." unique_id=468958604 node_paths=PackedStringArray("input_manager", "player", "projectile_manager", "dummy")]
 script = ExtResource("1_272bh")
 input_manager = NodePath("../InputManager")
 player = NodePath("../Player")
 projectile_manager = NodePath("../ProjectileManager")
+dummy = NodePath("../Dummy")
 
 [node name="ProjectileManager" type="Node" parent="." unique_id=534493029]
 script = ExtResource("3_kek77")
@@ -55,16 +53,13 @@ shape = SubResource("SGRectangleShape2D_qvctj")
 fixed_position_x = 82051072
 position = Vector2(1252, 0)
 
-[node name="SGStaticBody2D" type="SGStaticBody2D" parent="." unique_id=59827568]
-fixed_position_x = 32768000
-position = Vector2(500, 0)
-
-[node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="SGStaticBody2D" unique_id=361673819]
-shape = SubResource("SGCapsuleShape2D_ig7tw")
-
 [node name="Player" parent="." unique_id=2004616098 instance=ExtResource("4_4c57u")]
 attack_type = &"shoot_sensor"
 skill_types = Array[StringName]([&"dash", &"shoot_solid", &"telekinesis"])
+
+[node name="Dummy" parent="." unique_id=1123841904 instance=ExtResource("5_272bh")]
+fixed_position_x = 32768000
+position = Vector2(500, 0)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=594209437]
 zoom = Vector2(0.5, 0.5)

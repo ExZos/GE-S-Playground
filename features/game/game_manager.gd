@@ -6,6 +6,8 @@ class_name GameManager
 @export var player: Player
 @export var projectile_manager: ProjectileManager
 
+@export var dummy: Dummy
+
 const PROJECTILE_MODIFIERS_POOL_SIZE: int = 10
 
 var _projectile_modifiers: DenseFixedArray
@@ -17,6 +19,7 @@ func _ready() -> void:
 	_projectile_modifiers = DenseFixedArray.new(PROJECTILE_MODIFIERS_POOL_SIZE, ProjectileModifier)
 	
 	player.init()
+	dummy.init()
 	
 	# Used to store data for pool initialization
 	var projectile_types: Array[StringName] = []
@@ -39,6 +42,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	var input_mask: int = input_manager.get_input_mask()
 	player.advance_frame(input_mask)
+	dummy.advance_frame()
 	
 	if player.projectile_requests.count > 0:
 		projectile_manager.handle_requests(player.projectile_requests)

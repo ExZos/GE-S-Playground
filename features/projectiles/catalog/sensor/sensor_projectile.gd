@@ -66,6 +66,11 @@ func advance_frame() -> void:
 		elif body is Player:
 			print("SensorProjectile: Hit player")
 		
+		# TODO: more efficient way to handle this
+		# TODO: projectile damage stat
+		if body.has_method("take_damage"):
+			body.take_damage(1)
+		
 		_bubble_vfx_event.pos = position
 		_bubble_vfx_event.dir = dir
 		EventBus.vfx_requested.emit(_bubble_vfx_event)
