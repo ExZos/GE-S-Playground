@@ -10,6 +10,7 @@ var dir: Vector2i
 
 # Stats
 var fp_base_speed: int
+var fp_base_damage: int
 
 # Stat modifier
 var fp_speed_add: int = 0:
@@ -41,6 +42,7 @@ var _bubble_vfx_event: BubbleVFXEvent
 func init(data: ProjectileData) -> void:
 	type = data.type
 	fp_base_speed = SGFixed.from_int(data.base_speed)
+	fp_base_damage = SGFixed.from_int(data.base_damage)
 	_speed_is_dirty = true
 	
 	_bubble_vfx_event = BubbleVFXEvent.new(
@@ -66,10 +68,8 @@ func advance_frame() -> void:
 		elif body is Player:
 			print("SensorProjectile: Hit player")
 		
-		# TODO: more efficient way to handle this
-		# TODO: projectile damage stat
-		if body.has_method("take_damage"):
-			body.take_damage(1)
+		# TODO: compute fp_damage
+		DamageSystem.apply_damage(body, fp_base_damage)
 		
 		_bubble_vfx_event.pos = position
 		_bubble_vfx_event.dir = dir

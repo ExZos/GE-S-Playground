@@ -13,6 +13,7 @@ var dir: Vector2i = Vector2i.ZERO:
 
 # Stats
 var fp_base_speed: int
+var fp_base_damage: int
 
 # Stat modifier
 var fp_speed_add: int = 0:
@@ -44,6 +45,7 @@ var _bubble_vfx_event: BubbleVFXEvent
 func init(data: ProjectileData) -> void:
 	type = data.type
 	fp_base_speed = SGFixed.from_int(data.base_speed)
+	fp_base_damage = SGFixed.from_int(data.base_damage)
 	_speed_is_dirty = true
 	
 	_bubble_vfx_event = BubbleVFXEvent.new(
@@ -68,6 +70,9 @@ func advance_frame() -> void:
 			return;
 		elif collider is Player:
 			print("SolidProjectile: Hit player")
+		
+		# TODO: compute fp_damage
+		DamageSystem.apply_damage(collider, fp_base_damage)
 		
 		_bubble_vfx_event.pos = position
 		_bubble_vfx_event.dir = dir

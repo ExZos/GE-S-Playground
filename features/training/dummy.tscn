@@ -1,20 +1,16 @@
 [gd_scene format=3 uid="uid://bpl36k5ghpm73"]
 
 [ext_resource type="Script" uid="uid://drfqpd778kpm3" path="res://features/training/dummy.gd" id="1_5vt76"]
-[ext_resource type="PackedScene" uid="uid://cvbq5qbae4r5k" path="res://shared/components/damageable.tscn" id="1_v4gwy"]
 
 [sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_76rfl"]
 extents_x = 3276800
 extents_y = 3276800
 
-[node name="Dummy" type="SGStaticBody2D" unique_id=1123841904 node_paths=PackedStringArray("collision_shape", "damageable")]
+[node name="Dummy" type="SGStaticBody2D" unique_id=1123841904 node_paths=PackedStringArray("collision_shape")]
 script = ExtResource("1_5vt76")
 collision_shape = NodePath("SGCollisionShape2D")
-damageable = NodePath("Damageable")
 max_hp = 5
 respawn_time = 120
 
 [node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="." unique_id=1961943755]
 shape = SubResource("SGRectangleShape2D_76rfl")
-
-[node name="Damageable" parent="." unique_id=2057246135 instance=ExtResource("1_v4gwy")]

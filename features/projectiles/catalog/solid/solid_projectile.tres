@@ -8,6 +8,7 @@ script = ExtResource("1_4sw8b")
 base = 1
 pool_size = 5
 base_speed = 10
+base_damage = 1
 type = &"solid_projectile"
 scene = ExtResource("1_myj6k")
 metadata/_custom_type_script = "uid://dqk2livkncmja"

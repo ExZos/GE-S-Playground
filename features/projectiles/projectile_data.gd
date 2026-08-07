@@ -17,6 +17,7 @@ enum Base {
 
 @export_group("Stats")
 @export var base_speed: int
+@export var base_damage: int
 
 func _validate_property(property: Dictionary):
 	super(property)

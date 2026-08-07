@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://cvbq5qbae4r5k"]
-
-[ext_resource type="Script" uid="uid://cedhlmv5fa3ln" path="res://shared/components/damageable.gd" id="1_aa4c3"]
-
-[node name="Damageable" type="Node2D" unique_id=2057246135]
-script = ExtResource("1_aa4c3")
