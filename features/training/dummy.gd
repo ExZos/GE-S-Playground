@@ -1,7 +1,6 @@
 extends SGStaticBody2D
 
 # TODO: health UI
-# TODO: respawn timer UI
 class_name Dummy
 
 const IS_DAMAGEABLE: bool = true
@@ -41,7 +40,7 @@ func advance_frame() -> void:
 func on_death() -> void:
 	set_physics_process(false)
 	collision_shape.disabled = true
-	hide()
+	collision_shape.hide()
 	
 	_fp_respawn_ticks = fp_respawn_time
 	
@@ -50,6 +49,6 @@ func on_death() -> void:
 func on_respawn() -> void:
 	set_physics_process(true)
 	collision_shape.disabled = false
-	show()
+	collision_shape.show()
 	
 	sync_to_physics_engine()

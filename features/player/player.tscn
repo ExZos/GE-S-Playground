@@ -13,7 +13,6 @@ script = ExtResource("1_sjcu7")
 collision_shape = NodePath("SGCollisionShape2D")
 skill_manager = NodePath("SkillManager")
 player_stats = ExtResource("2_6xbq4")
-basic_attack_type = 1
 
 [node name="SkillManager" type="Node" parent="." unique_id=1042245462]
 script = ExtResource("6_y2cyt")
