@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://bpl36k5ghpm73"]
 
 [ext_resource type="Script" uid="uid://drfqpd778kpm3" path="res://features/training/dummy.gd" id="1_5vt76"]
-[ext_resource type="PackedScene" uid="uid://rngnde5ch1b1" path="res://shared/ui/components/timer.tscn" id="2_5vt76"]
+[ext_resource type="PackedScene" uid="uid://rngnde5ch1b1" path="res://shared/ui/components/progress_indicator_world/progress_indicator_world.tscn" id="2_5vt76"]
+[ext_resource type="PackedScene" uid="uid://wqw8oxtp1885" path="res://shared/ui/components/hp_indicator_world/hp_indicator_world.tscn" id="2_nmc3w"]
 
 [sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_76rfl"]
 extents_x = 3276800
@@ -16,18 +17,19 @@ respawn_time = 120
 [node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="." unique_id=1961943755]
 shape = SubResource("SGRectangleShape2D_76rfl")
 
-[node name="RespawnTimer" parent="." unique_id=1233440233 node_paths=PackedStringArray("target_node") instance=ExtResource("2_5vt76")]
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 0.0
-offset_top = 0.0
+[node name="HpIndicatorWorld" parent="." unique_id=550099716 node_paths=PackedStringArray("target_node") instance=ExtResource("2_nmc3w")]
+target_node = NodePath("..")
+
+[node name="RespawnProgressIndicator" parent="." unique_id=1233440233 node_paths=PackedStringArray("target_node") instance=ExtResource("2_5vt76")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_right = 0.0
 offset_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
+grow_horizontal = 2
+grow_vertical = 2
 target_node = NodePath("..")
 value_prop = &"_fp_respawn_ticks"
 max_prop = &"fp_respawn_time"

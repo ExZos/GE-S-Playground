@@ -1,6 +1,5 @@
 extends SGStaticBody2D
 
-# TODO: health UI
 class_name Dummy
 
 const IS_DAMAGEABLE: bool = true

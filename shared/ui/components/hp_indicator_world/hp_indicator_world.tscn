@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://wqw8oxtp1885"]
+
+[ext_resource type="Script" uid="uid://cpac0nxiy8n5a" path="res://shared/ui/components/hp_indicator_world/hp_indicator_world.gd" id="1_aa1ht"]
+
+[sub_resource type="Gradient" id="Gradient_q3sbu"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.53333336, 0.53333336, 0.53333336, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_52k7c"]
+gradient = SubResource("Gradient_q3sbu")
+height = 16
+
+[sub_resource type="Gradient" id="Gradient_aa1ht"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_q3sbu"]
+gradient = SubResource("Gradient_aa1ht")
+height = 16
+
+[sub_resource type="LabelSettings" id="LabelSettings_aa1ht"]
+font_size = 25
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="HpIndicatorWorld" type="Control" unique_id=550099716 node_paths=PackedStringArray("progress_bar", "label")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_aa1ht")
+progress_bar = NodePath("TextureProgressBar")
+label = NodePath("Label")
+value_prop = &"fp_current_hp"
+max_prop = &"fp_max_hp"
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1946148411]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -8.0
+offset_right = 32.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_under = SubResource("GradientTexture2D_52k7c")
+texture_progress = SubResource("GradientTexture2D_q3sbu")
+
+[node name="Label" type="Label" parent="." unique_id=1329115492]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_aa1ht")
+horizontal_alignment = 1
+vertical_alignment = 1
