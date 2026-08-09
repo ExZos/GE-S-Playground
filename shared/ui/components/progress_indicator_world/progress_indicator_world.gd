@@ -1,7 +1,7 @@
 extends Control
 
-@export var progress_bar: TextureProgressBar
-@export var cooldown_label: Label
+@onready var progress_bar: TextureProgressBar = $TextureProgressBar
+@onready var cooldown_label: Label = $Cooldown
 
 @export var target_node: Node
 @export var value_prop: StringName

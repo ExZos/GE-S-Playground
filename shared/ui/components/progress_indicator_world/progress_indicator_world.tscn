@@ -39,14 +39,12 @@ font_size = 25
 font_color = Color(0, 0, 0, 1)
 outline_size = 5
 
-[node name="ProgressIndicatorWorld" type="Control" unique_id=1233440233 node_paths=PackedStringArray("progress_bar", "cooldown_label")]
+[node name="ProgressIndicatorWorld" type="Control" unique_id=1233440233]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 50.0
 offset_bottom = 50.0
 script = ExtResource("1_jk4bd")
-progress_bar = NodePath("TextureProgressBar")
-cooldown_label = NodePath("Cooldown")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=418272414]
 layout_mode = 1
@@ -55,10 +53,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -25.0
-offset_top = -25.0
-offset_right = 25.0
-offset_bottom = 25.0
+offset_left = -37.5
+offset_top = -37.5
+offset_right = 37.5
+offset_bottom = 37.5
 grow_horizontal = 2
 grow_vertical = 2
 fill_mode = 4

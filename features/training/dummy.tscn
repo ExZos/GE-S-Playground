@@ -18,6 +18,13 @@ respawn_time = 120
 shape = SubResource("SGRectangleShape2D_76rfl")
 
 [node name="HpIndicatorWorld" parent="." unique_id=550099716 node_paths=PackedStringArray("target_node") instance=ExtResource("2_nmc3w")]
+custom_minimum_size = Vector2(100, 0)
+anchors_preset = -1
+offset_top = -150.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 0
 target_node = NodePath("..")
 
 [node name="RespawnProgressIndicator" parent="." unique_id=1233440233 node_paths=PackedStringArray("target_node") instance=ExtResource("2_5vt76")]
@@ -26,8 +33,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_right = 0.0
-offset_bottom = 0.0
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
 grow_horizontal = 2
 grow_vertical = 2
 target_node = NodePath("..")
