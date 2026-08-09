@@ -15,9 +15,11 @@ func _ready() -> void:
 	assert(value_prop in target_node, "%s: Property '%s' does not exist in %s" % [self.name, value_prop, target_node.name])
 	assert(max_prop in target_node, "%s: Property '%s' does not exist in %s" % [self.name, max_prop, target_node.name])
 	
-	# TODO: determine dynamically via collision shape or sprite size
-	progress_bar_container.custom_minimum_size = custom_minimum_size
-	progress_bar.custom_minimum_size = custom_minimum_size
+	# Set progress bar container's width to the collision shape's width
+	var parent: Node2D = get_parent()
+	var collision_shape: SGCollisionShape2D = parent.find_child("SGCollisionShape2D")
+	var shape_size: Vector2 = SGShape2DUtils.get_size(collision_shape.shape, collision_shape.global_scale)
+	progress_bar_container.custom_minimum_size.x = shape_size.x
 	
 	progress_bar.max_value = target_node.get(max_prop)
 
