@@ -12,7 +12,6 @@ func _ready() -> void:
 	_fps = Engine.get_physics_ticks_per_second()
 	var fp_fps = SGFixed.from_int(_fps)
 	
-	#await player.ready
 	var player_skills: Array[Skill] = player.get_skills()
 	for skill: Skill in player_skills:
 		var skill_slot: Control

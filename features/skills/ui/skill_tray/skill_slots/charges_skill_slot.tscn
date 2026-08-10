@@ -7,26 +7,22 @@
 [ext_resource type="LabelSettings" uid="uid://b0dqld51kajy0" path="res://shared/ui/label_settings/skill_slot_progress.tres" id="5_m8iev"]
 [ext_resource type="LabelSettings" uid="uid://bwo2qw6uln4fp" path="res://shared/ui/label_settings/skill_slot_charges.tres" id="6_x173l"]
 
-[node name="ChargesSkillSlot" type="Control" unique_id=115668837 node_paths=PackedStringArray("progress_bar", "key_label", "cooldown_label", "charges_label")]
+[node name="ChargesSkillSlot" type="Control" unique_id=115668837]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_slmhi")
-progress_bar = NodePath("TextureProgressBar")
-key_label = NodePath("Key")
-cooldown_label = NodePath("Cooldown")
-charges_label = NodePath("Charges")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=794291755]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-fill_mode = 5
+fill_mode = 4
 texture_under = ExtResource("2_1slro")
 texture_over = ExtResource("3_f8y55")
 texture_progress = ExtResource("2_1slro")
-tint_under = Color(0.53333336, 0.53333336, 0.53333336, 1)
 tint_over = Color(0.53333336, 0.53333336, 0.53333336, 1)
+tint_progress = Color(0.53333336, 0.53333336, 0.53333336, 1)
 
 [node name="Key" type="Label" parent="." unique_id=1493565851]
 custom_minimum_size = Vector2(50, 50)

@@ -4,13 +4,7 @@ class_name StaminaSkill
 
 enum State { IDLE, ACTIVE, EXHAUSTED }
 
-signal state_changed(state: State)
-
-var state: State = State.IDLE:
-	set(value):
-		if state != value:
-			state = value
-			state_changed.emit(state)
+var state: State = State.IDLE
 
 # Stats
 var _fp_max_stamina: int

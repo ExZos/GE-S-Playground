@@ -1,7 +1,5 @@
 extends Node
 
-@export var game_manager: GameManager
-
 # TODO: find better way to determine this for each vfx type
 const VFX_POOL_SIZE: int = 50
 

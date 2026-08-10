@@ -2,39 +2,37 @@ extends Control
 
 class_name ChargesSkillSlot
 
-@export var progress_bar: TextureProgressBar
-@export var key_label: Label
-@export var cooldown_label: Label
-@export var charges_label: Label
+@onready var progress_bar: TextureProgressBar = $TextureProgressBar
+@onready var key_label: Label = $Key
+@onready var cooldown_label: Label = $Cooldown
+@onready var charges_label: Label = $Charges
 
 @export var skill: ChargesSkill
 
 var key_text: String
-
 var fp_fps: float
+
+var last_charges: int
 
 func _ready() -> void:
 	progress_bar.min_value = 0
 	progress_bar.max_value = skill._fp_cooldown
-	progress_bar.value = progress_bar.max_value - skill.fp_cd_ticks
 	
 	key_label.text = key_text
 	charges_label.text = str(skill.charges)
 	
-	skill.charges_changed.connect(_on_charges_changed)
+	last_charges = skill.charges
+	
 	if skill.max_charges <= 1:
 		charges_label.visible = false
 
 func _process(_delta: float) -> void:
 	if skill.cooling_down:
-		progress_bar.value = progress_bar.max_value - skill.fp_cd_ticks
+		progress_bar.value = skill.fp_cd_ticks
 		cooldown_label.text = "%.1fs" % (skill.fp_cd_ticks / fp_fps)
 	else:
 		cooldown_label.text = ""
-
-func _exit_tree() -> void:
-	if skill and skill.charges_changed.is_connected(_on_charges_changed):
-		skill.charges_changed.disconnect(_on_charges_changed)
-
-func _on_charges_changed(charges: int) -> void:
-	charges_label.text = str(charges)
+	
+	if last_charges != skill.charges:
+		charges_label.text = str(skill.charges)
+		last_charges = skill.charges

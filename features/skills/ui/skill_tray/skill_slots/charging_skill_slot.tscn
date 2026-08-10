@@ -6,27 +6,23 @@
 [ext_resource type="Texture2D" uid="uid://c6q4tjnfmycv7" path="res://shared/ui/textures/circle_border_white.tres" id="3_mmhvd"]
 [ext_resource type="LabelSettings" uid="uid://b0dqld51kajy0" path="res://shared/ui/label_settings/skill_slot_progress.tres" id="5_mmhvd"]
 
-[node name="ChargingSkillSlot" type="Control" unique_id=199891676 node_paths=PackedStringArray("cooldown_progress_bar", "charge_progress_bar", "key_label", "progress_label")]
+[node name="ChargingSkillSlot" type="Control" unique_id=199891676]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_r6278")
-cooldown_progress_bar = NodePath("CooldownProgressBar")
-charge_progress_bar = NodePath("ChargeProgressBar")
-key_label = NodePath("Key")
-progress_label = NodePath("Progress")
 metadata/_custom_type_script = "uid://darkllico30is"
 
 [node name="CooldownProgressBar" type="TextureProgressBar" parent="." unique_id=1909646367]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-fill_mode = 5
+fill_mode = 4
 texture_under = ExtResource("2_j2g3d")
 texture_over = ExtResource("3_mmhvd")
 texture_progress = ExtResource("2_j2g3d")
-tint_under = Color(0.53333336, 0.53333336, 0.53333336, 1)
 tint_over = Color(0.53333336, 0.53333336, 0.53333336, 1)
+tint_progress = Color(0.53333336, 0.53333336, 0.53333336, 1)
 
 [node name="ChargeProgressBar" type="TextureProgressBar" parent="." unique_id=1436547229]
 custom_minimum_size = Vector2(50, 50)

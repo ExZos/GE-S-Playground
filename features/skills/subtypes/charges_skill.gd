@@ -2,8 +2,6 @@ extends Skill
 
 class_name ChargesSkill
 
-signal charges_changed(charges: int)
-
 var cooling_down: bool = false
 
 # Stats
@@ -13,11 +11,7 @@ var charges_inc: int
 
 # Tickers
 var fp_cd_ticks: int = 0
-var charges: int:
-	set(value):
-		if charges != value:
-			charges = value
-			charges_changed.emit(value)
+var charges: int
 
 func _process_feature(feature: SkillFeature) -> void:
 	match feature.get_feature_type():

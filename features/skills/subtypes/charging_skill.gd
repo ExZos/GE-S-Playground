@@ -2,15 +2,9 @@ extends Skill
 
 class_name ChargingSkill
 
-signal state_changed(state: State)
-
 enum State { IDLE, CHARGING, COOLDOWN }
 
-var state: State = State.IDLE:
-	set(value):
-		if state != value:
-			state = value
-			state_changed.emit(value)
+var state: State = State.IDLE
 
 # Stats
 var _fp_charge_time: int
