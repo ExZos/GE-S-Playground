@@ -14,8 +14,8 @@ collision_shape = NodePath("SGCollisionShape2D")
 skill_manager = NodePath("SkillManager")
 player_stats = ExtResource("2_6xbq4")
 
-[node name="SkillManager" type="Node" parent="." unique_id=1042245462]
-script = ExtResource("6_y2cyt")
-
 [node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="." unique_id=944140082]
 shape = SubResource("SGCircleShape2D_ao3hl")
+
+[node name="SkillManager" type="Node" parent="." unique_id=1042245462]
+script = ExtResource("6_y2cyt")

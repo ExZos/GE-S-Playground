@@ -1,6 +1,7 @@
 @tool
 extends SGCharacterBody2D
 
+# TODO: consider _process to handle presentation logic
 class_name Player
 
 @export var collision_shape: SGCollisionShape2D
