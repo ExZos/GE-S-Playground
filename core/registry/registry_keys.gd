@@ -14,6 +14,15 @@ class Skills:
 	const TELEKINESIS: StringName = &"telekinesis"
 	const LIST: PackedStringArray = [DASH,SHOOT_SENSOR,SHOOT_SOLID,SPRINT,TELEKINESIS]
 
+class Enemies:
+	const BASE_DUMMY: StringName = &"base_dummy"
+	const LIST: PackedStringArray = [BASE_DUMMY]
+
+class Waves:
+	const TRAINING_WAVE: StringName = &"training_wave"
+	const LIST: PackedStringArray = [TRAINING_WAVE]
+
 class VFX:
 	const BUBBLE_VFX: StringName = &"bubble_vfx"
 	const LIST: PackedStringArray = [BUBBLE_VFX]
+

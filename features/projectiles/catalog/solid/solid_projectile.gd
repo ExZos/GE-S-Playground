@@ -37,7 +37,7 @@ var _speed_is_dirty: bool = false
 var _fp_speed: int
 
 # Misc - used by other nodes
-var type: StringName = RegistryKeys.Projectiles.SOLID_PROJECTILE # Key for determining which pool it belongs to
+var type: StringName # Key for determining which pool it belongs to
 var is_active: bool = false
 
 var _normal_collision_layer: int

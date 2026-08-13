@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://bun3je6mge8ve"]
+
+[ext_resource type="Script" uid="uid://danle02tjvxb3" path="res://features/enemies/enemy_data.gd" id="1_ctxdw"]
+[ext_resource type="PackedScene" uid="uid://bpl36k5ghpm73" path="res://features/enemies/catalog/dummy/dummy.tscn" id="1_gsrtl"]
+
+[resource]
+script = ExtResource("1_ctxdw")
+max_hp = 5
+respawn_time = 120
+type = &"base_dummy"
+scene = ExtResource("1_gsrtl")
+metadata/_custom_type_script = "uid://danle02tjvxb3"

@@ -15,7 +15,10 @@ const INPUT_MAP: Dictionary[StringName, int] = {
 	
 	&"skill_1": InputConstants.Bit.SKILL_1,
 	&"skill_2": InputConstants.Bit.SKILL_2,
-	&"skill_3": InputConstants.Bit.SKILL_3
+	&"skill_3": InputConstants.Bit.SKILL_3,
+	
+	# TODO: Temporary
+	&"next_wave": InputConstants.Bit.NEXT_WAVE
 }
 
 # Raw input

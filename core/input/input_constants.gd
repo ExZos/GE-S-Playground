@@ -18,6 +18,9 @@ class Bit:
 	const SKILL_1: int = 1 << 8
 	const SKILL_2: int = 1 << 9
 	const SKILL_3: int = 1 << 10
+	
+	# TODO: Temporary
+	const NEXT_WAVE: int = 1 << 11
 
 # Bit position groupings
 class BitGroup:

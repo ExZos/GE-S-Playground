@@ -3,10 +3,12 @@
 [ext_resource type="Script" uid="uid://b1iphtfxsb15w" path="res://features/vfx/vfx_manager.gd" id="1_5vw27"]
 [ext_resource type="Script" uid="uid://chnm4a6v3t7eq" path="res://features/game/game_manager.gd" id="1_272bh"]
 [ext_resource type="Script" uid="uid://c6klmyhqcx6dx" path="res://core/input/input_manager.gd" id="2_5vw27"]
+[ext_resource type="Resource" uid="uid://cfmf3b05bq3wo" path="res://features/encounters/training.tres" id="3_4c57u"]
 [ext_resource type="Script" uid="uid://bxuayk5f3f5mo" path="res://features/projectiles/projectile_manager.gd" id="3_kek77"]
 [ext_resource type="PackedScene" uid="uid://bk7ksdidmq8ap" path="res://features/player/player.tscn" id="4_4c57u"]
 [ext_resource type="PackedScene" uid="uid://cdc67etsdo3xs" path="res://features/skills/ui/skill_tray/skill_tray.tscn" id="4_5vw27"]
-[ext_resource type="PackedScene" uid="uid://bpl36k5ghpm73" path="res://features/training/dummy.tscn" id="5_272bh"]
+[ext_resource type="Script" uid="uid://celyl8lxqchrt" path="res://features/enemies/enemy_manager.gd" id="4_kek77"]
+[ext_resource type="Script" uid="uid://ckiohqwn27g8f" path="res://features/encounters/encounter_manager.gd" id="6_4c57u"]
 
 [sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_stixs"]
 extents_x = 88604672
@@ -21,15 +23,24 @@ extents_y = 55705600
 [node name="InputManager" type="Node" parent="." unique_id=1473816164]
 script = ExtResource("2_5vw27")
 
-[node name="GameManager" type="Node" parent="." unique_id=468958604 node_paths=PackedStringArray("input_manager", "player", "projectile_manager", "dummy")]
+[node name="GameManager" type="Node" parent="." unique_id=468958604 node_paths=PackedStringArray("input_manager", "player", "projectile_manager", "enemy_manager", "encounter_manager")]
 script = ExtResource("1_272bh")
 input_manager = NodePath("../InputManager")
 player = NodePath("../Player")
 projectile_manager = NodePath("../ProjectileManager")
-dummy = NodePath("../Dummy")
+enemy_manager = NodePath("../EnemyManager")
+encounter_manager = NodePath("../EncounterManager")
+encounter_data = ExtResource("3_4c57u")
 
 [node name="ProjectileManager" type="Node" parent="." unique_id=534493029]
 script = ExtResource("3_kek77")
+
+[node name="EnemyManager" type="Node" parent="." unique_id=1771992521]
+script = ExtResource("4_kek77")
+
+[node name="EncounterManager" type="Node" parent="." unique_id=1391771661 node_paths=PackedStringArray("enemy_manager")]
+script = ExtResource("6_4c57u")
+enemy_manager = NodePath("../EnemyManager")
 
 [node name="Bounds" type="SGStaticBody2D" parent="." unique_id=1732037479]
 
@@ -56,10 +67,6 @@ position = Vector2(1252, 0)
 [node name="Player" parent="." unique_id=2004616098 instance=ExtResource("4_4c57u")]
 attack_type = &"shoot_sensor"
 skill_types = Array[StringName]([&"sprint", &"shoot_solid", &"telekinesis"])
-
-[node name="Dummy" parent="." unique_id=1123841904 instance=ExtResource("5_272bh")]
-fixed_position_x = 32768000
-position = Vector2(500, 0)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=594209437]
 zoom = Vector2(0.5, 0.5)

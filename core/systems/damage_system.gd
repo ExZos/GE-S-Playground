@@ -8,5 +8,3 @@ static func apply_damage(target: Node, fp_damage: int):
 	
 	if target.fp_current_hp <= 0:
 		target.is_dead = true
-		
-		target.on_death()

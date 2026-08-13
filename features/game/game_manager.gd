@@ -5,12 +5,18 @@ class_name GameManager
 @export var input_manager: InputManager
 @export var player: Player
 @export var projectile_manager: ProjectileManager
+@export var enemy_manager: EnemyManager
+@export var encounter_manager: EncounterManager
 
-@export var dummy: Dummy
+# TODO: in-game selection before loading
+@export var encounter_data: EncounterData
 
 const PROJECTILE_MODIFIERS_POOL_SIZE: int = 10
 
 var _projectile_modifiers: DenseFixedArray
+
+# TODO: maybe have this in one spot
+var _prev_input_mask: int = 0
 
 func _ready() -> void:
 	EventBus.register_game_manager(self)
@@ -19,7 +25,8 @@ func _ready() -> void:
 	_projectile_modifiers = DenseFixedArray.new(PROJECTILE_MODIFIERS_POOL_SIZE, ProjectileModifier)
 	
 	player.init()
-	dummy.init()
+	
+	encounter_manager.init(encounter_data)
 	
 	# Used to store data for pool initialization
 	var projectile_types: Array[StringName] = []
@@ -42,7 +49,12 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	var input_mask: int = input_manager.get_input_mask()
 	player.advance_frame(input_mask)
-	dummy.advance_frame()
+	
+	var just_pressed_mask: int = input_mask & ~_prev_input_mask
+	if just_pressed_mask & InputConstants.Bit.NEXT_WAVE:
+		encounter_manager.spawn_wave()
+		
+	enemy_manager.advance_frame()
 	
 	if player.projectile_requests.count > 0:
 		projectile_manager.handle_requests(player.projectile_requests)
@@ -53,6 +65,8 @@ func _physics_process(_delta: float) -> void:
 		_projectile_modifiers.clear_data()
 	
 	projectile_manager.advance_frame()
+	
+	_prev_input_mask = input_mask
 
 func add_projectile_modifier(modifier: ProjectileModifier) -> void:
 	if _projectile_modifiers.add_item(modifier) == -1:

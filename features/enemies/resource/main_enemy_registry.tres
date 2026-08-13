@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="EnemyRegistry" format=3 uid="uid://d22k4gl8dmxo1"]
+
+[ext_resource type="Script" uid="uid://bv8jvbt5gwpbc" path="res://features/enemies/enemy_registry.gd" id="1_b0kt7"]
+
+[resource]
+script = ExtResource("1_b0kt7")
+preload_types = Array[StringName]([&"base_dummy"])
+metadata/_custom_type_script = "uid://bv8jvbt5gwpbc"

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="EncounterData" format=3 uid="uid://cfmf3b05bq3wo"]
+
+[ext_resource type="Script" uid="uid://cabrc3nnrdlip" path="res://features/encounters/encounter_data.gd" id="1_g32j3"]
+
+[resource]
+script = ExtResource("1_g32j3")
+waves = Array[StringName]([&"training_wave"])
+metadata/_custom_type_script = "uid://cabrc3nnrdlip"

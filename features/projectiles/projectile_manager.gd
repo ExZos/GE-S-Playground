@@ -5,10 +5,6 @@ class_name ProjectileManager
 var _solid_pool: SparseTypedFixedArray
 var _sensor_pool: SparseTypedFixedArray
 
-func advance_frame() -> void:
-	_process_pool(_solid_pool)
-	_process_pool(_sensor_pool)
-
 func init(projectile_types: Array[StringName]) -> void:
 	var projectiles_by_base_and_type: Dictionary[int, Dictionary] = {
 		ProjectileData.Base.SOLID: {},
@@ -44,6 +40,10 @@ func init(projectile_types: Array[StringName]) -> void:
 	
 	_solid_pool = SparseTypedFixedArray.new(pool_sizes_by_base[ProjectileData.Base.SOLID], SolidProjectile, projectiles_by_base_and_type[ProjectileData.Base.SOLID])
 	_sensor_pool = SparseTypedFixedArray.new(pool_sizes_by_base[ProjectileData.Base.SENSOR], SensorProjectile, projectiles_by_base_and_type[ProjectileData.Base.SENSOR])
+
+func advance_frame() -> void:
+	_process_pool(_solid_pool)
+	_process_pool(_sensor_pool)
 
 func handle_requests(requests: DenseFixedArray) -> void:
 	for i in range(requests.count):
