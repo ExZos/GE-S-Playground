@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cyvm2qijsr3mp"]
+
+[ext_resource type="Script" uid="uid://di3pwx8vw37jg" path="res://features/world/arena.gd" id="1_6klbu"]
+
+[sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_6klbu"]
+
+[sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_irbgb"]
+
+[sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_xfyv3"]
+
+[sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_2ybob"]
+
+[node name="Arena" type="SGFixedNode2D" unique_id=1469040740 node_paths=PackedStringArray("top_bound", "left_bound", "right_bound", "bottom_bound")]
+script = ExtResource("1_6klbu")
+top_bound = NodePath("Bounds/Top")
+left_bound = NodePath("Bounds/Bottom")
+right_bound = NodePath("Bounds/Left")
+bottom_bound = NodePath("Bounds/Right")
+
+[node name="Bounds" type="SGStaticBody2D" parent="." unique_id=420210317]
+
+[node name="Top" type="SGCollisionShape2D" parent="Bounds" unique_id=496541986]
+shape = SubResource("SGRectangleShape2D_6klbu")
+
+[node name="Bottom" type="SGCollisionShape2D" parent="Bounds" unique_id=602767632]
+shape = SubResource("SGRectangleShape2D_irbgb")
+
+[node name="Left" type="SGCollisionShape2D" parent="Bounds" unique_id=164093389]
+shape = SubResource("SGRectangleShape2D_xfyv3")
+
+[node name="Right" type="SGCollisionShape2D" parent="Bounds" unique_id=2027281925]
+shape = SubResource("SGRectangleShape2D_2ybob")

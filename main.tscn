@@ -9,22 +9,16 @@
 [ext_resource type="PackedScene" uid="uid://cdc67etsdo3xs" path="res://features/skills/ui/skill_tray/skill_tray.tscn" id="4_5vw27"]
 [ext_resource type="Script" uid="uid://celyl8lxqchrt" path="res://features/enemies/enemy_manager.gd" id="4_kek77"]
 [ext_resource type="Script" uid="uid://ckiohqwn27g8f" path="res://features/encounters/encounter_manager.gd" id="6_4c57u"]
-
-[sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_stixs"]
-extents_x = 88604672
-extents_y = 6553600
-
-[sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_qvctj"]
-extents_x = 6553600
-extents_y = 55705600
+[ext_resource type="PackedScene" uid="uid://cyvm2qijsr3mp" path="res://features/world/arena.tscn" id="7_4c57u"]
 
 [node name="SGFixedNode2D" type="SGFixedNode2D" unique_id=1836307939]
 
 [node name="InputManager" type="Node" parent="." unique_id=1473816164]
 script = ExtResource("2_5vw27")
 
-[node name="GameManager" type="Node" parent="." unique_id=468958604 node_paths=PackedStringArray("input_manager", "player", "projectile_manager", "enemy_manager", "encounter_manager")]
+[node name="GameManager" type="Node" parent="." unique_id=468958604 node_paths=PackedStringArray("arena", "input_manager", "player", "projectile_manager", "enemy_manager", "encounter_manager")]
 script = ExtResource("1_272bh")
+arena = NodePath("../Arena")
 input_manager = NodePath("../InputManager")
 player = NodePath("../Player")
 projectile_manager = NodePath("../ProjectileManager")
@@ -42,34 +36,14 @@ script = ExtResource("4_kek77")
 script = ExtResource("6_4c57u")
 enemy_manager = NodePath("../EnemyManager")
 
-[node name="Bounds" type="SGStaticBody2D" parent="." unique_id=1732037479]
-
-[node name="TopBound" type="SGCollisionShape2D" parent="Bounds" unique_id=1427477539]
-shape = SubResource("SGRectangleShape2D_stixs")
-fixed_position_y = -49152000
-position = Vector2(0, -750)
-
-[node name="BottomBound" type="SGCollisionShape2D" parent="Bounds" unique_id=1422391976]
-shape = SubResource("SGRectangleShape2D_stixs")
-fixed_position_y = 49152000
-position = Vector2(0, 750)
-
-[node name="LeftBound" type="SGCollisionShape2D" parent="Bounds" unique_id=9205694]
-shape = SubResource("SGRectangleShape2D_qvctj")
-fixed_position_x = -82051072
-position = Vector2(-1252, 0)
-
-[node name="RightBound" type="SGCollisionShape2D" parent="Bounds" unique_id=345453922]
-shape = SubResource("SGRectangleShape2D_qvctj")
-fixed_position_x = 82051072
-position = Vector2(1252, 0)
+[node name="Arena" parent="." unique_id=1469040740 instance=ExtResource("7_4c57u")]
 
 [node name="Player" parent="." unique_id=2004616098 instance=ExtResource("4_4c57u")]
 attack_type = &"shoot_sensor"
 skill_types = Array[StringName]([&"sprint", &"shoot_solid", &"telekinesis"])
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=594209437]
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(0.25, 0.25)
 position_smoothing_enabled = true
 
 [node name="VFXLayer" type="CanvasLayer" parent="." unique_id=763770195]

@@ -35,12 +35,17 @@ func advance_frame() -> void:
 	pass
 
 # TODO: position params
-func activate() -> void:
+func activate(fp_pos_x: int, fp_pos_y: int) -> void:
 	is_active = true
+	
+	fixed_position_x = fp_pos_x
+	fixed_position_y = fp_pos_y
 	
 	collision_layer = _normal_collision_layer
 	collision_mask = _normal_collision_mask
 	show()
+	
+	sync_to_physics_engine()
 
 func deactivate() -> void:
 	is_active = false

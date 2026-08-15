@@ -40,10 +40,10 @@ func advance_frame() -> void:
 			
 			_enemy_pool.free_typed_item(enemy.type, _enemy_pool.active_list[i])
 
-func handle_request(enemy_type: StringName) -> void:
+func handle_request(enemy_type: StringName, fp_pos_x: int, fp_pos_y: int) -> void:
 	var enemy: Enemy = _enemy_pool.reserve_typed_item(enemy_type)
 	if enemy:
-		enemy.activate()
+		enemy.activate(fp_pos_x , fp_pos_y)
 	else:
 		# Expand pool and manually fill
 		var old_pool_max_size: int = _enemy_pool.max_size
@@ -57,7 +57,7 @@ func handle_request(enemy_type: StringName) -> void:
 			enemy = enemy_data.scene.instantiate()
 			
 			enemy.init(enemy_data)
-			enemy.activate()
+			enemy.activate(fp_pos_x , fp_pos_y)
 			
 			_enemy_pool.data[j] = enemy
 			add_child(enemy)

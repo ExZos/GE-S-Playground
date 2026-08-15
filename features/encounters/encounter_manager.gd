@@ -11,7 +11,6 @@ func init(data: EncounterData) -> void:
 	var enemy_types: Array[StringName] = []
 	
 	for wave_type: StringName in data.waves:
-		# TODO: fix wave_data being null
 		var wave_data: WaveData = RegistryManager.get_wave_data(wave_type)
 		if not wave_data:
 			push_warning("EncounterManager: Wave type '%s' not recognized" % wave_type)
@@ -24,7 +23,8 @@ func init(data: EncounterData) -> void:
 	
 	enemy_manager.init(enemy_types)
 
-# TODO: 
-func spawn_wave() -> void:
+func spawn_wave(fp_player_pos_x: int, fp_player_pos_y: int) -> void:
+	# TODO: determine farthest point from player
+	
 	for enemy_type: StringName in waves[0].enemies:
-		enemy_manager.handle_request(enemy_type)
+		enemy_manager.handle_request(enemy_type, fp_player_pos_x, fp_player_pos_y)

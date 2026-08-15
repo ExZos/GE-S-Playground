@@ -2,6 +2,7 @@ extends Node
 
 class_name GameManager
 
+@export var arena: Arena
 @export var input_manager: InputManager
 @export var player: Player
 @export var projectile_manager: ProjectileManager
@@ -15,7 +16,7 @@ const PROJECTILE_MODIFIERS_POOL_SIZE: int = 10
 
 var _projectile_modifiers: DenseFixedArray
 
-# TODO: maybe have this in one spot
+# TODO: maybe have this in one spot 
 var _prev_input_mask: int = 0
 
 func _ready() -> void:
@@ -24,8 +25,8 @@ func _ready() -> void:
 	
 	_projectile_modifiers = DenseFixedArray.new(PROJECTILE_MODIFIERS_POOL_SIZE, ProjectileModifier)
 	
+	arena.init()
 	player.init()
-	
 	encounter_manager.init(encounter_data)
 	
 	# Used to store data for pool initialization
@@ -52,7 +53,7 @@ func _physics_process(_delta: float) -> void:
 	
 	var just_pressed_mask: int = input_mask & ~_prev_input_mask
 	if just_pressed_mask & InputConstants.Bit.NEXT_WAVE:
-		encounter_manager.spawn_wave()
+		encounter_manager.spawn_wave(player.fixed_position_x, player.fixed_position_y)
 		
 	enemy_manager.advance_frame()
 	
