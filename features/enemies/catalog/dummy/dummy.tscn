@@ -7,8 +7,9 @@
 extents_x = 3276800
 extents_y = 3276800
 
-[node name="Dummy" type="SGCharacterBody2D" unique_id=1852853647]
+[node name="Dummy" type="SGCharacterBody2D" unique_id=1852853647 node_paths=PackedStringArray("collision_shape")]
 script = ExtResource("1_5vt76")
+collision_shape = NodePath("SGCollisionShape2D")
 metadata/_custom_type_script = "uid://drfqpd778kpm3"
 
 [node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="." unique_id=1961943755]

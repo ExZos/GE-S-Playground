@@ -49,4 +49,18 @@ func init() -> void:
 	right_bound.fixed_position_y = 0
 	right_bound.shape.extents.x = -fp_half_bound_thickness
 	right_bound.shape.extents.y = fp_half_height + fp_bound_thickness
+
+func get_farthest_point_from(fp_pos_x: int, fp_pos_y: int) -> SGFixedVector2:
+	var farthest_point: SGFixedVector2 = SGFixedVector2.new()
 	
+	if fp_pos_x > 0:
+		farthest_point.x = arena_rect.position.x
+	else:
+		farthest_point.x = arena_rect.position.x + arena_rect.size.x
+	
+	if fp_pos_y > 0:
+		farthest_point.y = arena_rect.position.y
+	else:
+		farthest_point.y = arena_rect.position.y + arena_rect.size.y
+	
+	return farthest_point

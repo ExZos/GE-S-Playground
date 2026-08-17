@@ -2,7 +2,11 @@ extends Node
 
 class_name EncounterManager
 
+@export var arena: Arena
 @export var enemy_manager: EnemyManager
+
+@export var spawn_area: SGArea2D
+@export var spawn_collision_shape: SGCollisionShape2D
 
 var waves: Array[WaveData] = []
 
@@ -24,7 +28,22 @@ func init(data: EncounterData) -> void:
 	enemy_manager.init(enemy_types)
 
 func spawn_wave(fp_player_pos_x: int, fp_player_pos_y: int) -> void:
-	# TODO: determine farthest point from player
+	var fp_spawn_point: SGFixedVector2 = arena.get_farthest_point_from(fp_player_pos_x, fp_player_pos_y)
 	
+	# TODO: handle clipping out of bounds on spawn
 	for enemy_type: StringName in waves[0].enemies:
-		enemy_manager.handle_request(enemy_type, fp_player_pos_x, fp_player_pos_y)
+		var enemy_data: EnemyData = RegistryManager.get_enemy_data(enemy_type)
+		if not enemy_data:
+			push_warning("EncounterManager: Enemy type '%s' not recognized" % enemy_type)
+			continue
+		
+		spawn_area.fixed_position = fp_spawn_point # TODO: adjust position based on enemy size
+		spawn_collision_shape.shape.extents.x = SGFixed.from_int(enemy_data.width)
+		spawn_collision_shape.shape.extents.y = SGFixed.from_int(enemy_data.height)
+		spawn_area.sync_to_physics_engine()
+		
+		if spawn_area.get_overlapping_bodies().size() > 0:
+			print("OVERLAP")
+			#continue
+		
+		enemy_manager.handle_request(enemy_type, fp_spawn_point.x, fp_spawn_point.y)

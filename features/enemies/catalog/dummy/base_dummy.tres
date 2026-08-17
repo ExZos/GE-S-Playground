@@ -6,7 +6,8 @@
 [resource]
 script = ExtResource("1_ctxdw")
 max_hp = 5
-respawn_time = 120
+width = 100
+height = 100
 type = &"base_dummy"
 scene = ExtResource("1_gsrtl")
 metadata/_custom_type_script = "uid://danle02tjvxb3"

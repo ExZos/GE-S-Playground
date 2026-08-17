@@ -11,6 +11,8 @@
 [ext_resource type="Script" uid="uid://ckiohqwn27g8f" path="res://features/encounters/encounter_manager.gd" id="6_4c57u"]
 [ext_resource type="PackedScene" uid="uid://cyvm2qijsr3mp" path="res://features/world/arena.tscn" id="7_4c57u"]
 
+[sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_4c57u"]
+
 [node name="SGFixedNode2D" type="SGFixedNode2D" unique_id=1836307939]
 
 [node name="InputManager" type="Node" parent="." unique_id=1473816164]
@@ -32,9 +34,17 @@ script = ExtResource("3_kek77")
 [node name="EnemyManager" type="Node" parent="." unique_id=1771992521]
 script = ExtResource("4_kek77")
 
-[node name="EncounterManager" type="Node" parent="." unique_id=1391771661 node_paths=PackedStringArray("enemy_manager")]
+[node name="EncounterManager" type="Node" parent="." unique_id=1391771661 node_paths=PackedStringArray("arena", "enemy_manager", "spawn_area", "spawn_collision_shape")]
 script = ExtResource("6_4c57u")
+arena = NodePath("../Arena")
 enemy_manager = NodePath("../EnemyManager")
+spawn_area = NodePath("SGArea2D")
+spawn_collision_shape = NodePath("SGArea2D/SGCollisionShape2D")
+
+[node name="SGArea2D" type="SGArea2D" parent="EncounterManager" unique_id=1375853955]
+
+[node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="EncounterManager/SGArea2D" unique_id=954422816]
+shape = SubResource("SGRectangleShape2D_4c57u")
 
 [node name="Arena" parent="." unique_id=1469040740 instance=ExtResource("7_4c57u")]
 

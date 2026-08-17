@@ -31,7 +31,7 @@ func init(enemy_types: Array[StringName]) -> void:
 
 func advance_frame() -> void:
 	for i in range(_enemy_pool.active_list_count - 1, -1, -1):
-		var enemy: SGFixedNode2D = _enemy_pool.get_nth_active_item(i)
+		var enemy: Enemy = _enemy_pool.get_nth_active_item(i)
 		
 		enemy.advance_frame()
 		if enemy.is_dead:

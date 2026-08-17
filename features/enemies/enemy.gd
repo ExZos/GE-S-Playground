@@ -34,7 +34,6 @@ func reset() -> void:
 func advance_frame() -> void:
 	pass
 
-# TODO: position params
 func activate(fp_pos_x: int, fp_pos_y: int) -> void:
 	is_active = true
 	
