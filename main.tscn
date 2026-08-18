@@ -42,6 +42,7 @@ spawn_area = NodePath("SGArea2D")
 spawn_collision_shape = NodePath("SGArea2D/SGCollisionShape2D")
 
 [node name="SGArea2D" type="SGArea2D" parent="EncounterManager" unique_id=1375853955]
+visible = false
 
 [node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="EncounterManager/SGArea2D" unique_id=954422816]
 shape = SubResource("SGRectangleShape2D_4c57u")

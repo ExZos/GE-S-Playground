@@ -18,9 +18,9 @@ var _normal_collision_mask: int
 
 func init(data: EnemyData) -> void:
 	type = data.type
-	fp_max_hp = SGFixed.from_int(data.max_hp)
+	fp_max_hp = data.fp_max_hp
 	
-	fp_current_hp = fp_max_hp
+	fp_current_hp = data.fp_max_hp
 	is_active = false
 	is_dead = false
 	

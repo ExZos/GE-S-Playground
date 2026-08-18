@@ -7,8 +7,8 @@ class_name Dummy
 func init(data: EnemyData) -> void:
 	super(data)
 	
-	collision_shape.shape.extents.x = SGFixed.from_int(data.width / 2)
-	collision_shape.shape.extents.y = SGFixed.from_int(data.height / 2)
+	collision_shape.shape.extents.x = SGFixed.from_int(data.half_width)
+	collision_shape.shape.extents.y = SGFixed.from_int(data.half_height)
 
 func advance_frame() -> void:
 	move_and_slide()
