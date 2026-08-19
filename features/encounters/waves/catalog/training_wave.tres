@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_gfmix")
-enemies = Array[StringName]([&"base_dummy"])
+enemies = Array[StringName]([&"base_dummy", &"base_dummy", &"base_dummy", &"base_dummy"])
 type = &"training_wave"
 metadata/_custom_type_script = "uid://c8spo6i3esxxy"

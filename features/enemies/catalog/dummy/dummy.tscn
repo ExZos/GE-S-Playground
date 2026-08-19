@@ -16,6 +16,7 @@ metadata/_custom_type_script = "uid://drfqpd778kpm3"
 shape = SubResource("SGRectangleShape2D_76rfl")
 
 [node name="HpIndicatorWorld" parent="." unique_id=550099716 node_paths=PackedStringArray("target_node") instance=ExtResource("2_nmc3w")]
+z_index = 1000
 anchors_preset = -1
 offset_top = -150.0
 grow_horizontal = 2
