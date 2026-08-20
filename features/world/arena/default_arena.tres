@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="ArenaData" format=3 uid="uid://tbocpr7yprwa"]
+
+[ext_resource type="Script" uid="uid://04ccl4xajxi8" path="res://features/world/arena/arena_data.gd" id="1_osb6u"]
+[ext_resource type="Script" uid="uid://dqdq1knxpo3dn" path="res://features/world/arena/zone_data.gd" id="2_nkbgl"]
+
+[sub_resource type="Resource" id="Resource_ic506"]
+script = ExtResource("2_nkbgl")
+position = Vector2i(-1152, -650)
+width = 1152
+height = 650
+metadata/_custom_type_script = "uid://dqdq1knxpo3dn"
+
+[sub_resource type="Resource" id="Resource_osb6u"]
+script = ExtResource("2_nkbgl")
+position = Vector2i(0, -650)
+width = 1152
+height = 650
+metadata/_custom_type_script = "uid://dqdq1knxpo3dn"
+
+[sub_resource type="Resource" id="Resource_nkbgl"]
+script = ExtResource("2_nkbgl")
+position = Vector2i(-1152, 0)
+width = 1152
+height = 650
+metadata/_custom_type_script = "uid://dqdq1knxpo3dn"
+
+[sub_resource type="Resource" id="Resource_fpjoc"]
+script = ExtResource("2_nkbgl")
+width = 1152
+height = 650
+metadata/_custom_type_script = "uid://dqdq1knxpo3dn"
+
+[resource]
+script = ExtResource("1_osb6u")
+half_width = 1152
+half_height = 650
+half_bound_thickness = 100
+zones = Array[ExtResource("2_nkbgl")]([SubResource("Resource_ic506"), SubResource("Resource_osb6u"), SubResource("Resource_nkbgl"), SubResource("Resource_fpjoc")])
+metadata/_custom_type_script = "uid://04ccl4xajxi8"

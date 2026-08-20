@@ -9,7 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://cdc67etsdo3xs" path="res://features/skills/ui/skill_tray/skill_tray.tscn" id="4_5vw27"]
 [ext_resource type="Script" uid="uid://celyl8lxqchrt" path="res://features/enemies/enemy_manager.gd" id="4_kek77"]
 [ext_resource type="Script" uid="uid://ckiohqwn27g8f" path="res://features/encounters/encounter_manager.gd" id="6_4c57u"]
-[ext_resource type="PackedScene" uid="uid://cyvm2qijsr3mp" path="res://features/world/arena.tscn" id="7_4c57u"]
+[ext_resource type="PackedScene" uid="uid://cyvm2qijsr3mp" path="res://features/world/arena/arena.tscn" id="7_4c57u"]
+[ext_resource type="Resource" uid="uid://tbocpr7yprwa" path="res://features/world/arena/default_arena.tres" id="8_efxa6"]
 
 [sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_4c57u"]
 
@@ -48,6 +49,7 @@ visible = false
 shape = SubResource("SGRectangleShape2D_4c57u")
 
 [node name="Arena" parent="." unique_id=1469040740 instance=ExtResource("7_4c57u")]
+arena_data = ExtResource("8_efxa6")
 
 [node name="Player" parent="." unique_id=2004616098 instance=ExtResource("4_4c57u")]
 attack_type = &"shoot_sensor"

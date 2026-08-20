@@ -7,24 +7,19 @@ class_name Arena
 @export var right_bound: SGCollisionShape2D
 @export var bottom_bound: SGCollisionShape2D
 
-@export var width: int = 2304
-@export var height: int = 1300
-@export var bound_thickness: int = 200
-
-var fp_width: int
-var fp_height: int
-var fp_bound_thickness: int
+@export var arena_data: ArenaData
 
 var arena_rect: SGFixedRect2
 
 func init() -> void:
-	fp_width = SGFixed.from_int(width)
-	fp_height = SGFixed.from_int(height)
-	fp_bound_thickness = SGFixed.from_int(bound_thickness)
+	var fp_half_width: int = arena_data.fp_half_width
+	var fp_width: int = arena_data.fp_half_width * 2
 	
-	var fp_half_width: int = fp_width / 2
-	var fp_half_height: int = fp_height / 2
-	var fp_half_bound_thickness: int = fp_bound_thickness / 2
+	var fp_half_height: int = arena_data.fp_half_height
+	var fp_height: int = arena_data.fp_half_height * 2
+	
+	var fp_half_bound_thickness: int = arena_data.fp_half_bound_thickness
+	var fp_bound_thickness: int = arena_data.fp_half_bound_thickness * 2
 	
 	arena_rect = SGFixedRect2.new()
 	arena_rect.position = SGFixed.vector2(-fp_half_width, -fp_half_height)

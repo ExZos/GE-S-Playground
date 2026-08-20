@@ -28,6 +28,7 @@ func init(data: EncounterData) -> void:
 	
 	enemy_manager.init(enemy_types)
 
+# TODO: distribute wave using zones, set SGArea2D to zone's position and dimensions when needed
 func spawn_wave(fp_player_pos_x: int, fp_player_pos_y: int) -> void:
 	var fp_spawn_point: SGFixedVector2 = arena.get_farthest_point_from(fp_player_pos_x, fp_player_pos_y)
 	
