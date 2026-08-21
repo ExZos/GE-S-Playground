@@ -12,7 +12,6 @@ var current_wave: int = 0
 var waves: Array[WaveData] = []
 
 func init(data: EncounterData) -> void:
-	# TODO: count enemy_type occurence in encounter too (account for max enemies on screen too)
 	var enemy_types: Array[StringName] = []
 	
 	for wave_type: StringName in data.waves:

@@ -22,7 +22,7 @@ func init(projectile_types: Array[StringName]) -> void:
 			push_warning("ProjectileManager: Projectile type '%s' not recognized" % type)
 			continue
 		
-		var projectiles_by_type: Dictionary = projectiles_by_base_and_type[projectile_data.base] # Dictionary[StringName, int]
+		var projectiles_by_type: Dictionary = projectiles_by_base_and_type[projectile_data.base] # Dictionary[StringName, Array]
 		if not projectiles_by_type.has(projectile_data.type):
 			projectiles_by_type[projectile_data.type] = []
 		

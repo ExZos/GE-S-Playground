@@ -5,12 +5,9 @@ class_name EnemyManager
 var _enemy_pool: SparseTypedFixedArray
 
 func init(enemy_types: Array[StringName]) -> void:
-	var enemies_by_type: Dictionary = {} # Dictionary[StringName, int]
-	var max_size: int = 0
+	var enemies_by_type: Dictionary = {} # Dictionary[StringName, Array]
 	
 	for type: StringName in enemy_types:
-		enemies_by_type[type] = []
-		
 		var enemy_data: EnemyData = RegistryManager.get_enemy_data(type)
 		if not enemy_data:
 			push_warning("EnemyManager: Enemy type '%s' not recognized" % type)
@@ -22,12 +19,13 @@ func init(enemy_types: Array[StringName]) -> void:
 		enemy.deactivate()
 		enemy.reset()
 		
+		if not enemies_by_type.has(type):
+			enemies_by_type[type] = []
+		
 		enemies_by_type[type].append(enemy)
 		add_child(enemy)
-		
-		max_size += 1
 	
-	_enemy_pool = SparseTypedFixedArray.new(max_size, Enemy, enemies_by_type)
+	_enemy_pool = SparseTypedFixedArray.new(enemy_types.size(), Enemy, enemies_by_type)
 
 func advance_frame() -> void:
 	for i in range(_enemy_pool.active_list_count - 1, -1, -1):
