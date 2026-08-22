@@ -8,8 +8,8 @@ class_name SparsePassiveFixedArray
 
 const ACTIVE_FLAG_NAME: StringName = &"is_active"
 
-func _init(_max_size: int, target_script: Script) -> void:
-	super(_max_size, target_script)
+func _init(_max_size: int, type: Variant, target_script: Script = null) -> void:
+	super(_max_size, type, target_script)
 	
 	# Check if array type has the designated active flag
 	var has_active_flag: bool = false

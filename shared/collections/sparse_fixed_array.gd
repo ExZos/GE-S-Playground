@@ -9,8 +9,8 @@ class_name SparseFixedArray
 var _next_free: PackedInt32Array
 var _head_next_free: int = 0
 
-func _init(_max_size: int, target_script: Script) -> void:
-	super(_max_size, target_script)
+func _init(_max_size: int, type: Variant, target_script: Script = null) -> void:
+	super(_max_size, type, target_script)
 	
 	_next_free = PackedInt32Array()
 	if max_size > 0:

@@ -19,7 +19,7 @@ func _ready() -> void:
 			continue
 		
 		# TODO: might need to expand vfx types
-		_vfx_pools[type] = SparsePassiveFixedArray.new(VFX_POOL_SIZE, OneShotParticle)
+		_vfx_pools[type] = SparsePassiveFixedArray.new(VFX_POOL_SIZE, TYPE_OBJECT, OneShotParticle)
 		for i in range(VFX_POOL_SIZE):
 			var vfx: OneShotParticle = vfx_scene.instantiate()
 			vfx.deactivate()
@@ -28,7 +28,7 @@ func _ready() -> void:
 			add_child(vfx)
 	
 	# Determine appropriate vfx events size based on vfx pools
-	_vfx_events = DenseFixedArray.new(VFX_POOL_SIZE, VFXEvent)
+	_vfx_events = DenseFixedArray.new(VFX_POOL_SIZE, TYPE_OBJECT, VFXEvent)
 
 func _process(_delta: float) -> void:
 	if _vfx_events.count > 0:

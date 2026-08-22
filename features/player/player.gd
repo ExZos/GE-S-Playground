@@ -66,8 +66,8 @@ func _validate_property(property: Dictionary) -> void:
 		property.hint_string = "%d/%d:%s" % [TYPE_STRING_NAME, PROPERTY_HINT_ENUM, skill_type_hint]
 
 func init() -> void:
-	_player_modifiers = SparseFixedArray.new(PLAYER_MODIFIERS_POOL_SIZE, PlayerModifier)
-	projectile_requests = DenseFixedArray.new(PROJECTILE_REQUESTS_POOL_SIZE, ProjectileRequest)
+	_player_modifiers = SparseFixedArray.new(PLAYER_MODIFIERS_POOL_SIZE, TYPE_OBJECT, PlayerModifier)
+	projectile_requests = DenseFixedArray.new(PROJECTILE_REQUESTS_POOL_SIZE, TYPE_OBJECT, ProjectileRequest)
 	
 	fp_base_speed = SGFixed.from_int(player_stats.base_speed)
 	_compute_speed()

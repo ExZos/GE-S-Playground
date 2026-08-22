@@ -30,7 +30,7 @@ func add_batch(batch: DenseFixedArray) -> bool:
 	return true
 
 func clear_data() -> void:
-	data.fill(null)
+	data.fill(default_value)
 	count = 0
 
 func forced_expand(debug_name: String, expand_size: int) -> void:

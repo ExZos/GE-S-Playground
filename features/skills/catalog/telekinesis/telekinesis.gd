@@ -105,7 +105,7 @@ class VelocityModifier extends ProjectileModifier:
 		fp_speed_mult_sum_inc = _fp_speed_mult_sum_inc
 		fp_speed_mult_prod_inc = _fp_speed_mult_prod_inc
 		
-		_vfx_events = DenseFixedArray.new(VFX_EVENTS_POOL_SIZE, BubbleVFXEvent)
+		_vfx_events = DenseFixedArray.new(VFX_EVENTS_POOL_SIZE, TYPE_OBJECT, BubbleVFXEvent)
 		for i in range(_vfx_events.max_size):
 			_vfx_events.data[i] = BubbleVFXEvent.new(
 				Vector2i.ZERO,

@@ -14,7 +14,7 @@ var _next_free: PackedInt32Array
 var _head_next_free: Dictionary[StringName, int] = {}
 
 func _init(_max_size: int, target_script: Script, items: Dictionary) -> void:
-	super(_max_size, target_script)
+	super(_max_size, TYPE_OBJECT, target_script)
 	
 	active_list = PackedInt32Array()
 	active_list.resize(_max_size)

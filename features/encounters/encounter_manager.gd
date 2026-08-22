@@ -11,6 +11,8 @@ class_name EncounterManager
 var current_wave: int = 0
 var waves: Array[WaveData] = []
 
+var zone_indexes: DenseFixedArray
+
 func init(data: EncounterData) -> void:
 	var enemy_types: Array[StringName] = []
 	
@@ -29,59 +31,79 @@ func init(data: EncounterData) -> void:
 
 # TODO: distribute wave using zones, set SGArea2D to zone's position and dimensions when needed
 func spawn_wave(fp_player_pos_x: int, fp_player_pos_y: int) -> void:
-	var fp_spawn_point: SGFixedVector2 = arena.get_farthest_point_from(fp_player_pos_x, fp_player_pos_y)
+	var wave: WaveData = waves[current_wave]
 	
-	# TODO: determine general spawn offset maybe with wave data? or a universal offset?
-	fp_spawn_point.x += SGFixed.from_int(150) * -_get_sign(fp_spawn_point.x)
-	fp_spawn_point.y += SGFixed.from_int(150) * -_get_sign(fp_spawn_point.y)
-	
-	var fp_distr_angle: int = SGFixed.div(SGFixed.TAU, SGFixed.from_int(waves[current_wave].enemies.size()))
+	# TODO: sort zone indexes by furthest from player
+	zone_indexes = arena.get_zones_not_containing(fp_player_pos_x, fp_player_pos_y)
 	
 	var current_enemy: int = 0
-	for enemy_type: StringName in waves[current_wave].enemies:
-		var enemy_data: EnemyData = RegistryManager.get_enemy_data(enemy_type)
-		if not enemy_data:
-			push_warning("EncounterManager: Enemy type '%s' not recognized" % enemy_type)
-			continue
+	var total_wave_enemies: int = wave.enemies.size()
+	var fp_total_wave_enemies: int = SGFixed.from_int(total_wave_enemies)
+	
+	var enemy_distribution: int = total_wave_enemies / zone_indexes.count
+	var enemy_remainder: int = total_wave_enemies % zone_indexes.count
+	
+	for i in range(zone_indexes.count):
+		var fp_spawn_point: SGFixedVector2 = arena.get_farthest_zone_point_from(zone_indexes.data[i], fp_player_pos_x, fp_player_pos_y)
+	
+		# TODO: determine general spawn offset maybe with wave data? or a universal offset?
+		fp_spawn_point.x += SGFixed.from_int(150) * -_get_sign(fp_spawn_point.x)
+		fp_spawn_point.y += SGFixed.from_int(150) * -_get_sign(fp_spawn_point.y)
 		
-		var fp_angle: int = fp_distr_angle * current_enemy
-		var fp_cos: int = SGFixed.cos(fp_angle)
-		var fp_sin: int = SGFixed.sin(fp_angle)
+		var fp_distr_angle: int = SGFixed.div(SGFixed.TAU, fp_total_wave_enemies)
+		var fp_current_angle: int = 0
 		
-		var fp_spawn_offset_x: int = SGFixed.mul(fp_cos, enemy_data.fp_half_width * 2)
-		var fp_spawn_offset_y: int = SGFixed.mul(fp_sin, enemy_data.fp_half_height * 2)
+		var total_zone_enemies: int = enemy_distribution
+		if enemy_remainder > 0:
+			total_zone_enemies += 1
+			enemy_remainder -= 1
 		
-		enemy_manager.handle_request(enemy_type, fp_spawn_point.x + fp_spawn_offset_x, fp_spawn_point.y + fp_spawn_offset_y)
-		
-		current_enemy += 1
-		
-		# Temporary break from handling spawn overlapping
-		#var pos_x_offset: int = pos_x_offset_mod * enemy_data.fp_half_width
-		#var pos_y_offset: int = pos_y_offset_mod * enemy_data.fp_half_height
-		#
-		#spawn_collision_shape.shape.extents.x = enemy_data.fp_half_width
-		#spawn_collision_shape.shape.extents.y = enemy_data.fp_half_height
-		#spawn_area.fixed_position.x = fp_spawn_point.x + pos_x_offset
-		#spawn_area.fixed_position.y = fp_spawn_point.y + pos_y_offset
-		#spawn_area.sync_to_physics_engine()
-		
-		# TODO: use predefined arena zones
-		# TODO: set area to not overlap with projectiles
-		# TODO: spawn in a fanned out shape, applying small offsets to create a circular spawn shape
-		#var retries: int = 0
-		#while spawn_area.get_overlapping_body_count() > 0:
-			## TODO: method that doesn't require a manual fallback break
-			#if retries > 100:
-				#print("abort")
-				#break
+		for current_zone_enemy in range(total_zone_enemies):
+			var enemy_type: StringName = wave.enemies[current_enemy]
+			
+			var enemy_data: EnemyData = RegistryManager.get_enemy_data(enemy_type)
+			if not enemy_data:
+				push_warning("EncounterManager: Enemy type '%s' not recognized" % enemy_type)
+				continue
+			
+			# TODO: fix circular spawning positioning (4 should make a +)
+			# TODO: check why above is fine when spawning from a single zone
+			fp_current_angle += fp_distr_angle
+			var fp_cos: int = SGFixed.cos(fp_current_angle)
+			var fp_sin: int = SGFixed.sin(fp_current_angle)
+			
+			var fp_spawn_offset_x: int = SGFixed.mul(fp_cos, enemy_data.fp_half_width * 2)
+			var fp_spawn_offset_y: int = SGFixed.mul(fp_sin, enemy_data.fp_half_height * 2)
+			
+			enemy_manager.handle_request(enemy_type, fp_spawn_point.x + fp_spawn_offset_x, fp_spawn_point.y + fp_spawn_offset_y)
+			
+			current_enemy += 1
+			
+			# TODO: handle spawn overlapping
+			#var pos_x_offset: int = pos_x_offset_mod * enemy_data.fp_half_width
+			#var pos_y_offset: int = pos_y_offset_mod * enemy_data.fp_half_height
 			#
-			#spawn_area.fixed_position_x += pos_x_offset
-			#spawn_area.fixed_position_y += pos_y_offset
+			#spawn_collision_shape.shape.extents.x = enemy_data.fp_half_width
+			#spawn_collision_shape.shape.extents.y = enemy_data.fp_half_height
+			#spawn_area.fixed_position.x = fp_spawn_point.x + pos_x_offset
+			#spawn_area.fixed_position.y = fp_spawn_point.y + pos_y_offset
 			#spawn_area.sync_to_physics_engine()
+			
+			# TODO: set area to not overlap with projectiles
+			#var retries: int = 0
+			#while spawn_area.get_overlapping_body_count() > 0:
+				## TODO: method that doesn't require a manual fallback break
+				#if retries > 100:
+					#print("abort")
+					#break
+				#
+				#spawn_area.fixed_position_x += pos_x_offset
+				#spawn_area.fixed_position_y += pos_y_offset
+				#spawn_area.sync_to_physics_engine()
+				#
+				#retries += 1
 			#
-			#retries += 1
-		#
-		#enemy_manager.handle_request(enemy_type, spawn_area.fixed_position_x, spawn_area.fixed_position_y)
+			#enemy_manager.handle_request(enemy_type, spawn_area.fixed_position_x, spawn_area.fixed_position_y)
 	
 	current_wave = (current_wave + 1) % waves.size()
 

@@ -23,7 +23,7 @@ func _ready() -> void:
 	EventBus.register_game_manager(self)
 	RegistryManager.init()
 	
-	_projectile_modifiers = DenseFixedArray.new(PROJECTILE_MODIFIERS_POOL_SIZE, ProjectileModifier)
+	_projectile_modifiers = DenseFixedArray.new(PROJECTILE_MODIFIERS_POOL_SIZE, TYPE_OBJECT, ProjectileModifier)
 	
 	arena.init()
 	player.init()
