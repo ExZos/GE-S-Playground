@@ -67,13 +67,27 @@ func get_farthest_point_from(fp_pos_x: int, fp_pos_y: int) -> SGFixedVector2:
 func get_zones_not_containing(fp_pos_x: int, fp_pos_y: int) -> DenseFixedArray:
 	zone_indexes.clear_data()
 	
-	for i: int in range(arena_data.zones.size()):
+	for i in range(arena_data.zones.size()):
 		var zone: ZoneData = arena_data.zones[i]
-		
 		if zone.contains_position(fp_pos_x, fp_pos_y):
 			continue
 		
-		zone_indexes.add_item(i)
+		var distance: int = zone.compute_distance_from(fp_pos_x, fp_pos_y)
+		
+		# TODO: determine sorting criteria more flexibly
+		var insert_index: int = zone_indexes.count - 1
+		while insert_index > -1:
+			var current_zone: ZoneData = arena_data.zones[zone_indexes.data[insert_index]]
+			
+			var current_distance: int = current_zone.compute_distance_from(fp_pos_x, fp_pos_y)
+			if distance < current_distance:
+				break
+			
+			zone_indexes.data[insert_index + 1] = zone_indexes.data[insert_index]
+			insert_index -= 1
+		
+		zone_indexes.data[insert_index + 1] = i
+		zone_indexes.count += 1
 	
 	return zone_indexes
 

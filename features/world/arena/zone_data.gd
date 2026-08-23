@@ -34,3 +34,6 @@ func _compute_center() -> void:
 
 func contains_position(fp_pos_x: int, fp_pos_y: int) -> bool:
 	return fp_pos_x >= fp_position.x and fp_pos_x < fp_position.x + fp_width and fp_pos_y >= fp_position.y and fp_pos_y < fp_position.y + fp_height
+
+func compute_distance_from(fp_pos_x: int, fp_pos_y: int) -> int:
+	return SGFixed.pow(fp_center.x - fp_pos_x, SGFixed.TWO) + SGFixed.pow(fp_center.y - fp_pos_y, SGFixed.TWO)
