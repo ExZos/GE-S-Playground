@@ -29,16 +29,13 @@ func init(data: EncounterData) -> void:
 	
 	enemy_manager.init(enemy_types)
 
-# TODO: distribute wave using zones, set SGArea2D to zone's position and dimensions when needed
 func spawn_wave(fp_player_pos_x: int, fp_player_pos_y: int) -> void:
 	var wave: WaveData = waves[current_wave]
 	
-	# TODO: sort zone indexes by furthest from player
 	zone_indexes = arena.get_zones_not_containing(fp_player_pos_x, fp_player_pos_y)
 	
 	var current_enemy: int = 0
 	var total_wave_enemies: int = wave.enemies.size()
-	var fp_total_wave_enemies: int = SGFixed.from_int(total_wave_enemies)
 	
 	var enemy_distribution: int = total_wave_enemies / zone_indexes.count
 	var enemy_remainder: int = total_wave_enemies % zone_indexes.count
@@ -50,13 +47,13 @@ func spawn_wave(fp_player_pos_x: int, fp_player_pos_y: int) -> void:
 		fp_spawn_point.x += SGFixed.from_int(150) * -_get_sign(fp_spawn_point.x)
 		fp_spawn_point.y += SGFixed.from_int(150) * -_get_sign(fp_spawn_point.y)
 		
-		var fp_distr_angle: int = SGFixed.div(SGFixed.TAU, fp_total_wave_enemies)
-		var fp_current_angle: int = 0
-		
 		var total_zone_enemies: int = enemy_distribution
 		if enemy_remainder > 0:
 			total_zone_enemies += 1
 			enemy_remainder -= 1
+		
+		var fp_distr_angle: int = SGFixed.TAU / total_zone_enemies
+		var fp_current_angle: int = 0
 		
 		for current_zone_enemy in range(total_zone_enemies):
 			var enemy_type: StringName = wave.enemies[current_enemy]
@@ -66,8 +63,6 @@ func spawn_wave(fp_player_pos_x: int, fp_player_pos_y: int) -> void:
 				push_warning("EncounterManager: Enemy type '%s' not recognized" % enemy_type)
 				continue
 			
-			# TODO: fix circular spawning positioning (4 should make a +)
-			# TODO: check why above is fine when spawning from a single zone
 			fp_current_angle += fp_distr_angle
 			var fp_cos: int = SGFixed.cos(fp_current_angle)
 			var fp_sin: int = SGFixed.sin(fp_current_angle)
