@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_v7hlp")
-preload_types = Array[StringName]([&"training_wave"])
+preload_types = Array[StringName]([&"dummy_wave_x4", &"dummy_wave_x12", &"wanderer_wave"])
 metadata/_custom_type_script = "uid://bd2lftlfmqmwe"

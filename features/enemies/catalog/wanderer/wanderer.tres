@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://dolnxmhffmvgu"]
+
+[ext_resource type="Script" uid="uid://danle02tjvxb3" path="res://features/enemies/enemy_data.gd" id="1_5aqrh"]
+[ext_resource type="PackedScene" uid="uid://bp55ljyknix38" path="res://features/enemies/catalog/wanderer/wanderer.tscn" id="1_mog1f"]
+
+[resource]
+script = ExtResource("1_5aqrh")
+max_hp = 3
+half_width = 50
+half_height = 50
+type = &"wanderer"
+scene = ExtResource("1_mog1f")
+metadata/_custom_type_script = "uid://danle02tjvxb3"

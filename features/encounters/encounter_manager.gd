@@ -11,8 +11,6 @@ class_name EncounterManager
 var current_wave: int = 0
 var waves: Array[WaveData] = []
 
-var zone_indexes: DenseFixedArray
-
 func init(data: EncounterData) -> void:
 	var enemy_types: Array[StringName] = []
 	
@@ -21,7 +19,7 @@ func init(data: EncounterData) -> void:
 		if not wave_data:
 			push_warning("EncounterManager: Wave type '%s' not recognized" % wave_type)
 			continue
-			
+		
 		waves.append(wave_data)
 		
 		for enemy_type: StringName in wave_data.enemies:
@@ -32,7 +30,7 @@ func init(data: EncounterData) -> void:
 func spawn_wave(fp_player_pos_x: int, fp_player_pos_y: int) -> void:
 	var wave: WaveData = waves[current_wave]
 	
-	zone_indexes = arena.get_zones_not_containing(fp_player_pos_x, fp_player_pos_y)
+	var zone_indexes: DenseFixedArray = arena.get_zones_not_containing(fp_player_pos_x, fp_player_pos_y)
 	
 	var current_enemy: int = 0
 	var total_wave_enemies: int = wave.enemies.size()
@@ -43,14 +41,15 @@ func spawn_wave(fp_player_pos_x: int, fp_player_pos_y: int) -> void:
 	for i in range(zone_indexes.count):
 		var fp_spawn_point: SGFixedVector2 = arena.get_farthest_zone_point_from(zone_indexes.data[i], fp_player_pos_x, fp_player_pos_y)
 	
-		# TODO: determine general spawn offset maybe with wave data? or a universal offset?
-		fp_spawn_point.x += SGFixed.from_int(150) * -_get_sign(fp_spawn_point.x)
-		fp_spawn_point.y += SGFixed.from_int(150) * -_get_sign(fp_spawn_point.y)
+		var spawn_point_x_sign: int = _get_sign(fp_spawn_point.x)
+		var spawn_point_y_sign: int = _get_sign(fp_spawn_point.y)
 		
 		var total_zone_enemies: int = enemy_distribution
 		if enemy_remainder > 0:
 			total_zone_enemies += 1
 			enemy_remainder -= 1
+		
+		var enemy_max_dimensions: SGFixedVector2 = wave.get_enemy_max_dimensions_in_range(current_enemy, current_enemy + total_zone_enemies)
 		
 		var fp_distr_angle: int = SGFixed.TAU / total_zone_enemies
 		var fp_current_angle: int = 0
@@ -63,15 +62,18 @@ func spawn_wave(fp_player_pos_x: int, fp_player_pos_y: int) -> void:
 				push_warning("EncounterManager: Enemy type '%s' not recognized" % enemy_type)
 				continue
 			
-			fp_current_angle += fp_distr_angle
-			var fp_cos: int = SGFixed.cos(fp_current_angle)
-			var fp_sin: int = SGFixed.sin(fp_current_angle)
+			var fp_spawn_offset_x: int = enemy_max_dimensions.x * -spawn_point_x_sign
+			var fp_spawn_offset_y: int = enemy_max_dimensions.y * -spawn_point_y_sign
 			
-			var fp_spawn_offset_x: int = SGFixed.mul(fp_cos, enemy_data.fp_half_width * 2)
-			var fp_spawn_offset_y: int = SGFixed.mul(fp_sin, enemy_data.fp_half_height * 2)
+			if total_zone_enemies > 1:
+				fp_current_angle += fp_distr_angle
+				var fp_cos: int = SGFixed.cos(fp_current_angle)
+				var fp_sin: int = SGFixed.sin(fp_current_angle)
+				
+				fp_spawn_offset_x += SGFixed.mul(fp_cos, enemy_max_dimensions.x) + (enemy_data.fp_width * -spawn_point_x_sign)
+				fp_spawn_offset_y += SGFixed.mul(fp_sin, enemy_max_dimensions.y) + (enemy_data.fp_height * -spawn_point_y_sign)
 			
 			enemy_manager.handle_request(enemy_type, fp_spawn_point.x + fp_spawn_offset_x, fp_spawn_point.y + fp_spawn_offset_y)
-			
 			current_enemy += 1
 			
 			# TODO: handle spawn overlapping
@@ -99,7 +101,10 @@ func spawn_wave(fp_player_pos_x: int, fp_player_pos_y: int) -> void:
 				#retries += 1
 			#
 			#enemy_manager.handle_request(enemy_type, spawn_area.fixed_position_x, spawn_area.fixed_position_y)
-	
+		
+		if current_enemy >= total_wave_enemies:
+			break
+		
 	current_wave = (current_wave + 1) % waves.size()
 
 func _get_sign(n: int) -> int:

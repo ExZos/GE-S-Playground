@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_g32j3")
-waves = Array[StringName]([&"training_wave"])
+waves = Array[StringName]([&"wanderer_wave"])
 metadata/_custom_type_script = "uid://cabrc3nnrdlip"

@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bp55ljyknix38"]
+
+[ext_resource type="Script" uid="uid://yscl0whpj17u" path="res://features/enemies/catalog/wanderer/wanderer.gd" id="1_fcvrq"]
+
+[sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_fcvrq"]
+
+[node name="Wanderer" type="SGCharacterBody2D" unique_id=1544592231 node_paths=PackedStringArray("collision_shape")]
+script = ExtResource("1_fcvrq")
+collision_shape = NodePath("SGCollisionShape2D")
+metadata/_custom_type_script = "uid://c84xgceqyyw6u"
+
+[node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="." unique_id=1928156099]
+shape = SubResource("SGRectangleShape2D_fcvrq")

@@ -8,6 +8,6 @@ script = ExtResource("1_ctxdw")
 max_hp = 5
 half_width = 25
 half_height = 25
-type = &"base_dummy"
+type = &"dummy"
 scene = ExtResource("1_gsrtl")
 metadata/_custom_type_script = "uid://danle02tjvxb3"

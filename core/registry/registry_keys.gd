@@ -15,12 +15,15 @@ class Skills:
 	const LIST: PackedStringArray = [DASH,SHOOT_SENSOR,SHOOT_SOLID,SPRINT,TELEKINESIS]
 
 class Enemies:
-	const BASE_DUMMY: StringName = &"base_dummy"
-	const LIST: PackedStringArray = [BASE_DUMMY]
+	const DUMMY: StringName = &"dummy"
+	const WANDERER: StringName = &"wanderer"
+	const LIST: PackedStringArray = [DUMMY,WANDERER]
 
 class Waves:
-	const TRAINING_WAVE: StringName = &"training_wave"
-	const LIST: PackedStringArray = [TRAINING_WAVE]
+	const DUMMY_WAVE_X12: StringName = &"dummy_wave_x12"
+	const DUMMY_WAVE_X4: StringName = &"dummy_wave_x4"
+	const WANDERER_WAVE: StringName = &"wanderer_wave"
+	const LIST: PackedStringArray = [DUMMY_WAVE_X12,DUMMY_WAVE_X4,WANDERER_WAVE]
 
 class VFX:
 	const BUBBLE_VFX: StringName = &"bubble_vfx"
