@@ -42,11 +42,6 @@ var fp_half_width: int:
 var mov_dir: Vector2i = Vector2i.ZERO
 var forced_mov_dir: Vector2i = Vector2i.ZERO
 
-# Input masks
-var _just_pressed_mask: int = 0
-var _just_released_mask: int = 0
-var _prev_input_mask: int = 0
-
 # 
 var _player_modifiers: SparseFixedArray
 var _player_modifiers_is_dirty: bool = false
@@ -74,10 +69,9 @@ func init() -> void:
 	
 	skill_manager.init(self, attack_type, skill_types)
 
-func advance_frame(input_mask: int) -> void:
-	_just_pressed_mask = input_mask & ~_prev_input_mask
-	_just_released_mask = ~input_mask & _prev_input_mask
-	_prev_input_mask = input_mask
+func advance_frame(input_mask: int, prev_input_mask: int) -> void:
+	var just_pressed_mask: int = input_mask & ~prev_input_mask
+	var just_released_mask: int = ~input_mask & prev_input_mask
 	
 	# Process tickers
 	skill_manager.process_tickers()
@@ -101,7 +95,7 @@ func advance_frame(input_mask: int) -> void:
 	else: mov_dir.y = 0
 	
 	# Attack and skill activations (since attack is also a skill)
-	skill_manager.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, mov_dir)
+	skill_manager.advance_frame(input_mask, just_pressed_mask, just_released_mask, mov_dir)
 	
 	# Apply modifiers
 	if _player_modifiers_is_dirty:

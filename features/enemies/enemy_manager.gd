@@ -3,8 +3,11 @@ extends Node
 class_name EnemyManager
 
 var _enemy_pool: SparseTypedFixedArray
+var _rng: RandomNumberGenerator
 
-func init(enemy_types: Array[StringName]) -> void:
+func init(enemy_types: Array[StringName], rng: RandomNumberGenerator) -> void:
+	_rng = rng
+	
 	var enemies_by_type: Dictionary = {} # Dictionary[StringName, Array]
 	
 	for type: StringName in enemy_types:
@@ -31,7 +34,7 @@ func advance_frame() -> void:
 	for i in range(_enemy_pool.active_list_count - 1, -1, -1):
 		var enemy: Enemy = _enemy_pool.get_nth_active_item(i)
 		
-		enemy.advance_frame()
+		enemy.advance_frame(_rng)
 		if enemy.is_dead:
 			enemy.deactivate()
 			enemy.reset()

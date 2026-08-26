@@ -11,7 +11,7 @@ class_name EncounterManager
 var current_wave: int = 0
 var waves: Array[WaveData] = []
 
-func init(data: EncounterData) -> void:
+func init(data: EncounterData, rng: RandomNumberGenerator) -> void:
 	var enemy_types: Array[StringName] = []
 	
 	for wave_type: StringName in data.waves:
@@ -25,7 +25,7 @@ func init(data: EncounterData) -> void:
 		for enemy_type: StringName in wave_data.enemies:
 			enemy_types.append(enemy_type)
 	
-	enemy_manager.init(enemy_types)
+	enemy_manager.init(enemy_types, rng)
 
 func spawn_wave(fp_player_pos_x: int, fp_player_pos_y: int) -> void:
 	var wave: WaveData = waves[current_wave]
@@ -67,11 +67,13 @@ func spawn_wave(fp_player_pos_x: int, fp_player_pos_y: int) -> void:
 			
 			if total_zone_enemies > 1:
 				fp_current_angle += fp_distr_angle
-				var fp_cos: int = SGFixed.cos(fp_current_angle)
-				var fp_sin: int = SGFixed.sin(fp_current_angle)
 				
+				var fp_cos: int = SGFixed.cos(fp_current_angle)
 				fp_spawn_offset_x += SGFixed.mul(fp_cos, enemy_max_dimensions.x) + (enemy_data.fp_width * -spawn_point_x_sign)
-				fp_spawn_offset_y += SGFixed.mul(fp_sin, enemy_max_dimensions.y) + (enemy_data.fp_height * -spawn_point_y_sign)
+				
+				if total_zone_enemies > 2:
+					var fp_sin: int = SGFixed.sin(fp_current_angle)
+					fp_spawn_offset_y += SGFixed.mul(fp_sin, enemy_max_dimensions.y) + (enemy_data.fp_height * -spawn_point_y_sign)
 			
 			enemy_manager.handle_request(enemy_type, fp_spawn_point.x + fp_spawn_offset_x, fp_spawn_point.y + fp_spawn_offset_y)
 			current_enemy += 1

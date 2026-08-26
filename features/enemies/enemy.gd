@@ -31,7 +31,7 @@ func reset() -> void:
 	fp_current_hp = fp_max_hp
 	is_dead = false
 
-func advance_frame() -> void:
+func advance_frame(_rng: RandomNumberGenerator) -> void:
 	pass
 
 func activate(fp_pos_x: int, fp_pos_y: int) -> void:

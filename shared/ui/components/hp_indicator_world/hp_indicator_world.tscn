@@ -32,6 +32,7 @@ outline_size = 10
 outline_color = Color(1, 1, 1, 0.8666667)
 
 [node name="HpIndicatorWorld" type="Control" unique_id=1756684744]
+z_index = 1000
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_aa1ht")

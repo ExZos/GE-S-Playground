@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bp55ljyknix38"]
 
 [ext_resource type="Script" uid="uid://yscl0whpj17u" path="res://features/enemies/catalog/wanderer/wanderer.gd" id="1_fcvrq"]
+[ext_resource type="PackedScene" uid="uid://wqw8oxtp1885" path="res://shared/ui/components/hp_indicator_world/hp_indicator_world.tscn" id="2_ldw3x"]
 
 [sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_fcvrq"]
 
@@ -11,3 +12,10 @@ metadata/_custom_type_script = "uid://c84xgceqyyw6u"
 
 [node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="." unique_id=1928156099]
 shape = SubResource("SGRectangleShape2D_fcvrq")
+
+[node name="HpIndicatorWorld" parent="." unique_id=1756684744 node_paths=PackedStringArray("target_node") instance=ExtResource("2_ldw3x")]
+anchors_preset = -1
+offset_top = -150.0
+grow_horizontal = 2
+grow_vertical = 0
+target_node = NodePath("..")
