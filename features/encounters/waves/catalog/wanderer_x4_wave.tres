@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="WaveData" format=3 uid="uid://dp40gsr5c6wpr"]
+
+[ext_resource type="Script" uid="uid://c8spo6i3esxxy" path="res://features/encounters/waves/wave_data.gd" id="1_jj0ms"]
+
+[resource]
+script = ExtResource("1_jj0ms")
+enemies = Array[StringName]([&"wanderer", &"wanderer", &"wanderer", &"wanderer"])
+type = &"wanderer_x4_wave"
+metadata/_custom_type_script = "uid://c8spo6i3esxxy"

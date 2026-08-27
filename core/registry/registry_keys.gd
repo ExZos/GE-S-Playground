@@ -20,10 +20,11 @@ class Enemies:
 	const LIST: PackedStringArray = [DUMMY,WANDERER]
 
 class Waves:
-	const DUMMY_WAVE_X12: StringName = &"dummy_wave_x12"
-	const DUMMY_WAVE_X4: StringName = &"dummy_wave_x4"
+	const DUMMY_X12_WAVE: StringName = &"dummy_x12_wave"
+	const DUMMY_X4_WAVE: StringName = &"dummy_x4_wave"
 	const WANDERER_WAVE: StringName = &"wanderer_wave"
-	const LIST: PackedStringArray = [DUMMY_WAVE_X12,DUMMY_WAVE_X4,WANDERER_WAVE]
+	const WANDERER_X4_WAVE: StringName = &"wanderer_x4_wave"
+	const LIST: PackedStringArray = [DUMMY_X12_WAVE,DUMMY_X4_WAVE,WANDERER_WAVE,WANDERER_X4_WAVE]
 
 class VFX:
 	const BUBBLE_VFX: StringName = &"bubble_vfx"

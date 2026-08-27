@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_3c8dk")
 enemies = Array[StringName]([&"dummy", &"dummy", &"dummy", &"dummy"])
-type = &"dummy_wave_x4"
+type = &"dummy_x4_wave"
 metadata/_custom_type_script = "uid://c8spo6i3esxxy"
