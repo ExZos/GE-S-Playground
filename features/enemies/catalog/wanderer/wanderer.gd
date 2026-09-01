@@ -12,7 +12,7 @@ var fp_min_action_duration: int
 var fp_max_action_duration: int
 
 var action_ticks: int
-var action_angle_index: int
+var action_rads_index: int
 
 var fp_rads: Array[int]
 var angle_weights: Array[int]
@@ -29,13 +29,12 @@ func init(data: EnemyData) -> void:
 	
 	action_ticks = 0
 	
-	var fp_degrees: int = 0
-	var fp_degrees_inc: int = SGFixed.from_int(360 / ANGLES_COUNT)
+	var fp_deg: int = 0
+	var fp_deg_inc: int = SGFixed.from_int(360 / ANGLES_COUNT)
 	for i in range(ANGLES_COUNT):
-		fp_rads.append(SGFixed.div(SGFixed.mul(fp_degrees, SGFixed.PI), SGFixed.from_int(180)))
-		print(fp_rads[i])
+		fp_rads.append(SGFixed.div(SGFixed.mul(fp_deg, SGFixed.PI), SGFixed.from_int(180)))
 		
-		fp_degrees += fp_degrees_inc
+		fp_deg += fp_deg_inc
 	
 	angle_weights.resize(ANGLES_COUNT)
 
@@ -48,15 +47,16 @@ func advance_frame(rng: RandomNumberGenerator) -> void:
 	else:
 		action_ticks = rng.randi_range(fp_min_action_duration, fp_max_action_duration)
 		
-		# TODO: pick from available directions to prevent repeated collisions
-		# TODO: test angles with test_move
-		# TODO: secondary index array for sorting?
-		# TODO: change direction on collision (maybe except with player)
-		action_angle_index = rng.randi_range(0, ANGLES_COUNT - 1)
+		action_rads_index = rng.randi_range(0, ANGLES_COUNT - 1)
 		
 		print("NEW ACTION: %dms" % SGFixed.to_int(action_ticks))
 	
-	velocity = velocity.rotated(fp_rads[action_angle_index])
+	velocity = velocity.rotated(fp_rads[action_rads_index])
 	velocity.imul(fp_speed)
 	
 	move_and_slide()
+	
+	# TODO: decaying angle weights that track collisions
+	# TODO: secondary index array for sorting
+	if get_slide_count() > 0:
+		action_ticks = (action_ticks + 1) % ANGLES_COUNT
