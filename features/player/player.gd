@@ -1,20 +1,25 @@
 @tool
 extends SGCharacterBody2D
 
+# TODO: handle death and respawning
+# TODO: hp bar UI
 # TODO: consider _process to handle presentation logic
 class_name Player
 
 @export var collision_shape: SGCollisionShape2D
 @export var skill_manager: SkillManager
 
-@export var player_stats: PlayerStats
+@export var player_data: PlayerData
 @export var attack_type: StringName
 @export var skill_types: Array[StringName]
+
+const IS_DAMAGEABLE: bool = true
 
 const PROJECTILE_REQUESTS_POOL_SIZE: int = 5
 const PLAYER_MODIFIERS_POOL_SIZE: int = 5
 
 # Stats
+var fp_max_hp: int
 var fp_base_speed: int
 
 # Stat modifiers
@@ -23,12 +28,14 @@ var fp_speed_mult_sum: int = SGFixed.ONE
 var fp_speed_mult_prod: int = SGFixed.ONE
 
 # Computed stats
+var fp_current_hp: int
 var _fp_speed: int
 
 # Tickers
 var fp_recovery_ticks: int = 0
 
 # Restriction states
+var is_dead: bool = false
 var is_recovering: bool = false
 var restrict_attack: bool = false
 var restrict_skills: bool = false
@@ -64,7 +71,10 @@ func init() -> void:
 	_player_modifiers = SparseFixedArray.new(PLAYER_MODIFIERS_POOL_SIZE, TYPE_OBJECT, PlayerModifier)
 	projectile_requests = DenseFixedArray.new(PROJECTILE_REQUESTS_POOL_SIZE, TYPE_OBJECT, ProjectileRequest)
 	
-	fp_base_speed = SGFixed.from_int(player_stats.base_speed)
+	fp_max_hp = player_data.fp_max_hp
+	fp_current_hp = player_data.fp_max_hp
+	
+	fp_base_speed = player_data.fp_base_speed
 	_compute_speed()
 	
 	skill_manager.init(self, attack_type, skill_types)

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PlayerData" format=3 uid="uid://bh2f8amnbm7du"]
+
+[ext_resource type="Script" uid="uid://tnj2oaad4dn8" path="res://features/player/player_data.gd" id="1_847dg"]
+
+[resource]
+script = ExtResource("1_847dg")
+max_hp = 1
+base_speed = 10
+metadata/_custom_type_script = "uid://tnj2oaad4dn8"

@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://ckiohqwn27g8f" path="res://features/encounters/encounter_manager.gd" id="6_4c57u"]
 [ext_resource type="PackedScene" uid="uid://cyvm2qijsr3mp" path="res://features/world/arena/arena.tscn" id="7_4c57u"]
 [ext_resource type="Resource" uid="uid://tbocpr7yprwa" path="res://features/world/arena/default_arena.tres" id="8_efxa6"]
+[ext_resource type="Resource" uid="uid://bh2f8amnbm7du" path="res://features/player/resources/default_player.tres" id="10_dg77c"]
 
 [sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_4c57u"]
 
@@ -52,6 +53,7 @@ shape = SubResource("SGRectangleShape2D_4c57u")
 arena_data = ExtResource("8_efxa6")
 
 [node name="Player" parent="." unique_id=2004616098 instance=ExtResource("4_4c57u")]
+player_data = ExtResource("10_dg77c")
 attack_type = &"shoot_sensor"
 skill_types = Array[StringName]([&"sprint", &"shoot_solid", &"telekinesis"])
 
