@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cyvm2qijsr3mp" path="res://features/world/arena/arena.tscn" id="7_4c57u"]
 [ext_resource type="Resource" uid="uid://tbocpr7yprwa" path="res://features/world/arena/default_arena.tres" id="8_efxa6"]
 [ext_resource type="Resource" uid="uid://bh2f8amnbm7du" path="res://features/player/resources/default_player.tres" id="10_dg77c"]
+[ext_resource type="PackedScene" uid="uid://dm8ujvcgortsu" path="res://features/player/ui/hp_bar/hp_bar.tscn" id="12_ycdy4"]
 
 [sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_4c57u"]
 
@@ -70,5 +71,32 @@ metadata/_custom_type_script = "uid://b1iphtfxsb15w"
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=890362404]
 
-[node name="SkillTray" parent="UILayer" unique_id=543452041 node_paths=PackedStringArray("player") instance=ExtResource("4_5vw27")]
-player = NodePath("../../Player")
+[node name="UIContainer" type="Control" parent="UILayer" unique_id=504739520]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HpBar" parent="UILayer/UIContainer" unique_id=1049764934 node_paths=PackedStringArray("target_node") instance=ExtResource("12_ycdy4")]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.1
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+target_node = NodePath("../../../Player")
+
+[node name="SkillTray" parent="UILayer/UIContainer" unique_id=543452041 node_paths=PackedStringArray("player") instance=ExtResource("4_5vw27")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+player = NodePath("../../../Player")

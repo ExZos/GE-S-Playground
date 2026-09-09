@@ -50,11 +50,16 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	var input_mask: int = input_manager.get_input_mask()
-	player.advance_frame(input_mask, _prev_input_mask)
+	if player.is_active:
+		player.advance_frame(input_mask, _prev_input_mask)
 	
 	var just_pressed_mask: int = input_mask & ~_prev_input_mask
 	if just_pressed_mask & InputConstants.Bit.NEXT_WAVE:
-		encounter_manager.spawn_wave(player.fixed_position_x, player.fixed_position_y)
+		if not player.is_active:
+			# TODO: dynamically select spawn position based on zone enemy density
+			player.activate(0, 0)
+		else:
+			encounter_manager.spawn_wave(player.fixed_position_x, player.fixed_position_y)
 		
 	enemy_manager.advance_frame()
 	

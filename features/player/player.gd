@@ -34,8 +34,11 @@ var _fp_speed: int
 # Tickers
 var fp_recovery_ticks: int = 0
 
-# Restriction states
+# 
+var is_active: bool = false
 var is_dead: bool = false
+
+# Restriction states
 var is_recovering: bool = false
 var restrict_attack: bool = false
 var restrict_skills: bool = false
@@ -55,6 +58,9 @@ var _player_modifiers_is_dirty: bool = false
 
 # 
 var projectile_requests: DenseFixedArray
+
+var _normal_collision_layer: int   
+var _normal_collision_mask: int
 
 func _validate_property(property: Dictionary) -> void:
 	var skill_type_hint: String = ",".join(RegistryKeys.Skills.LIST)
@@ -77,9 +83,31 @@ func init() -> void:
 	fp_base_speed = player_data.fp_base_speed
 	_compute_speed()
 	
+	is_active = true
+	is_dead = false
+	
+	_normal_collision_layer = collision_layer
+	_normal_collision_mask = collision_mask
+	
 	skill_manager.init(self, attack_type, skill_types)
 
+func reset() -> void:
+	# TODO: reset player modifiers
+	projectile_requests.clear_data()
+	
+	fp_max_hp = player_data.fp_max_hp
+	fp_current_hp = player_data.fp_max_hp
+	
+	fp_base_speed = player_data.fp_base_speed
+	_compute_speed()
+	
+	is_dead = false
+
 func advance_frame(input_mask: int, prev_input_mask: int) -> void:
+	if is_dead:
+		deactivate()
+		reset()
+	
 	var just_pressed_mask: int = input_mask & ~prev_input_mask
 	var just_released_mask: int = ~input_mask & prev_input_mask
 	
@@ -137,6 +165,27 @@ func advance_frame(input_mask: int, prev_input_mask: int) -> void:
 	velocity.y = effective_mov_dir.y * _fp_speed
 	
 	move_and_slide()
+
+func activate(fp_pos_x: int, fp_pos_y: int) -> void:
+	is_active = true
+	
+	fixed_position_x = fp_pos_x
+	fixed_position_y = fp_pos_y
+	
+	collision_layer = _normal_collision_layer
+	collision_mask = _normal_collision_mask
+	
+	show()
+	
+	sync_to_physics_engine()
+
+func deactivate() -> void:
+	is_active = false
+	
+	collision_layer = 0
+	collision_mask = 0
+	
+	hide()
 
 # --- Restriction utilities ---
 func check_restrict_attack() -> bool:

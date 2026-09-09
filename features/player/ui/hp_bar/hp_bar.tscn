@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://dm8ujvcgortsu"]
+
+[ext_resource type="Script" uid="uid://cikfupirlxw1x" path="res://features/player/ui/hp_bar/hp_bar.gd" id="1_f23tq"]
+
+[sub_resource type="Gradient" id="Gradient_f23tq"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.53333336, 0.53333336, 0.53333336, 0.6)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7lqym"]
+gradient = SubResource("Gradient_f23tq")
+height = 16
+
+[sub_resource type="Gradient" id="Gradient_yh2xn"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nmlbo"]
+gradient = SubResource("Gradient_yh2xn")
+height = 16
+
+[sub_resource type="LabelSettings" id="LabelSettings_f23tq"]
+font_color = Color(0, 0, 0, 1)
+
+[node name="HpBar" type="Control" unique_id=1049764934]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f23tq")
+
+[node name="ProgressBarContainer" type="PanelContainer" parent="." unique_id=1817191157]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 64.0
+grow_horizontal = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="ProgressBarContainer" unique_id=1054194950]
+layout_mode = 2
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture2D_7lqym")
+texture_progress = SubResource("GradientTexture2D_nmlbo")
+
+[node name="Label" type="Label" parent="ProgressBarContainer" unique_id=149036563]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_f23tq")
+horizontal_alignment = 1
+vertical_alignment = 1
