@@ -19,3 +19,4 @@ offset_top = -150.0
 grow_horizontal = 2
 grow_vertical = 0
 target_node = NodePath("..")
+show_hp_text = false

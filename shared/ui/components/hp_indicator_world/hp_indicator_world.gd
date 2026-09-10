@@ -5,8 +5,10 @@ extends Control
 @onready var label: Label = $Label
 
 @export var target_node: Node
-@export var value_prop: StringName
-@export var max_prop: StringName
+@export var value_prop: StringName = &"fp_current_hp"
+@export var max_prop: StringName = &"fp_max_hp"
+
+@export var show_hp_text: bool = true
 
 var last_value: int
 
@@ -22,6 +24,9 @@ func _ready() -> void:
 	progress_bar_container.custom_minimum_size.x = shape_size.x
 	
 	progress_bar.max_value = target_node.get(max_prop)
+	
+	if not show_hp_text:
+		label.hide()
 
 func _process(_delta: float) -> void:
 	var value: int = target_node.get(value_prop)

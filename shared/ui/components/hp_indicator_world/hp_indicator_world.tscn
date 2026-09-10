@@ -11,7 +11,7 @@ corner_radius_bottom_left = 1024
 
 [sub_resource type="Gradient" id="Gradient_q3sbu"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.53333336, 0.53333336, 0.53333336, 0.6)
+colors = PackedColorArray(0, 0, 0, 0.29411766)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_52k7c"]
 gradient = SubResource("Gradient_q3sbu")
@@ -19,7 +19,7 @@ height = 16
 
 [sub_resource type="Gradient" id="Gradient_aa1ht"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 1, 1, 0.8666667)
+colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_q3sbu"]
 gradient = SubResource("Gradient_aa1ht")
@@ -28,16 +28,13 @@ height = 16
 [sub_resource type="LabelSettings" id="LabelSettings_aa1ht"]
 font_size = 25
 font_color = Color(0, 0, 0, 0.8666667)
-outline_size = 10
-outline_color = Color(1, 1, 1, 0.8666667)
+outline_size = 5
 
 [node name="HpIndicatorWorld" type="Control" unique_id=1756684744]
 z_index = 1000
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_aa1ht")
-value_prop = &"fp_current_hp"
-max_prop = &"fp_max_hp"
 
 [node name="ProgressBarContainer" type="PanelContainer" parent="." unique_id=2000056353]
 clip_children = 1

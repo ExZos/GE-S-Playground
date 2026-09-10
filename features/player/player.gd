@@ -106,7 +106,6 @@ func reset() -> void:
 func advance_frame(input_mask: int, prev_input_mask: int) -> void:
 	if is_dead:
 		deactivate()
-		reset()
 	
 	var just_pressed_mask: int = input_mask & ~prev_input_mask
 	var just_released_mask: int = ~input_mask & prev_input_mask
@@ -167,6 +166,8 @@ func advance_frame(input_mask: int, prev_input_mask: int) -> void:
 	move_and_slide()
 
 func activate(fp_pos_x: int, fp_pos_y: int) -> void:
+	reset()
+	
 	is_active = true
 	
 	fixed_position_x = fp_pos_x

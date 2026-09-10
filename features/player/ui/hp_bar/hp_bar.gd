@@ -1,9 +1,8 @@
 # TODO: better control over dimensions
 extends Control
 
-@onready var progress_bar_container: PanelContainer = $ProgressBarContainer
-@onready var progress_bar: TextureProgressBar = $ProgressBarContainer/TextureProgressBar
-@onready var label: Label = $ProgressBarContainer/Label
+@onready var progress_bar: TextureProgressBar = $TextureProgressBar
+@onready var label: Label = $Label
 
 @export var target_node: Node
 @export var value_prop: StringName = &"fp_current_hp"
@@ -19,23 +18,13 @@ func _ready() -> void:
 	progress_bar.max_value = target_node.get(max_prop)
 
 func _process(_delta: float) -> void:
-	# TODO: make part of export vars
-	# TODO: fix visual flash from not dead to dead
-	if not target_node.is_active:
-		progress_bar.value = 0
-		label.text = "DEAD"
-	
 	var value: int = target_node.get(value_prop)
 	
 	if value != last_value:
-		if progress_bar_container.hidden:
-			progress_bar_container.show()
-		
 		progress_bar.value = value
 		last_value = value
 		
 		if value > 0:
 			label.text = str(SGFixed.to_int(value))
 		else:
-			progress_bar_container.hide()
-			label.text = ""
+			label.text = "DEAD"

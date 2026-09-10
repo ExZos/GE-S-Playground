@@ -59,7 +59,7 @@ attack_type = &"shoot_sensor"
 skill_types = Array[StringName]([&"sprint", &"shoot_solid", &"telekinesis"])
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=594209437]
-zoom = Vector2(0.25, 0.25)
+zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
 
 [node name="VFXLayer" type="CanvasLayer" parent="." unique_id=763770195]
@@ -79,16 +79,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HpBar" parent="UILayer/UIContainer" unique_id=1049764934 node_paths=PackedStringArray("target_node") instance=ExtResource("12_ycdy4")]
+[node name="HpBarContainer" type="MarginContainer" parent="UILayer/UIContainer" unique_id=1524172765]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.1
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
-target_node = NodePath("../../../Player")
+offset_bottom = 32.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
 
-[node name="SkillTray" parent="UILayer/UIContainer" unique_id=543452041 node_paths=PackedStringArray("player") instance=ExtResource("4_5vw27")]
+[node name="HpBar" parent="UILayer/UIContainer/HpBarContainer" unique_id=1049764934 node_paths=PackedStringArray("target_node") instance=ExtResource("12_ycdy4")]
+layout_mode = 2
+target_node = NodePath("../../../../Player")
+
+[node name="SkillTrayContainer" type="MarginContainer" parent="UILayer/UIContainer" unique_id=685437407]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -96,7 +100,12 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -20.0
+offset_top = -40.0
 offset_right = 20.0
 grow_horizontal = 2
 grow_vertical = 0
-player = NodePath("../../../Player")
+theme_override_constants/margin_bottom = 10
+
+[node name="SkillTray" parent="UILayer/UIContainer/SkillTrayContainer" unique_id=543452041 node_paths=PackedStringArray("player") instance=ExtResource("4_5vw27")]
+layout_mode = 2
+player = NodePath("../../../../Player")
