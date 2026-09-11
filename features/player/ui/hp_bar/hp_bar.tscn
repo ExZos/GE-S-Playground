@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://cikfupirlxw1x" path="res://features/player/ui/hp_bar/hp_bar.gd" id="1_f23tq"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f23tq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lqym"]
 bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 1024
-corner_radius_top_right = 1024
-corner_radius_bottom_right = 1024
-corner_radius_bottom_left = 1024
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="Gradient" id="Gradient_f23tq"]
 offsets = PackedFloat32Array(0)
@@ -30,21 +30,43 @@ font_size = 15
 font_color = Color(0, 0, 0, 1)
 outline_size = 5
 
-[node name="HpBar" type="PanelContainer" unique_id=1079846977]
+[node name="HpBar" type="Control" unique_id=147792061]
 self_modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
 offset_right = 1.0
 offset_bottom = 22.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_f23tq")
 script = ExtResource("1_f23tq")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1054194950]
+[node name="ProgressBarContainer" type="PanelContainer" parent="." unique_id=1420420024]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7lqym")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="ProgressBarContainer" unique_id=1054194950]
 layout_mode = 2
 nine_patch_stretch = true
 texture_under = SubResource("GradientTexture2D_7lqym")
 texture_progress = SubResource("GradientTexture2D_nmlbo")
 
 [node name="Label" type="Label" parent="." unique_id=149036563]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.0
+offset_right = 0.5
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
 label_settings = SubResource("LabelSettings_f23tq")
 horizontal_alignment = 1
 vertical_alignment = 1

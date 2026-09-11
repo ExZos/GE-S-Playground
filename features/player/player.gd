@@ -1,8 +1,6 @@
 @tool
 extends SGCharacterBody2D
 
-# TODO: handle death and respawning
-# TODO: hp bar UI
 # TODO: consider _process to handle presentation logic
 class_name Player
 

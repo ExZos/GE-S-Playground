@@ -20,8 +20,8 @@ fill_mode = 5
 texture_under = ExtResource("2_ism0n")
 texture_over = ExtResource("3_nkbcm")
 texture_progress = ExtResource("2_ism0n")
-tint_under = Color(0.53333336, 0.53333336, 0.53333336, 1)
-tint_over = Color(0.53333336, 0.53333336, 0.53333336, 1)
+tint_under = Color(0, 0, 0, 0.29411766)
+tint_over = Color(0, 0, 0, 0.29411766)
 
 [node name="Key" type="Label" parent="." unique_id=1440307108]
 custom_minimum_size = Vector2(50, 50)

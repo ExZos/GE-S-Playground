@@ -28,9 +28,10 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if skill.cooling_down:
-		progress_bar.value = skill.fp_cd_ticks
+		progress_bar.value = skill._fp_cooldown - skill.fp_cd_ticks
 		cooldown_label.text = "%.1fs" % (skill.fp_cd_ticks / fp_fps)
 	else:
+		progress_bar.value = skill._fp_cooldown
 		cooldown_label.text = ""
 	
 	if last_charges != skill.charges:

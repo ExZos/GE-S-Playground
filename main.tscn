@@ -56,7 +56,7 @@ arena_data = ExtResource("8_efxa6")
 [node name="Player" parent="." unique_id=2004616098 instance=ExtResource("4_4c57u")]
 player_data = ExtResource("10_dg77c")
 attack_type = &"shoot_sensor"
-skill_types = Array[StringName]([&"sprint", &"shoot_solid", &"telekinesis"])
+skill_types = Array[StringName]([&"sprint", &"dash", &"telekinesis"])
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=594209437]
 zoom = Vector2(0.5, 0.5)

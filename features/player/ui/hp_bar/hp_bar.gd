@@ -1,7 +1,7 @@
 # TODO: better control over dimensions
 extends Control
 
-@onready var progress_bar: TextureProgressBar = $TextureProgressBar
+@onready var progress_bar: TextureProgressBar = $ProgressBarContainer/TextureProgressBar
 @onready var label: Label = $Label
 
 @export var target_node: Node

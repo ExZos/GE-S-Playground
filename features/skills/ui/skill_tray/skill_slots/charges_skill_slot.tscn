@@ -17,12 +17,12 @@ script = ExtResource("1_slmhi")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-fill_mode = 4
+fill_mode = 5
 texture_under = ExtResource("2_1slro")
 texture_over = ExtResource("3_f8y55")
 texture_progress = ExtResource("2_1slro")
-tint_over = Color(0.53333336, 0.53333336, 0.53333336, 1)
-tint_progress = Color(0.53333336, 0.53333336, 0.53333336, 1)
+tint_under = Color(0, 0, 0, 0.29411766)
+tint_over = Color(0, 0, 0, 0.29411766)
 
 [node name="Key" type="Label" parent="." unique_id=1493565851]
 custom_minimum_size = Vector2(50, 50)
