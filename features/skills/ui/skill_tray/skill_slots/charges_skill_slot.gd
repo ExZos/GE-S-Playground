@@ -2,7 +2,7 @@ extends Control
 
 class_name ChargesSkillSlot
 
-@onready var progress_bar: TextureProgressBar = $TextureProgressBar
+@onready var progress_bar: TextureProgressBar = $ProgressBarContainer/TextureProgressBar
 @onready var key_label: Label = $Key
 @onready var cooldown_label: Label = $Cooldown
 @onready var charges_label: Label = $Charges

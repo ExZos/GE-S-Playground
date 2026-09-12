@@ -2,8 +2,8 @@ extends Control
 
 class_name ChargeSkillSlot
 
-@onready var cooldown_progress_bar: TextureProgressBar = $CooldownProgressBar
-@onready var charge_progress_bar: TextureProgressBar = $ChargeProgressBar
+@onready var charge_progress_bar: TextureProgressBar = $ProgressBarContainer/ChargeProgressBar
+@onready var cooldown_progress_bar: TextureProgressBar = $ProgressBarContainer/CooldownProgressBar
 @onready var key_label: Label = $Key
 @onready var progress_label: Label = $Progress
 
@@ -29,7 +29,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	# Determine cooldown/charging time
 	if skill.state == ChargingSkill.State.COOLDOWN:
-		cooldown_progress_bar.value = skill._fp_cooldown - skill.fp_cd_ticks
+		cooldown_progress_bar.value = skill.fp_cd_ticks
 		progress_label.text = "%.1fs" % (skill.fp_cd_ticks / fp_fps)
 	elif skill.state == ChargingSkill.State.CHARGING:
 		charge_progress_bar.value = skill.fp_charge_ticks

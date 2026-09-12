@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://c8qlsn7ks2b6p"]
 
 [ext_resource type="Script" uid="uid://darkllico30is" path="res://features/skills/ui/skill_tray/skill_slots/charging_skill_slot.gd" id="1_r6278"]
+[ext_resource type="StyleBox" uid="uid://brkudeboq4s4h" path="res://shared/ui/styles/rounded_small.tres" id="2_7u5qt"]
 [ext_resource type="LabelSettings" uid="uid://c8tt6lggdl8l" path="res://shared/ui/label_settings/skill_slot_key.tres" id="2_j0d3l"]
-[ext_resource type="Texture2D" uid="uid://b0wm32a08ye0u" path="res://shared/ui/textures/circle_white.tres" id="2_j2g3d"]
-[ext_resource type="Texture2D" uid="uid://c6q4tjnfmycv7" path="res://shared/ui/textures/circle_border_white.tres" id="3_mmhvd"]
+[ext_resource type="Texture2D" uid="uid://os3di37wf71y" path="res://shared/ui/textures/square_white.tres" id="4_i17dh"]
 [ext_resource type="LabelSettings" uid="uid://b0dqld51kajy0" path="res://shared/ui/label_settings/skill_slot_progress.tres" id="5_mmhvd"]
 
 [node name="ChargingSkillSlot" type="Control" unique_id=199891676]
@@ -13,28 +13,28 @@ anchors_preset = 0
 script = ExtResource("1_r6278")
 metadata/_custom_type_script = "uid://darkllico30is"
 
-[node name="CooldownProgressBar" type="TextureProgressBar" parent="." unique_id=1909646367]
+[node name="ProgressBarContainer" type="PanelContainer" parent="." unique_id=1309083154]
+clip_children = 1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-fill_mode = 5
-texture_under = ExtResource("2_j2g3d")
-texture_over = ExtResource("3_mmhvd")
-texture_progress = ExtResource("2_j2g3d")
-tint_under = Color(0, 0, 0, 0.29411766)
-tint_over = Color(0, 0, 0, 0.29411766)
+theme_override_styles/panel = ExtResource("2_7u5qt")
 
-[node name="ChargeProgressBar" type="TextureProgressBar" parent="." unique_id=1436547229]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-fill_mode = 5
-texture_under = ExtResource("2_j2g3d")
-texture_over = ExtResource("3_mmhvd")
-texture_progress = ExtResource("2_j2g3d")
+[node name="CooldownProgressBar" type="TextureProgressBar" parent="ProgressBarContainer" unique_id=1909646367]
+layout_mode = 2
+fill_mode = 3
+texture_under = ExtResource("4_i17dh")
+texture_progress = ExtResource("4_i17dh")
 tint_under = Color(0, 0, 0, 0.29411766)
-tint_over = Color(0, 0, 0, 0.29411766)
+tint_progress = Color(0.8784314, 0.8784314, 0.8784314, 1)
+
+[node name="ChargeProgressBar" type="TextureProgressBar" parent="ProgressBarContainer" unique_id=1436547229]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+fill_mode = 3
+texture_under = ExtResource("4_i17dh")
+texture_progress = ExtResource("4_i17dh")
+tint_under = Color(0, 0, 0, 0.29411766)
 
 [node name="Key" type="Label" parent="." unique_id=425541990]
 custom_minimum_size = Vector2(50, 50)

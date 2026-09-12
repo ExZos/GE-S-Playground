@@ -108,4 +108,5 @@ theme_override_constants/margin_bottom = 10
 
 [node name="SkillTray" parent="UILayer/UIContainer/SkillTrayContainer" unique_id=543452041 node_paths=PackedStringArray("player") instance=ExtResource("4_5vw27")]
 layout_mode = 2
+theme_override_constants/separation = 8
 player = NodePath("../../../../Player")

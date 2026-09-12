@@ -1,13 +1,7 @@
 [gd_scene format=3 uid="uid://dm8ujvcgortsu"]
 
 [ext_resource type="Script" uid="uid://cikfupirlxw1x" path="res://features/player/ui/hp_bar/hp_bar.gd" id="1_f23tq"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lqym"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[ext_resource type="StyleBox" uid="uid://brkudeboq4s4h" path="res://shared/ui/styles/rounded_small.tres" id="2_7lqym"]
 
 [sub_resource type="Gradient" id="Gradient_f23tq"]
 offsets = PackedFloat32Array(0)
@@ -46,7 +40,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7lqym")
+theme_override_styles/panel = ExtResource("2_7lqym")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="ProgressBarContainer" unique_id=1054194950]
 layout_mode = 2
