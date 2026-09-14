@@ -2,9 +2,9 @@ extends Control
 
 class_name StaminaSkillSlot
 
-@onready var progress_bar: TextureProgressBar = $ProgressBarContainer/TextureProgressBar
+@onready var progress_bar: TextureProgressBar = $MarginContainer/ProgressBarContainer/TextureProgressBar
 @onready var key_label: Label = $Key
-@onready var percentage_label: Label = $Percentage
+@onready var percentage_label: Label = $MarginContainer/Percentage
 
 @export var skill: StaminaSkill
 

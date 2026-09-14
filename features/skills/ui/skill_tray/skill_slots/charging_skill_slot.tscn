@@ -6,21 +6,22 @@
 [ext_resource type="Texture2D" uid="uid://os3di37wf71y" path="res://shared/ui/textures/square_white.tres" id="4_i17dh"]
 [ext_resource type="LabelSettings" uid="uid://b0dqld51kajy0" path="res://shared/ui/label_settings/skill_slot_progress.tres" id="5_mmhvd"]
 
-[node name="ChargingSkillSlot" type="Control" unique_id=199891676]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 3
-anchors_preset = 0
+[node name="ChargingSkillSlot" type="VBoxContainer" unique_id=1104187296]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 64.0
+offset_bottom = 85.0
+theme_override_constants/separation = 0
 script = ExtResource("1_r6278")
-metadata/_custom_type_script = "uid://darkllico30is"
 
-[node name="ProgressBarContainer" type="PanelContainer" parent="." unique_id=1309083154]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1130971577]
+layout_mode = 2
+
+[node name="ProgressBarContainer" type="PanelContainer" parent="MarginContainer" unique_id=1309083154]
 clip_children = 1
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 2
 theme_override_styles/panel = ExtResource("2_7u5qt")
 
-[node name="CooldownProgressBar" type="TextureProgressBar" parent="ProgressBarContainer" unique_id=1909646367]
+[node name="CooldownProgressBar" type="TextureProgressBar" parent="MarginContainer/ProgressBarContainer" unique_id=1909646367]
 layout_mode = 2
 fill_mode = 3
 texture_under = ExtResource("4_i17dh")
@@ -28,7 +29,7 @@ texture_progress = ExtResource("4_i17dh")
 tint_under = Color(0, 0, 0, 0.29411766)
 tint_progress = Color(0.8784314, 0.8784314, 0.8784314, 1)
 
-[node name="ChargeProgressBar" type="TextureProgressBar" parent="ProgressBarContainer" unique_id=1436547229]
+[node name="ChargeProgressBar" type="TextureProgressBar" parent="MarginContainer/ProgressBarContainer" unique_id=1436547229]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 fill_mode = 3
@@ -36,20 +37,14 @@ texture_under = ExtResource("4_i17dh")
 texture_progress = ExtResource("4_i17dh")
 tint_under = Color(0, 0, 0, 0.29411766)
 
-[node name="Key" type="Label" parent="." unique_id=425541990]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-label_settings = ExtResource("2_j0d3l")
-horizontal_alignment = 1
-vertical_alignment = 2
-
-[node name="Progress" type="Label" parent="." unique_id=405523373]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="Progress" type="Label" parent="MarginContainer" unique_id=405523373]
+layout_mode = 2
 label_settings = ExtResource("5_mmhvd")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Key" type="Label" parent="." unique_id=425541990]
+layout_mode = 2
+label_settings = ExtResource("2_j0d3l")
+horizontal_alignment = 1
+vertical_alignment = 2

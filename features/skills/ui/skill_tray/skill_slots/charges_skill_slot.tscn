@@ -7,48 +7,41 @@
 [ext_resource type="LabelSettings" uid="uid://b0dqld51kajy0" path="res://shared/ui/label_settings/skill_slot_progress.tres" id="5_m8iev"]
 [ext_resource type="LabelSettings" uid="uid://bwo2qw6uln4fp" path="res://shared/ui/label_settings/skill_slot_charges.tres" id="6_x173l"]
 
-[node name="ChargesSkillSlot" type="Control" unique_id=115668837]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 3
-anchors_preset = 0
+[node name="ChargesSkillSlot" type="VBoxContainer" unique_id=1076213787]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 64.0
+offset_bottom = 132.0
+theme_override_constants/separation = 0
 script = ExtResource("1_slmhi")
 
-[node name="ProgressBarContainer" type="PanelContainer" parent="." unique_id=363691469]
+[node name="Charges" type="Label" parent="." unique_id=1255852220]
+layout_mode = 2
+label_settings = ExtResource("6_x173l")
+horizontal_alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1782614550]
+layout_mode = 2
+
+[node name="ProgressBarContainer" type="PanelContainer" parent="MarginContainer" unique_id=363691469]
 clip_children = 1
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 2
 theme_override_styles/panel = ExtResource("2_pux60")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="ProgressBarContainer" unique_id=794291755]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer/ProgressBarContainer" unique_id=794291755]
 layout_mode = 2
 fill_mode = 3
 texture_under = ExtResource("2_1v171")
 texture_progress = ExtResource("2_1v171")
 tint_under = Color(0, 0, 0, 0.29411766)
 
-[node name="Key" type="Label" parent="." unique_id=1493565851]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-label_settings = ExtResource("4_08ypx")
-horizontal_alignment = 1
-vertical_alignment = 2
-
-[node name="Cooldown" type="Label" parent="." unique_id=1265407401]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="Cooldown" type="Label" parent="MarginContainer" unique_id=1265407401]
+layout_mode = 2
 label_settings = ExtResource("5_m8iev")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Charges" type="Label" parent="." unique_id=1255852220]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-label_settings = ExtResource("6_x173l")
-horizontal_alignment = 2
+[node name="Key" type="Label" parent="." unique_id=1493565851]
+layout_mode = 2
+label_settings = ExtResource("4_08ypx")
+horizontal_alignment = 1
+vertical_alignment = 2

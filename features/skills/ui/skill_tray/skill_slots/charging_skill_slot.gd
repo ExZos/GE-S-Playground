@@ -2,10 +2,10 @@ extends Control
 
 class_name ChargeSkillSlot
 
-@onready var charge_progress_bar: TextureProgressBar = $ProgressBarContainer/ChargeProgressBar
-@onready var cooldown_progress_bar: TextureProgressBar = $ProgressBarContainer/CooldownProgressBar
+@onready var charge_progress_bar: TextureProgressBar = $MarginContainer/ProgressBarContainer/ChargeProgressBar
+@onready var cooldown_progress_bar: TextureProgressBar = $MarginContainer/ProgressBarContainer/CooldownProgressBar
 @onready var key_label: Label = $Key
-@onready var progress_label: Label = $Progress
+@onready var progress_label: Label = $MarginContainer/Progress
 
 @export var skill: ChargingSkill
 

@@ -6,40 +6,36 @@
 [ext_resource type="LabelSettings" uid="uid://c8tt6lggdl8l" path="res://shared/ui/label_settings/skill_slot_key.tres" id="4_f5r0g"]
 [ext_resource type="LabelSettings" uid="uid://b0dqld51kajy0" path="res://shared/ui/label_settings/skill_slot_progress.tres" id="5_evcht"]
 
-[node name="StaminaSkillSlot" type="Control" unique_id=1374403534]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 3
-anchors_preset = 0
+[node name="StaminaSkillSlot" type="VBoxContainer" unique_id=1158245742]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 64.0
+offset_bottom = 111.0
+theme_override_constants/separation = 0
 script = ExtResource("1_y5evk")
 
-[node name="ProgressBarContainer" type="PanelContainer" parent="." unique_id=1544510092]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=240080714]
+layout_mode = 2
+
+[node name="ProgressBarContainer" type="PanelContainer" parent="MarginContainer" unique_id=1544510092]
 clip_children = 1
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 2
 theme_override_styles/panel = ExtResource("2_evcht")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="ProgressBarContainer" unique_id=55983650]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer/ProgressBarContainer" unique_id=55983650]
 layout_mode = 2
 fill_mode = 3
 texture_under = ExtResource("2_f5r0g")
 texture_progress = ExtResource("2_f5r0g")
 tint_under = Color(0, 0, 0, 0.29411766)
 
-[node name="Key" type="Label" parent="." unique_id=1440307108]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 0
-offset_right = 50.0
-offset_bottom = 50.0
-label_settings = ExtResource("4_f5r0g")
-horizontal_alignment = 1
-vertical_alignment = 2
-
-[node name="Percentage" type="Label" parent="." unique_id=448522290]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="Percentage" type="Label" parent="MarginContainer" unique_id=448522290]
+layout_mode = 2
 label_settings = ExtResource("5_evcht")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Key" type="Label" parent="." unique_id=1440307108]
+layout_mode = 2
+label_settings = ExtResource("4_f5r0g")
+horizontal_alignment = 1
+vertical_alignment = 2
