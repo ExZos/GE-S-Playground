@@ -4,14 +4,15 @@
 [ext_resource type="Texture2D" uid="uid://os3di37wf71y" path="res://shared/ui/textures/square_white.tres" id="2_1v171"]
 [ext_resource type="StyleBox" uid="uid://brkudeboq4s4h" path="res://shared/ui/styles/rounded_small.tres" id="2_pux60"]
 [ext_resource type="LabelSettings" uid="uid://c8tt6lggdl8l" path="res://shared/ui/label_settings/skill_slot_key.tres" id="4_08ypx"]
+[ext_resource type="Texture2D" uid="uid://c67kbbyxxeafv" path="res://shared/ui/textures/square_border_white.tres" id="5_ff1eq"]
 [ext_resource type="LabelSettings" uid="uid://b0dqld51kajy0" path="res://shared/ui/label_settings/skill_slot_progress.tres" id="5_m8iev"]
 [ext_resource type="LabelSettings" uid="uid://bwo2qw6uln4fp" path="res://shared/ui/label_settings/skill_slot_charges.tres" id="6_x173l"]
 
 [node name="ChargesSkillSlot" type="VBoxContainer" unique_id=1076213787]
-custom_minimum_size = Vector2(64, 64)
 offset_right = 64.0
-offset_bottom = 132.0
+offset_bottom = 98.0
 theme_override_constants/separation = 0
+alignment = 2
 script = ExtResource("1_slmhi")
 
 [node name="Charges" type="Label" parent="." unique_id=1255852220]
@@ -31,8 +32,10 @@ theme_override_styles/panel = ExtResource("2_pux60")
 layout_mode = 2
 fill_mode = 3
 texture_under = ExtResource("2_1v171")
+texture_over = ExtResource("5_ff1eq")
 texture_progress = ExtResource("2_1v171")
 tint_under = Color(0, 0, 0, 0.29411766)
+tint_over = Color(0, 0, 0, 1)
 
 [node name="Cooldown" type="Label" parent="MarginContainer" unique_id=1265407401]
 layout_mode = 2

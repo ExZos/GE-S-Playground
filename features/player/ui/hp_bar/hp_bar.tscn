@@ -5,11 +5,21 @@
 
 [sub_resource type="Gradient" id="Gradient_f23tq"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0, 0, 0.29411766)
+colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_7lqym"]
 gradient = SubResource("Gradient_f23tq")
 height = 16
+
+[sub_resource type="Gradient" id="Gradient_7lqym"]
+offsets = PackedFloat32Array(0.99, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yh2xn"]
+gradient = SubResource("Gradient_7lqym")
+height = 16
+fill = 2
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="Gradient" id="Gradient_yh2xn"]
 offsets = PackedFloat32Array(0)
@@ -20,9 +30,9 @@ gradient = SubResource("Gradient_yh2xn")
 height = 16
 
 [sub_resource type="LabelSettings" id="LabelSettings_f23tq"]
-font_size = 15
-font_color = Color(0, 0, 0, 1)
-outline_size = 5
+font_size = 12
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
 
 [node name="HpBar" type="Control" unique_id=147792061]
 self_modulate = Color(1, 1, 1, 0)
@@ -31,6 +41,8 @@ anchors_preset = 0
 offset_right = 1.0
 offset_bottom = 22.0
 script = ExtResource("1_f23tq")
+value_prop = null
+max_prop = null
 
 [node name="ProgressBarContainer" type="PanelContainer" parent="." unique_id=1420420024]
 clip_children = 1
@@ -46,7 +58,11 @@ theme_override_styles/panel = ExtResource("2_7lqym")
 layout_mode = 2
 nine_patch_stretch = true
 texture_under = SubResource("GradientTexture2D_7lqym")
+texture_over = SubResource("GradientTexture2D_yh2xn")
 texture_progress = SubResource("GradientTexture2D_nmlbo")
+tint_under = Color(0, 0, 0, 0.29411766)
+tint_over = Color(0, 0, 0, 1)
+tint_progress = Color(1, 0.39215687, 0.39215687, 1)
 
 [node name="Label" type="Label" parent="." unique_id=149036563]
 layout_mode = 1

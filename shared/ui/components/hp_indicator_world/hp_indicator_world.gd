@@ -10,7 +10,7 @@ extends Control
 
 @export var show_hp_text: bool = true
 
-var last_value: int
+var _last_value: int
 
 func _ready() -> void:
 	assert(target_node, "%s: Target node not assigned" % self.name)
@@ -31,15 +31,15 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	var value: int = target_node.get(value_prop)
 	
-	if value != last_value:
+	if value != _last_value:
 		if progress_bar_container.hidden:
 			progress_bar_container.show()
 		
 		progress_bar.value = value
-		last_value = value
+		_last_value = value
 		
 		if value > 0:
-			label.text = str(SGFixed.to_int(value))
+			label.text = "%d" % SGFixed.to_int(value)
 		else:
 			progress_bar_container.hide()
 			label.text = ""

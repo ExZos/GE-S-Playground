@@ -11,7 +11,7 @@ corner_radius_bottom_left = 1024
 
 [sub_resource type="Gradient" id="Gradient_q3sbu"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0, 0, 0.29411766)
+colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_52k7c"]
 gradient = SubResource("Gradient_q3sbu")
@@ -57,6 +57,7 @@ layout_mode = 2
 nine_patch_stretch = true
 texture_under = SubResource("GradientTexture2D_52k7c")
 texture_progress = SubResource("GradientTexture2D_q3sbu")
+tint_under = Color(0, 0, 0, 0.29411766)
 
 [node name="Label" type="Label" parent="." unique_id=1329115492]
 layout_mode = 1

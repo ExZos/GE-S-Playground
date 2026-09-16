@@ -30,6 +30,11 @@ func _process(_delta: float) -> void:
 	if skill.cooling_down:
 		progress_bar.value = skill._fp_cooldown - skill.fp_cd_ticks
 		cooldown_label.text = "%.1fs" % (skill.fp_cd_ticks / fp_fps)
+		
+		if skill.charges == 0:
+			progress_bar.tint_progress = Color.GRAY
+		else:
+			progress_bar.tint_progress = Color.WHITE
 	else:
 		progress_bar.value = skill._fp_cooldown
 		cooldown_label.text = ""

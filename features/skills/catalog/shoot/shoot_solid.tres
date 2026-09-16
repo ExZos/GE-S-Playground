@@ -21,7 +21,6 @@ metadata/_custom_type_script = "uid://ccrrwiwidu2yr"
 
 [sub_resource type="Resource" id="Resource_o2qlo"]
 script = ExtResource("4_0nmtx")
-cooldown = 10
 metadata/_custom_type_script = "uid://cwfta0fhv3q5v"
 
 [sub_resource type="Resource" id="Resource_4vqer"]

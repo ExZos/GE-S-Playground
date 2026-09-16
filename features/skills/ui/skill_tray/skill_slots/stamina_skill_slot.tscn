@@ -4,13 +4,14 @@
 [ext_resource type="StyleBox" uid="uid://brkudeboq4s4h" path="res://shared/ui/styles/rounded_small.tres" id="2_evcht"]
 [ext_resource type="Texture2D" uid="uid://os3di37wf71y" path="res://shared/ui/textures/square_white.tres" id="2_f5r0g"]
 [ext_resource type="LabelSettings" uid="uid://c8tt6lggdl8l" path="res://shared/ui/label_settings/skill_slot_key.tres" id="4_f5r0g"]
+[ext_resource type="Texture2D" uid="uid://c67kbbyxxeafv" path="res://shared/ui/textures/square_border_white.tres" id="4_pnn8b"]
 [ext_resource type="LabelSettings" uid="uid://b0dqld51kajy0" path="res://shared/ui/label_settings/skill_slot_progress.tres" id="5_evcht"]
 
 [node name="StaminaSkillSlot" type="VBoxContainer" unique_id=1158245742]
-custom_minimum_size = Vector2(64, 64)
 offset_right = 64.0
-offset_bottom = 111.0
+offset_bottom = 81.0
 theme_override_constants/separation = 0
+alignment = 2
 script = ExtResource("1_y5evk")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=240080714]
@@ -25,8 +26,10 @@ theme_override_styles/panel = ExtResource("2_evcht")
 layout_mode = 2
 fill_mode = 3
 texture_under = ExtResource("2_f5r0g")
+texture_over = ExtResource("4_pnn8b")
 texture_progress = ExtResource("2_f5r0g")
 tint_under = Color(0, 0, 0, 0.29411766)
+tint_over = Color(0, 0, 0, 1)
 
 [node name="Percentage" type="Label" parent="MarginContainer" unique_id=448522290]
 layout_mode = 2
