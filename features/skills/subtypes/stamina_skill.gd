@@ -35,7 +35,7 @@ func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask
 	
 	if state == State.ACTIVE:
 		# Key not pressed, deactivate
-		if not (input_mask & key_bit):
+		if not _check_activation(input_mask, mov_dir, aim_dir):
 			_on_deactivate(mov_dir, aim_dir)
 			state = State.IDLE
 		# Stamina depleted, set exhausted state
@@ -45,7 +45,7 @@ func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask
 			state = State.EXHAUSTED
 	else:
 		# Key pressed, activate
-		if input_mask & key_bit and not check_restricted.call():
+		if _check_activation(input_mask, mov_dir, aim_dir) and not check_restricted.call():
 			_on_activate(mov_dir, aim_dir)
 			state = State.ACTIVE
 
@@ -61,6 +61,9 @@ func process_tickers() -> void:
 			state = State.IDLE
 		
 		fp_stamina = _fp_max_stamina
+
+func _check_activation(input_mask: int, _mov_dir: Vector2i, _aim_dir: Vector2i) -> bool:
+	return input_mask & key_bit
 
 func _on_activate(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void: pass
 func _on_deactivate(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void: pass

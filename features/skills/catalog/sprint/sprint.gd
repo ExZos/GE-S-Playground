@@ -26,6 +26,9 @@ func _ready() -> void:
 		_fp_speed_mult_prod_inc
 	)
 
+func _check_activation(input_mask: int, mov_dir: Vector2i, _aim_dir: Vector2i) -> bool:
+	return (input_mask & key_bit) and mov_dir != Vector2i.ZERO
+
 func _on_activate(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
 	source.add_modifier(_sprint_modifier)
 
