@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_b0kt7")
-preload_types = Array[StringName]([&"dummy", &"wanderer"])
+preload_types = Array[StringName]([&"dummy", &"wanderer", &"wandering_shooter"])
 metadata/_custom_type_script = "uid://bv8jvbt5gwpbc"

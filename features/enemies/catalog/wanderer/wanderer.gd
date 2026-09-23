@@ -56,6 +56,8 @@ func advance_frame(rng: RandomNumberGenerator) -> void:
 		
 		action_rads_index = rng.randi_range(0, fp_rads.size() - 1)
 		
+		_special_action()
+		
 		print("NEW ACTION: %dms" % SGFixed.to_int(action_ticks))
 	
 	velocity = velocity.rotated(fp_rads[action_rads_index])
@@ -72,3 +74,6 @@ func advance_frame(rng: RandomNumberGenerator) -> void:
 		action_rads_index = posmod(action_rads_index + action_rads_index_shift, fp_rads.size())
 		
 		print("COLLISION: ", action_rads_index)
+
+func _special_action() -> void:
+	pass

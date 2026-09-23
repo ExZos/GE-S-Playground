@@ -17,14 +17,16 @@ class Skills:
 class Enemies:
 	const DUMMY: StringName = &"dummy"
 	const WANDERER: StringName = &"wanderer"
-	const LIST: PackedStringArray = [DUMMY,WANDERER]
+	const WANDERING_SHOOTER: StringName = &"wandering_shooter"
+	const LIST: PackedStringArray = [DUMMY,WANDERER,WANDERING_SHOOTER]
 
 class Waves:
 	const DUMMY_X12_WAVE: StringName = &"dummy_x12_wave"
 	const DUMMY_X4_WAVE: StringName = &"dummy_x4_wave"
 	const WANDERER_WAVE: StringName = &"wanderer_wave"
 	const WANDERER_X4_WAVE: StringName = &"wanderer_x4_wave"
-	const LIST: PackedStringArray = [DUMMY_X12_WAVE,DUMMY_X4_WAVE,WANDERER_WAVE,WANDERER_X4_WAVE]
+	const WANDERING_SHOOTER_WAVE: StringName = &"wandering_shooter_wave"
+	const LIST: PackedStringArray = [DUMMY_X12_WAVE,DUMMY_X4_WAVE,WANDERER_WAVE,WANDERER_X4_WAVE,WANDERING_SHOOTER_WAVE]
 
 class VFX:
 	const BUBBLE_VFX: StringName = &"bubble_vfx"

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://cmduaihqa1ef2"]
+
+[ext_resource type="PackedScene" uid="uid://dnxuignmasywe" path="res://features/enemies/catalog/wanderer/wandering_shooter/wandering_shooter.tscn" id="1_hpgwl"]
+[ext_resource type="Script" uid="uid://danle02tjvxb3" path="res://features/enemies/enemy_data.gd" id="1_nydea"]
+
+[resource]
+script = ExtResource("1_nydea")
+max_hp = 2
+speed = 7
+min_action_duration = 60
+max_action_duration = 300
+half_width = 40
+half_height = 40
+type = &"wandering_shooter"
+scene = ExtResource("1_hpgwl")
+metadata/_custom_type_script = "uid://danle02tjvxb3"

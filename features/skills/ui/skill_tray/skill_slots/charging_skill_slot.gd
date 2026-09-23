@@ -36,13 +36,15 @@ func _process(_delta: float) -> void:
 		progress_label.text = "%d%%" % (charge_progress_bar.ratio * 100)
 	
 	if last_state != skill.state:
-		if skill.state == ChargingSkill.State.COOLDOWN:
-			cooldown_progress_bar.tint_progress = Color.GRAY
-			charge_progress_bar.value = 0
-		elif skill.state == ChargingSkill.State.IDLE:
+		if skill.state == ChargingSkill.State.IDLE:
 			cooldown_progress_bar.value = skill._fp_cooldown
 			cooldown_progress_bar.tint_progress = Color.WHITE
 			charge_progress_bar.value = 0
 			progress_label.text = ""
+		elif skill.state == ChargingSkill.State.COOLDOWN:
+			cooldown_progress_bar.tint_progress = Color.GRAY
+			charge_progress_bar.value = 0
+		elif skill.state == ChargingSkill.State.CHARGING:
+			cooldown_progress_bar.tint_progress = Color.WHITE
 		
 		last_state = skill.state

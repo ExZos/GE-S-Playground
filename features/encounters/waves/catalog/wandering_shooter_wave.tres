@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="WaveData" format=3 uid="uid://dyler524j5rf1"]
+
+[ext_resource type="Script" uid="uid://c8spo6i3esxxy" path="res://features/encounters/waves/wave_data.gd" id="1_3rsyl"]
+
+[resource]
+script = ExtResource("1_3rsyl")
+enemies = Array[StringName]([&"wandering_shooter"])
+type = &"wandering_shooter_wave"
+metadata/_custom_type_script = "uid://c8spo6i3esxxy"
