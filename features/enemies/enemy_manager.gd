@@ -2,8 +2,13 @@ extends Node
 
 class_name EnemyManager
 
+const PROJECTILE_REQUESTS_POOL_SIZE: int = 5
+
 var _enemy_pool: SparseTypedFixedArray
 var _rng: RandomNumberGenerator
+
+# 
+var projectile_requests: DenseFixedArray
 
 func init(enemy_types: Array[StringName], rng: RandomNumberGenerator) -> void:
 	_rng = rng
@@ -29,6 +34,7 @@ func init(enemy_types: Array[StringName], rng: RandomNumberGenerator) -> void:
 		add_child(enemy)
 	
 	_enemy_pool = SparseTypedFixedArray.new(enemy_types.size(), Enemy, enemies_by_type)
+	projectile_requests = DenseFixedArray.new(PROJECTILE_REQUESTS_POOL_SIZE, TYPE_OBJECT, ProjectileRequest)
 
 func advance_frame() -> void:
 	for i in range(_enemy_pool.active_list_count - 1, -1, -1):
@@ -63,3 +69,6 @@ func handle_request(enemy_type: StringName, fp_pos_x: int, fp_pos_y: int) -> voi
 			_enemy_pool.data[j] = enemy
 			add_child(enemy)
 			_enemy_pool.reserve_typed_item(enemy_type)
+
+func clear_projectile_requests() -> void:
+	projectile_requests.clear_data()

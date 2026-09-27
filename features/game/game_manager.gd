@@ -67,6 +67,10 @@ func _physics_process(_delta: float) -> void:
 		projectile_manager.handle_requests(player.projectile_requests)
 		player.clear_projectile_requests()
 	
+	if enemy_manager.projectile_requests.count > 0:
+		projectile_manager.handle_requests(enemy_manager.projectile_requests)
+		enemy_manager.clear_projectile_requests()
+	
 	if _projectile_modifiers.count > 0:
 		projectile_manager.handle_modifiers(_projectile_modifiers)
 		_projectile_modifiers.clear_data()
