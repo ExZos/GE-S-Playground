@@ -1,54 +1,21 @@
 @tool
-extends SGCharacterBody2D
+extends Character
 
 # TODO: consider _process to handle presentation logic
 class_name Player
 
-@export var collision_shape: SGCollisionShape2D
 @export var skill_manager: SkillManager
 
-@export var player_data: PlayerData
 @export var attack_type: StringName
 @export var skill_types: Array[StringName]
-
-const IS_DAMAGEABLE: bool = true
 
 const PROJECTILE_REQUESTS_POOL_SIZE: int = 5
 const PLAYER_MODIFIERS_POOL_SIZE: int = 5
 
-# Stats
-var fp_max_hp: int
-var fp_base_speed: int
-
-# Stat modifiers
-var fp_speed_add: int = 0
-var fp_speed_mult_sum: int = SGFixed.ONE
-var fp_speed_mult_prod: int = SGFixed.ONE
-
-# Computed stats
-var fp_current_hp: int
-var _fp_speed: int
-
-# Tickers
-var fp_recovery_ticks: int = 0
-
-# 
-var is_active: bool = false
-var is_dead: bool = false
-
-# Restriction states
-var is_recovering: bool = false
-var restrict_attack: bool = false
-var restrict_skills: bool = false
-
-# Dimensions
-var fp_half_width: int:
-	get:
-		return collision_shape.shape.radius
-
-# Movement
-var mov_dir: Vector2i = Vector2i.ZERO
-var forced_mov_dir: Vector2i = Vector2i.ZERO
+#
+var player_data: PlayerData:
+	get():
+		return character_data as PlayerData
 
 # 
 var _player_modifiers: SparseFixedArray
@@ -57,11 +24,12 @@ var _player_modifiers_is_dirty: bool = false
 # 
 var projectile_requests: DenseFixedArray
 
-var _normal_collision_layer: int   
-var _normal_collision_mask: int
-
 func _validate_property(property: Dictionary) -> void:
 	var skill_type_hint: String = ",".join(RegistryKeys.Skills.LIST)
+	
+	if property.name == "character_data":
+		property.hint = PROPERTY_HINT_RESOURCE_TYPE
+		property.hint_string = "PlayerData"
 	
 	if property.name == "attack_type":
 		property.hint = PROPERTY_HINT_ENUM
@@ -72,34 +40,18 @@ func _validate_property(property: Dictionary) -> void:
 		property.hint_string = "%d/%d:%s" % [TYPE_STRING_NAME, PROPERTY_HINT_ENUM, skill_type_hint]
 
 func init() -> void:
+	super()
+	
 	_player_modifiers = SparseFixedArray.new(PLAYER_MODIFIERS_POOL_SIZE, TYPE_OBJECT, PlayerModifier)
 	projectile_requests = DenseFixedArray.new(PROJECTILE_REQUESTS_POOL_SIZE, TYPE_OBJECT, ProjectileRequest)
-	
-	fp_max_hp = player_data.fp_max_hp
-	fp_current_hp = player_data.fp_max_hp
-	
-	fp_base_speed = player_data.fp_base_speed
-	_compute_speed()
-	
-	is_active = true
-	is_dead = false
-	
-	_normal_collision_layer = collision_layer
-	_normal_collision_mask = collision_mask
 	
 	skill_manager.init(self, attack_type, skill_types)
 
 func reset() -> void:
+	super()
+	
 	# TODO: reset player modifiers
 	projectile_requests.clear_data()
-	
-	fp_max_hp = player_data.fp_max_hp
-	fp_current_hp = player_data.fp_max_hp
-	
-	fp_base_speed = player_data.fp_base_speed
-	_compute_speed()
-	
-	is_dead = false
 
 func advance_frame(input_mask: int, prev_input_mask: int) -> void:
 	if is_dead:
@@ -163,36 +115,6 @@ func advance_frame(input_mask: int, prev_input_mask: int) -> void:
 	
 	move_and_slide()
 
-func activate(fp_pos_x: int, fp_pos_y: int) -> void:
-	reset()
-	
-	is_active = true
-	
-	fixed_position_x = fp_pos_x
-	fixed_position_y = fp_pos_y
-	
-	collision_layer = _normal_collision_layer
-	collision_mask = _normal_collision_mask
-	
-	show()
-	
-	sync_to_physics_engine()
-
-func deactivate() -> void:
-	is_active = false
-	
-	collision_layer = 0
-	collision_mask = 0
-	
-	hide()
-
-# --- Restriction utilities ---
-func check_restrict_attack() -> bool:
-	return restrict_attack or is_recovering
-
-func check_restrict_skills() -> bool:
-	return restrict_skills or is_recovering
-
 # --- Skill manager getters ---
 func get_attack() -> Skill:
 	return skill_manager._attack
@@ -226,7 +148,3 @@ func add_projectile_request(request: ProjectileRequest) -> void:
 
 func clear_projectile_requests() -> void:
 	projectile_requests.clear_data()
-
-# --- Private functions ---
-func _compute_speed() -> void:
-	_fp_speed = SGFixed.mul(fp_base_speed + fp_speed_add, SGFixed.mul((fp_speed_mult_sum), fp_speed_mult_prod))

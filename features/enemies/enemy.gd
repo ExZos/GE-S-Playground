@@ -1,6 +1,7 @@
 extends SGCharacterBody2D
 
 # TODO: rework enemy architecture, common parent to player script and implement simulated enemy inputs
+# TODO: evaluate using signals so that enemies can add to the centralized projectile request
 class_name Enemy
 
 const IS_DAMAGEABLE: bool = true
