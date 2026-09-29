@@ -1,6 +1,6 @@
 extends RefCounted
 
-class_name PlayerModifier
+class_name CharacterModifier
 
 var source: SGFixedNode2D
 var _fp_duration_ticks: int = 0

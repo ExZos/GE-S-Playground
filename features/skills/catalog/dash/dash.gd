@@ -67,7 +67,7 @@ func _on_activate(mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
 	)
 	EventBus.vfx_requested.emit(_bubble_vfx_event)
 
-class DashModifier extends PlayerModifier:
+class DashModifier extends CharacterModifier:
 	var fp_speed_add_inc: int = 0
 	var fp_speed_mult_sum_inc: int = 0
 	var fp_speed_mult_prod_inc: int = 0

@@ -65,7 +65,7 @@ func _on_whiff() -> void:
 	fp_cd_ticks = 0
 	state = State.IDLE
 
-class ChargingSpeedModifier extends PlayerModifier:
+class ChargingSpeedModifier extends CharacterModifier:
 	var fp_speed_mult_prod_inc: int = 0
 	var restrict_attack: bool = false
 	var restrict_skills: bool = false

@@ -39,7 +39,7 @@ func _on_exhausted(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
 	source.remove_modifier(_sprint_modifier)
 	super(_mov_dir, _aim_dir)
 
-class SprintModifier extends PlayerModifier:
+class SprintModifier extends CharacterModifier:
 	var fp_speed_add_inc: int = 0
 	var fp_speed_mult_sum_inc: int = 0
 	var fp_speed_mult_prod_inc: int = 0
