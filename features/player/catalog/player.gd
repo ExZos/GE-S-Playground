@@ -21,8 +21,10 @@ func _validate_property(property: Dictionary) -> void:
 		property.hint = PROPERTY_HINT_RESOURCE_TYPE
 		property.hint_string = "PlayerData"
 
-func init() -> void:
-	super()
+func init(data: CharacterData) -> void:
+	super(data)
+	
+	# TODO: use player_data to access PlayerData fields
 	
 	projectile_requests = DenseFixedArray.new(PROJECTILE_REQUESTS_POOL_SIZE, TYPE_OBJECT, ProjectileRequest)
 

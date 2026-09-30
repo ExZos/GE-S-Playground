@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="PlayerRegistry" format=3 uid="uid://dk33pkn0gvvpo"]
+
+[ext_resource type="Script" uid="uid://bgojvidvia6pg" path="res://features/player/player_registry.gd" id="1_1jbvw"]
+
+[resource]
+script = ExtResource("1_1jbvw")
+preload_types = Array[StringName]([&"player"])
+metadata/_custom_type_script = "uid://bgojvidvia6pg"

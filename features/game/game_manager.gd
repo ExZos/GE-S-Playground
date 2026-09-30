@@ -1,5 +1,6 @@
 extends Node
 
+# TODO: pull simulated enemy inputs
 class_name GameManager
 
 @export var arena: Arena
@@ -10,6 +11,7 @@ class_name GameManager
 @export var encounter_manager: EncounterManager
 
 # TODO: in-game selection before loading
+@export var player_data: PlayerData
 @export var encounter_data: EncounterData
 
 const PROJECTILE_MODIFIERS_POOL_SIZE: int = 10
@@ -27,7 +29,7 @@ func _ready() -> void:
 	_projectile_modifiers = DenseFixedArray.new(PROJECTILE_MODIFIERS_POOL_SIZE, TYPE_OBJECT, ProjectileModifier)
 	
 	arena.init()
-	player.init()
+	player.init(player_data)
 	encounter_manager.init(encounter_data, _rng)
 	
 	# Used to store data for pool initialization

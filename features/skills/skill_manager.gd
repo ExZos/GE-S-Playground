@@ -62,7 +62,8 @@ func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask
 		_attack.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, _mov_dir, atk_dir)
 
 func process_tickers() -> void:
-	_attack.process_tickers()
+	if _attack:
+		_attack.process_tickers()
 	
 	for skill: Skill in _skills:
 		skill.process_tickers()

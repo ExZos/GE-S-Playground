@@ -1,4 +1,4 @@
-extends Resource
+extends RegistryData
 
 class_name CharacterData
 

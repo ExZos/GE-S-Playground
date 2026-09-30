@@ -5,13 +5,13 @@
 [ext_resource type="Script" uid="uid://c6klmyhqcx6dx" path="res://core/input/input_manager.gd" id="2_5vw27"]
 [ext_resource type="Resource" uid="uid://cfmf3b05bq3wo" path="res://features/encounters/training.tres" id="3_4c57u"]
 [ext_resource type="Script" uid="uid://bxuayk5f3f5mo" path="res://features/projectiles/projectile_manager.gd" id="3_kek77"]
-[ext_resource type="PackedScene" uid="uid://bk7ksdidmq8ap" path="res://features/player/player.tscn" id="4_4c57u"]
+[ext_resource type="PackedScene" uid="uid://bk7ksdidmq8ap" path="res://features/player/catalog/player.tscn" id="4_4c57u"]
 [ext_resource type="PackedScene" uid="uid://cdc67etsdo3xs" path="res://features/skills/ui/skill_tray/skill_tray.tscn" id="4_5vw27"]
 [ext_resource type="Script" uid="uid://celyl8lxqchrt" path="res://features/enemies/enemy_manager.gd" id="4_kek77"]
 [ext_resource type="Script" uid="uid://ckiohqwn27g8f" path="res://features/encounters/encounter_manager.gd" id="6_4c57u"]
 [ext_resource type="PackedScene" uid="uid://cyvm2qijsr3mp" path="res://features/world/arena/arena.tscn" id="7_4c57u"]
 [ext_resource type="Resource" uid="uid://tbocpr7yprwa" path="res://features/world/arena/default_arena.tres" id="8_efxa6"]
-[ext_resource type="Resource" uid="uid://bh2f8amnbm7du" path="res://features/player/resources/default_player.tres" id="10_dg77c"]
+[ext_resource type="Resource" uid="uid://bh2f8amnbm7du" path="res://features/player/catalog/player.tres" id="10_dg77c"]
 [ext_resource type="PackedScene" uid="uid://dm8ujvcgortsu" path="res://features/player/ui/hp_bar/hp_bar.tscn" id="12_ycdy4"]
 
 [sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_4c57u"]
@@ -29,6 +29,7 @@ player = NodePath("../Player")
 projectile_manager = NodePath("../ProjectileManager")
 enemy_manager = NodePath("../EnemyManager")
 encounter_manager = NodePath("../EncounterManager")
+player_data = ExtResource("10_dg77c")
 encounter_data = ExtResource("3_4c57u")
 
 [node name="ProjectileManager" type="Node" parent="." unique_id=534493029]
@@ -54,7 +55,6 @@ shape = SubResource("SGRectangleShape2D_4c57u")
 arena_data = ExtResource("8_efxa6")
 
 [node name="Player" parent="." unique_id=2004616098 instance=ExtResource("4_4c57u")]
-character_data = ExtResource("10_dg77c")
 attack_type = &"shoot_sensor"
 skill_types = Array[StringName]([&"sprint", &"shoot_solid", &"telekinesis"])
 

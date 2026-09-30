@@ -5,12 +5,12 @@
 
 [resource]
 script = ExtResource("1_nydea")
-max_hp = 2
-speed = 7
 min_action_duration = 60
 max_action_duration = 300
 half_width = 40
 half_height = 40
+max_hp = 2
+base_speed = 7
 type = &"wandering_shooter"
 scene = ExtResource("1_hpgwl")
 metadata/_custom_type_script = "uid://danle02tjvxb3"

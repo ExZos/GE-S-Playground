@@ -12,6 +12,7 @@ var projectile_requests: DenseFixedArray
 
 func init(enemy_types: Array[StringName], rng: RandomNumberGenerator) -> void:
 	_rng = rng
+	EventBus.register_enemy_manager(self)
 	
 	var enemies_by_type: Dictionary = {} # Dictionary[StringName, Array]
 	
@@ -40,7 +41,7 @@ func advance_frame() -> void:
 	for i in range(_enemy_pool.active_list_count - 1, -1, -1):
 		var enemy: Enemy = _enemy_pool.get_nth_active_item(i)
 		
-		enemy.advance_frame(_rng)
+		enemy.advance_frame(0, 0)
 		if enemy.is_dead:
 			enemy.deactivate()
 			enemy.reset()
@@ -69,6 +70,13 @@ func handle_request(enemy_type: StringName, fp_pos_x: int, fp_pos_y: int) -> voi
 			_enemy_pool.data[j] = enemy
 			add_child(enemy)
 			_enemy_pool.reserve_typed_item(enemy_type)
+
+# --- Projectile request wrappers ---
+func add_projectile_request(request: ProjectileRequest) -> void:
+	if projectile_requests.add_item(request) == -1:
+		projectile_requests.forced_expand("EnemyManager -> Projectile requests", 1)
+		
+		projectile_requests.add_item(request)
 
 func clear_projectile_requests() -> void:
 	projectile_requests.clear_data()

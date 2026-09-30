@@ -1,79 +1,26 @@
-extends SGCharacterBody2D
+@tool
+extends Character
 
-# TODO: rework enemy architecture, common parent to player script and implement simulated enemy inputs
-# TODO: evaluate using signals so that enemies can add to the centralized projectile request
+# TODO: check if can have base enemy scene and parameterize things like EnemyAI class
 class_name Enemy
 
-const IS_DAMAGEABLE: bool = true
-
-# Stats
-var fp_max_hp: int
-
-# Computed stats
-var fp_current_hp: int
-
-# Tickers
-var fp_recovery_ticks: int
-
-var is_active: bool
-var is_dead: bool
-
-# Dimensions
-var fp_half_width: int
+#
+var enemy_data: EnemyData:
+	get():
+		return character_data as EnemyData
 
 # Misc - used by other nodes
 var type: StringName # Key for determining which pool it belongs to
 
-var _normal_collision_layer: int   
-var _normal_collision_mask: int
-
-func init(data: EnemyData) -> void:
-	type = data.type
+func init(data: CharacterData) -> void:
+	super(data)
 	
-	fp_max_hp = data.fp_max_hp
-	fp_current_hp = data.fp_max_hp
+	# TODO: use enemy_data to access EnemyData fields
 	
-	fp_recovery_ticks = 0
+	type = enemy_data.type
 	
-	is_active = false
-	is_dead = false
-	
-	fp_half_width = data.fp_half_width
-	
-	_normal_collision_layer = collision_layer
-	_normal_collision_mask = collision_mask
-
-func reset() -> void:
-	fp_current_hp = fp_max_hp
-	is_dead = false
-
-func advance_frame(_rng: RandomNumberGenerator) -> void:
-	pass
-
-func activate(fp_pos_x: int, fp_pos_y: int) -> void:
-	is_active = true
-	
-	fixed_position_x = fp_pos_x
-	fixed_position_y = fp_pos_y
-	
-	collision_layer = _normal_collision_layer
-	collision_mask = _normal_collision_mask
-	show()
-	
-	sync_to_physics_engine()
-
-func deactivate() -> void:
-	is_active = false
-	
-	collision_layer = 0
-	collision_mask = 0
-	hide()
-
-func check_restrict_attack() -> bool:
-	return false
-
-func check_restrict_skills() -> bool:
-	return false
+	collision_shape.shape.extents.x = SGFixed.from_int(enemy_data.half_width)
+	collision_shape.shape.extents.y = SGFixed.from_int(enemy_data.half_height)
 
 func add_projectile_request(request: ProjectileRequest) -> void:
-	print("Enemy: add projectile request") 
+	EventBus.request_projectile(request)

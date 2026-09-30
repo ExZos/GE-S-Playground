@@ -1,19 +1,18 @@
 @tool
 extends SGCharacterBody2D
 
-# TODO: make enemy inherit this
 class_name Character
 
 @export var collision_shape: SGCollisionShape2D
 @export var skill_manager: SkillManager
-
-@export var character_data: CharacterData
 
 @export var attack_type: StringName
 @export var skill_types: Array[StringName]
 
 const IS_DAMAGEABLE: bool = true
 const CHARACTER_MODIFIERS_POOL_SIZE: int = 5
+
+var character_data: CharacterData
 
 # Dimensions
 var fp_half_width: int:
@@ -66,11 +65,13 @@ func _validate_property(property: Dictionary) -> void:
 		property.hint = PROPERTY_HINT_ARRAY_TYPE
 		property.hint_string = "%d/%d:%s" % [TYPE_STRING_NAME, PROPERTY_HINT_ENUM, skill_type_hint]
 
-func init() -> void:
-	fp_max_hp = character_data.fp_max_hp
-	fp_current_hp = character_data.fp_max_hp
+func init(data: CharacterData) -> void:
+	character_data = data
 	
-	fp_base_speed = character_data.fp_base_speed
+	fp_max_hp = data.fp_max_hp
+	fp_current_hp = data.fp_max_hp
+	
+	fp_base_speed = data.fp_base_speed
 	_compute_speed()
 	
 	is_active = true

@@ -1,17 +1,7 @@
 @tool
-extends RegistryData
+extends CharacterData
 
 class_name EnemyData
-
-@export var max_hp: int:
-	set(value):
-		max_hp = value
-		fp_max_hp = SGFixed.from_int(value)
-
-@export var speed: int:
-	set(value):
-		speed = value
-		fp_speed = SGFixed.from_int(value)
 
 @export var min_action_duration: int:
 	set(value):
@@ -34,9 +24,6 @@ class_name EnemyData
 		half_height = value
 		fp_half_height = SGFixed.from_int(value)
 		fp_height = fp_half_height * 2
-
-var fp_max_hp: int
-var fp_speed: int
 
 var fp_min_action_duration: int
 var fp_max_action_duration: int

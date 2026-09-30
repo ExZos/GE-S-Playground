@@ -5,12 +5,12 @@
 
 [resource]
 script = ExtResource("1_5aqrh")
-max_hp = 3
-half_width = 50
-half_height = 50
-speed = 5
 min_action_duration = 60
 max_action_duration = 300
+half_width = 50
+half_height = 50
+max_hp = 3
+base_speed = 5
 type = &"wanderer"
 scene = ExtResource("1_mog1f")
 metadata/_custom_type_script = "uid://danle02tjvxb3"

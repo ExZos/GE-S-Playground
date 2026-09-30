@@ -3,6 +3,7 @@ class_name RegistryConfig
 class Paths:
 	const PROJECTILES_CATALOG: String = "res://features/projectiles/catalog"
 	const SKILLS_CATALOG: String = "res://features/skills/catalog"
+	const PLAYERS_CATALOG: String = "res://features/player/catalog"
 	const ENEMIES_CATALOG: String = "res://features/enemies/catalog"
 	const WAVES_CATALOG: String = "res://features/encounters/waves/catalog"
 	const VFX_CATALOG: String = "res://features/vfx/catalog"
@@ -22,6 +23,10 @@ const CATALOG_MANIFEST: Dictionary[String, Dictionary] = {
 	},
 	"Skills": {
 		"path": Paths.SKILLS_CATALOG,
+		"target_ext": TargetExtensions.RESOURCE_REGISTRY
+	},
+	"Players": {
+		"path": Paths.PLAYERS_CATALOG,
 		"target_ext": TargetExtensions.RESOURCE_REGISTRY
 	},
 	"Enemies": {

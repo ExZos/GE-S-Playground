@@ -14,6 +14,10 @@ class Skills:
 	const TELEKINESIS: StringName = &"telekinesis"
 	const LIST: PackedStringArray = [DASH,SHOOT_SENSOR,SHOOT_SOLID,SPRINT,TELEKINESIS]
 
+class Players:
+	const PLAYER: StringName = &"player"
+	const LIST: PackedStringArray = [PLAYER]
+
 class Enemies:
 	const DUMMY: StringName = &"dummy"
 	const WANDERER: StringName = &"wanderer"
