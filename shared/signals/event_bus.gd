@@ -16,6 +16,11 @@ func modify_projectiles(modifier: ProjectileModifier) -> void:
 	if _game_manager:
 		_game_manager.add_projectile_modifier(modifier)
 
+func get_randi_range(from: int, to: int) -> int:
+	assert(_game_manager, "EventBus -> get_randi_range: GameManager not registered")
+	
+	return _game_manager.get_randi_range(from, to)
+
 # --- EnemyManager simulation
 var _enemy_manager: EnemyManager
 

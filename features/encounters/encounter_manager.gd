@@ -11,7 +11,7 @@ class_name EncounterManager
 var current_wave: int = 0
 var waves: Array[WaveData] = []
 
-func init(data: EncounterData, rng: RandomNumberGenerator) -> void:
+func init(data: EncounterData) -> void:
 	var enemy_types: Array[StringName] = []
 	
 	for wave_type: StringName in data.waves:
@@ -25,7 +25,7 @@ func init(data: EncounterData, rng: RandomNumberGenerator) -> void:
 		for enemy_type: StringName in wave_data.enemies:
 			enemy_types.append(enemy_type)
 	
-	enemy_manager.init(enemy_types, rng)
+	enemy_manager.init(enemy_types)
 
 func spawn_wave(fp_player_pos_x: int, fp_player_pos_y: int) -> void:
 	var wave: WaveData = waves[current_wave]

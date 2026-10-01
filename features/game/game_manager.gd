@@ -1,10 +1,9 @@
 extends Node
 
-# TODO: pull simulated enemy inputs
 class_name GameManager
 
 @export var arena: Arena
-@export var input_manager: InputManager
+@export var player_input: PlayerInput
 @export var player: Player
 @export var projectile_manager: ProjectileManager
 @export var enemy_manager: EnemyManager
@@ -30,7 +29,7 @@ func _ready() -> void:
 	
 	arena.init()
 	player.init(player_data)
-	encounter_manager.init(encounter_data, _rng)
+	encounter_manager.init(encounter_data)
 	
 	# Used to store data for pool initialization
 	var projectile_types: Array[StringName] = []
@@ -51,10 +50,13 @@ func _ready() -> void:
 	projectile_manager.init(projectile_types)
 
 func _physics_process(_delta: float) -> void:
-	var input_mask: int = input_manager.get_input_mask()
+	var input_mask: int = player_input.get_input_mask()
+	enemy_manager.read_input_masks()
+	
 	if player.is_active:
 		player.advance_frame(input_mask, _prev_input_mask)
 	
+	# TODO: find a better place for this
 	var just_pressed_mask: int = input_mask & ~_prev_input_mask
 	if just_pressed_mask & InputConstants.Bit.NEXT_WAVE:
 		if not player.is_active:
@@ -62,7 +64,7 @@ func _physics_process(_delta: float) -> void:
 			player.activate(0, 0)
 		else:
 			encounter_manager.spawn_wave(player.fixed_position_x, player.fixed_position_y)
-		
+	
 	enemy_manager.advance_frame()
 	
 	if player.projectile_requests.count > 0:
@@ -86,3 +88,6 @@ func add_projectile_modifier(modifier: ProjectileModifier) -> void:
 		_projectile_modifiers.forced_expand("GameManager -> Projectile modifiers", 1)
 		
 		_projectile_modifiers.add_item(modifier)
+
+func get_randi_range(from: int, to: int) -> int:
+	return _rng.randi_range(from, to)

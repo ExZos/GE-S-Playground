@@ -1,16 +1,21 @@
 [gd_scene format=3 uid="uid://dnxuignmasywe"]
 
-[ext_resource type="Script" uid="uid://c84xgceqyyw6u" path="res://features/enemies/enemy.gd" id="1_s0tqh"]
+[ext_resource type="Script" uid="uid://bspm4o40sv1ai" path="res://features/enemies/catalog/wanderer/wanderer.gd" id="1_r4qpq"]
 [ext_resource type="Script" uid="uid://bsppv81iiunqj" path="res://features/skills/skill_manager.gd" id="2_jm4xr"]
+[ext_resource type="Script" uid="uid://ctabshow4wpkx" path="res://features/enemies/catalog/wanderer/wandering_shooter/wandering_shooter_input.gd" id="2_r4qpq"]
 [ext_resource type="PackedScene" uid="uid://wqw8oxtp1885" path="res://shared/ui/components/hp_indicator_world/hp_indicator_world.tscn" id="2_s0tqh"]
 
 [sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_jm4xr"]
 
-[node name="WanderingShooter" type="SGCharacterBody2D" unique_id=1076190699 node_paths=PackedStringArray("collision_shape", "skill_manager")]
-script = ExtResource("1_s0tqh")
+[node name="WanderingShooter" type="SGCharacterBody2D" unique_id=1076190699 node_paths=PackedStringArray("_enemy_input", "collision_shape", "skill_manager")]
+script = ExtResource("1_r4qpq")
+_enemy_input = NodePath("EnemyInput")
 collision_shape = NodePath("SGCollisionShape2D")
 skill_manager = NodePath("SkillManager")
 metadata/_custom_type_script = "uid://ctabshow4wpkx"
+
+[node name="EnemyInput" type="Node" parent="." unique_id=1108353275]
+script = ExtResource("2_r4qpq")
 
 [node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="." unique_id=972020178]
 shape = SubResource("SGRectangleShape2D_jm4xr")

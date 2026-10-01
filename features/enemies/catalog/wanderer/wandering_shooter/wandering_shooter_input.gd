@@ -1,12 +1,12 @@
-extends WandererAI
+extends WandererInput
 
-class_name WanderingShooterAI
+class_name WanderingShooterInput
 
 # TODO: put this into the resource
-var shoot_skill_type: StringName = &"shoot_sensor"
-var shoot_skill: ShootSkill
-
-var special_action_ticks: int
+#var shoot_skill_type: StringName = &"shoot_sensor"
+#var shoot_skill: ShootSkill
+#
+#var special_action_ticks: int
 
 #func init(data: EnemyData) -> void:
 	#super(data)

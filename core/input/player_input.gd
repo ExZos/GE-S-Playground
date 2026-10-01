@@ -1,6 +1,8 @@
 extends Node
 
-class_name InputManager
+# TODO: make pure, retrieve last input from GameManager or new PlayerManager
+# TODO: try using move x and move y masks to get last x and y move inputs
+class_name PlayerInput
 
 const INPUT_MAP: Dictionary[StringName, int] = {
 	&"move_up": InputConstants.Bit.MOVE_UP,

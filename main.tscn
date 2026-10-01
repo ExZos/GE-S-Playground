@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b1iphtfxsb15w" path="res://features/vfx/vfx_manager.gd" id="1_5vw27"]
 [ext_resource type="Script" uid="uid://chnm4a6v3t7eq" path="res://features/game/game_manager.gd" id="1_272bh"]
-[ext_resource type="Script" uid="uid://c6klmyhqcx6dx" path="res://core/input/input_manager.gd" id="2_5vw27"]
+[ext_resource type="Script" uid="uid://c6klmyhqcx6dx" path="res://core/input/player_input.gd" id="2_5vw27"]
 [ext_resource type="Resource" uid="uid://cfmf3b05bq3wo" path="res://features/encounters/training.tres" id="3_4c57u"]
 [ext_resource type="Script" uid="uid://bxuayk5f3f5mo" path="res://features/projectiles/projectile_manager.gd" id="3_kek77"]
 [ext_resource type="PackedScene" uid="uid://bk7ksdidmq8ap" path="res://features/player/catalog/player.tscn" id="4_4c57u"]
@@ -18,13 +18,13 @@
 
 [node name="SGFixedNode2D" type="SGFixedNode2D" unique_id=1836307939]
 
-[node name="InputManager" type="Node" parent="." unique_id=1473816164]
+[node name="PlayerInput" type="Node" parent="." unique_id=1473816164]
 script = ExtResource("2_5vw27")
 
-[node name="GameManager" type="Node" parent="." unique_id=468958604 node_paths=PackedStringArray("arena", "input_manager", "player", "projectile_manager", "enemy_manager", "encounter_manager")]
+[node name="GameManager" type="Node" parent="." unique_id=468958604 node_paths=PackedStringArray("arena", "player_input", "player", "projectile_manager", "enemy_manager", "encounter_manager")]
 script = ExtResource("1_272bh")
 arena = NodePath("../Arena")
-input_manager = NodePath("../InputManager")
+player_input = NodePath("../PlayerInput")
 player = NodePath("../Player")
 projectile_manager = NodePath("../ProjectileManager")
 enemy_manager = NodePath("../EnemyManager")

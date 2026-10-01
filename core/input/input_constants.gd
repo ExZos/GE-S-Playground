@@ -36,6 +36,17 @@ class BitGroup:
 	
 # 
 class BitList:
+	const MOVE: Array[int] = [
+		Bit.MOVE_UP,
+		Bit.MOVE_UP | Bit.MOVE_RIGHT,
+		Bit.MOVE_RIGHT,
+		Bit.MOVE_DOWN | Bit.MOVE_RIGHT,
+		Bit.MOVE_DOWN,
+		Bit.MOVE_DOWN | Bit.MOVE_LEFT,
+		Bit.MOVE_LEFT,
+		Bit.MOVE_UP | Bit.MOVE_LEFT
+	]
+	
 	const SKILLS: Array[int] = [
 		Bit.SKILL_1,
 		Bit.SKILL_2,

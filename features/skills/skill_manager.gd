@@ -11,7 +11,7 @@ func init(source: SGFixedNode2D, attack_type: StringName, skill_types: Array[Str
 	_source = source
 	
 	# Initialize basic attack
-	if attack_type != null:
+	if attack_type:
 		var skill_data: SkillData = RegistryManager.get_skill_data(attack_type)
 		if skill_data:
 			_attack = skill_data.scene.instantiate()

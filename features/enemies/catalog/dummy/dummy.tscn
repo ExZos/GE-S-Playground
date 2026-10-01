@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bpl36k5ghpm73"]
 
 [ext_resource type="Script" uid="uid://c84xgceqyyw6u" path="res://features/enemies/enemy.gd" id="1_dqe66"]
+[ext_resource type="Script" uid="uid://cgoor3883rmel" path="res://features/enemies/enemy_input.gd" id="2_m6qpa"]
 [ext_resource type="PackedScene" uid="uid://wqw8oxtp1885" path="res://shared/ui/components/hp_indicator_world/hp_indicator_world.tscn" id="2_nmc3w"]
 [ext_resource type="Script" uid="uid://bsppv81iiunqj" path="res://features/skills/skill_manager.gd" id="3_gs857"]
 
@@ -8,11 +9,14 @@
 extents_x = 3276800
 extents_y = 3276800
 
-[node name="Dummy" type="SGCharacterBody2D" unique_id=1852853647 node_paths=PackedStringArray("collision_shape", "skill_manager")]
+[node name="Dummy" type="SGCharacterBody2D" unique_id=1852853647 node_paths=PackedStringArray("_enemy_input", "collision_shape", "skill_manager")]
 script = ExtResource("1_dqe66")
+_enemy_input = NodePath("EnemyInput")
 collision_shape = NodePath("SGCollisionShape2D")
 skill_manager = NodePath("SkillManager")
-metadata/_custom_type_script = "uid://drfqpd778kpm3"
+
+[node name="EnemyInput" type="Node" parent="." unique_id=1771492262]
+script = ExtResource("2_m6qpa")
 
 [node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="." unique_id=1961943755]
 shape = SubResource("SGRectangleShape2D_76rfl")
