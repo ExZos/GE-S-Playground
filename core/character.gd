@@ -15,13 +15,8 @@ const CHARACTER_MODIFIERS_POOL_SIZE: int = 5
 var character_data: CharacterData
 
 # Dimensions
-# TODO: make part of resource and make player also change size?
-var fp_half_width: int:
-	get:
-		if collision_shape.shape is SGCircleShape2D:
-			return collision_shape.shape.radius
-		
-		return collision_shape.shape.extents.x
+var fp_half_width: int
+var fp_half_height: int
 
 # Stats
 var fp_max_hp: int
@@ -71,6 +66,18 @@ func _validate_property(property: Dictionary) -> void:
 
 func init(data: CharacterData) -> void:
 	character_data = data
+	
+	if collision_shape.shape is SGRectangleShape2D:
+		collision_shape.shape.extents.x = SGFixed.from_int(data.half_width)
+		collision_shape.shape.extents.y = SGFixed.from_int(data.half_height)
+	elif collision_shape.shape is SGCircleShape2D:
+		collision_shape.shape.radius = SGFixed.from_int(data.half_width)
+	
+	# TODO: handle other shapes
+	
+	fp_half_width = data.fp_half_width
+	fp_half_height = data.fp_half_height
+	
 	
 	fp_max_hp = data.fp_max_hp
 	fp_current_hp = data.fp_max_hp

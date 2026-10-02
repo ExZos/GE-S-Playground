@@ -11,6 +11,9 @@ static func get_size(shape: SGShape2D, global_scale: Vector2 = Vector2.ONE) -> V
 	if shape is SGRectangleShape2D:
 		size.x = SGFixed.to_int(shape.extents.x) * 2
 		size.y = SGFixed.to_int(shape.extents.y) * 2
+	elif shape is SGCircleShape2D:
+		size.x = SGFixed.to_int(shape.radius) * 2
+		size.y = SGFixed.to_int(shape.radius) * 2
 	
 	# TODO: handle other shapes
 	

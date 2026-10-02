@@ -45,9 +45,6 @@ func init(data: CharacterData) -> void:
 	fp_min_attack_cooldown = enemy_data.fp_min_attack_cooldown
 	fp_max_attack_cooldown = enemy_data.fp_max_attack_cooldown
 	fp_attack_ticks = 0
-	
-	collision_shape.shape.extents.x = SGFixed.from_int(enemy_data.half_width)
-	collision_shape.shape.extents.y = SGFixed.from_int(enemy_data.half_height)
 
 func advance_frame(input_mask: int, prev_input_mask: int) -> void:
 	if fp_move_ticks > 0:

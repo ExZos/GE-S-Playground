@@ -4,13 +4,12 @@
 [ext_resource type="Script" uid="uid://bsppv81iiunqj" path="res://features/skills/skill_manager.gd" id="6_y2cyt"]
 
 [sub_resource type="SGCircleShape2D" id="SGCircleShape2D_ao3hl"]
-radius = 3276800
 
-[node name="Player" type="SGCharacterBody2D" unique_id=2004616098 node_paths=PackedStringArray("skill_manager", "collision_shape")]
+[node name="Player" type="SGCharacterBody2D" unique_id=2004616098 node_paths=PackedStringArray("collision_shape", "skill_manager")]
 collision_layer = 2
 script = ExtResource("1_sjcu7")
-skill_manager = NodePath("SkillManager")
 collision_shape = NodePath("SGCollisionShape2D")
+skill_manager = NodePath("SkillManager")
 
 [node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="." unique_id=944140082]
 shape = SubResource("SGCircleShape2D_ao3hl")
