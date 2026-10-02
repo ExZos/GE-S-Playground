@@ -16,20 +16,23 @@ class_name GameManager
 const PROJECTILE_MODIFIERS_POOL_SIZE: int = 10
 
 var _projectile_modifiers: DenseFixedArray
-var _prev_input_mask: int = 0
+var _rng: RandomNumberGenerator
 
-# TODO: exported seed param
-var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
+var _prev_input_mask: int
 
 func _ready() -> void:
 	EventBus.register_game_manager(self)
 	RegistryManager.init()
 	
 	_projectile_modifiers = DenseFixedArray.new(PROJECTILE_MODIFIERS_POOL_SIZE, TYPE_OBJECT, ProjectileModifier)
+	_rng = RandomNumberGenerator.new() # TODO: exported seed param
+	
+	_prev_input_mask = 0
 	
 	arena.init()
 	player.init(player_data)
 	encounter_manager.init(encounter_data)
+	
 	
 	# Used to store data for pool initialization
 	var projectile_types: Array[StringName] = []

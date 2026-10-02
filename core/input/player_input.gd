@@ -1,7 +1,5 @@
 extends Node
 
-# TODO: make pure, retrieve last input from GameManager or new PlayerManager
-# TODO: try using move x and move y masks to get last x and y move inputs
 class_name PlayerInput
 
 const INPUT_MAP: Dictionary[StringName, int] = {
@@ -24,21 +22,18 @@ const INPUT_MAP: Dictionary[StringName, int] = {
 }
 
 # Raw input
-var _curr_raw_input_mask: int = 0
 var _prev_raw_input_mask: int = 0
 
 # Movement input history
 var _last_x_move_input: int = 0
 var _last_y_move_input: int = 0
 
-func _input(event: InputEvent) -> void:
-	for action in INPUT_MAP:
-		if event.is_action(action):
-			if event.is_pressed(): _curr_raw_input_mask |= INPUT_MAP[action]
-			elif event.is_released(): _curr_raw_input_mask &= ~INPUT_MAP[action]
-
 func get_input_mask() -> int:
-	var just_pressed_mask: int = _curr_raw_input_mask & ~_prev_raw_input_mask
+	var raw_input_mask: int = 0
+	for action in INPUT_MAP:
+		if Input.is_action_pressed(action): raw_input_mask |= INPUT_MAP[action]
+	
+	var just_pressed_mask: int = raw_input_mask & ~_prev_raw_input_mask
 	
 	# Keep track of last vertical movement input
 	if just_pressed_mask & InputConstants.Bit.MOVE_UP: _last_y_move_input = InputConstants.Bit.MOVE_UP
@@ -48,23 +43,23 @@ func get_input_mask() -> int:
 	if just_pressed_mask & InputConstants.Bit.MOVE_LEFT: _last_x_move_input = InputConstants.Bit.MOVE_LEFT
 	elif just_pressed_mask & InputConstants.Bit.MOVE_RIGHT: _last_x_move_input = InputConstants.Bit.MOVE_RIGHT
 	
-	# Determine the input mask to be used
+	# The sanitized input mask to be used
 	var input_mask: int = 0
 	
 	# Resolve up and down movement input conflicts
-	if (_curr_raw_input_mask & InputConstants.BitGroup.MOVE_Y) == InputConstants.BitGroup.MOVE_Y:
+	if (raw_input_mask & InputConstants.BitGroup.MOVE_Y) == InputConstants.BitGroup.MOVE_Y:
 		input_mask |= _last_y_move_input
 	else:
-		input_mask |= _curr_raw_input_mask & InputConstants.BitGroup.MOVE_Y
+		input_mask |= raw_input_mask & InputConstants.BitGroup.MOVE_Y
 	
 	# Resolve left and right movement input conflicts
-	if (_curr_raw_input_mask & InputConstants.BitGroup.MOVE_X) == InputConstants.BitGroup.MOVE_X:
+	if (raw_input_mask & InputConstants.BitGroup.MOVE_X) == InputConstants.BitGroup.MOVE_X:
 		input_mask |= _last_x_move_input
 	else:
-		input_mask |= _curr_raw_input_mask & InputConstants.BitGroup.MOVE_X
+		input_mask |= raw_input_mask & InputConstants.BitGroup.MOVE_X
 	
 	# Add inputs that don't need to be resolved
-	input_mask |= _curr_raw_input_mask & ~InputConstants.BitGroup.MOVE
+	input_mask |= raw_input_mask & ~InputConstants.BitGroup.MOVE
 	
-	_prev_raw_input_mask = _curr_raw_input_mask
+	_prev_raw_input_mask = raw_input_mask
 	return input_mask
