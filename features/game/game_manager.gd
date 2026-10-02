@@ -83,6 +83,12 @@ func _physics_process(_delta: float) -> void:
 	
 	_prev_input_mask = input_mask
 
+func get_player_position() -> SGFixedVector2:
+	if not player.is_active:
+		return SGFixed.vector2(0, 0)
+	
+	return player.fixed_position
+
 func add_projectile_modifier(modifier: ProjectileModifier) -> void:
 	if _projectile_modifiers.add_item(modifier) == -1:
 		_projectile_modifiers.forced_expand("GameManager -> Projectile modifiers", 1)

@@ -12,6 +12,7 @@ script = ExtResource("1_r4qpq")
 _enemy_input = NodePath("EnemyInput")
 collision_shape = NodePath("SGCollisionShape2D")
 skill_manager = NodePath("SkillManager")
+attack_type = &"shoot_sensor"
 metadata/_custom_type_script = "uid://ctabshow4wpkx"
 
 [node name="EnemyInput" type="Node" parent="." unique_id=1108353275]

@@ -3,15 +3,26 @@ extends CharacterData
 
 class_name EnemyData
 
-@export var min_action_duration: int:
+# TODO: move cooldown with duration leading to idle time
+@export var min_move_duration: int:
 	set(value):
-		min_action_duration = value
-		fp_min_action_duration = SGFixed.from_int(value)
+		min_move_duration = value
+		fp_min_move_duration = SGFixed.from_int(value)
 
-@export var max_action_duration: int:
+@export var max_move_duration: int:
 	set(value):
-		max_action_duration = value
-		fp_max_action_duration = SGFixed.from_int(value)
+		max_move_duration = value
+		fp_max_move_duration = SGFixed.from_int(value)
+
+@export var min_attack_cooldown: int:
+	set(value):
+		min_attack_cooldown = value
+		fp_min_attack_cooldown = SGFixed.from_int(value)
+
+@export var max_attack_cooldown: int:
+	set(value):
+		max_attack_cooldown = value
+		fp_max_attack_cooldown = SGFixed.from_int(value)
 
 @export var half_width: int:
 	set(value):
@@ -25,8 +36,11 @@ class_name EnemyData
 		fp_half_height = SGFixed.from_int(value)
 		fp_height = fp_half_height * 2
 
-var fp_min_action_duration: int
-var fp_max_action_duration: int
+var fp_min_move_duration: int
+var fp_max_move_duration: int
+
+var fp_min_attack_cooldown: int
+var fp_max_attack_cooldown: int
 
 var fp_half_width: int
 var fp_half_height: int

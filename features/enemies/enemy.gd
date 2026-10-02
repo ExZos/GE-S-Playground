@@ -11,10 +11,15 @@ var enemy_data: EnemyData:
 	get():
 		return character_data as EnemyData
 
-# Action
-var fp_min_action_duration: int
-var fp_max_action_duration: int
-var fp_action_ticks: int
+# Move ticks
+var fp_min_move_duration: int
+var fp_max_move_duration: int
+var fp_move_ticks: int
+
+# Attack ticks
+var fp_min_attack_cooldown: int
+var fp_max_attack_cooldown: int
+var fp_attack_ticks: int 
 
 # Misc - used by other nodes
 var type: StringName # Key for determining which pool it belongs to
@@ -33,15 +38,23 @@ func init(data: CharacterData) -> void:
 	
 	type = enemy_data.type
 	
-	fp_min_action_duration = enemy_data.fp_min_action_duration
-	fp_max_action_duration = enemy_data.fp_max_action_duration
+	fp_min_move_duration = enemy_data.fp_min_move_duration
+	fp_max_move_duration = enemy_data.fp_max_move_duration
+	fp_move_ticks = 0
+	
+	fp_min_attack_cooldown = enemy_data.fp_min_attack_cooldown
+	fp_max_attack_cooldown = enemy_data.fp_max_attack_cooldown
+	fp_attack_ticks = 0
 	
 	collision_shape.shape.extents.x = SGFixed.from_int(enemy_data.half_width)
 	collision_shape.shape.extents.y = SGFixed.from_int(enemy_data.half_height)
 
 func advance_frame(input_mask: int, prev_input_mask: int) -> void:
-	if fp_action_ticks > 0:
-		fp_action_ticks -= SGFixed.ONE
+	if fp_move_ticks > 0:
+		fp_move_ticks -= SGFixed.ONE
+	
+	if fp_attack_ticks > 0:
+		fp_attack_ticks -= SGFixed.ONE
 	 
 	super(input_mask, prev_input_mask)
 
@@ -57,9 +70,17 @@ func handle_collision(input_mask: int) -> int:
 	return _enemy_input.handle_collision(self, input_mask)
 
 #
-func can_act() -> bool:
-	if fp_action_ticks > 0:
+func can_move() -> bool:
+	if fp_move_ticks > 0:
 		return false
 		
-	fp_action_ticks = EventBus.get_randi_range(fp_min_action_duration, fp_max_action_duration)
+	fp_move_ticks = EventBus.get_randi_range(fp_min_move_duration, fp_max_move_duration)
 	return true
+
+func can_attack() -> bool:
+	if fp_attack_ticks > 0:
+		return false
+		
+	fp_attack_ticks = EventBus.get_randi_range(fp_min_attack_cooldown, fp_max_attack_cooldown)
+	return true
+	

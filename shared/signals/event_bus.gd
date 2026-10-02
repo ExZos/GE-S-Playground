@@ -12,6 +12,11 @@ var _game_manager: GameManager
 func register_game_manager(manager: GameManager) -> void:
 	_game_manager = manager
 
+func get_player_position() -> SGFixedVector2:
+	assert(_game_manager, "EventBus -> get_player_position: GameManager not registered")
+	
+	return _game_manager.get_player_position()
+
 func modify_projectiles(modifier: ProjectileModifier) -> void:
 	if _game_manager:
 		_game_manager.add_projectile_modifier(modifier)

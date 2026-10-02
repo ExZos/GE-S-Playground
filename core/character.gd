@@ -15,9 +15,13 @@ const CHARACTER_MODIFIERS_POOL_SIZE: int = 5
 var character_data: CharacterData
 
 # Dimensions
+# TODO: make part of resource and make player also change size?
 var fp_half_width: int:
 	get:
-		return collision_shape.shape.radius
+		if collision_shape.shape is SGCircleShape2D:
+			return collision_shape.shape.radius
+		
+		return collision_shape.shape.extents.x
 
 # Stats
 var fp_max_hp: int

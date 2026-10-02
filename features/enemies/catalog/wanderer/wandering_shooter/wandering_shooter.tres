@@ -5,8 +5,10 @@
 
 [resource]
 script = ExtResource("1_nydea")
-min_action_duration = 60
-max_action_duration = 300
+min_move_duration = 60
+max_move_duration = 300
+min_attack_cooldown = 180
+max_attack_cooldown = 180
 half_width = 40
 half_height = 40
 max_hp = 2
