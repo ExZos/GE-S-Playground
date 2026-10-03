@@ -24,6 +24,8 @@ func _validate_property(property: Dictionary) -> void:
 func init(data: CharacterData) -> void:
 	super(data)
 	
+	team = DamageSystem.Team.PLAYER
+	
 	# TODO: use player_data to access PlayerData fields
 	
 	projectile_requests = DenseFixedArray.new(PROJECTILE_REQUESTS_POOL_SIZE, TYPE_OBJECT, ProjectileRequest)

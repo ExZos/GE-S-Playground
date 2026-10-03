@@ -1,5 +1,6 @@
 extends Node
 
+# TODO: scan enemies for projectile pool init
 class_name GameManager
 
 @export var arena: Arena

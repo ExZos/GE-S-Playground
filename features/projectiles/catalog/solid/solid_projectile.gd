@@ -1,5 +1,6 @@
 extends SGCharacterBody2D
 
+# TODO: work on friendly fire behavior
 class_name SolidProjectile
 
 @export var collision_shape: SGCollisionShape2D
@@ -77,11 +78,13 @@ func advance_frame() -> void:
 	if collision:
 		var collider: SGFixedNode2D = collision.get_collider()
 		
-		if collider == source:
-			print("SolidProjectile: Hit self")
-			return;
-		elif collider is Player:
-			print("SolidProjectile: Hit player")
+		if collider is Character:
+			if collider == source:
+				print("SolidProjectile: Hit self")
+				return;
+			elif collider.team == source.team:
+				print("SolidProjectile: Hit team #", source.team)
+				return
 		
 		# TODO: compute fp_damage
 		DamageSystem.apply_damage(collider, fp_base_damage)

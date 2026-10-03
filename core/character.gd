@@ -32,15 +32,16 @@ var fp_speed_mult_sum: int = SGFixed.ONE
 var fp_speed_mult_prod: int = SGFixed.ONE
 
 # Core state
-var is_active: bool = false
-var is_dead: bool = false
+var team: DamageSystem.Team
+var is_active: bool
+var is_dead: bool
 var _normal_collision_layer: int   
 var _normal_collision_mask: int
 
 # Restriction states
-var is_recovering: bool = false
-var restrict_attack: bool = false
-var restrict_skills: bool = false
+var is_recovering: bool
+var restrict_attack: bool
+var restrict_skills: bool
 
 # Tickers
 var fp_recovery_ticks: int = 0
@@ -85,6 +86,7 @@ func init(data: CharacterData) -> void:
 	fp_base_speed = data.fp_base_speed
 	_compute_speed()
 	
+	team = DamageSystem.Team.NEUTRAL
 	is_active = true
 	is_dead = false
 	

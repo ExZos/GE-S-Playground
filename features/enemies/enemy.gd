@@ -34,6 +34,8 @@ func _validate_property(property: Dictionary) -> void:
 func init(data: CharacterData) -> void:
 	super(data)
 	
+	team = DamageSystem.Team.ENEMY
+	
 	# TODO: use enemy_data to access EnemyData fields
 	
 	type = enemy_data.type

@@ -1,5 +1,11 @@
 class_name DamageSystem
 
+enum Team {
+	NEUTRAL,
+	PLAYER,
+	ENEMY
+}
+
 static func apply_damage(target: Node, fp_damage: int):
 	if not "IS_DAMAGEABLE" in target:
 		return

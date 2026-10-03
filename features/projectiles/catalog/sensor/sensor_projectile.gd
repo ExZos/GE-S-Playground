@@ -74,14 +74,16 @@ func advance_frame() -> void:
 	
 	var overlaping_bodies: Array = get_overlapping_bodies()
 	for body: SGFixedNode2D in overlaping_bodies:
-		if body == source:
-			print("SensorProjectile: Hit self")
-			return
-		elif body is Player:
-			print("SensorProjectile: Hit player")
+		if body is Character:
+			if body == source:
+				print("SensorProjectile: Hit self")
+				return
+			elif body.team == source.team:
+				print("SensorProjectile: Hit team #", source.team)
+				return
 		
-		# TODO: compute fp_damage
-		DamageSystem.apply_damage(body, fp_base_damage)
+			# TODO: compute fp_damage
+			DamageSystem.apply_damage(body, fp_base_damage)
 		
 		_bubble_vfx_event.pos = position
 		_bubble_vfx_event.dir = dir
