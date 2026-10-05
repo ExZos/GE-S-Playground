@@ -5,7 +5,7 @@ class_name ProjectileManager
 var _solid_pool: SparseTypedFixedArray
 var _sensor_pool: SparseTypedFixedArray
 
-func init(projectile_types: Array[StringName]) -> void:
+func init(projectile_types: Dictionary[StringName, int]) -> void:
 	var projectiles_by_base_and_type: Dictionary[int, Dictionary] = {
 		ProjectileData.Base.SOLID: {},
 		ProjectileData.Base.SENSOR: {}
@@ -26,7 +26,8 @@ func init(projectile_types: Array[StringName]) -> void:
 		if not projectiles_by_type.has(projectile_data.type):
 			projectiles_by_type[projectile_data.type] = []
 		
-		for i in range(projectile_data.pool_size):
+		var type_pool_size: int = projectile_data.pool_size * projectile_types[type]
+		for i in range(type_pool_size):
 			var projectile: SGFixedNode2D = projectile_data.scene.instantiate()
 			
 			projectile.init(projectile_data)
@@ -36,7 +37,7 @@ func init(projectile_types: Array[StringName]) -> void:
 			projectiles_by_type[projectile_data.type].append(projectile)
 			add_child(projectile)
 		
-		pool_sizes_by_base[projectile_data.base] += projectile_data.pool_size
+		pool_sizes_by_base[projectile_data.base] += type_pool_size
 	
 	_solid_pool = SparseTypedFixedArray.new(pool_sizes_by_base[ProjectileData.Base.SOLID], SolidProjectile, projectiles_by_base_and_type[ProjectileData.Base.SOLID])
 	_sensor_pool = SparseTypedFixedArray.new(pool_sizes_by_base[ProjectileData.Base.SENSOR], SensorProjectile, projectiles_by_base_and_type[ProjectileData.Base.SENSOR])

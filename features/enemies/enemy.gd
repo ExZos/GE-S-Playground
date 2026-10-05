@@ -36,7 +36,7 @@ func init(data: CharacterData) -> void:
 	
 	team = DamageSystem.Team.ENEMY
 	
-	# TODO: use enemy_data to access EnemyData fields
+	# Use enemy_data to access EnemyData fields
 	
 	type = enemy_data.type
 	

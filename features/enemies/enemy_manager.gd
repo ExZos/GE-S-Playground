@@ -94,6 +94,9 @@ func handle_request(enemy_type: StringName, fp_pos_x: int, fp_pos_y: int) -> voi
 		_input_masks.resize(_enemy_pool.max_size)
 		_prev_input_masks.resize(_enemy_pool.max_size)
 
+func get_all_enemies() -> Array[Enemy]:
+	return _enemy_pool.data
+
 # --- Projectile request wrappers ---
 func add_projectile_request(request: ProjectileRequest) -> void:
 	if projectile_requests.add_item(request) == -1:

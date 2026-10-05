@@ -26,7 +26,7 @@ func init(data: CharacterData) -> void:
 	
 	team = DamageSystem.Team.PLAYER
 	
-	# TODO: use player_data to access PlayerData fields
+	# Use player_data to access PlayerData fields
 	
 	projectile_requests = DenseFixedArray.new(PROJECTILE_REQUESTS_POOL_SIZE, TYPE_OBJECT, ProjectileRequest)
 
@@ -34,13 +34,6 @@ func reset() -> void:
 	super()
 	
 	projectile_requests.clear_data()
-
-# --- Skill manager getters ---
-func get_attack() -> Skill:
-	return skill_manager._attack
-
-func get_skills() -> Array[Skill]:
-	return skill_manager._skills
 
 # --- Projectile request wrappers ---
 func add_projectile_request(request: ProjectileRequest) -> void:

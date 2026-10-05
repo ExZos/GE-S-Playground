@@ -1,6 +1,5 @@
 extends Node
 
-# TODO: scan enemies for projectile pool init
 class_name GameManager
 
 @export var arena: Arena
@@ -34,21 +33,15 @@ func _ready() -> void:
 	player.init(player_data)
 	encounter_manager.init(encounter_data)
 	
-	
+	# TODO: consider having projectile pool data in character data
 	# Used to store data for pool initialization
-	var projectile_types: Array[StringName] = []
+	var projectile_types: Dictionary[StringName, int] = {}
 	
 	# TODO: refactor, make skills offer projectile pool init data 
-	# Get data from equipped projectile for pool initialization
-	var attack: Skill = player.get_attack()
-	if attack and attack is ShootSkill:
-		projectile_types.append(attack.projectile_type)
+	_scan_character_for_projectiles(projectile_types, player)
 	
-	# Get data from skills for pool initialization
-	var player_skills: Array[Skill] = player.get_skills()
-	for skill: Skill in player_skills:
-		if skill is ShootSkill:
-			projectile_types.append(skill.projectile_type)
+	for enemy: Enemy in enemy_manager.get_all_enemies():
+		_scan_character_for_projectiles(projectile_types, enemy)
 	
 	# Hand off data to projectile manager to initialize pools
 	projectile_manager.init(projectile_types)
@@ -101,3 +94,19 @@ func add_projectile_modifier(modifier: ProjectileModifier) -> void:
 
 func get_randi_range(from: int, to: int) -> int:
 	return _rng.randi_range(from, to)
+
+func _scan_character_for_projectiles(projectile_types: Dictionary[StringName, int], character: Character) -> void:
+	var attack: Skill = character.get_attack()
+	if attack and attack is ShootSkill:
+		if projectile_types.has(attack.projectile_type):
+			projectile_types[attack.projectile_type] += 1
+		else:
+			projectile_types[attack.projectile_type] = 1
+	
+	var skills: Array[Skill] = character.get_skills()
+	for s: Skill in skills:
+		if s is ShootSkill:
+			if projectile_types.has(s.projectile_type):
+				projectile_types[s.projectile_type] += 1
+			else:
+				projectile_types[s.projectile_type] = 1

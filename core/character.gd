@@ -193,6 +193,13 @@ func advance_frame(input_mask: int, prev_input_mask: int) -> void:
 	
 	move_and_slide()
 
+# --- Skill manager getters ---
+func get_attack() -> Skill:
+	return skill_manager._attack
+
+func get_skills() -> Array[Skill]:
+	return skill_manager._skills
+
 # --- Restriction state utilities ---
 func check_restrict_attack() -> bool:
 	return restrict_attack or is_recovering
