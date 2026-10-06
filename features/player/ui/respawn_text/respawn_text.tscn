@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bmk3j0vlkdc4"]
+
+[ext_resource type="Script" uid="uid://bh13gy65oma38" path="res://features/player/ui/respawn_text/respawn_text.gd" id="1_u7kvv"]
+
+[node name="RespawnText" type="Label" unique_id=616440506]
+script = ExtResource("1_u7kvv")

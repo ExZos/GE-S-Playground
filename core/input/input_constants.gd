@@ -57,5 +57,8 @@ class ActionName:
 	const FROM_BIT: Dictionary[int, StringName] = {
 		Bit.SKILL_1: &"skill_1",
 		Bit.SKILL_2: &"skill_2",
-		Bit.SKILL_3: &"skill_3"
+		Bit.SKILL_3: &"skill_3",
+		
+		# TODO: Temporary
+		Bit.NEXT_WAVE: &"next_wave"
 	}

@@ -12,9 +12,9 @@ var _fp_fps: float
 var last_value: int
 
 func _ready() -> void:
-	assert(target_node, "%s: Target node not assigned" % self.name)
-	assert(value_prop in target_node, "%s: Property '%s' does not exist in %s" % [self.name, value_prop, target_node.name])
-	assert(max_prop in target_node, "%s: Property '%s' does not exist in %s" % [self.name, max_prop, target_node.name])
+	assert(target_node, "%s: Target node not assigned" % name)
+	assert(value_prop in target_node, "%s: Property '%s' does not exist in %s" % [name, value_prop, target_node.name])
+	assert(max_prop in target_node, "%s: Property '%s' does not exist in %s" % [name, max_prop, target_node.name])
 	
 	var fps = Engine.get_physics_ticks_per_second()
 	_fp_fps = SGFixed.from_int(fps)

@@ -13,9 +13,9 @@ extends Control
 var _last_value: int
 
 func _ready() -> void:
-	assert(target_node, "%s: Target node not assigned" % self.name)
-	assert(value_prop in target_node, "%s: Property '%s' does not exist in %s" % [self.name, value_prop, target_node.name])
-	assert(max_prop in target_node, "%s: Property '%s' does not exist in %s" % [self.name, max_prop, target_node.name])
+	assert(target_node, "%s: Target node not assigned" % name)
+	assert(value_prop in target_node, "%s: Property '%s' does not exist in %s" % [name, value_prop, target_node.name])
+	assert(max_prop in target_node, "%s: Property '%s' does not exist in %s" % [name, max_prop, target_node.name])
 	
 	# Set progress bar container's width to the collision shape's width
 	var parent: Node2D = get_parent()

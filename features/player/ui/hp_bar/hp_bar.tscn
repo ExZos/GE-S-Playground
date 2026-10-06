@@ -31,7 +31,7 @@ height = 16
 
 [sub_resource type="LabelSettings" id="LabelSettings_f23tq"]
 font_size = 12
-outline_size = 3
+outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
 [node name="HpBar" type="Control" unique_id=147792061]

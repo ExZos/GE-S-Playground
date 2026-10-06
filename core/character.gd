@@ -79,7 +79,6 @@ func init(data: CharacterData) -> void:
 	fp_half_width = data.fp_half_width
 	fp_half_height = data.fp_half_height
 	
-	
 	fp_max_hp = data.fp_max_hp
 	fp_current_hp = data.fp_max_hp
 	
@@ -98,6 +97,8 @@ func init(data: CharacterData) -> void:
 	skill_manager.init(self, attack_type, skill_types)
 
 func reset() -> void:
+	# TODO: reset dimensions
+	
 	fp_max_hp = character_data.fp_max_hp
 	fp_current_hp = character_data.fp_max_hp
 	
@@ -106,7 +107,7 @@ func reset() -> void:
 	
 	is_dead = false
 	
-	# TODO: reset player modifiers
+	# TODO: reset character modifiers
 
 func activate(fp_pos_x: int, fp_pos_y: int) -> void:
 	reset()

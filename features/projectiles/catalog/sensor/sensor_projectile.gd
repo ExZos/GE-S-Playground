@@ -76,10 +76,10 @@ func advance_frame() -> void:
 	for body: SGFixedNode2D in overlaping_bodies:
 		if body is Character:
 			if body == source:
-				print("SensorProjectile: Hit self")
+				#print("SensorProjectile: Hit self")
 				return
 			elif body.team == source.team:
-				print("SensorProjectile: Hit team #", source.team)
+				#print("SensorProjectile: Hit team #", source.team)
 				return
 		
 			# TODO: compute fp_damage

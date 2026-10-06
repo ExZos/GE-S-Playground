@@ -80,10 +80,10 @@ func advance_frame() -> void:
 		
 		if collider is Character:
 			if collider == source:
-				print("SolidProjectile: Hit self")
+				#print("SolidProjectile: Hit self")
 				return;
 			elif collider.team == source.team:
-				print("SolidProjectile: Hit team #", source.team)
+				#print("SolidProjectile: Hit team #", source.team)
 				return
 		
 		# TODO: compute fp_damage
