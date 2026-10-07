@@ -1,8 +1,8 @@
-extends Label
+extends HBoxContainer
 
-# TODO: highlight key text
 @export var character_node: Character
 
+@onready var key_label: Label = $Key
 @onready var timer: Timer = $Timer
 
 var _last_is_dead: bool
@@ -15,7 +15,7 @@ func _ready() -> void:
 	visible = _last_is_dead
 	
 	key_text = InputDisplayUtils.get_key_text("RespawnText", InputConstants.Bit.NEXT_WAVE)
-	text = "Press %s to respawn" % key_text.to_upper()
+	key_label.text = key_text
 	
 	timer.timeout.connect(_on_timer_timeout)
 

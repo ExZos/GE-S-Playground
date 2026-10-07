@@ -1,15 +1,29 @@
 [gd_scene format=3 uid="uid://bmk3j0vlkdc4"]
 
 [ext_resource type="Script" uid="uid://bh13gy65oma38" path="res://features/player/ui/respawn_text/respawn_text.gd" id="1_u7kvv"]
+[ext_resource type="LabelSettings" uid="uid://ce6pyqa4judlw" path="res://shared/ui/label_settings/respawn_text_description.tres" id="2_pb6o4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_u7kvv"]
 font_color = Color(0, 0, 0, 1)
 outline_size = 4
 
-[node name="RespawnText" type="Label" unique_id=616440506]
+[node name="RespawnText" type="HBoxContainer" unique_id=329449568]
 offset_right = 1.0
 offset_bottom = 23.0
-label_settings = SubResource("LabelSettings_u7kvv")
 script = ExtResource("1_u7kvv")
+
+[node name="Action" type="Label" parent="." unique_id=898378908]
+layout_mode = 2
+text = "Press"
+label_settings = ExtResource("2_pb6o4")
+
+[node name="Key" type="Label" parent="." unique_id=345155040]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_u7kvv")
+
+[node name="Result" type="Label" parent="." unique_id=1943481105]
+layout_mode = 2
+text = "to respawn"
+label_settings = ExtResource("2_pb6o4")
 
 [node name="Timer" type="Timer" parent="." unique_id=938162169]
