@@ -19,8 +19,9 @@ class Bit:
 	const SKILL_2: int = 1 << 9
 	const SKILL_3: int = 1 << 10
 	
-	# TODO: Temporary
-	const NEXT_WAVE: int = 1 << 11
+	# Other
+	const RESPAWN: int = 1 << 11
+	const NEXT_WAVE: int = 1 << 12
 
 # Bit position groupings
 class BitGroup:
@@ -59,6 +60,6 @@ class ActionName:
 		Bit.SKILL_2: &"skill_2",
 		Bit.SKILL_3: &"skill_3",
 		
-		# TODO: Temporary
+		Bit.RESPAWN: &"respawn",
 		Bit.NEXT_WAVE: &"next_wave"
 	}

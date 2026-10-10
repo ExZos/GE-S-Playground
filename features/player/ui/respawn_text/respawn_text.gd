@@ -14,7 +14,7 @@ func _ready() -> void:
 	_last_is_dead = character_node.is_dead
 	visible = _last_is_dead
 	
-	key_text = InputDisplayUtils.get_key_text("RespawnText", InputConstants.Bit.NEXT_WAVE)
+	key_text = InputDisplayUtils.get_key_text("RespawnText", InputConstants.Bit.RESPAWN)
 	key_label.text = key_text
 	
 	timer.timeout.connect(_on_timer_timeout)

@@ -1,5 +1,6 @@
 extends Node
 
+# TODO: modify to handle multiple players
 class_name PlayerInput
 
 const INPUT_MAP: Dictionary[StringName, int] = {
@@ -17,7 +18,7 @@ const INPUT_MAP: Dictionary[StringName, int] = {
 	&"skill_2": InputConstants.Bit.SKILL_2,
 	&"skill_3": InputConstants.Bit.SKILL_3,
 	
-	# TODO: Temporary
+	&"respawn": InputConstants.Bit.RESPAWN,
 	&"next_wave": InputConstants.Bit.NEXT_WAVE
 }
 
