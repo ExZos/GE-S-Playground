@@ -5,6 +5,8 @@
 
 [resource]
 script = ExtResource("1_5aqrh")
+min_move_duration = 60
+max_move_duration = 300
 half_width = 50
 half_height = 50
 max_hp = 3

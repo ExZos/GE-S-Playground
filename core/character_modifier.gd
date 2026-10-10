@@ -2,10 +2,10 @@ extends RefCounted
 
 class_name CharacterModifier
 
-var source: SGFixedNode2D
+var source: Character
 var _fp_duration_ticks: int = 0
 
-func _init(_source: SGFixedNode2D, fp_duration: int) -> void:
+func _init(_source: Character, fp_duration: int) -> void:
 	source = _source
 	_fp_duration_ticks = fp_duration
 

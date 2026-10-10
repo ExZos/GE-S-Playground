@@ -2,10 +2,10 @@ extends RefCounted
 
 class_name ProjectileModifier
 
-var source: SGFixedNode2D
+var source: Character
 var skill: Skill
 
-func _init(_source: SGFixedNode2D, _skill: Skill) -> void:
+func _init(_source: Character, _skill: Skill) -> void:
 	source = _source
 	skill = _skill
 

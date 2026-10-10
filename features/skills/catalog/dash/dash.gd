@@ -73,7 +73,7 @@ class DashModifier extends CharacterModifier:
 	var fp_speed_mult_prod_inc: int = 0
 	var dir: Vector2i = Vector2i.ZERO
 	
-	func _init(_source: SGFixedNode2D, _fp_speed_add_inc: int, _fp_speed_mult_sum_inc: int, _fp_speed_mult_prod_inc: int) -> void:
+	func _init(_source: Character, _fp_speed_add_inc: int, _fp_speed_mult_sum_inc: int, _fp_speed_mult_prod_inc: int) -> void:
 		super(_source, 0) # Avoid intializing with duration to track actives
 		
 		fp_speed_add_inc = _fp_speed_add_inc

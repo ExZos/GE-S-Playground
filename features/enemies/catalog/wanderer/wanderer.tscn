@@ -23,10 +23,10 @@ shape = SubResource("SGRectangleShape2D_fcvrq")
 [node name="SkillManager" type="Node" parent="." unique_id=462257105]
 script = ExtResource("2_7ltuq")
 
-[node name="HpIndicatorWorld" parent="." unique_id=1756684744 node_paths=PackedStringArray("target_node") instance=ExtResource("2_ldw3x")]
+[node name="HpIndicatorWorld" parent="." unique_id=1756684744 node_paths=PackedStringArray("character_node") instance=ExtResource("2_ldw3x")]
 anchors_preset = -1
 offset_top = -150.0
 grow_horizontal = 2
 grow_vertical = 0
-target_node = NodePath("..")
+character_node = NodePath("..")
 show_hp_text = false

@@ -5,7 +5,7 @@ class_name SensorProjectile
 @export var collision_shape: SGCollisionShape2D
 
 # Core
-var source: SGFixedNode2D
+var source: Character
 var dir: Vector2i
 
 # Stats
@@ -91,7 +91,7 @@ func advance_frame() -> void:
 		
 		deactivate()
 
-func activate(_source: SGFixedNode2D, fp_pos_x: int, fp_pos_y: int, _dir: Vector2i) -> void:
+func activate(_source: Character, fp_pos_x: int, fp_pos_y: int, _dir: Vector2i) -> void:
 	is_active = true
 	
 	source = _source

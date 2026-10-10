@@ -70,7 +70,7 @@ class ChargingSpeedModifier extends CharacterModifier:
 	var restrict_attack: bool = false
 	var restrict_skills: bool = false
 	
-	func _init(_source: SGFixedNode2D, _fp_speed_mult_prod_inc: int, _restrict_attack: bool, _restrict_skills: bool) -> void:
+	func _init(_source: Character, _fp_speed_mult_prod_inc: int, _restrict_attack: bool, _restrict_skills: bool) -> void:
 		super(_source, 0)
 		
 		fp_speed_mult_prod_inc = _fp_speed_mult_prod_inc
@@ -98,7 +98,7 @@ class VelocityModifier extends ProjectileModifier:
 	
 	var _vfx_events: DenseFixedArray
 	
-	func _init(_source: SGFixedNode2D, _skill: Skill, _fp_speed_add_inc: int, _fp_speed_mult_sum_inc: int, _fp_speed_mult_prod_inc: int) -> void:
+	func _init(_source: Character, _skill: Skill, _fp_speed_add_inc: int, _fp_speed_mult_sum_inc: int, _fp_speed_mult_prod_inc: int) -> void:
 		super(_source, _skill)
 		
 		fp_speed_add_inc = _fp_speed_add_inc

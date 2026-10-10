@@ -2,12 +2,12 @@ extends SGFixedNode2D
 
 class_name Skill
 
-var source: SGFixedNode2D
+var source: Character
 var key_bit: int
 
 var check_restricted: Callable
 
-func init(_source: SGFixedNode2D, _key_bit: int, data: SkillData, is_attack: bool = false) -> void:
+func init(_source: Character, _key_bit: int, data: SkillData, is_attack: bool = false) -> void:
 	source = _source
 	key_bit = _key_bit
 	check_restricted = source.check_restrict_attack if is_attack else source.check_restrict_skills

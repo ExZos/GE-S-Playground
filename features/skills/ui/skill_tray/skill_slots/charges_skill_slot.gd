@@ -38,6 +38,7 @@ func _process(_delta: float) -> void:
 	else:
 		progress_bar.value = skill._fp_cooldown
 		cooldown_label.text = ""
+		progress_bar.tint_progress = Color.WHITE
 	
 	if last_charges != skill.charges:
 		charges_label.text = str(skill.charges)

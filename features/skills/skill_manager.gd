@@ -2,12 +2,12 @@ extends Node
 
 class_name SkillManager
 
-var _source: SGFixedNode2D
+var _source: Character
 
 var _attack: Skill
 var _skills: Array[Skill] = []
 
-func init(source: SGFixedNode2D, attack_type: StringName, skill_types: Array[StringName]) -> void:
+func init(source: Character, attack_type: StringName, skill_types: Array[StringName]) -> void:
 	_source = source
 	
 	# Initialize basic attack
