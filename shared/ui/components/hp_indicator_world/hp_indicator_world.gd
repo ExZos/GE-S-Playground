@@ -7,16 +7,24 @@ extends Control
 @export var character_node: Character
 @export var show_hp_text: bool = true
 
+@export var min_width: int = 50
+@export var min_height: int = 10
+
 var _last_value: int
 
 func _ready() -> void:
 	assert(character_node, "%s: Character node not assigned" % name)
 	
-	# Set progress bar container's width to the collision shape's width
-	var parent: Node2D = get_parent()
-	var collision_shape: SGCollisionShape2D = parent.find_child("SGCollisionShape2D")
-	var shape_size: Vector2 = SGShape2DUtils.get_size(collision_shape.shape, collision_shape.global_scale)
-	progress_bar_container.custom_minimum_size.x = shape_size.x
+	var character_half_width: int = SGFixed.to_int(character_node.fp_half_width)
+	var character_half_height: int = SGFixed.to_int(character_node.fp_half_height)
+	
+	# Set dimensions based on the character node's
+	size.x = max(character_half_width * 2, min_width)
+	size.y = max(character_half_height * 0.1, min_height)
+	
+	# Set position based on dimensions
+	position.x = -size.x/2
+	position.y = -character_half_height - (size.y * 2)
 	
 	progress_bar.max_value = character_node.fp_max_hp
 	

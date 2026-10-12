@@ -26,7 +26,6 @@ script = ExtResource("2_jm4xr")
 
 [node name="HpIndicatorWorld" parent="." unique_id=1756684744 node_paths=PackedStringArray("character_node") instance=ExtResource("2_s0tqh")]
 anchors_preset = -1
-offset_top = -125.0
 grow_horizontal = 2
 grow_vertical = 0
 character_node = NodePath("..")
