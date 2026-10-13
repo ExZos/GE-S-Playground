@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bsppv81iiunqj" path="res://features/skills/skill_manager.gd" id="2_7ltuq"]
 [ext_resource type="PackedScene" uid="uid://wqw8oxtp1885" path="res://shared/ui/components/hp_indicator_world/hp_indicator_world.tscn" id="2_ldw3x"]
 [ext_resource type="Script" uid="uid://yscl0whpj17u" path="res://features/enemies/catalog/wanderer/wanderer_input.gd" id="3_nkwql"]
+[ext_resource type="Script" uid="uid://dkd0nm56e82pw" path="res://shared/world/components/character_sprite.gd" id="4_h620n"]
 
 [sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_fcvrq"]
 
@@ -22,6 +23,10 @@ shape = SubResource("SGRectangleShape2D_fcvrq")
 
 [node name="SkillManager" type="Node" parent="." unique_id=462257105]
 script = ExtResource("2_7ltuq")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=434029424 node_paths=PackedStringArray("character")]
+script = ExtResource("4_h620n")
+character = NodePath("..")
 
 [node name="HpIndicatorWorld" parent="." unique_id=1756684744 node_paths=PackedStringArray("character_node") instance=ExtResource("2_ldw3x")]
 anchors_preset = -1

@@ -2,12 +2,14 @@
 
 [ext_resource type="Script" uid="uid://danle02tjvxb3" path="res://features/enemies/enemy_data.gd" id="1_ctxdw"]
 [ext_resource type="PackedScene" uid="uid://bpl36k5ghpm73" path="res://features/enemies/catalog/dummy/dummy.tscn" id="1_gsrtl"]
+[ext_resource type="Texture2D" uid="uid://b56xw4i1kod5t" path="res://features/enemies/enemy_sprite.tres" id="3_a1jy4"]
 
 [resource]
 script = ExtResource("1_ctxdw")
-max_hp = 5
+sprite_texture = ExtResource("3_a1jy4")
 half_width = 25
 half_height = 25
+max_hp = 5
 type = &"dummy"
 scene = ExtResource("1_gsrtl")
 metadata/_custom_type_script = "uid://danle02tjvxb3"
