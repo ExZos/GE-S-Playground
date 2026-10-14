@@ -44,6 +44,13 @@ var _bubble_vfx_event: BubbleVFXEvent
 
 func init(data: ProjectileData) -> void:
 	type = data.type
+	
+	if collision_shape.shape is SGRectangleShape2D:
+		collision_shape.shape.extents.x = SGFixed.from_int(data.half_width)
+		collision_shape.shape.extents.y = SGFixed.from_int(data.half_height)
+	elif collision_shape.shape is SGCircleShape2D:
+		collision_shape.shape.radius = SGFixed.from_int(data.half_width)
+	
 	fp_base_speed = SGFixed.from_int(data.base_speed)
 	fp_base_damage = SGFixed.from_int(data.base_damage)
 	

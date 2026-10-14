@@ -2,10 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dqk2livkncmja" path="res://features/projectiles/projectile_data.gd" id="1_jhtr8"]
 [ext_resource type="PackedScene" uid="uid://drukoei2oscs0" path="res://features/projectiles/catalog/sensor/sensor_projectile.tscn" id="1_qdryc"]
+[ext_resource type="Texture2D" uid="uid://dnpmx16vyryl1" path="res://features/projectiles/projectile_sprite.tres" id="3_mqkmo"]
 
 [resource]
 script = ExtResource("1_jhtr8")
 pool_size = 10
+sprite_texture = ExtResource("3_mqkmo")
+half_width = 10
+half_height = 10
 base_speed = 5
 base_damage = 2
 type = &"sensor_projectile"

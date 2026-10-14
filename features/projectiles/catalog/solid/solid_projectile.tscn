@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ddcypeu7hpk42"]
 
 [ext_resource type="Script" uid="uid://df2vg8tw1qjun" path="res://features/projectiles/catalog/solid/solid_projectile.gd" id="1_b8bi8"]
+[ext_resource type="Script" uid="uid://b1dfkybtve11k" path="res://features/projectiles/projectile_sprite.gd" id="2_ry6qu"]
 
 [sub_resource type="SGCircleShape2D" id="SGCircleShape2D_6tg3g"]
 
@@ -12,3 +13,7 @@ collision_shape = NodePath("SGCollisionShape2D")
 
 [node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="." unique_id=2146144344]
 shape = SubResource("SGCircleShape2D_6tg3g")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1830644872 node_paths=PackedStringArray("projectile")]
+script = ExtResource("2_ry6qu")
+projectile = NodePath("..")

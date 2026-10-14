@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://drukoei2oscs0"]
 
 [ext_resource type="Script" uid="uid://dr4npjwtj0ytp" path="res://features/projectiles/catalog/sensor/sensor_projectile.gd" id="1_48nlb"]
+[ext_resource type="Script" uid="uid://b1dfkybtve11k" path="res://features/projectiles/projectile_sprite.gd" id="2_kw6m0"]
 
 [sub_resource type="SGCircleShape2D" id="SGCircleShape2D_48nlb"]
 
@@ -12,3 +13,7 @@ collision_shape = NodePath("SGCollisionShape2D")
 
 [node name="SGCollisionShape2D" type="SGCollisionShape2D" parent="." unique_id=1688444965]
 shape = SubResource("SGCircleShape2D_48nlb")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=782318796 node_paths=PackedStringArray("projectile")]
+script = ExtResource("2_kw6m0")
+projectile = NodePath("..")

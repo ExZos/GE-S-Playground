@@ -14,6 +14,11 @@ enum Base {
 @export_group("Core")
 @export var base: Base
 @export_range(0, 500) var pool_size: int # TODO: automatically compute based on stats
+@export var sprite_texture: Texture2D
+
+@export_group("Dimensions")
+@export var half_width: int
+@export var half_height: int
 
 @export_group("Stats")
 @export var base_speed: int
