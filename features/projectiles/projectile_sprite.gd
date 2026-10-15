@@ -29,6 +29,6 @@ func _process(_delta: float) -> void:
 		_last_projectile_team = projectile_team
 		
 		if projectile_team == DamageSystem.Team.PLAYER:
-			self_modulate = Color.LIGHT_BLUE
+			self_modulate = GameColors.Team.PLAYER_PROJECTILE
 		elif projectile_team == DamageSystem.Team.ENEMY:
-			self_modulate = Color.LIGHT_SALMON
+			self_modulate = GameColors.Team.ENEMY_PROJECTILE

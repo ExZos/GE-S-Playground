@@ -33,11 +33,11 @@ encounter_manager = NodePath("../EncounterManager")
 player_data = ExtResource("10_dg77c")
 encounter_data = ExtResource("3_4c57u")
 
-[node name="ProjectileManager" type="Node" parent="." unique_id=534493029]
-script = ExtResource("3_kek77")
-
 [node name="EnemyManager" type="Node" parent="." unique_id=1771992521]
 script = ExtResource("4_kek77")
+
+[node name="ProjectileManager" type="Node" parent="." unique_id=534493029]
+script = ExtResource("3_kek77")
 
 [node name="EncounterManager" type="Node" parent="." unique_id=1391771661 node_paths=PackedStringArray("arena", "enemy_manager", "spawn_area", "spawn_collision_shape")]
 script = ExtResource("6_4c57u")
