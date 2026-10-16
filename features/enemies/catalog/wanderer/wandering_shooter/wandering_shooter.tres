@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dnxuignmasywe" path="res://features/enemies/catalog/wanderer/wandering_shooter/wandering_shooter.tscn" id="1_hpgwl"]
 [ext_resource type="Script" uid="uid://danle02tjvxb3" path="res://features/enemies/enemy_data.gd" id="1_nydea"]
-[ext_resource type="Texture2D" uid="uid://b56xw4i1kod5t" path="res://shared/world/textures/square_sprite.tres" id="3_m4vik"]
+[ext_resource type="Texture2D" uid="uid://ctmeskwoe621h" path="res://assets/square_sprite.png" id="3_m4vik"]
 
 [resource]
 script = ExtResource("1_nydea")
