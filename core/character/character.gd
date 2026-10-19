@@ -50,6 +50,9 @@ var fp_recovery_ticks: int = 0
 var mov_dir: Vector2i = Vector2i.ZERO
 var forced_mov_dir: Vector2i = Vector2i.ZERO
 
+# Attack
+var atk_dir: Vector2i = Vector2i.ZERO
+
 # 
 var _character_modifiers: SparseFixedArray
 var _character_modifiers_is_dirty: bool = false
@@ -181,6 +184,15 @@ func advance_frame(input_mask: int, prev_input_mask: int) -> void:
 		
 		_compute_speed()
 		_character_modifiers_is_dirty = false
+	
+	# TODO: decide if you even want aim_dir to be accounted for in sprite rotation
+	# TODO: fix attacking left or right while holding attack up or down, or attacking up while holding attack down
+	# Get attack inputs to determine dir
+	if input_mask & InputConstants.Bit.ATK_UP: atk_dir = Vector2i.UP
+	elif input_mask & InputConstants.Bit.ATK_DOWN: atk_dir = Vector2i.DOWN
+	elif input_mask & InputConstants.Bit.ATK_LEFT: atk_dir = Vector2i.LEFT
+	elif input_mask & InputConstants.Bit.ATK_RIGHT: atk_dir = Vector2i.RIGHT
+	else: atk_dir = Vector2i.ZERO
 	
 	# Movement
 	if is_recovering:
