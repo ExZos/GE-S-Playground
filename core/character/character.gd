@@ -52,6 +52,7 @@ var forced_mov_dir: Vector2i = Vector2i.ZERO
 
 # Attack
 var atk_dir: Vector2i = Vector2i.ZERO
+var _last_atk_bit: int = 0
 
 # 
 var _character_modifiers: SparseFixedArray
@@ -163,8 +164,40 @@ func advance_frame(input_mask: int, prev_input_mask: int) -> void:
 	elif input_mask & InputConstants.Bit.MOVE_DOWN: mov_dir.y = 1
 	else: mov_dir.y = 0
 	
+	# TODO: handle better
+	# TODO: consider moving to PlayerInput 
+	# Handle attack inputs, prioritizing just pressed inputs
+	if just_pressed_mask & InputConstants.Bit.ATK_UP:
+		atk_dir = Vector2i.UP
+		_last_atk_bit = InputConstants.Bit.ATK_UP
+	elif just_pressed_mask & InputConstants.Bit.ATK_DOWN:
+		atk_dir = Vector2i.DOWN
+		_last_atk_bit = InputConstants.Bit.ATK_DOWN
+	elif just_pressed_mask & InputConstants.Bit.ATK_LEFT:
+		atk_dir = Vector2i.LEFT
+		_last_atk_bit = InputConstants.Bit.ATK_LEFT
+	elif just_pressed_mask & InputConstants.Bit.ATK_RIGHT:
+		atk_dir = Vector2i.RIGHT
+		_last_atk_bit = InputConstants.Bit.ATK_RIGHT
+	elif just_released_mask & _last_atk_bit: # Resort to held attack inputs
+		if input_mask & InputConstants.Bit.ATK_UP:
+			atk_dir = Vector2i.UP
+			_last_atk_bit = InputConstants.Bit.ATK_UP
+		elif input_mask & InputConstants.Bit.ATK_DOWN:
+			atk_dir = Vector2i.DOWN
+			_last_atk_bit = InputConstants.Bit.ATK_DOWN
+		elif input_mask & InputConstants.Bit.ATK_LEFT:
+			atk_dir = Vector2i.LEFT
+			_last_atk_bit = InputConstants.Bit.ATK_LEFT
+		elif input_mask & InputConstants.Bit.ATK_RIGHT:
+			atk_dir = Vector2i.RIGHT
+			_last_atk_bit = InputConstants.Bit.ATK_RIGHT
+		else: 
+			atk_dir = Vector2i.ZERO
+			_last_atk_bit = 0
+	
 	# Attack and skill activations (since attack is also a skill)
-	skill_manager.advance_frame(input_mask, just_pressed_mask, just_released_mask, mov_dir)
+	skill_manager.advance_frame(input_mask, just_pressed_mask, just_released_mask, mov_dir, atk_dir)
 	
 	# Apply modifiers
 	if _character_modifiers_is_dirty:
@@ -184,15 +217,6 @@ func advance_frame(input_mask: int, prev_input_mask: int) -> void:
 		
 		_compute_speed()
 		_character_modifiers_is_dirty = false
-	
-	# TODO: decide if you even want aim_dir to be accounted for in sprite rotation
-	# TODO: fix attacking left or right while holding attack up or down, or attacking up while holding attack down
-	# Get attack inputs to determine dir
-	if input_mask & InputConstants.Bit.ATK_UP: atk_dir = Vector2i.UP
-	elif input_mask & InputConstants.Bit.ATK_DOWN: atk_dir = Vector2i.DOWN
-	elif input_mask & InputConstants.Bit.ATK_LEFT: atk_dir = Vector2i.LEFT
-	elif input_mask & InputConstants.Bit.ATK_RIGHT: atk_dir = Vector2i.RIGHT
-	else: atk_dir = Vector2i.ZERO
 	
 	# Movement
 	if is_recovering:
