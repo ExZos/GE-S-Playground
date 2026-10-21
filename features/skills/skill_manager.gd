@@ -7,6 +7,9 @@ var _source: Character
 var _attack: Skill
 var _skills: Array[Skill] = []
 
+var _last_mov_input: int
+var _last_mov_dir: Vector2i
+
 func init(source: Character, attack_type: StringName, skill_types: Array[StringName]) -> void:
 	_source = source
 	
@@ -33,16 +36,28 @@ func init(source: Character, attack_type: StringName, skill_types: Array[StringN
 		
 		add_child(skill)
 		_skills.append(skill)
+	
+	_last_mov_input = 0
+	_last_mov_dir = Vector2i.ZERO
 
 func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask: int, _mov_dir: Vector2i, atk_dir) -> void:
-	# TODO: fix direction prioritization
+	# TODO: alter logic if skill direction uses player direction (telekinesis neutral dir activation)
 	# Determine skill direction using held attack direction or movement direction otherwise
-	var skill_dir: Vector2i
+	var skill_dir: Vector2i = Vector2i.ZERO
 	if atk_dir != Vector2i.ZERO: skill_dir = atk_dir
-	elif input_mask & InputConstants.Bit.MOVE_UP: skill_dir = Vector2i.UP
-	elif input_mask & InputConstants.Bit.MOVE_DOWN: skill_dir = Vector2i.DOWN
-	elif input_mask & InputConstants.Bit.MOVE_LEFT: skill_dir = Vector2i.LEFT
-	elif input_mask & InputConstants.Bit.MOVE_RIGHT: skill_dir = Vector2i.RIGHT
+	elif input_mask & InputConstants.BitGroup.MOVE != 0:
+		if _just_pressed_mask & InputConstants.BitGroup.MOVE != 0:
+			_last_mov_dir = InputConstants.ATK_Direction.FROM_MOVE_BIT[_just_pressed_mask & InputConstants.BitGroup.MOVE]
+			_last_mov_input = InputConstants.Bit.FROM_MOVE_DIR[_last_mov_dir]
+		elif _just_released_mask & _last_mov_input:
+			if input_mask & InputConstants.BitGroup.MOVE != 0:
+				_last_mov_dir = InputConstants.ATK_Direction.FROM_MOVE_BIT[input_mask & InputConstants.BitGroup.MOVE]
+				_last_mov_input = InputConstants.Bit.FROM_MOVE_DIR[_last_mov_dir]
+			else:
+				_last_mov_dir = Vector2i.ZERO
+				_last_mov_input = 0
+				
+		skill_dir = _last_mov_dir
 	
 	# Skill activation
 	for skill: Skill in _skills:

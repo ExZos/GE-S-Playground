@@ -22,6 +22,25 @@ class Bit:
 	# Other
 	const RESPAWN: int = 1 << 11
 	const NEXT_WAVE: int = 1 << 12
+	
+	# TODO: add diagonals
+	const FROM_MOVE_DIR: Dictionary[Vector2i, int] = {
+		Vector2i.UP: MOVE_UP,
+		Vector2i.DOWN: MOVE_DOWN,
+		Vector2i.LEFT: MOVE_LEFT,
+		Vector2i.RIGHT: MOVE_RIGHT,
+		
+		Vector2i.ZERO: 0
+	}
+	
+	const FROM_ATK_DIR: Dictionary[Vector2i, int] = {
+		Vector2i.UP: ATK_UP,
+		Vector2i.DOWN: ATK_DOWN,
+		Vector2i.LEFT: ATK_LEFT,
+		Vector2i.RIGHT: ATK_RIGHT,
+		
+		Vector2i.ZERO: 0
+	}
 
 # Bit position groupings
 class BitGroup:
@@ -48,11 +67,72 @@ class BitList:
 		Bit.MOVE_UP | Bit.MOVE_LEFT
 	]
 	
+	const ATK: Array[int] = [
+		Bit.ATK_UP,
+		Bit.ATK_DOWN,
+		Bit.ATK_LEFT,
+		Bit.ATK_RIGHT
+	]
+	
 	const SKILLS: Array[int] = [
 		Bit.SKILL_1,
 		Bit.SKILL_2,
 		Bit.SKILL_3
 	]
+
+# TODO: rename atk dir
+class ATK_Direction:
+	const FROM_ATK_BIT: Dictionary[int, Vector2i] = {
+		Bit.ATK_UP: Vector2i.UP,
+		Bit.ATK_DOWN: Vector2i.DOWN,
+		Bit.ATK_LEFT: Vector2i.LEFT,
+		Bit.ATK_RIGHT: Vector2i.RIGHT,
+		
+		# 2 inputs x and y
+		(Bit.ATK_UP | Bit.ATK_LEFT): Vector2i.UP,
+		(Bit.ATK_UP | Bit.ATK_RIGHT): Vector2i.UP,
+		(Bit.ATK_DOWN | Bit.ATK_LEFT): Vector2i.DOWN,
+		(Bit.ATK_DOWN | Bit.ATK_RIGHT): Vector2i.DOWN,
+		
+		# 2 inputs opposites
+		(Bit.ATK_UP | Bit.ATK_DOWN): Vector2i.UP,
+		(Bit.ATK_LEFT | Bit.ATK_RIGHT): Vector2i.LEFT,
+		
+		# 3 inputs
+		(Bit.ATK_UP | Bit.ATK_DOWN | Bit.ATK_LEFT): Vector2i.LEFT,
+		(Bit.ATK_UP | Bit.ATK_DOWN | Bit.ATK_RIGHT): Vector2i.RIGHT,
+		(Bit.ATK_UP | Bit.ATK_LEFT | Bit.ATK_RIGHT): Vector2i.UP,
+		(Bit.ATK_DOWN | Bit.ATK_LEFT | Bit.ATK_RIGHT): Vector2i.DOWN,
+		
+		# 4 inputs
+		(Bit.ATK_UP | Bit.ATK_DOWN | Bit.ATK_LEFT | Bit.ATK_RIGHT): Vector2i.UP
+	}
+	
+	const FROM_MOVE_BIT: Dictionary[int, Vector2i] = {
+		Bit.MOVE_UP: Vector2i.UP,
+		Bit.MOVE_DOWN: Vector2i.DOWN,
+		Bit.MOVE_LEFT: Vector2i.LEFT,
+		Bit.MOVE_RIGHT: Vector2i.RIGHT,
+		
+		# 2 inputs x and y
+		(Bit.MOVE_UP | Bit.MOVE_LEFT): Vector2i.UP,
+		(Bit.MOVE_UP | Bit.MOVE_RIGHT): Vector2i.UP,
+		(Bit.MOVE_DOWN | Bit.MOVE_LEFT): Vector2i.DOWN,
+		(Bit.MOVE_DOWN | Bit.MOVE_RIGHT): Vector2i.DOWN,
+		
+		# 2 inputs opposites
+		(Bit.MOVE_UP | Bit.MOVE_DOWN): Vector2i.UP,
+		(Bit.MOVE_LEFT | Bit.MOVE_RIGHT): Vector2i.LEFT,
+		
+		# 3 inputs
+		(Bit.MOVE_UP | Bit.MOVE_DOWN | Bit.MOVE_LEFT): Vector2i.LEFT,
+		(Bit.MOVE_UP | Bit.MOVE_DOWN | Bit.MOVE_RIGHT): Vector2i.RIGHT,
+		(Bit.MOVE_UP | Bit.MOVE_LEFT | Bit.MOVE_RIGHT): Vector2i.UP,
+		(Bit.ATK_DOWN | Bit.MOVE_LEFT | Bit.MOVE_RIGHT): Vector2i.DOWN,
+		
+		# 4 inputs
+		(Bit.MOVE_UP | Bit.MOVE_DOWN | Bit.MOVE_LEFT | Bit.MOVE_RIGHT): Vector2i.UP
+	}
 
 class ActionName:
 	const FROM_BIT: Dictionary[int, StringName] = {

@@ -52,7 +52,7 @@ var forced_mov_dir: Vector2i = Vector2i.ZERO
 
 # Attack
 var atk_dir: Vector2i = Vector2i.ZERO
-var _last_atk_bit: int = 0
+var _last_atk_input: int = 0
 
 # 
 var _character_modifiers: SparseFixedArray
@@ -164,37 +164,17 @@ func advance_frame(input_mask: int, prev_input_mask: int) -> void:
 	elif input_mask & InputConstants.Bit.MOVE_DOWN: mov_dir.y = 1
 	else: mov_dir.y = 0
 	
-	# TODO: handle better
-	# TODO: consider moving to PlayerInput 
 	# Handle attack inputs, prioritizing just pressed inputs
-	if just_pressed_mask & InputConstants.Bit.ATK_UP:
-		atk_dir = Vector2i.UP
-		_last_atk_bit = InputConstants.Bit.ATK_UP
-	elif just_pressed_mask & InputConstants.Bit.ATK_DOWN:
-		atk_dir = Vector2i.DOWN
-		_last_atk_bit = InputConstants.Bit.ATK_DOWN
-	elif just_pressed_mask & InputConstants.Bit.ATK_LEFT:
-		atk_dir = Vector2i.LEFT
-		_last_atk_bit = InputConstants.Bit.ATK_LEFT
-	elif just_pressed_mask & InputConstants.Bit.ATK_RIGHT:
-		atk_dir = Vector2i.RIGHT
-		_last_atk_bit = InputConstants.Bit.ATK_RIGHT
-	elif just_released_mask & _last_atk_bit: # Resort to held attack inputs
-		if input_mask & InputConstants.Bit.ATK_UP:
-			atk_dir = Vector2i.UP
-			_last_atk_bit = InputConstants.Bit.ATK_UP
-		elif input_mask & InputConstants.Bit.ATK_DOWN:
-			atk_dir = Vector2i.DOWN
-			_last_atk_bit = InputConstants.Bit.ATK_DOWN
-		elif input_mask & InputConstants.Bit.ATK_LEFT:
-			atk_dir = Vector2i.LEFT
-			_last_atk_bit = InputConstants.Bit.ATK_LEFT
-		elif input_mask & InputConstants.Bit.ATK_RIGHT:
-			atk_dir = Vector2i.RIGHT
-			_last_atk_bit = InputConstants.Bit.ATK_RIGHT
-		else: 
+	if just_pressed_mask & InputConstants.BitGroup.ATK != 0:
+		atk_dir = InputConstants.ATK_Direction.FROM_ATK_BIT[just_pressed_mask & InputConstants.BitGroup.ATK]
+		_last_atk_input = InputConstants.Bit.FROM_ATK_DIR[atk_dir]
+	elif just_released_mask & _last_atk_input: # Fallback to held attack inputs
+		if input_mask & InputConstants.BitGroup.ATK != 0:
+			atk_dir = InputConstants.ATK_Direction.FROM_ATK_BIT[input_mask & InputConstants.BitGroup.ATK]
+			_last_atk_input = InputConstants.Bit.FROM_ATK_DIR[atk_dir]
+		else:
 			atk_dir = Vector2i.ZERO
-			_last_atk_bit = 0
+			_last_atk_input = 0
 	
 	# Attack and skill activations (since attack is also a skill)
 	skill_manager.advance_frame(input_mask, just_pressed_mask, just_released_mask, mov_dir, atk_dir)
