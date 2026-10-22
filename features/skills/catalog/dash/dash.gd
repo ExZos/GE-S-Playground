@@ -37,7 +37,7 @@ func _ready() -> void:
 		-500
 	)
 
-func _on_activate(mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
+func _on_activate(move_dir: Vector2i, _aim_dir: Vector2i) -> void:
 	var dash_modifier: DashModifier
 	
 	for mod in _dash_modifiers:
@@ -55,14 +55,14 @@ func _on_activate(mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
 		)
 		_dash_modifiers.append(dash_modifier)
 	
-	dash_modifier.dir = mov_dir
+	dash_modifier.dir = move_dir
 	dash_modifier._fp_duration_ticks = _fp_duration
 	
 	source.add_modifier(dash_modifier)
 	
 	_bubble_vfx_event.setup(
 		source.position,
-		mov_dir,
+		move_dir,
 		-500
 	)
 	EventBus.vfx_requested.emit(_bubble_vfx_event)
@@ -84,7 +84,7 @@ class DashModifier extends CharacterModifier:
 		source.fp_speed_add += fp_speed_add_inc
 		source.fp_speed_mult_sum += fp_speed_mult_sum_inc
 		source.fp_speed_mult_prod = SGFixed.mul(source.fp_speed_mult_prod, fp_speed_mult_prod_inc)
-		source.forced_mov_dir = dir
+		source.forced_move_dir = dir
 	
 	func is_active() -> bool:
 		return _fp_duration_ticks > 0

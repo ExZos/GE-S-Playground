@@ -35,12 +35,7 @@ func _process(_delta: float) -> void:
 		elif character_team == DamageSystem.Team.ENEMY:
 			self_modulate = GameColors.Team.ENEMY
 	
-	var character_dir: Vector2i = _last_character_dir # TODO: make this logic part of character (facing dir?)
-	if character.atk_dir != Vector2i.ZERO:
-		character_dir = character.atk_dir
-	elif character.mov_dir != Vector2i.ZERO:
-		character_dir = character.mov_dir
-	
+	var character_dir: Vector2i = character.dir
 	if character_dir != _last_character_dir:
 		_last_character_dir = character_dir
 		

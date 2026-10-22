@@ -46,10 +46,14 @@ var restrict_skills: bool
 # Tickers
 var fp_recovery_ticks: int = 0
 
-# Movement
-var mov_dir: Vector2i = Vector2i.ZERO
-var forced_mov_dir: Vector2i = Vector2i.ZERO
+# Direction
+var dir: Vector2i = Vector2i.ZERO
 
+# Movement
+var move_dir: Vector2i = Vector2i.ZERO
+var forced_move_dir: Vector2i = Vector2i.ZERO
+
+# TODO: consider renaming to aim
 # Attack
 var atk_dir: Vector2i = Vector2i.ZERO
 var _last_atk_input: int = 0
@@ -156,28 +160,29 @@ func advance_frame(input_mask: int, prev_input_mask: int) -> void:
 		fp_recovery_ticks -= SGFixed.ONE
 	
 	# Handle movement inputs
-	if input_mask & InputConstants.Bit.MOVE_LEFT: mov_dir.x = -1
-	elif input_mask & InputConstants.Bit.MOVE_RIGHT: mov_dir.x = 1
-	else: mov_dir.x = 0
+	if input_mask & InputConstants.Bit.MOVE_LEFT: move_dir.x = -1
+	elif input_mask & InputConstants.Bit.MOVE_RIGHT: move_dir.x = 1
+	else: move_dir.x = 0
 	
-	if input_mask & InputConstants.Bit.MOVE_UP: mov_dir.y = -1
-	elif input_mask & InputConstants.Bit.MOVE_DOWN: mov_dir.y = 1
-	else: mov_dir.y = 0
+	if input_mask & InputConstants.Bit.MOVE_UP: move_dir.y = -1
+	elif input_mask & InputConstants.Bit.MOVE_DOWN: move_dir.y = 1
+	else: move_dir.y = 0
 	
-	# Handle attack inputs, prioritizing just pressed inputs
+	# TODO: decouple and only use in Player, should be straitforward in Enemy
+	# Determine attack direction, prioritizing just pressed attack inputs
 	if just_pressed_mask & InputConstants.BitGroup.ATK != 0:
-		atk_dir = InputConstants.ATK_Direction.FROM_ATK_BIT[just_pressed_mask & InputConstants.BitGroup.ATK]
+		atk_dir = InputConstants.AtkDirection.FROM_ATK_BIT[just_pressed_mask & InputConstants.BitGroup.ATK]
 		_last_atk_input = InputConstants.Bit.FROM_ATK_DIR[atk_dir]
 	elif just_released_mask & _last_atk_input: # Fallback to held attack inputs
 		if input_mask & InputConstants.BitGroup.ATK != 0:
-			atk_dir = InputConstants.ATK_Direction.FROM_ATK_BIT[input_mask & InputConstants.BitGroup.ATK]
+			atk_dir = InputConstants.AtkDirection.FROM_ATK_BIT[input_mask & InputConstants.BitGroup.ATK]
 			_last_atk_input = InputConstants.Bit.FROM_ATK_DIR[atk_dir]
 		else:
 			atk_dir = Vector2i.ZERO
 			_last_atk_input = 0
 	
 	# Attack and skill activations (since attack is also a skill)
-	skill_manager.advance_frame(input_mask, just_pressed_mask, just_released_mask, mov_dir, atk_dir)
+	skill_manager.advance_frame(input_mask, just_pressed_mask, just_released_mask, move_dir, atk_dir)
 	
 	# Apply modifiers
 	if _character_modifiers_is_dirty:
@@ -185,7 +190,7 @@ func advance_frame(input_mask: int, prev_input_mask: int) -> void:
 		fp_speed_add = 0
 		fp_speed_mult_sum = SGFixed.ONE
 		fp_speed_mult_prod = SGFixed.ONE
-		forced_mov_dir = Vector2i.ZERO
+		forced_move_dir = Vector2i.ZERO
 		
 		# Reset restrictions
 		restrict_attack = false
@@ -198,15 +203,21 @@ func advance_frame(input_mask: int, prev_input_mask: int) -> void:
 		_compute_speed()
 		_character_modifiers_is_dirty = false
 	
-	# Movement
 	if is_recovering:
 		return
-		
-	var effective_mov_dir: Vector2i = mov_dir
-	if forced_mov_dir != Vector2i.ZERO: effective_mov_dir = forced_mov_dir
 	
-	velocity.x = effective_mov_dir.x * _fp_speed
-	velocity.y = effective_mov_dir.y * _fp_speed
+	# Determine facing direction
+	if atk_dir != Vector2i.ZERO:
+		dir = atk_dir
+	elif move_dir != Vector2i.ZERO:
+		dir = move_dir
+	
+	# Movement
+	var effective_move_dir: Vector2i = move_dir
+	if forced_move_dir != Vector2i.ZERO: effective_move_dir = forced_move_dir
+	
+	velocity.x = effective_move_dir.x * _fp_speed
+	velocity.y = effective_move_dir.y * _fp_speed
 	
 	move_and_slide()
 

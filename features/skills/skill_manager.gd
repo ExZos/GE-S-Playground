@@ -7,8 +7,8 @@ var _source: Character
 var _attack: Skill
 var _skills: Array[Skill] = []
 
-var _last_mov_input: int
-var _last_mov_dir: Vector2i
+var _last_move_input: int
+var _last_move_dir: Vector2i
 
 func init(source: Character, attack_type: StringName, skill_types: Array[StringName]) -> void:
 	_source = source
@@ -37,35 +37,34 @@ func init(source: Character, attack_type: StringName, skill_types: Array[StringN
 		add_child(skill)
 		_skills.append(skill)
 	
-	_last_mov_input = 0
-	_last_mov_dir = Vector2i.ZERO
+	_last_move_input = 0
+	_last_move_dir = Vector2i.ZERO
 
-func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask: int, _mov_dir: Vector2i, atk_dir) -> void:
-	# TODO: alter logic if skill direction uses player direction (telekinesis neutral dir activation)
+func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask: int, _move_dir: Vector2i, atk_dir) -> void:
+	# TODO: should characters face the direction that they use a skill?
 	# Determine skill direction using held attack direction or movement direction otherwise
-	var skill_dir: Vector2i = Vector2i.ZERO
-	if atk_dir != Vector2i.ZERO: skill_dir = atk_dir
-	elif input_mask & InputConstants.BitGroup.MOVE != 0:
+	var skill_dir: Vector2i = atk_dir
+	if skill_dir == Vector2i.ZERO and input_mask & InputConstants.BitGroup.MOVE != 0:
 		if _just_pressed_mask & InputConstants.BitGroup.MOVE != 0:
-			_last_mov_dir = InputConstants.ATK_Direction.FROM_MOVE_BIT[_just_pressed_mask & InputConstants.BitGroup.MOVE]
-			_last_mov_input = InputConstants.Bit.FROM_MOVE_DIR[_last_mov_dir]
-		elif _just_released_mask & _last_mov_input:
+			_last_move_dir = InputConstants.AtkDirection.FROM_MOVE_BIT[_just_pressed_mask & InputConstants.BitGroup.MOVE]
+			_last_move_input = InputConstants.Bit.FROM_MOVE_DIR[_last_move_dir]
+		elif _just_released_mask & _last_move_input:
 			if input_mask & InputConstants.BitGroup.MOVE != 0:
-				_last_mov_dir = InputConstants.ATK_Direction.FROM_MOVE_BIT[input_mask & InputConstants.BitGroup.MOVE]
-				_last_mov_input = InputConstants.Bit.FROM_MOVE_DIR[_last_mov_dir]
+				_last_move_dir = InputConstants.AtkDirection.FROM_MOVE_BIT[input_mask & InputConstants.BitGroup.MOVE]
+				_last_move_input = InputConstants.Bit.FROM_MOVE_DIR[_last_move_dir]
 			else:
-				_last_mov_dir = Vector2i.ZERO
-				_last_mov_input = 0
+				_last_move_dir = Vector2i.ZERO
+				_last_move_input = 0
 				
-		skill_dir = _last_mov_dir
+		skill_dir = _last_move_dir
 	
 	# Skill activation
 	for skill: Skill in _skills:
-		skill.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, _mov_dir, skill_dir)
+		skill.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, _move_dir, skill_dir)
 	
 	# Basic attack
 	if _attack != null:
-		_attack.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, _mov_dir, atk_dir)
+		_attack.advance_frame(input_mask, _just_pressed_mask, _just_released_mask, _move_dir, atk_dir)
 
 func process_tickers() -> void:
 	if _attack:

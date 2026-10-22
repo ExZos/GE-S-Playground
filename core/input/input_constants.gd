@@ -81,7 +81,7 @@ class BitList:
 	]
 
 # TODO: rename atk dir
-class ATK_Direction:
+class AtkDirection:
 	const FROM_ATK_BIT: Dictionary[int, Vector2i] = {
 		Bit.ATK_UP: Vector2i.UP,
 		Bit.ATK_DOWN: Vector2i.DOWN,

@@ -45,10 +45,10 @@ func _ready() -> void:
 		_fp_projectile_speed_mult_prod_inc
 	)
 
-func _on_charging_start(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
+func _on_charging_start(_move_dir: Vector2i, _aim_dir: Vector2i) -> void:
 	source.add_modifier(_charging_speed_modifier)
 
-func _on_activate(_mov_dir: Vector2i, aim_dir: Vector2i) -> void:
+func _on_activate(_move_dir: Vector2i, aim_dir: Vector2i) -> void:
 	print("ACTIVATE")
 	
 	source.remove_modifier(_charging_speed_modifier)
@@ -56,7 +56,7 @@ func _on_activate(_mov_dir: Vector2i, aim_dir: Vector2i) -> void:
 	_velocity_modifier.reset(aim_dir)
 	EventBus.modify_projectiles(_velocity_modifier)
 
-func _on_charging_cancelled(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
+func _on_charging_cancelled(_move_dir: Vector2i, _aim_dir: Vector2i) -> void:
 	source.remove_modifier(_charging_speed_modifier)
 
 func _on_whiff() -> void:

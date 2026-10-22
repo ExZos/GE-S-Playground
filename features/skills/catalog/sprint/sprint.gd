@@ -26,18 +26,18 @@ func _ready() -> void:
 		_fp_speed_mult_prod_inc
 	)
 
-func _check_activation(input_mask: int, mov_dir: Vector2i, _aim_dir: Vector2i) -> bool:
-	return (input_mask & key_bit) and mov_dir != Vector2i.ZERO
+func _check_activation(input_mask: int, move_dir: Vector2i, _aim_dir: Vector2i) -> bool:
+	return (input_mask & key_bit) and move_dir != Vector2i.ZERO
 
-func _on_activate(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
+func _on_activate(_move_dir: Vector2i, _aim_dir: Vector2i) -> void:
 	source.add_modifier(_sprint_modifier)
 
-func _on_deactivate(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
+func _on_deactivate(_move_dir: Vector2i, _aim_dir: Vector2i) -> void:
 	source.remove_modifier(_sprint_modifier)
 
-func _on_exhausted(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
+func _on_exhausted(_move_dir: Vector2i, _aim_dir: Vector2i) -> void:
 	source.remove_modifier(_sprint_modifier)
-	super(_mov_dir, _aim_dir)
+	super(_move_dir, _aim_dir)
 
 class SprintModifier extends CharacterModifier:
 	var fp_speed_add_inc: int = 0

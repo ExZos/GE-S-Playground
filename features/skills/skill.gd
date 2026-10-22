@@ -20,7 +20,7 @@ func _process_feature(feature: SkillFeature) -> void:
 		_:
 			push_warning("Skill: Feature type '%s' not recognized" % feature.TYPE)
 
-func advance_frame(_input_mask: int, _just_pressed_mask: int, _just_released_mask: int, _mov_dir: Vector2i, _aim_dir: Vector2i) -> void:
+func advance_frame(_input_mask: int, _just_pressed_mask: int, _just_released_mask: int, _move_dir: Vector2i, _aim_dir: Vector2i) -> void:
 	pass
 
 func process_tickers() -> void:

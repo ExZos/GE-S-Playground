@@ -25,8 +25,8 @@ func _process_feature(feature: SkillFeature) -> void:
 		
 		_: super(feature)
 
-func advance_frame(_input_mask: int, just_pressed_mask: int, _just_released_mask: int, mov_dir: Vector2i, aim_dir: Vector2i) -> void:
-	if not (just_pressed_mask & key_bit) or (mov_dir == Vector2i.ZERO and aim_dir == Vector2i.ZERO): # Not pressed or no direction
+func advance_frame(_input_mask: int, just_pressed_mask: int, _just_released_mask: int, move_dir: Vector2i, aim_dir: Vector2i) -> void:
+	if not (just_pressed_mask & key_bit) or (move_dir == Vector2i.ZERO and aim_dir == Vector2i.ZERO): # Not pressed or no direction
 		return
 	elif charges <= 0:
 		charges = 0
@@ -34,7 +34,7 @@ func advance_frame(_input_mask: int, just_pressed_mask: int, _just_released_mask
 	elif check_restricted.call():
 		return
 		
-	_on_activate(mov_dir, aim_dir)
+	_on_activate(move_dir, aim_dir)
 	
 	charges -= 1
 	if not cooling_down:
@@ -54,4 +54,4 @@ func process_tickers() -> void:
 			fp_cd_ticks = 0
 			cooling_down = false
 
-func _on_activate(_mov_dir: Vector2i, _aim_dir: Vector2i) -> void: pass
+func _on_activate(_move_dir: Vector2i, _aim_dir: Vector2i) -> void: pass
