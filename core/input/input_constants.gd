@@ -53,7 +53,7 @@ class BitGroup:
 	const ATK_Y: int = Bit.ATK_UP | Bit.ATK_DOWN
 	const ATK_X: int = Bit.ATK_LEFT | Bit.ATK_RIGHT
 	const ATK: int = ATK_Y | ATK_X
-	
+
 # 
 class BitList:
 	const MOVE: Array[int] = [

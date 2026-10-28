@@ -37,7 +37,7 @@ func _ready() -> void:
 		-500
 	)
 
-func _on_activate(move_dir: Vector2i, _aim_dir: Vector2i) -> void:
+func _on_activate(move_dir: Vector2i, aim_dir: Vector2i) -> void:
 	var dash_modifier: DashModifier
 	
 	for mod in _dash_modifiers:
@@ -55,7 +55,8 @@ func _on_activate(move_dir: Vector2i, _aim_dir: Vector2i) -> void:
 		)
 		_dash_modifiers.append(dash_modifier)
 	
-	dash_modifier.dir = move_dir
+	if move_dir != Vector2i.ZERO: dash_modifier.dir = move_dir
+	else: dash_modifier.dir = aim_dir
 	dash_modifier._fp_duration_ticks = _fp_duration
 	
 	source.add_modifier(dash_modifier)
