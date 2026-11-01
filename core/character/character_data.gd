@@ -2,7 +2,7 @@ extends RegistryData
 
 class_name CharacterData
 
-@export var sprite_texture: Texture2D
+@export var sprite_data: SpriteData
 
 @export var half_width: int:
 	set(value):

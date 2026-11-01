@@ -1,7 +1,7 @@
 extends Sprite2D
 
 # TODO: better direction indicating sprite
-# TODO: handle square sprites not lining up with square collision shapes (sprite sheet and frame swapping?)
+# TODO: consider moving to core
 @export var character: Character
 
 var _last_character_team: int
@@ -14,13 +14,25 @@ func init() -> void:
 	assert(character, "CharacterSprite: Character must be assigned")
 	
 	var character_data: CharacterData = character.character_data
-	texture = character_data.sprite_texture
+	var sprite_data: SpriteData = character_data.sprite_data
+	
+	texture = sprite_data.texture
 	if not texture:
 		return
 	
+	vframes = sprite_data.vframes
+	hframes = sprite_data.hframes
+	
+	frame = 0
+	
 	var texture_size: Vector2 = texture.get_size()
-	scale.x = (character_data.half_width * 2) / texture_size.x
-	scale.y = (character_data.half_height * 2) / texture_size.y
+	var frame_size: Vector2 = Vector2(
+		texture_size.x / hframes,
+		texture_size.y / vframes
+	)
+	
+	scale.x = (character_data.half_width * 2) / frame_size.x
+	scale.y = (character_data.half_height * 2) / frame_size.y
 
 func _process(_delta: float) -> void:
 	if not character.is_active:
@@ -39,4 +51,4 @@ func _process(_delta: float) -> void:
 	if character_dir != _last_character_dir:
 		_last_character_dir = character_dir
 		
-		global_rotation = Vector2(character_dir).angle()
+		frame = SpriteData.FRAME_FROM_DIRECTION[character_dir]

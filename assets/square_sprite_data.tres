@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SpriteData" format=3 uid="uid://dw6yss5unkh1n"]
+
+[ext_resource type="Script" uid="uid://74c4y736nlrq" path="res://core/sprite_data.gd" id="1_n8tpt"]
+[ext_resource type="Texture2D" uid="uid://clrkqno85rk1m" path="res://assets/square_sprite_sheet.png" id="2_6jcoy"]
+
+[resource]
+script = ExtResource("1_n8tpt")
+texture = ExtResource("2_6jcoy")
+row_frame_counts = PackedInt32Array(1, 1, 1, 1, 1, 1, 1, 1)
+metadata/_custom_type_script = "uid://74c4y736nlrq"
