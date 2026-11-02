@@ -18,6 +18,7 @@ const INPUT_MAP: Dictionary[StringName, int] = {
 	&"skill_2": InputConstants.Bit.SKILL_2,
 	&"skill_3": InputConstants.Bit.SKILL_3,
 	
+	&"pause": InputConstants.Bit.PAUSE,
 	&"respawn": InputConstants.Bit.RESPAWN,
 	&"next_wave": InputConstants.Bit.NEXT_WAVE
 }

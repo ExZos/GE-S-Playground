@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SpriteData" format=3 uid="uid://b3ycorirnw55t"]
 
-[ext_resource type="Script" uid="uid://74c4y736nlrq" path="res://core/sprite_data.gd" id="1_b2rc6"]
+[ext_resource type="Script" uid="uid://74c4y736nlrq" path="res://core/sprite/sprite_data.gd" id="1_b2rc6"]
 [ext_resource type="Texture2D" uid="uid://dspsisu1ndhuo" path="res://assets/circle_sprite_sheet.png" id="2_d5pjd"]
 
 [resource]

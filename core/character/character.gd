@@ -168,7 +168,6 @@ func advance_frame(input_mask: int, prev_input_mask: int) -> void:
 	elif input_mask & InputConstants.Bit.MOVE_DOWN: move_dir.y = 1
 	else: move_dir.y = 0
 	
-	# TODO: decouple and only use in Player, should be straitforward in Enemy
 	# Determine attack direction, prioritizing just pressed attack inputs
 	if just_pressed_mask & InputConstants.BitGroup.ATK != 0:
 		atk_dir = InputConstants.AtkDirection.FROM_ATK_BIT[just_pressed_mask & InputConstants.BitGroup.ATK]

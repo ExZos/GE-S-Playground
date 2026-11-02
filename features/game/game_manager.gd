@@ -20,6 +20,8 @@ var _rng: RandomNumberGenerator
 
 var _prev_input_mask: int
 
+var paused: bool
+
 func _ready() -> void:
 	EventBus.register_game_manager(self)
 	RegistryManager.init()
@@ -28,6 +30,7 @@ func _ready() -> void:
 	_rng = RandomNumberGenerator.new() # TODO: exported seed param
 	
 	_prev_input_mask = 0
+	paused = false
 	
 	arena.init()
 	player.init(player_data)
@@ -48,12 +51,22 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	var input_mask: int = player_input.get_input_mask()
+	var just_pressed_mask: int = input_mask & ~_prev_input_mask
+	
+	# TODO: have a separate node handle this?
+	if just_pressed_mask & InputConstants.Bit.PAUSE:
+		paused = !paused  
+	
+	if paused:
+		_prev_input_mask = input_mask
+		return
+	
 	enemy_manager.read_input_masks()
 	
 	if player.is_active:
 		player.advance_frame(input_mask, _prev_input_mask)
 	
-	var just_pressed_mask: int = input_mask & ~_prev_input_mask
+	# TODO: have a separate node handle this?
 	if just_pressed_mask & InputConstants.Bit.RESPAWN:
 		if not player.is_active:
 			# TODO: dynamically select spawn position based on zone enemy density

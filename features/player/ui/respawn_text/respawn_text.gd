@@ -19,6 +19,7 @@ func _ready() -> void:
 	
 	timer.timeout.connect(_on_timer_timeout)
 
+# TODO: hide when paused
 func _process(_delta: float) -> void:
 	var is_dead: bool = character_node.is_dead
 	

@@ -1,7 +1,5 @@
 extends Sprite2D
 
-# TODO: better direction indicating sprite
-# TODO: consider moving to core
 @export var character: Character
 
 var _last_character_team: int
@@ -22,8 +20,6 @@ func init() -> void:
 	
 	vframes = sprite_data.vframes
 	hframes = sprite_data.hframes
-	
-	frame = 0
 	
 	var texture_size: Vector2 = texture.get_size()
 	var frame_size: Vector2 = Vector2(

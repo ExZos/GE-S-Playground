@@ -20,8 +20,9 @@ class Bit:
 	const SKILL_3: int = 1 << 10
 	
 	# Other
-	const RESPAWN: int = 1 << 11
-	const NEXT_WAVE: int = 1 << 12
+	const PAUSE: int = 1 << 11
+	const RESPAWN: int = 1 << 12
+	const NEXT_WAVE: int = 1 << 13
 	
 	# TODO: add diagonals
 	const FROM_MOVE_DIR: Dictionary[Vector2i, int] = {

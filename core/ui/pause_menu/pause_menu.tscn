@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bpml47uhx37r"]
+
+[ext_resource type="Script" uid="uid://dgh1rdlb8jiiq" path="res://core/ui/pause_menu/pause_menu.gd" id="1_467fp"]
+
+[node name="PauseMenu" type="VBoxContainer" unique_id=185330031]
+script = ExtResource("1_467fp")
+
+[node name="Label" type="Label" parent="." unique_id=176894046]
+layout_mode = 2
+text = "PAUSED"
