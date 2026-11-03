@@ -98,16 +98,20 @@ max_prop = &"fp_max_hp"
 
 [node name="PauseMenu" parent="UILayer/UIContainer" unique_id=185330031 node_paths=PackedStringArray("game_manager") instance=ExtResource("13_vivmo")]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = -31.0
+offset_top = -11.5
 offset_right = 31.0
-offset_bottom = 23.0
+offset_bottom = 11.5
 grow_horizontal = 2
+grow_vertical = 2
 game_manager = NodePath("../../../GameManager")
 
-[node name="RespawnText" parent="UILayer/UIContainer" unique_id=616440506 node_paths=PackedStringArray("character_node") instance=ExtResource("13_w48qg")]
+[node name="RespawnText" parent="UILayer/UIContainer" unique_id=616440506 node_paths=PackedStringArray("game_manager", "character_node") instance=ExtResource("13_w48qg")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -120,6 +124,7 @@ offset_right = 93.5
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
+game_manager = NodePath("../../../GameManager")
 character_node = NodePath("../../../Player")
 
 [node name="SkillTrayContainer" type="MarginContainer" parent="UILayer/UIContainer" unique_id=685437407]

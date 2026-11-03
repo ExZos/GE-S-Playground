@@ -20,7 +20,7 @@ var _rng: RandomNumberGenerator
 
 var _prev_input_mask: int
 
-var paused: bool
+var is_paused: bool
 
 func _ready() -> void:
 	EventBus.register_game_manager(self)
@@ -30,7 +30,7 @@ func _ready() -> void:
 	_rng = RandomNumberGenerator.new() # TODO: exported seed param
 	
 	_prev_input_mask = 0
-	paused = false
+	is_paused = false
 	
 	arena.init()
 	player.init(player_data)
@@ -55,9 +55,9 @@ func _physics_process(_delta: float) -> void:
 	
 	# TODO: have a separate node handle this?
 	if just_pressed_mask & InputConstants.Bit.PAUSE:
-		paused = !paused  
+		is_paused = !is_paused  
 	
-	if paused:
+	if is_paused:
 		_prev_input_mask = input_mask
 		return
 	
