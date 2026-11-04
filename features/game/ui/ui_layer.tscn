@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://by0k8264jyh5o"]
+
+[ext_resource type="PackedScene" uid="uid://dm8ujvcgortsu" path="res://features/player/ui/hp_bar/hp_bar.tscn" id="1_2t6qv"]
+[ext_resource type="Script" uid="uid://b03yhv2gfdx0v" path="res://features/game/ui/ui_layer.gd" id="1_fjaho"]
+[ext_resource type="PackedScene" uid="uid://bpml47uhx37r" path="res://core/ui/pause_menu/pause_menu.tscn" id="2_fjaho"]
+[ext_resource type="PackedScene" uid="uid://bmk3j0vlkdc4" path="res://features/player/ui/respawn_text/respawn_text.tscn" id="3_csnf5"]
+[ext_resource type="PackedScene" uid="uid://cdc67etsdo3xs" path="res://features/skills/ui/skill_tray/skill_tray.tscn" id="4_wiuqp"]
+
+[node name="UILayer" type="CanvasLayer" unique_id=937194666]
+script = ExtResource("1_fjaho")
+
+[node name="UIContainer" type="Control" parent="." unique_id=1555043718]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HpBarContainer" type="MarginContainer" parent="UIContainer" unique_id=1890339738]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.1
+offset_bottom = 32.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="HpBar" parent="UIContainer/HpBarContainer" unique_id=147792061 instance=ExtResource("1_2t6qv")]
+layout_mode = 2
+
+[node name="PauseMenu" parent="UIContainer" unique_id=374222926 instance=ExtResource("2_fjaho")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = -11.5
+offset_right = 31.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RespawnText" parent="UIContainer" unique_id=329449568 instance=ExtResource("3_csnf5")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -11.5
+offset_right = 93.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SkillTrayContainer" type="MarginContainer" parent="UIContainer" unique_id=451829869]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 10
+
+[node name="SkillTray" parent="UIContainer/SkillTrayContainer" unique_id=543452041 instance=ExtResource("4_wiuqp")]
+layout_mode = 2
+theme_override_constants/separation = 8
