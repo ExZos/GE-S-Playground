@@ -11,3 +11,6 @@ var is_paused: bool:
 	
 	get:
 		return visible
+
+func init(_is_paused) -> void:
+	is_paused = _is_paused

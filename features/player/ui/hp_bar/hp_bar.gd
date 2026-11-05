@@ -22,3 +22,7 @@ var current_hp: int:
 	
 	get:
 		return int(progress_bar.value)
+
+func init(_max_hp: int, _current_hp: int) -> void:
+	max_hp = _max_hp
+	current_hp = _current_hp

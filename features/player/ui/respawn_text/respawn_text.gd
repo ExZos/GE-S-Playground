@@ -31,5 +31,9 @@ func _ready() -> void:
 	
 	timer.timeout.connect(_on_timer_timeout)
 
+func init(_is_dead: bool, _is_paused) -> void:
+	is_dead = _is_dead
+	is_paused = _is_paused
+
 func _on_timer_timeout() -> void:
 	visible = !visible

@@ -30,7 +30,6 @@ theme_override_constants/margin_top = 10
 layout_mode = 2
 
 [node name="PauseMenu" parent="UIContainer" unique_id=374222926 instance=ExtResource("2_fjaho")]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -45,7 +44,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="RespawnText" parent="UIContainer" unique_id=329449568 instance=ExtResource("3_csnf5")]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -60,7 +58,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SkillTrayContainer" type="MarginContainer" parent="UIContainer" unique_id=451829869]
-visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
