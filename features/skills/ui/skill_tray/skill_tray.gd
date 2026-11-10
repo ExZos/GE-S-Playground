@@ -6,27 +6,64 @@ class_name SkillTray
 @export var stamina_skill_slot_scene: PackedScene
 @export var charging_skill_slot_scene: PackedScene
 
-# TODO: consider including skill slot scene in resource
-# TODO: rework to work with pure data, without references to gameplay nodes
-func init(fps: int, skills: Array[Skill]) -> void:
+var skills: Array[Skill] # TODO: use an array of skill param dictionaries instead
+var skill_slots: Array[Control]
+var _last_skill_params: Array[Dictionary]
+
+# TODO: rework with pure data, without references to gameplay nodes
+func init(fps: int, _skills: Array[Skill]) -> void:
 	var fp_fps: int = SGFixed.from_int(fps)
+	skills = _skills
 	
-	for s: Skill in skills:
+	for s: Skill in _skills:
 		var skill_slot: Control
+		var last_skill_params: Dictionary[StringName, Variant]
 		
 		if s is ChargesSkill:
 			skill_slot = charges_skill_slot_scene.instantiate()
-			skill_slot.fp_fps = fp_fps
 		elif s is StaminaSkill:
 			skill_slot = stamina_skill_slot_scene.instantiate()
+			skill_slot.skill = s
 		elif s is ChargingSkill:
 			skill_slot = charging_skill_slot_scene.instantiate()
 			skill_slot.fp_fps = fp_fps
+			skill_slot.skill = s
 		else:
 			push_warning("SkillTray: Skill type not recognized")
 			continue
 		
-		skill_slot.skill = s
-		skill_slot.key_text = InputDisplayUtils.get_key_text("SkillTray", s.key_bit)
-		
 		add_child(skill_slot)
+		
+		# TODO: finish with other skill types
+		# TODO: ideally find a way to do this without a second if block
+		if s is ChargesSkill:
+			skill_slot.init(
+				fp_fps,
+				InputDisplayUtils.get_key_text(name, s.key_bit),
+				s.cooling_down,
+				s._fp_cooldown,
+				s.max_charges,
+				s.charges
+			)
+			
+			last_skill_params[&"cooling_down"] = s.cooling_down
+			last_skill_params[&"fp_cd_ticks"] = s.fp_cd_ticks
+			last_skill_params[&"max_charges"] = s.max_charges
+			last_skill_params[&"charges"] = s.charges
+		else:
+			skill_slot.key_text = InputDisplayUtils.get_key_text(name, s.key_bit)
+		
+		skill_slots.append(skill_slot)
+		_last_skill_params.append(last_skill_params)
+
+func _process(_delta: float) -> void:
+	for i in range(skill_slots.size()):
+		var skill_slot: Control = skill_slots[i]
+		var skill: Skill = skills[i]
+		var last_skill_params: Dictionary[StringName, Variant] = _last_skill_params[i]
+		
+		for key: StringName in last_skill_params:
+			if skill[key] != last_skill_params[key]:
+				skill_slot[key] = skill[key]
+			
+			last_skill_params[key] = skill[key]

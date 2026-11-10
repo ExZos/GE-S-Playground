@@ -8,7 +8,12 @@ class_name StaminaSkillSlot
 
 @export var skill: StaminaSkill
 
-var key_text: String
+var key_text: String:
+	set(value):
+		key_label.text = value
+	
+	get():
+		return key_label.text
 
 var last_state: int
 var last_value: int
@@ -17,8 +22,6 @@ func _ready() -> void:
 	progress_bar.min_value = 0
 	progress_bar.max_value = skill._fp_max_stamina
 	progress_bar.value = skill.fp_stamina
-	
-	key_label.text = key_text
 	
 	last_state = skill.state
 

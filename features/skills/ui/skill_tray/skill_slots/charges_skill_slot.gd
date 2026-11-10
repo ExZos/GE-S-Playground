@@ -7,39 +7,63 @@ class_name ChargesSkillSlot
 @onready var cooldown_label: Label = $MarginContainer/Cooldown
 @onready var charges_label: Label = $Charges
 
-@export var skill: ChargesSkill
-
-var key_text: String
 var fp_fps: float
 
-var last_charges: int
+var key_text: String:
+	set(value):
+		key_label.text = value
+	
+	get():
+		return key_label.text
 
-func _ready() -> void:
-	progress_bar.min_value = 0
-	progress_bar.max_value = skill._fp_cooldown
+var cooling_down: bool:
+	set(value):
+		cooldown_label.visible = value
 	
-	key_label.text = key_text
-	charges_label.text = str(skill.charges)
-	
-	last_charges = skill.charges
-	
-	if skill.max_charges <= 1:
-		charges_label.visible = false
+	get():
+		return cooldown_label.visible
 
-func _process(_delta: float) -> void:
-	if skill.cooling_down:
-		progress_bar.value = skill._fp_cooldown - skill.fp_cd_ticks
-		cooldown_label.text = "%.1fs" % (skill.fp_cd_ticks / fp_fps)
+var fp_cooldown: int:
+	set(value):
+		progress_bar.max_value = value
+	
+	get():
+		return int(progress_bar.max_value)
+
+var fp_cd_ticks: int:
+	set(value):
+		progress_bar.value = fp_cooldown - value
+		cooldown_label.text = "%.1fs" % (value / fp_fps)
+	
+	get():
+		return int(fp_cooldown - progress_bar.value)
+
+var max_charges: int:
+	set(value):
+		max_charges = value
+		charges_label.visible = value > 1
+
+var charges: int:
+	set(value):
+		charges_label.text = str(value)
 		
-		if skill.charges == 0:
+		if value == 0:
 			progress_bar.tint_progress = Color.GRAY
 		else:
 			progress_bar.tint_progress = Color.WHITE
-	else:
-		progress_bar.value = skill._fp_cooldown
-		cooldown_label.text = ""
-		progress_bar.tint_progress = Color.WHITE
+			
+	get():
+		return int(charges_label.text)
+
+func init(_fp_fps: int, _key_text: String, _cooling_down: bool, _fp_cooldown: int, _max_charges: int, _charges: int) -> void:
+	fp_fps = _fp_fps
+	key_text = _key_text
 	
-	if last_charges != skill.charges:
-		charges_label.text = str(skill.charges)
-		last_charges = skill.charges
+	cooling_down = _cooling_down
+	
+	progress_bar.min_value = 0
+	fp_cooldown = _fp_cooldown
+	progress_bar.value = fp_cooldown
+	
+	max_charges = _max_charges
+	charges = _charges

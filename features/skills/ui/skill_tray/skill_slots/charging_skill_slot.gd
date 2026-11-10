@@ -9,7 +9,13 @@ class_name ChargeSkillSlot
 
 @export var skill: ChargingSkill
 
-var key_text: String
+var key_text: String:
+	set(value):
+		key_label.text = value
+	
+	get():
+		return key_label.text
+
 var fp_fps: float
 
 var last_state: int
@@ -21,8 +27,6 @@ func _ready() -> void:
 	
 	charge_progress_bar.min_value = 0
 	charge_progress_bar.max_value = skill._fp_charge_time
-	
-	key_label.text = key_text
 	
 	last_state = skill.state
 

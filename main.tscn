@@ -55,7 +55,7 @@ arena_data = ExtResource("8_efxa6")
 
 [node name="Player" parent="." unique_id=2004616098 instance=ExtResource("4_4c57u")]
 attack_type = &"shoot_sensor"
-skill_types = Array[StringName]([&"dash", &"shoot_solid", &"telekinesis"])
+skill_types = Array[StringName]([&"sprint", &"shoot_solid", &"telekinesis"])
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=594209437]
 zoom = Vector2(0.5, 0.5)
@@ -68,6 +68,5 @@ follow_viewport_enabled = true
 script = ExtResource("1_5vw27")
 metadata/_custom_type_script = "uid://b1iphtfxsb15w"
 
-[node name="UILayer" parent="." unique_id=937194666 node_paths=PackedStringArray("game_manager", "player") instance=ExtResource("12_dg77c")]
+[node name="UILayer" parent="." unique_id=937194666 node_paths=PackedStringArray("game_manager") instance=ExtResource("12_dg77c")]
 game_manager = NodePath("../GameManager")
-player = NodePath("../Player")
