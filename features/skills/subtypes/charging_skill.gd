@@ -7,8 +7,8 @@ enum State { IDLE, CHARGING, COOLDOWN }
 var state: State = State.IDLE
 
 # Stats
-var _fp_charge_time: int
-var _fp_cooldown: int
+var fp_charge_time: int
+var fp_cooldown: int
 
 # Tickers
 var fp_cd_ticks: int = 0
@@ -17,10 +17,10 @@ var fp_charge_ticks: int = 0
 func _process_feature(feature: SkillFeature) -> void:
 	match feature.get_feature_type():
 		ChargingFeature.TYPE:
-			_fp_charge_time = SGFixed.from_int(feature.charge_time)
+			fp_charge_time = SGFixed.from_int(feature.charge_time)
 		
 		CooldownFeature.TYPE:
-			_fp_cooldown = SGFixed.from_int(feature.cooldown)
+			fp_cooldown = SGFixed.from_int(feature.cooldown)
 		
 		_: super(feature)
 
@@ -31,9 +31,9 @@ func advance_frame(input_mask: int, _just_pressed_mask: int, _just_released_mask
 	if state == State.CHARGING:
 		# Key not pressed, check if fully charged
 		if not (input_mask & key_bit):
-			if fp_charge_ticks >= _fp_charge_time and _can_activate(move_dir, aim_dir): # Full charged, activate
+			if fp_charge_ticks >= fp_charge_time and _can_activate(move_dir, aim_dir): # Full charged, activate
 				_on_activate(move_dir, aim_dir)
-				fp_cd_ticks += _fp_cooldown
+				fp_cd_ticks += fp_cooldown
 				state = State.COOLDOWN
 			else: 
 				_on_charging_cancelled(move_dir, aim_dir)
@@ -54,7 +54,7 @@ func process_tickers() -> void:
 		if fp_cd_ticks <= 0:
 			fp_cd_ticks = 0
 			state = State.IDLE
-	elif state == State.CHARGING and fp_charge_ticks < _fp_charge_time:
+	elif state == State.CHARGING and fp_charge_ticks < fp_charge_time:
 		fp_charge_ticks += SGFixed.ONE
 
 func _can_activate(_move_dir: Vector2i, _aim_dir: Vector2i) -> bool: return true

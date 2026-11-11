@@ -21,37 +21,37 @@ func init(fps: int, _skills: Array[Skill]) -> void:
 		
 		if s is ChargesSkill:
 			skill_slot = charges_skill_slot_scene.instantiate()
-		elif s is StaminaSkill:
-			skill_slot = stamina_skill_slot_scene.instantiate()
-			skill_slot.skill = s
+			
+			last_skill_params[&"cooling_down"] = s.cooling_down
+			last_skill_params[&"fp_cooldown"] = s.fp_cooldown
+			last_skill_params[&"fp_cd_ticks"] = s.fp_cd_ticks
+			last_skill_params[&"max_charges"] = s.max_charges
+			last_skill_params[&"charges"] = s.charges
 		elif s is ChargingSkill:
 			skill_slot = charging_skill_slot_scene.instantiate()
-			skill_slot.fp_fps = fp_fps
-			skill_slot.skill = s
+			
+			last_skill_params[&"state"] = s.state
+			last_skill_params[&"fp_cooldown"] = s.fp_cooldown
+			last_skill_params[&"fp_cd_ticks"] = s.fp_cd_ticks
+			last_skill_params[&"fp_charge_time"] = s.fp_charge_time
+			last_skill_params[&"fp_charge_ticks"] = s.fp_charge_ticks
+		elif s is StaminaSkill:
+			skill_slot = stamina_skill_slot_scene.instantiate()
+			
+			last_skill_params[&"state"] = s.state
+			last_skill_params[&"fp_max_stamina"] = s.fp_max_stamina
+			last_skill_params[&"fp_stamina"] = s.fp_stamina
 		else:
 			push_warning("SkillTray: Skill type not recognized")
 			continue
 		
 		add_child(skill_slot)
 		
-		# TODO: finish with other skill types
-		# TODO: ideally find a way to do this without a second if block
-		if s is ChargesSkill:
-			skill_slot.init(
-				fp_fps,
-				InputDisplayUtils.get_key_text(name, s.key_bit),
-				s.cooling_down,
-				s._fp_cooldown,
-				s.max_charges,
-				s.charges
-			)
-			
-			last_skill_params[&"cooling_down"] = s.cooling_down
-			last_skill_params[&"fp_cd_ticks"] = s.fp_cd_ticks
-			last_skill_params[&"max_charges"] = s.max_charges
-			last_skill_params[&"charges"] = s.charges
-		else:
-			skill_slot.key_text = InputDisplayUtils.get_key_text(name, s.key_bit)
+		skill_slot.init(
+			fp_fps,
+			InputDisplayUtils.get_key_text(name, s.key_bit),
+			last_skill_params
+		)
 		
 		skill_slots.append(skill_slot)
 		_last_skill_params.append(last_skill_params)

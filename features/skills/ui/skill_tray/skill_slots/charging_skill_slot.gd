@@ -7,7 +7,7 @@ class_name ChargeSkillSlot
 @onready var key_label: Label = $Key
 @onready var progress_label: Label = $MarginContainer/Progress
 
-@export var skill: ChargingSkill
+var fp_fps: float
 
 var key_text: String:
 	set(value):
@@ -16,39 +16,57 @@ var key_text: String:
 	get():
 		return key_label.text
 
-var fp_fps: float
+var state: ChargingSkill.State:
+	set(value):
+		state = value
+		
+		if value == ChargingSkill.State.CHARGING:
+			cooldown_progress_bar.tint_progress = Color.WHITE
+			progress_label.visible = true
+		elif value == ChargingSkill.State.COOLDOWN:
+			cooldown_progress_bar.tint_progress = Color.GRAY
+			progress_label.visible = true
+		else: # value == ChargingSkill.State.IDLE:
+			cooldown_progress_bar.tint_progress = Color.WHITE
+			progress_label.visible = false
 
-var last_state: int
-
-func _ready() -> void:
-	cooldown_progress_bar.min_value = 0
-	cooldown_progress_bar.max_value = skill._fp_cooldown
-	cooldown_progress_bar.value = skill._fp_cooldown
+var fp_cooldown: int:
+	set(value):
+		cooldown_progress_bar.max_value = value
 	
-	charge_progress_bar.min_value = 0
-	charge_progress_bar.max_value = skill._fp_charge_time
-	
-	last_state = skill.state
+	get():
+		return int(cooldown_progress_bar.max_value)
 
-func _process(_delta: float) -> void:
-	# Determine cooldown/charging time
-	if skill.state == ChargingSkill.State.COOLDOWN:
-		cooldown_progress_bar.value = skill._fp_cooldown - skill.fp_cd_ticks
-		progress_label.text = "%.1fs" % (skill.fp_cd_ticks / fp_fps)
-	elif skill.state == ChargingSkill.State.CHARGING:
-		charge_progress_bar.value = skill.fp_charge_ticks
+var fp_cd_ticks: int:
+	set(value):
+		cooldown_progress_bar.value = fp_cooldown - value
+		progress_label.text = "%.1fs" % (value / fp_fps)
+	
+	get():
+		return int(fp_cooldown - cooldown_progress_bar.value)
+
+var fp_charge_time: int:
+	set(value):
+		charge_progress_bar.max_value = value
+	
+	get():
+		return int(charge_progress_bar.max_value)
+
+var fp_charge_ticks: int:
+	set(value):
+		charge_progress_bar.value = value
 		progress_label.text = "%d%%" % (charge_progress_bar.ratio * 100)
 	
-	if last_state != skill.state:
-		if skill.state == ChargingSkill.State.IDLE:
-			cooldown_progress_bar.value = skill._fp_cooldown
-			cooldown_progress_bar.tint_progress = Color.WHITE
-			charge_progress_bar.value = 0
-			progress_label.text = ""
-		elif skill.state == ChargingSkill.State.COOLDOWN:
-			cooldown_progress_bar.tint_progress = Color.GRAY
-			charge_progress_bar.value = 0
-		elif skill.state == ChargingSkill.State.CHARGING:
-			cooldown_progress_bar.tint_progress = Color.WHITE
-		
-		last_state = skill.state
+	get():
+		return int(charge_progress_bar.value)
+
+func init(_fp_fps: int, _key_text: String, params: Dictionary[StringName, Variant]) -> void:
+	fp_fps = _fp_fps
+	key_text = _key_text
+	
+	for key: StringName in params:
+		if key in self:
+			self[key] = params[key]
+	
+	cooldown_progress_bar.min_value = 0
+	charge_progress_bar.min_value = 0

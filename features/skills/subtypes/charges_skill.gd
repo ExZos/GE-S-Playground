@@ -5,7 +5,7 @@ class_name ChargesSkill
 var cooling_down: bool = false
 
 # Stats
-var _fp_cooldown: int
+var fp_cooldown: int
 var max_charges: int
 var charges_inc: int
 
@@ -21,7 +21,7 @@ func _process_feature(feature: SkillFeature) -> void:
 			charges_inc = feature.charges_inc
 		
 		CooldownFeature.TYPE:
-			_fp_cooldown = SGFixed.from_int(feature.cooldown)
+			fp_cooldown = SGFixed.from_int(feature.cooldown)
 		
 		_: super(feature)
 
@@ -38,7 +38,7 @@ func advance_frame(_input_mask: int, just_pressed_mask: int, _just_released_mask
 	
 	charges -= 1
 	if not cooling_down:
-		fp_cd_ticks = _fp_cooldown
+		fp_cd_ticks = fp_cooldown
 		cooling_down = true
 
 func process_tickers() -> void:
@@ -48,7 +48,7 @@ func process_tickers() -> void:
 		charges = min(max_charges, charges + charges_inc)
 		
 		if charges != max_charges:
-			fp_cd_ticks = _fp_cooldown
+			fp_cd_ticks = fp_cooldown
 			cooling_down = true
 		else:
 			fp_cd_ticks = 0

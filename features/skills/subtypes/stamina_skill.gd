@@ -7,7 +7,7 @@ enum State { IDLE, ACTIVE, EXHAUSTED }
 var state: State = State.IDLE
 
 # Stats
-var _fp_max_stamina: int
+var fp_max_stamina: int
 var _fp_base_regen_speed: int
 var _fp_exhausted_regen_speed: int
 
@@ -20,7 +20,7 @@ var fp_stamina: int
 func _process_feature(feature: SkillFeature) -> void:
 	match feature.get_feature_type():
 		StaminaFeature.TYPE:
-			_fp_max_stamina = SGFixed.from_int(feature.max_stamina)
+			fp_max_stamina = SGFixed.from_int(feature.max_stamina)
 			_fp_base_regen_speed = SGFixed.from_float(feature.base_regen_speed)
 			_fp_exhausted_regen_speed = SGFixed.from_float(feature.exhausted_regen_speed)
 			
@@ -53,14 +53,14 @@ func process_tickers() -> void:
 	if state == State.ACTIVE:
 		if fp_stamina > 0:
 			fp_stamina -= SGFixed.ONE
-	elif fp_stamina < _fp_max_stamina:
+	elif fp_stamina < fp_max_stamina:
 		fp_stamina += _fp_regen_speed
 	else:
 		if state == State.EXHAUSTED:
 			_on_exhausted_recovery()
 			state = State.IDLE
 		
-		fp_stamina = _fp_max_stamina
+		fp_stamina = fp_max_stamina
 
 func _check_activation(input_mask: int, _move_dir: Vector2i, _aim_dir: Vector2i) -> bool:
 	return input_mask & key_bit

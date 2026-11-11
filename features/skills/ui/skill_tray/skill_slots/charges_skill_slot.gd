@@ -55,15 +55,13 @@ var charges: int:
 	get():
 		return int(charges_label.text)
 
-func init(_fp_fps: int, _key_text: String, _cooling_down: bool, _fp_cooldown: int, _max_charges: int, _charges: int) -> void:
+func init(_fp_fps: int, _key_text: String, params: Dictionary[StringName, Variant]) -> void:
 	fp_fps = _fp_fps
 	key_text = _key_text
 	
-	cooling_down = _cooling_down
+	for key: StringName in params:
+		if key in self:
+			self[key] = params[key]
 	
 	progress_bar.min_value = 0
-	fp_cooldown = _fp_cooldown
 	progress_bar.value = fp_cooldown
-	
-	max_charges = _max_charges
-	charges = _charges
