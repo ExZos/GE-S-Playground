@@ -3,14 +3,13 @@ extends HBoxContainer
 class_name SkillTray
 
 @export var charges_skill_slot_scene: PackedScene
-@export var stamina_skill_slot_scene: PackedScene
 @export var charging_skill_slot_scene: PackedScene
+@export var stamina_skill_slot_scene: PackedScene
 
-var skills: Array[Skill] # TODO: use an array of skill param dictionaries instead
+var skills: Array[Skill]
 var skill_slots: Array[Control]
 var _last_skill_params: Array[Dictionary]
 
-# TODO: rework with pure data, without references to gameplay nodes
 func init(fps: int, _skills: Array[Skill]) -> void:
 	var fp_fps: int = SGFixed.from_int(fps)
 	skills = _skills
@@ -42,7 +41,7 @@ func init(fps: int, _skills: Array[Skill]) -> void:
 			last_skill_params[&"fp_max_stamina"] = s.fp_max_stamina
 			last_skill_params[&"fp_stamina"] = s.fp_stamina
 		else:
-			push_warning("SkillTray: Skill type not recognized")
+			push_warning("%s: Skill type not recognized", name)
 			continue
 		
 		add_child(skill_slot)
@@ -58,8 +57,8 @@ func init(fps: int, _skills: Array[Skill]) -> void:
 
 func _process(_delta: float) -> void:
 	for i in range(skill_slots.size()):
-		var skill_slot: Control = skill_slots[i]
 		var skill: Skill = skills[i]
+		var skill_slot: Control = skill_slots[i]
 		var last_skill_params: Dictionary[StringName, Variant] = _last_skill_params[i]
 		
 		for key: StringName in last_skill_params:

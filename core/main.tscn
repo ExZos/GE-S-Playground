@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bma1wwsbpu2ns"]
+
+[ext_resource type="Script" uid="uid://b4djbqc1qfxa3" path="res://core/main.gd" id="1_r77kf"]
+[ext_resource type="PackedScene" uid="uid://doab18kdd0qq2" path="res://features/game/gameplay_scene.tscn" id="1_xiose"]
+[ext_resource type="PackedScene" uid="uid://n1y4x3tg8j1n" path="res://features/menus/main_menu_scene.tscn" id="3_3gdo0"]
+
+[node name="Main" type="Node" unique_id=1043849408]
+script = ExtResource("1_r77kf")
+initial_scene = ExtResource("1_xiose")
+main_menu_scene = ExtResource("3_3gdo0")
+gameplay_scene = ExtResource("1_xiose")
+
+[node name="SceneContainer" type="Node" parent="." unique_id=1422063651]

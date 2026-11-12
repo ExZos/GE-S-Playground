@@ -37,7 +37,7 @@ var fp_stamina: int:
 		
 		percentage_label.text = "%d%%" % (progress_bar.ratio * 100)
 		percentage_label.visible = value < fp_max_stamina
-		
+	
 	get():
 		return int(progress_bar.value)
 
