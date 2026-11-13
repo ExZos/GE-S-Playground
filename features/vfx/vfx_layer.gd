@@ -7,9 +7,9 @@ var _vfx_events: DenseFixedArray
 
 var _vfx_pools: Dictionary[StringName, SparsePassiveFixedArray] = {}
 
-func _ready() -> void:
-	EventBus.vfx_requested.connect(_on_vfx_requested)
-	EventBus.vfx_batch_requested.connect(_on_vfx_batch_requested)
+func init() -> void:
+	GameplayEventBus.current.vfx_requested.connect(_on_vfx_requested)
+	GameplayEventBus.current.vfx_batch_requested.connect(_on_vfx_batch_requested)
 	
 	# Fill vfx pools
 	for type: StringName in RegistryManager.vfx_registry._lookup:
@@ -41,11 +41,11 @@ func _process(_delta: float) -> void:
 		_vfx_events.clear_data()
 
 func _exit_tree() -> void:
-	if EventBus.vfx_requested.is_connected(_on_vfx_requested):
-		EventBus.vfx_requested.disconnect(_on_vfx_requested)
+	if GameplayEventBus.current.vfx_requested.is_connected(_on_vfx_requested):
+		GameplayEventBus.current.vfx_requested.disconnect(_on_vfx_requested)
 	
-	if EventBus.vfx_batch_requested.is_connected(_on_vfx_batch_requested):
-		EventBus.vfx_batch_requested.disconnect(_on_vfx_batch_requested)
+	if GameplayEventBus.current.vfx_batch_requested.is_connected(_on_vfx_batch_requested):
+		GameplayEventBus.current.vfx_batch_requested.disconnect(_on_vfx_batch_requested)
 
 func get_vfx(type: StringName) -> OneShotParticle:
 	var pool: SparsePassiveFixedArray = _vfx_pools[type]

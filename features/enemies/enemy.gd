@@ -59,7 +59,7 @@ func advance_frame(input_mask: int, prev_input_mask: int) -> void:
 
 # --- Projectile request wrappers ---
 func add_projectile_request(request: ProjectileRequest) -> void:
-	EventBus.request_projectile(request)
+	GameplayEventBus.current.request_projectile(request)
 
 # --- EnemyInput wrappers ---
 func get_input_mask(prev_input_mask: int) -> int:
@@ -73,13 +73,13 @@ func can_move() -> bool:
 	if fp_move_ticks > 0:
 		return false
 		
-	fp_move_ticks = EventBus.get_randi_range(fp_min_move_duration, fp_max_move_duration)
+	fp_move_ticks = GameplayEventBus.current.get_randi_range(fp_min_move_duration, fp_max_move_duration)
 	return true
 
 func can_attack() -> bool:
 	if fp_attack_ticks > 0:
 		return false
 		
-	fp_attack_ticks = EventBus.get_randi_range(fp_min_attack_cooldown, fp_max_attack_cooldown)
+	fp_attack_ticks = GameplayEventBus.current.get_randi_range(fp_min_attack_cooldown, fp_max_attack_cooldown)
 	return true
 	

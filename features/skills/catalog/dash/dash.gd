@@ -66,7 +66,7 @@ func _on_activate(move_dir: Vector2i, aim_dir: Vector2i) -> void:
 		move_dir,
 		-500
 	)
-	EventBus.vfx_requested.emit(_bubble_vfx_event)
+	GameplayEventBus.current.vfx_requested.emit(_bubble_vfx_event)
 
 class DashModifier extends CharacterModifier:
 	var fp_speed_add_inc: int = 0

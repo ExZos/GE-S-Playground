@@ -2,11 +2,6 @@ extends SGFixedNode2D
 
 class_name Arena
 
-@export var top_bound: SGCollisionShape2D
-@export var left_bound: SGCollisionShape2D
-@export var right_bound: SGCollisionShape2D
-@export var bottom_bound: SGCollisionShape2D
-
 @export var arena_data: ArenaData
 
 var arena_rect: SGFixedRect2
@@ -14,6 +9,11 @@ var arena_rect: SGFixedRect2
 var zone_indexes: DenseFixedArray
 
 func init() -> void:
+	var top_bound: SGCollisionShape2D = $Bounds/Top
+	var bottom_bound: SGCollisionShape2D = $Bounds/Bottom
+	var left_bound: SGCollisionShape2D = $Bounds/Left
+	var right_bound: SGCollisionShape2D = $Bounds/Right
+	
 	var fp_half_width: int = arena_data.fp_half_width
 	var fp_width: int = arena_data.fp_half_width * 2
 	
@@ -46,6 +46,8 @@ func init() -> void:
 	right_bound.fixed_position_y = 0
 	right_bound.shape.extents.x = -fp_half_bound_thickness
 	right_bound.shape.extents.y = fp_half_height + fp_bound_thickness
+	
+	($Bounds).sync_to_physics_engine()
 	
 	zone_indexes = DenseFixedArray.new(arena_data.zones.size(), TYPE_INT)
 

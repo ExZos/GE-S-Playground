@@ -10,12 +10,8 @@
 
 [sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_2ybob"]
 
-[node name="Arena" type="SGFixedNode2D" unique_id=1469040740 node_paths=PackedStringArray("top_bound", "left_bound", "right_bound", "bottom_bound")]
+[node name="Arena" type="SGFixedNode2D" unique_id=1469040740]
 script = ExtResource("1_6klbu")
-top_bound = NodePath("Bounds/Top")
-left_bound = NodePath("Bounds/Bottom")
-right_bound = NodePath("Bounds/Left")
-bottom_bound = NodePath("Bounds/Right")
 
 [node name="Bounds" type="SGStaticBody2D" parent="." unique_id=420210317]
 

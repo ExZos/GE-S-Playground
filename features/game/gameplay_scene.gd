@@ -1,13 +1,13 @@
 extends Node
 
-class_name GameManager
+class_name GameplayScene
 
-@export var arena: Arena
-@export var player_input: PlayerInput
-@export var player: Player
-@export var projectile_manager: ProjectileManager
-@export var enemy_manager: EnemyManager
-@export var encounter_manager: EncounterManager
+@onready var arena: Arena = $Arena
+@onready var player_input: PlayerInput = $PlayerInput
+@onready var player: Player = $Player
+@onready var projectile_manager: ProjectileManager = $ProjectileManager
+@onready var enemy_manager: EnemyManager = $EnemyManager
+@onready var encounter_manager: EncounterManager = $EncounterManager
 
 # TODO: in-game selection before loading
 @export var player_data: PlayerData
@@ -22,8 +22,11 @@ var _prev_input_mask: int
 
 var is_paused: bool
 
+func _enter_tree() -> void:
+	GameplayEventBus.current = GameplayEventBus.new()
+
 func _ready() -> void:
-	EventBus.register_game_manager(self)
+	GameplayEventBus.current.register_gameplay_scene(self)
 	RegistryManager.init()
 	
 	_projectile_modifiers = DenseFixedArray.new(PROJECTILE_MODIFIERS_POOL_SIZE, TYPE_OBJECT, ProjectileModifier)
@@ -33,6 +36,8 @@ func _ready() -> void:
 	is_paused = false
 	
 	arena.init()
+	($VFXLayer).init() # Execution is not managed
+	
 	player.init(player_data)
 	encounter_manager.init(encounter_data)
 	
@@ -47,7 +52,14 @@ func _ready() -> void:
 		_scan_character_for_projectiles(projectile_types, enemy)
 	
 	# Hand off data to projectile manager to initialize pools
+	# TODO: consider moving before player init (scan resources instead)
 	projectile_manager.init(projectile_types)
+	
+	# More nodes whose execution are not managed
+	($UILayer).init(self)
+
+func _exit_tree() -> void:
+	GameplayEventBus.current = null
 
 func _physics_process(_delta: float) -> void:
 	var input_mask: int = player_input.get_input_mask()
@@ -100,7 +112,7 @@ func get_player_position() -> SGFixedVector2:
 
 func add_projectile_modifier(modifier: ProjectileModifier) -> void:
 	if _projectile_modifiers.add_item(modifier) == -1:
-		_projectile_modifiers.forced_expand("GameManager -> Projectile modifiers", 1)
+		_projectile_modifiers.forced_expand("%s -> Projectile modifiers" % name, 1)
 		
 		_projectile_modifiers.add_item(modifier)
 

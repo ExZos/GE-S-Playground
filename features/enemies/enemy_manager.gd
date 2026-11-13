@@ -13,7 +13,7 @@ var _prev_input_masks: PackedInt32Array
 var projectile_requests: DenseFixedArray
 
 func init(enemy_types: Array[StringName]) -> void:
-	EventBus.register_enemy_manager(self)
+	GameplayEventBus.current.register_enemy_manager(self)
 	
 	var enemies_by_type: Dictionary = {} # Dictionary[StringName, Array]
 	

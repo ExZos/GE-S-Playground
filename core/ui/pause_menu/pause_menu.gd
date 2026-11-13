@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-# TODO: functioning menu buttons (that call GameManager's functions?)
+# TODO: functioning menu buttons (that call GameplayScene's functions?)
 class_name PauseMenu
 
 @onready var label: Label = $Label

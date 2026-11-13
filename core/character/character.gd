@@ -81,6 +81,7 @@ func init(data: CharacterData) -> void:
 		collision_shape.shape.extents.y = SGFixed.from_int(data.half_height)
 	elif collision_shape.shape is SGCircleShape2D:
 		collision_shape.shape.radius = SGFixed.from_int(data.half_width)
+	sync_to_physics_engine()
 	
 	# TODO: handle other shapes
 	

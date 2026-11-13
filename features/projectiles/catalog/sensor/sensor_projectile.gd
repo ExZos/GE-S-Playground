@@ -94,7 +94,7 @@ func advance_frame() -> void:
 		
 		_bubble_vfx_event.pos = position
 		_bubble_vfx_event.dir = dir
-		EventBus.vfx_requested.emit(_bubble_vfx_event)
+		GameplayEventBus.current.vfx_requested.emit(_bubble_vfx_event)
 		
 		deactivate()
 

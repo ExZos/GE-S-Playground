@@ -1,14 +1,13 @@
 extends CanvasLayer
 
-@export var game_manager: GameManager
-
 @onready var hp_bar: HPBar = $UIContainer/HpBarContainer/HpBar
 @onready var pause_menu: PauseMenu = $UIContainer/PauseMenu
 @onready var respawn_text: RespawnText = $UIContainer/RespawnText
 @onready var skill_tray: SkillTray = $UIContainer/SkillTrayContainer/SkillTray
 
-var fps: int
+var gameplay_scene: GameplayScene
 
+var fps: int
 var _last_is_paused: bool
 
 var player: Player
@@ -16,14 +15,13 @@ var _last_fp_max_hp: int
 var _last_fp_current_hp: int
 var _last_is_dead: bool
 
-func _ready() -> void:
-	assert(game_manager, "%s: Game manager not assigned" % name)
+func init(_gameplay_scene: GameplayScene) -> void:
+	gameplay_scene = _gameplay_scene
 	
 	fps = Engine.get_physics_ticks_per_second()
+	_last_is_paused = gameplay_scene.is_paused
 	
-	_last_is_paused = game_manager.is_paused
-	
-	player = game_manager.player
+	player = gameplay_scene.player
 	_last_fp_max_hp = player.fp_max_hp
 	_last_fp_current_hp = player.fp_current_hp
 	_last_is_dead = player.is_dead
@@ -49,8 +47,8 @@ func _process(_delta: float) -> void:
 		
 		_last_is_dead = player.is_dead
 	
-	if game_manager.is_paused != _last_is_paused:
-		pause_menu.is_paused = game_manager.is_paused
-		respawn_text.is_paused = game_manager.is_paused
+	if gameplay_scene.is_paused != _last_is_paused:
+		pause_menu.is_paused = gameplay_scene.is_paused
+		respawn_text.is_paused = gameplay_scene.is_paused
 		
-		_last_is_paused = game_manager.is_paused
+		_last_is_paused = gameplay_scene.is_paused

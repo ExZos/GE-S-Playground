@@ -1,4 +1,8 @@
-extends Node
+extends RefCounted
+
+class_name GameplayEventBus
+
+static var current: GameplayEventBus
 
 @warning_ignore("unused_signal")
 signal vfx_requested(vfx_event: VFXEvent)
@@ -6,25 +10,25 @@ signal vfx_requested(vfx_event: VFXEvent)
 @warning_ignore("unused_signal")
 signal vfx_batch_requested(vfx_events: DenseFixedArray)
 
-# --- GameManager simulation ---
-var _game_manager: GameManager
+# --- GameplayScene simulation ---
+var _gameplay_scene: GameplayScene
 
-func register_game_manager(manager: GameManager) -> void:
-	_game_manager = manager
+func register_gameplay_scene(scene: GameplayScene) -> void:
+	_gameplay_scene = scene
 
 func get_player_position() -> SGFixedVector2:
-	assert(_game_manager, "EventBus -> get_player_position: GameManager not registered")
+	assert(_gameplay_scene, "GameplayEventBus -> get_player_position: GameplayScene not registered")
 	
-	return _game_manager.get_player_position()
+	return _gameplay_scene.get_player_position()
 
 func modify_projectiles(modifier: ProjectileModifier) -> void:
-	if _game_manager:
-		_game_manager.add_projectile_modifier(modifier)
+	if _gameplay_scene:
+		_gameplay_scene.add_projectile_modifier(modifier)
 
 func get_randi_range(from: int, to: int) -> int:
-	assert(_game_manager, "EventBus -> get_randi_range: GameManager not registered")
+	assert(_gameplay_scene, "GameplayEventBus -> get_randi_range: GameplayScene not registered")
 	
-	return _game_manager.get_randi_range(from, to)
+	return _gameplay_scene.get_randi_range(from, to)
 
 # --- EnemyManager simulation
 var _enemy_manager: EnemyManager
