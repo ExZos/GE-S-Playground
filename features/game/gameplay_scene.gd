@@ -38,6 +38,7 @@ func _ready() -> void:
 	arena.init()
 	($VFXLayer).init() # Execution is not managed
 	
+	player_input.init()
 	player.init(player_data)
 	encounter_manager.init(encounter_data)
 	

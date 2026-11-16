@@ -30,6 +30,17 @@ var _prev_raw_input_mask: int = 0
 var _last_x_move_input: int = 0
 var _last_y_move_input: int = 0
 
+# Event flags
+# TODO: swap to a pending UI input mask
+var _unpause_requested: bool = false
+
+func init() -> void:
+	GameplayEventBus.current.unpause_requested.connect(_set_unpause_requested)
+
+func _exit_tree() -> void:
+	if GameplayEventBus.current.unpause_requested.is_connected(_set_unpause_requested):
+		GameplayEventBus.current.unpause_requested.disconnect(_set_unpause_requested)
+
 func get_input_mask() -> int:
 	var raw_input_mask: int = 0
 	for action in INPUT_MAP:
@@ -63,5 +74,14 @@ func get_input_mask() -> int:
 	# Add inputs that don't need to be resolved
 	input_mask |= raw_input_mask & ~InputConstants.BitGroup.MOVE
 	
+	# Add event triggered inputs
+	# TODO: add pending UI input mask instead
+	if _unpause_requested:
+		input_mask |= InputConstants.Bit.PAUSE
+		_unpause_requested = false
+	
 	_prev_raw_input_mask = raw_input_mask
 	return input_mask
+
+func _set_unpause_requested() -> void:
+	_unpause_requested = true

@@ -5,6 +5,9 @@ class_name GameplayEventBus
 static var current: GameplayEventBus
 
 @warning_ignore("unused_signal")
+signal unpause_requested()
+
+@warning_ignore("unused_signal")
 signal vfx_requested(vfx_event: VFXEvent)
 
 @warning_ignore("unused_signal")

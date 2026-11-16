@@ -17,3 +17,13 @@ text = "PAUSED"
 label_settings = SubResource("LabelSettings_467fp")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="." unique_id=2023453628]
+layout_mode = 2
+text = "Continue"
+flat = true
+
+[node name="ReturnButton" type="Button" parent="." unique_id=1819623209]
+layout_mode = 2
+text = "Exit"
+flat = true
