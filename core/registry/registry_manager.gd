@@ -1,5 +1,7 @@
 extends Node
 
+# TODO: smaller registry that is autoloaded for scene swapping
+# TOOD: make this not an autoload and part of GameplayScene, maybe GameplayRegistry?
 @export var projectile_registry: ProjectileRegistry
 @export var skill_registry: SkillRegistry
 @export var player_registry: PlayerRegistry

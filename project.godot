@@ -17,6 +17,7 @@ config/icon="res://assets/icon.svg"
 
 [autoload]
 
+EventBus="*uid://crx6d2bwcy6fj"
 RegistryManager="*uid://djs6um4xaklck"
 
 [input]

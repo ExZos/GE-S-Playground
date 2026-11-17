@@ -24,6 +24,9 @@ class Bit:
 	const RESPAWN: int = 1 << 12
 	const NEXT_WAVE: int = 1 << 13
 	
+	# Not linked to any player input
+	const GO_TO_MAIN_MENU: int = 1 << 14
+	
 	# TODO: add diagonals
 	const FROM_MOVE_DIR: Dictionary[Vector2i, int] = {
 		Vector2i.UP: MOVE_UP,

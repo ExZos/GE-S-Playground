@@ -67,7 +67,9 @@ func _physics_process(_delta: float) -> void:
 	var just_pressed_mask: int = input_mask & ~_prev_input_mask
 	
 	# TODO: have a separate node handle this?
-	if just_pressed_mask & InputConstants.Bit.PAUSE:
+	if just_pressed_mask & InputConstants.Bit.GO_TO_MAIN_MENU:
+		EventBus.go_to_main_menu.emit()
+	elif just_pressed_mask & InputConstants.Bit.PAUSE:
 		is_paused = !is_paused  
 	
 	if is_paused:

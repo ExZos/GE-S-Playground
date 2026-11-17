@@ -31,4 +31,4 @@ func _unpause() -> void:
 	GameplayEventBus.current.unpause_requested.emit()
 
 func _go_to_main_menu() -> void:
-	print("Go to main menu")
+	GameplayEventBus.current.go_to_main_menu_requested.emit()

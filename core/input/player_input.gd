@@ -1,6 +1,5 @@
 extends Node
 
-# TODO: modify to handle multiple players
 class_name PlayerInput
 
 const INPUT_MAP: Dictionary[StringName, int] = {
@@ -24,22 +23,32 @@ const INPUT_MAP: Dictionary[StringName, int] = {
 }
 
 # Raw input
-var _prev_raw_input_mask: int = 0
+var _prev_raw_input_mask: int
 
 # Movement input history
-var _last_x_move_input: int = 0
-var _last_y_move_input: int = 0
+var _last_x_move_input: int
+var _last_y_move_input: int
 
-# Event flags
-# TODO: swap to a pending UI input mask
-var _unpause_requested: bool = false
+# Event triggered inputs
+var _pending_input_mask: int
 
 func init() -> void:
-	GameplayEventBus.current.unpause_requested.connect(_set_unpause_requested)
+	_prev_raw_input_mask = 0
+	
+	_last_x_move_input = 0
+	_last_y_move_input = 0
+	
+	_pending_input_mask = 0
+	
+	GameplayEventBus.current.unpause_requested.connect(_set_unpause_input)
+	GameplayEventBus.current.go_to_main_menu_requested.connect(_set_go_to_main_menu_input)
 
 func _exit_tree() -> void:
-	if GameplayEventBus.current.unpause_requested.is_connected(_set_unpause_requested):
-		GameplayEventBus.current.unpause_requested.disconnect(_set_unpause_requested)
+	if GameplayEventBus.current.unpause_requested.is_connected(_set_unpause_input):
+		GameplayEventBus.current.unpause_requested.disconnect(_set_unpause_input)
+	
+	if GameplayEventBus.current.go_to_main_menu_requested.is_connected(_set_go_to_main_menu_input):
+		GameplayEventBus.current.go_to_main_menu_requested.disconnect(_set_go_to_main_menu_input)
 
 func get_input_mask() -> int:
 	var raw_input_mask: int = 0
@@ -75,13 +84,14 @@ func get_input_mask() -> int:
 	input_mask |= raw_input_mask & ~InputConstants.BitGroup.MOVE
 	
 	# Add event triggered inputs
-	# TODO: add pending UI input mask instead
-	if _unpause_requested:
-		input_mask |= InputConstants.Bit.PAUSE
-		_unpause_requested = false
+	input_mask |= _pending_input_mask
 	
 	_prev_raw_input_mask = raw_input_mask
+	_pending_input_mask = 0
 	return input_mask
 
-func _set_unpause_requested() -> void:
-	_unpause_requested = true
+func _set_unpause_input() -> void:
+	_pending_input_mask |= InputConstants.Bit.PAUSE
+
+func _set_go_to_main_menu_input() -> void:
+	_pending_input_mask |= InputConstants.Bit.GO_TO_MAIN_MENU
