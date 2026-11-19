@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://djs6um4xaklck"]
+
+[ext_resource type="Script" uid="uid://dgcwqoabj1cpu" path="res://features/gameplay/gameplay_registry.gd" id="1_rrsew"]
+[ext_resource type="Resource" uid="uid://8i14jggo8nkg" path="res://features/projectiles/resources/main_projectile_registry.tres" id="2_ehw35"]
+[ext_resource type="Resource" uid="uid://dqopbcpjavjob" path="res://features/skills/resources/main_skill_registry.tres" id="3_72q28"]
+[ext_resource type="Resource" uid="uid://dk33pkn0gvvpo" path="res://features/player/resources/main_player_registry.tres" id="4_w73y4"]
+[ext_resource type="Resource" uid="uid://d22k4gl8dmxo1" path="res://features/enemies/resource/main_enemy_registry.tres" id="5_5gryk"]
+[ext_resource type="Resource" uid="uid://lobs8aymboyx" path="res://features/encounters/waves/resource/main_wave_registry.tres" id="6_d7n8y"]
+[ext_resource type="Resource" uid="uid://bt3wpogny16hm" path="res://features/vfx/resource/main_vfx_registry.tres" id="7_7swdp"]
+
+[node name="GameplayRegistry" type="Node" unique_id=1925949764]
+script = ExtResource("1_rrsew")
+projectile_registry = ExtResource("2_ehw35")
+skill_registry = ExtResource("3_72q28")
+player_registry = ExtResource("4_w73y4")
+enemy_registry = ExtResource("5_5gryk")
+wave_registry = ExtResource("6_d7n8y")
+vfx_registry = ExtResource("7_7swdp")

@@ -17,7 +17,7 @@ func init(projectile_types: Dictionary[StringName, int]) -> void:
 	}
 	
 	for type: StringName in projectile_types:
-		var projectile_data: ProjectileData = RegistryManager.get_projectile_data(type)
+		var projectile_data: ProjectileData = GameplayRegistry.current.get_projectile_data(type)
 		if not projectile_data:
 			push_warning("ProjectileManager: Projectile type '%s' not recognized" % type)
 			continue
@@ -53,7 +53,7 @@ func handle_requests(requests: DenseFixedArray) -> void:
 		# Will point to the pool for this projectile
 		var projectile_pool: SparseTypedFixedArray
 		
-		var projectile_data: ProjectileData = RegistryManager.get_projectile_data(req.type)
+		var projectile_data: ProjectileData = GameplayRegistry.current.get_projectile_data(req.type)
 		if not projectile_data:
 			push_warning("ProjectileManager: Projectile type '%s' not recognized" % req.type)
 			continue

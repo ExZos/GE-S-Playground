@@ -15,7 +15,7 @@ func init(data: EncounterData) -> void:
 	var enemy_types: Array[StringName] = []
 	
 	for wave_type: StringName in data.waves:
-		var wave_data: WaveData = RegistryManager.get_wave_data(wave_type)
+		var wave_data: WaveData = GameplayRegistry.current.get_wave_data(wave_type)
 		if not wave_data:
 			push_warning("EncounterManager: Wave type '%s' not recognized" % wave_type)
 			continue
@@ -57,7 +57,7 @@ func spawn_wave(fp_player_pos_x: int, fp_player_pos_y: int) -> void:
 		for current_zone_enemy in range(total_zone_enemies):
 			var enemy_type: StringName = wave.enemies[current_enemy]
 			
-			var enemy_data: EnemyData = RegistryManager.get_enemy_data(enemy_type)
+			var enemy_data: EnemyData = GameplayRegistry.current.get_enemy_data(enemy_type)
 			if not enemy_data:
 				push_warning("EncounterManager: Enemy type '%s' not recognized" % enemy_type)
 				continue

@@ -27,7 +27,7 @@ func get_enemy_max_dimensions_in_range(start: int, end: int) -> SGFixedVector2:
 		if not enemy_type:
 			continue
 		
-		var enemy_data: EnemyData = RegistryManager.get_enemy_data(enemy_type)
+		var enemy_data: EnemyData = GameplayRegistry.current.get_enemy_data(enemy_type)
 		if not enemy_data:
 			push_warning("WaveData: Enemy type '%s' not recognized" % enemy_type)
 		

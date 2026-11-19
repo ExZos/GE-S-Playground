@@ -1,4 +1,4 @@
-extends RefCounted
+extends Node
 
 class_name GameplayEventBus
 
@@ -20,6 +20,13 @@ signal vfx_batch_requested(vfx_events: DenseFixedArray)
 
 # --- GameplayScene simulation ---
 var _gameplay_scene: GameplayScene
+
+func _enter_tree() -> void:
+	current = self
+
+func _exit_tree() -> void:
+	if current == self:
+		current = null
 
 func register_gameplay_scene(scene: GameplayScene) -> void:
 	_gameplay_scene = scene

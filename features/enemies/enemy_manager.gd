@@ -18,7 +18,7 @@ func init(enemy_types: Array[StringName]) -> void:
 	var enemies_by_type: Dictionary = {} # Dictionary[StringName, Array]
 	
 	for type: StringName in enemy_types:
-		var enemy_data: EnemyData = RegistryManager.get_enemy_data(type)
+		var enemy_data: EnemyData = GameplayRegistry.current.get_enemy_data(type)
 		if not enemy_data:
 			push_warning("EnemyManager: Enemy type '%s' not recognized" % type)
 			continue
@@ -76,7 +76,7 @@ func handle_request(enemy_type: StringName, fp_pos_x: int, fp_pos_y: int) -> voi
 		var old_pool_max_size: int = _enemy_pool.max_size
 		_enemy_pool.forced_expand("EnemyManager", 1, enemy_type)
 		for j in range(old_pool_max_size, _enemy_pool.max_size):
-			var enemy_data: EnemyData = RegistryManager.get_enemy_data(enemy_type)
+			var enemy_data: EnemyData = GameplayRegistry.current.get_enemy_data(enemy_type)
 			if not enemy_data:
 				push_warning("EnemyManager: Enemy type '%s' not recognized" % enemy_type)
 				return

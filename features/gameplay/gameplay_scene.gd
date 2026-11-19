@@ -22,12 +22,9 @@ var _prev_input_mask: int
 
 var is_paused: bool
 
-func _enter_tree() -> void:
-	GameplayEventBus.current = GameplayEventBus.new()
-
 func _ready() -> void:
 	GameplayEventBus.current.register_gameplay_scene(self)
-	RegistryManager.init()
+	GameplayRegistry.current.init()
 	
 	_projectile_modifiers = DenseFixedArray.new(PROJECTILE_MODIFIERS_POOL_SIZE, TYPE_OBJECT, ProjectileModifier)
 	_rng = RandomNumberGenerator.new() # TODO: exported seed param
@@ -58,9 +55,6 @@ func _ready() -> void:
 	
 	# More nodes whose execution are not managed
 	($UILayer).init(self)
-
-func _exit_tree() -> void:
-	GameplayEventBus.current = null
 
 func _physics_process(_delta: float) -> void:
 	var input_mask: int = player_input.get_input_mask()

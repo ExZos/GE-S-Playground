@@ -1,13 +1,23 @@
 extends Node
 
+class_name GameplayRegistry
+
 # TODO: smaller registry that is autoloaded for scene swapping
-# TOOD: make this not an autoload and part of GameplayScene, maybe GameplayRegistry?
 @export var projectile_registry: ProjectileRegistry
 @export var skill_registry: SkillRegistry
 @export var player_registry: PlayerRegistry
 @export var enemy_registry: EnemyRegistry
 @export var wave_registry: WaveRegistry
 @export var vfx_registry: VFXRegistry # TODO: AssetRegistry
+
+static var current: GameplayRegistry
+
+func _enter_tree() -> void:
+	current = self
+
+func _exit_tree() -> void:
+	if current == self:
+		current = null
 
 func init() -> void:
 	projectile_registry.init()

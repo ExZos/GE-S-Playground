@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://doab18kdd0qq2"]
 
 [ext_resource type="Script" uid="uid://c6klmyhqcx6dx" path="res://core/input/player_input.gd" id="1_2klwo"]
-[ext_resource type="Script" uid="uid://chnm4a6v3t7eq" path="res://features/game/gameplay_scene.gd" id="1_vlims"]
+[ext_resource type="Script" uid="uid://chnm4a6v3t7eq" path="res://features/gameplay/gameplay_scene.gd" id="1_vlims"]
 [ext_resource type="Resource" uid="uid://bh2f8amnbm7du" path="res://features/player/catalog/player.tres" id="3_6oeol"]
 [ext_resource type="Resource" uid="uid://cfmf3b05bq3wo" path="res://features/encounters/training.tres" id="4_8d4k1"]
+[ext_resource type="Script" uid="uid://dpl71fwb5iw5s" path="res://shared/signals/gameplay_event_bus.gd" id="4_71t5n"]
+[ext_resource type="PackedScene" uid="uid://djs6um4xaklck" path="res://features/gameplay/gameplay_registry.tscn" id="4_d43qy"]
 [ext_resource type="Script" uid="uid://celyl8lxqchrt" path="res://features/enemies/enemy_manager.gd" id="5_44yjj"]
 [ext_resource type="Script" uid="uid://bxuayk5f3f5mo" path="res://features/projectiles/projectile_manager.gd" id="6_btwaa"]
 [ext_resource type="Script" uid="uid://ckiohqwn27g8f" path="res://features/encounters/encounter_manager.gd" id="7_gm0ip"]
@@ -11,7 +13,7 @@
 [ext_resource type="Resource" uid="uid://tbocpr7yprwa" path="res://features/world/arena/default_arena.tres" id="9_evybk"]
 [ext_resource type="PackedScene" uid="uid://bk7ksdidmq8ap" path="res://features/player/catalog/player.tscn" id="10_18wl5"]
 [ext_resource type="Script" uid="uid://b1iphtfxsb15w" path="res://features/vfx/vfx_layer.gd" id="11_60ex5"]
-[ext_resource type="PackedScene" uid="uid://by0k8264jyh5o" path="res://features/game/ui/ui_layer.tscn" id="12_mb3yu"]
+[ext_resource type="PackedScene" uid="uid://by0k8264jyh5o" path="res://features/gameplay/ui/ui_layer.tscn" id="12_mb3yu"]
 
 [sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_4c57u"]
 
@@ -19,6 +21,11 @@
 script = ExtResource("1_vlims")
 player_data = ExtResource("3_6oeol")
 encounter_data = ExtResource("4_8d4k1")
+
+[node name="GameplayEventBus" type="Node" parent="." unique_id=1703255429]
+script = ExtResource("4_71t5n")
+
+[node name="GameplayRegistry" parent="." unique_id=1925949764 instance=ExtResource("4_d43qy")]
 
 [node name="PlayerInput" type="Node" parent="." unique_id=550388586]
 script = ExtResource("1_2klwo")

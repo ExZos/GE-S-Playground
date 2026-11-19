@@ -10,7 +10,7 @@ func _ready() -> void:
 func init() -> void:
 	assert(projectile, "ProjectileSprite: Projectile must be assigned")
 	
-	var projectile_data: ProjectileData = RegistryManager.projectile_registry.get_data(projectile.type)
+	var projectile_data: ProjectileData = GameplayRegistry.current.projectile_registry.get_data(projectile.type)
 	texture = projectile_data.sprite_texture
 	if not texture:
 		return

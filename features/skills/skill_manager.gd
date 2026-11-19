@@ -15,7 +15,7 @@ func init(source: Character, attack_type: StringName, skill_types: Array[StringN
 	
 	# Initialize basic attack
 	if attack_type:
-		var skill_data: SkillData = RegistryManager.get_skill_data(attack_type)
+		var skill_data: SkillData = GameplayRegistry.current.get_skill_data(attack_type)
 		if skill_data:
 			_attack = skill_data.scene.instantiate()
 			_attack.init(source, InputConstants.BitGroup.ATK, skill_data, true)
@@ -26,7 +26,7 @@ func init(source: Character, attack_type: StringName, skill_types: Array[StringN
 	
 	# Initialize skills
 	for i in range(skill_types.size()):
-		var skill_data: SkillData = RegistryManager.get_skill_data(skill_types[i])
+		var skill_data: SkillData = GameplayRegistry.current.get_skill_data(skill_types[i])
 		if not skill_data:
 			push_warning("SkillManager: Skill type '%s' not recognized" % skill_types[i])
 			continue

@@ -12,8 +12,8 @@ func init() -> void:
 	GameplayEventBus.current.vfx_batch_requested.connect(_on_vfx_batch_requested)
 	
 	# Fill vfx pools
-	for type: StringName in RegistryManager.vfx_registry._lookup:
-		var vfx_scene: PackedScene = RegistryManager.get_vfx_scene(type)
+	for type: StringName in GameplayRegistry.current.vfx_registry._lookup:
+		var vfx_scene: PackedScene = GameplayRegistry.current.get_vfx_scene(type)
 		if not vfx_scene:
 			push_warning("VFXManager: VFX type '%s' not recognized" % type)
 			continue
@@ -52,7 +52,7 @@ func get_vfx(type: StringName) -> OneShotParticle:
 	
 	var vfx: OneShotParticle = pool.get_next_inactive()
 	if not vfx:
-		var vfx_scene: PackedScene = RegistryManager.get_vfx_scene(type)
+		var vfx_scene: PackedScene = GameplayRegistry.current.get_vfx_scene(type)
 		if not vfx_scene:
 			push_warning("VFXManager: VFX type '%s' not recognized" % type)
 			return null
