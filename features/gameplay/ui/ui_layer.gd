@@ -5,7 +5,7 @@ extends CanvasLayer
 @onready var respawn_text: RespawnText = $UIContainer/RespawnText
 @onready var skill_tray: SkillTray = $UIContainer/SkillTrayContainer/SkillTray
 
-var gameplay_scene: GameplayScene
+var gameplay_screen: GameplayScreen
 
 var fps: int
 var _last_is_paused: bool
@@ -15,13 +15,13 @@ var _last_fp_max_hp: int
 var _last_fp_current_hp: int
 var _last_is_dead: bool
 
-func init(_gameplay_scene: GameplayScene) -> void:
-	gameplay_scene = _gameplay_scene
+func init(_gameplay_screen: GameplayScreen) -> void:
+	gameplay_screen = _gameplay_screen
 	
 	fps = Engine.get_physics_ticks_per_second()
-	_last_is_paused = gameplay_scene.is_paused
+	_last_is_paused = gameplay_screen.is_paused
 	
-	player = gameplay_scene.player
+	player = gameplay_screen.player
 	_last_fp_max_hp = player.fp_max_hp
 	_last_fp_current_hp = player.fp_current_hp
 	_last_is_dead = player.is_dead
@@ -47,8 +47,8 @@ func _process(_delta: float) -> void:
 		
 		_last_is_dead = player.is_dead
 	
-	if gameplay_scene.is_paused != _last_is_paused:
-		pause_menu.is_paused = gameplay_scene.is_paused
-		respawn_text.is_paused = gameplay_scene.is_paused
+	if gameplay_screen.is_paused != _last_is_paused:
+		pause_menu.is_paused = gameplay_screen.is_paused
+		respawn_text.is_paused = gameplay_screen.is_paused
 		
-		_last_is_paused = gameplay_scene.is_paused
+		_last_is_paused = gameplay_screen.is_paused

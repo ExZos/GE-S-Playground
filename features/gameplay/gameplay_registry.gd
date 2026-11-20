@@ -2,7 +2,6 @@ extends Node
 
 class_name GameplayRegistry
 
-# TODO: smaller registry that is autoloaded for scene swapping
 @export var projectile_registry: ProjectileRegistry
 @export var skill_registry: SkillRegistry
 @export var player_registry: PlayerRegistry

@@ -1,6 +1,6 @@
 extends Node
 
-class_name GameplayScene
+class_name GameplayScreen
 
 @onready var arena: Arena = $Arena
 @onready var player_input: PlayerInput = $PlayerInput
@@ -23,7 +23,7 @@ var _prev_input_mask: int
 var is_paused: bool
 
 func _ready() -> void:
-	GameplayEventBus.current.register_gameplay_scene(self)
+	GameplayEventBus.current.register_gameplay_screen(self)
 	GameplayRegistry.current.init()
 	
 	_projectile_modifiers = DenseFixedArray.new(PROJECTILE_MODIFIERS_POOL_SIZE, TYPE_OBJECT, ProjectileModifier)
@@ -62,7 +62,7 @@ func _physics_process(_delta: float) -> void:
 	
 	# TODO: have a separate node handle this?
 	if just_pressed_mask & InputConstants.Bit.GO_TO_MAIN_MENU:
-		EventBus.go_to_main_menu.emit()
+		EventBus.go_to_screen.emit(RegistryKeys.Screens.MAIN_MENU_SCREEN)
 	elif just_pressed_mask & InputConstants.Bit.PAUSE:
 		is_paused = !is_paused  
 	

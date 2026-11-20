@@ -1,40 +1,32 @@
 extends Node
 
-@onready var scene_container: Node = $SceneContainer
+@onready var screen_container: Node = $ScreenContainer
 
-# TODO: use a scene registry
-@export var initial_scene: PackedScene
-
-@export var main_menu_scene: PackedScene
-@export var gameplay_scene: PackedScene
+const INITIAL_SCREEN: StringName = RegistryKeys.Screens.GAMEPLAY_SCREEN
 
 func _enter_tree() -> void:
-	EventBus.go_to_main_menu.connect(_load_main_menu_scene)
-	EventBus.go_to_gameplay.connect(_load_gameplay_scene)
+	EventBus.go_to_screen.connect(_swap_screen)
 
 func _ready() -> void:
-	var scene_node: Node = initial_scene.instantiate()
-	scene_container.add_child(scene_node)
+	MainRegistry.init()
+	
+	_load_screen(INITIAL_SCREEN)
 
 func _exit_tree() -> void:
-	if EventBus.go_to_main_menu.is_connected(_load_main_menu_scene):
-		EventBus.go_to_main_menu.disconnect(_load_main_menu_scene)
-	
-	if EventBus.go_to_gameplay.is_connected(_load_gameplay_scene):
-		EventBus.go_to_gameplay.disconnect(_load_gameplay_scene)
+	if EventBus.go_to_screen.is_connected(_swap_screen):
+		EventBus.go_to_screen.disconnect(_swap_screen)
 
-func _load_main_menu_scene() -> void:
-	_free_current_scene()
+func _load_screen(type: String) -> void:
+	var screen_scene: PackedScene = MainRegistry.get_screen_scene(type)
+	if not screen_scene:
+			push_warning("%s: Screen type '%s' not recognized" % [name, type])
+			return
 	
-	var scene_node: Node = main_menu_scene.instantiate()
-	scene_container.add_child(scene_node)
+	var screen_node: Node = screen_scene.instantiate()
+	screen_container.add_child(screen_node)
 
-func _load_gameplay_scene() -> void:
-	_free_current_scene()
-	
-	var scene_node: Node = gameplay_scene.instantiate()
-	scene_container.add_child(scene_node)
-
-func _free_current_scene() -> void:
-	for child_node: Node in scene_container.get_children():
+func _swap_screen(screen_id: String) -> void:
+	for child_node: Node in screen_container.get_children():
 		child_node.queue_free()
+	
+	_load_screen(screen_id)

@@ -1,13 +1,14 @@
 class_name RegistryConfig
 
 class Paths:
+	const REGISTRY_KEYS: String = "res://core/registry/registry_keys.gd"
+	const SCREENS_CATALOG: String = "res://core/screens/catalog"
 	const PROJECTILES_CATALOG: String = "res://features/projectiles/catalog"
 	const SKILLS_CATALOG: String = "res://features/skills/catalog"
 	const PLAYERS_CATALOG: String = "res://features/player/catalog"
 	const ENEMIES_CATALOG: String = "res://features/enemies/catalog"
 	const WAVES_CATALOG: String = "res://features/encounters/waves/catalog"
 	const VFX_CATALOG: String = "res://features/vfx/catalog"
-	const REGISTRY_KEYS: String = "res://core/registry/registry_keys.gd"
 
 class TargetExtensions:
 	const RESOURCE_REGISTRY: String = ".tres"
@@ -17,6 +18,10 @@ class TargetExtensions:
 # Parent keys used as-is as auto-generated class names
 # path and target_ext for letting the generator know where to scan for what files
 const CATALOG_MANIFEST: Dictionary[String, Dictionary] = {
+	"Screens": {
+		"path": Paths.SCREENS_CATALOG,
+		"target_ext": TargetExtensions.SCENE_REGISTRY
+	},
 	"Projectiles": {
 		"path": Paths.PROJECTILES_CATALOG,
 		"target_ext": TargetExtensions.RESOURCE_REGISTRY

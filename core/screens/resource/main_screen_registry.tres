@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ScreenRegistry" format=3 uid="uid://e57tvmrhwyap"]
+
+[ext_resource type="Script" uid="uid://b5qbywmc4betk" path="res://core/screens/screen_registry.gd" id="1_cn4t2"]
+
+[resource]
+script = ExtResource("1_cn4t2")
+preload_types = Array[StringName]([&"main_menu_screen", &"gameplay_screen"])
+metadata/_custom_type_script = "uid://b5qbywmc4betk"

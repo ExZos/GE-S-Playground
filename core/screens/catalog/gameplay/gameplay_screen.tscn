@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://doab18kdd0qq2"]
+[gd_scene format=3 uid="uid://x4pbsn0u5oci"]
 
 [ext_resource type="Script" uid="uid://c6klmyhqcx6dx" path="res://core/input/player_input.gd" id="1_2klwo"]
-[ext_resource type="Script" uid="uid://chnm4a6v3t7eq" path="res://features/gameplay/gameplay_scene.gd" id="1_vlims"]
+[ext_resource type="Script" uid="uid://chnm4a6v3t7eq" path="res://core/screens/catalog/gameplay/gameplay_screen.gd" id="1_vlims"]
 [ext_resource type="Resource" uid="uid://bh2f8amnbm7du" path="res://features/player/catalog/player.tres" id="3_6oeol"]
 [ext_resource type="Resource" uid="uid://cfmf3b05bq3wo" path="res://features/encounters/training.tres" id="4_8d4k1"]
 [ext_resource type="Script" uid="uid://dpl71fwb5iw5s" path="res://shared/signals/gameplay_event_bus.gd" id="4_71t5n"]
@@ -17,7 +17,7 @@
 
 [sub_resource type="SGRectangleShape2D" id="SGRectangleShape2D_4c57u"]
 
-[node name="GameplayScene" type="SGFixedNode2D" unique_id=2101749077]
+[node name="GameplayScreen" type="SGFixedNode2D" unique_id=2101749077]
 script = ExtResource("1_vlims")
 player_data = ExtResource("3_6oeol")
 encounter_data = ExtResource("4_8d4k1")

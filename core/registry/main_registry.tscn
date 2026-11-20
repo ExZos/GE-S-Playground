@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dboyslwsdvy8w"]
+
+[ext_resource type="Script" uid="uid://dygxi5mbd82sv" path="res://core/registry/main_registry.gd" id="1_nmnku"]
+[ext_resource type="Resource" uid="uid://e57tvmrhwyap" path="res://core/screens/resource/main_screen_registry.tres" id="2_pr02m"]
+
+[node name="MainRegistry" type="Node2D" unique_id=226627451]
+script = ExtResource("1_nmnku")
+screen_registry = ExtResource("2_pr02m")

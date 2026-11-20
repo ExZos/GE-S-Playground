@@ -10,4 +10,4 @@ func _exit_tree() -> void:
 		play_button.button_up.disconnect(_go_to_gameplay)
 
 func _go_to_gameplay() -> void:
-	EventBus.go_to_gameplay.emit()
+	EventBus.go_to_screen.emit(RegistryKeys.Screens.GAMEPLAY_SCREEN)
