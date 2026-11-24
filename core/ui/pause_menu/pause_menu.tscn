@@ -3,27 +3,79 @@
 [ext_resource type="Script" uid="uid://dgh1rdlb8jiiq" path="res://core/ui/pause_menu/pause_menu.gd" id="1_467fp"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_467fp"]
+line_spacing = 0.0
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
 
-[node name="PauseMenu" type="VBoxContainer" unique_id=374222926]
-offset_right = 62.0
-offset_bottom = 23.0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_467fp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_467fp"]
+draw_center = false
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p2nsn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ykw6a"]
+draw_center = false
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[node name="PauseMenu" type="Control" unique_id=1764324626]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_467fp")
 
-[node name="Label" type="Label" parent="." unique_id=176894046]
+[node name="Overlay" type="ColorRect" parent="." unique_id=429858804]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.25)
+
+[node name="MenuContainer" type="VBoxContainer" parent="." unique_id=1004892499]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -54.5
+offset_right = 56.0
+offset_bottom = 54.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="MenuContainer" unique_id=176894046]
 layout_mode = 2
-text = "PAUSED"
+text = "- PAUSED -"
 label_settings = SubResource("LabelSettings_467fp")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ContinueButton" type="Button" parent="." unique_id=2023453628]
+[node name="ButtonContainer" type="VBoxContainer" parent="MenuContainer" unique_id=2047756607]
 layout_mode = 2
-text = "Continue"
-flat = true
+theme_override_constants/separation = 16
+alignment = 1
 
-[node name="ReturnButton" type="Button" parent="." unique_id=1819623209]
+[node name="ResumeButton" type="Button" parent="MenuContainer/ButtonContainer" unique_id=2023453628]
 layout_mode = 2
-text = "Exit"
-flat = true
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxEmpty_467fp")
+theme_override_styles/hover = SubResource("StyleBoxFlat_467fp")
+text = "Resume"
+
+[node name="MainMenuButton" type="Button" parent="MenuContainer/ButtonContainer" unique_id=1819623209]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxEmpty_p2nsn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ykw6a")
+text = "Main Menu"

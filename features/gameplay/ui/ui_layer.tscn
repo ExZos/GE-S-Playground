@@ -30,18 +30,8 @@ theme_override_constants/margin_top = 10
 layout_mode = 2
 
 [node name="PauseMenu" parent="UIContainer" unique_id=374222926 instance=ExtResource("2_fjaho")]
+z_index = 1
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -31.0
-offset_top = -11.5
-offset_right = 31.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="RespawnText" parent="UIContainer" unique_id=329449568 instance=ExtResource("3_csnf5")]
 layout_mode = 1

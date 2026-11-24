@@ -24,11 +24,17 @@ offset_right = 44.0
 offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Label" type="Label" parent="VBoxContainer" unique_id=2080594099]
-layout_mode = 2
-text = "Main Menu"
+theme_override_constants/separation = 16
+alignment = 1
 
 [node name="PlayButton" type="Button" parent="VBoxContainer" unique_id=380237218]
 layout_mode = 2
 text = "Play"
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer" unique_id=520908135]
+layout_mode = 2
+text = "Settings"
+
+[node name="ExitButton" type="Button" parent="VBoxContainer" unique_id=912383728]
+layout_mode = 2
+text = "Exit"
