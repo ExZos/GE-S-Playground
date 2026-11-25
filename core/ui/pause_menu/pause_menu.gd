@@ -1,6 +1,5 @@
 extends Control
 
-# TODO: Theme resoource
 class_name PauseMenu
 
 @onready var label: Label = $MenuContainer/Label

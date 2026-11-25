@@ -1,25 +1,7 @@
 [gd_scene format=3 uid="uid://bpml47uhx37r"]
 
 [ext_resource type="Script" uid="uid://dgh1rdlb8jiiq" path="res://core/ui/pause_menu/pause_menu.gd" id="1_467fp"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_467fp"]
-line_spacing = 0.0
-outline_size = 2
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_467fp"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_467fp"]
-draw_center = false
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p2nsn"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ykw6a"]
-draw_center = false
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
+[ext_resource type="Theme" uid="uid://drmead8s17kjx" path="res://core/ui/pause_menu/pause_menu_theme.tres" id="1_p2nsn"]
 
 [node name="PauseMenu" type="Control" unique_id=1764324626]
 layout_mode = 3
@@ -28,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_p2nsn")
 script = ExtResource("1_467fp")
 
 [node name="Overlay" type="ColorRect" parent="." unique_id=429858804]
@@ -57,7 +40,6 @@ theme_override_constants/separation = 16
 [node name="Label" type="Label" parent="MenuContainer" unique_id=176894046]
 layout_mode = 2
 text = "- PAUSED -"
-label_settings = SubResource("LabelSettings_467fp")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -69,13 +51,9 @@ alignment = 1
 [node name="ResumeButton" type="Button" parent="MenuContainer/ButtonContainer" unique_id=2023453628]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_styles/normal = SubResource("StyleBoxEmpty_467fp")
-theme_override_styles/hover = SubResource("StyleBoxFlat_467fp")
 text = "Resume"
 
 [node name="MainMenuButton" type="Button" parent="MenuContainer/ButtonContainer" unique_id=1819623209]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_styles/normal = SubResource("StyleBoxEmpty_p2nsn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ykw6a")
 text = "Main Menu"

@@ -3,9 +3,7 @@
 [ext_resource type="Script" uid="uid://cloql544h4jxl" path="res://features/skills/ui/skill_tray/skill_slots/stamina_skill_slot.gd" id="1_y5evk"]
 [ext_resource type="StyleBox" uid="uid://brkudeboq4s4h" path="res://shared/ui/styles/rounded_small.tres" id="2_evcht"]
 [ext_resource type="Texture2D" uid="uid://os3di37wf71y" path="res://shared/ui/textures/square_white.tres" id="2_f5r0g"]
-[ext_resource type="LabelSettings" uid="uid://c8tt6lggdl8l" path="res://shared/ui/label_settings/skill_slot_key.tres" id="4_f5r0g"]
 [ext_resource type="Texture2D" uid="uid://c67kbbyxxeafv" path="res://shared/ui/textures/square_border_white.tres" id="4_pnn8b"]
-[ext_resource type="LabelSettings" uid="uid://b0dqld51kajy0" path="res://shared/ui/label_settings/skill_slot_progress.tres" id="5_evcht"]
 
 [node name="StaminaSkillSlot" type="VBoxContainer" unique_id=1158245742]
 offset_right = 64.0
@@ -33,12 +31,12 @@ tint_over = Color(0, 0, 0, 1)
 
 [node name="Percentage" type="Label" parent="MarginContainer" unique_id=448522290]
 layout_mode = 2
-label_settings = ExtResource("5_evcht")
+theme_type_variation = &"SmallActionableLabel"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Key" type="Label" parent="." unique_id=1440307108]
 layout_mode = 2
-label_settings = ExtResource("4_f5r0g")
+theme_type_variation = &"SmallActionableLabel"
 horizontal_alignment = 1
 vertical_alignment = 2

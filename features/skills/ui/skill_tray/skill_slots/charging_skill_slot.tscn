@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" uid="uid://darkllico30is" path="res://features/skills/ui/skill_tray/skill_slots/charging_skill_slot.gd" id="1_r6278"]
 [ext_resource type="StyleBox" uid="uid://brkudeboq4s4h" path="res://shared/ui/styles/rounded_small.tres" id="2_7u5qt"]
-[ext_resource type="LabelSettings" uid="uid://c8tt6lggdl8l" path="res://shared/ui/label_settings/skill_slot_key.tres" id="2_j0d3l"]
 [ext_resource type="Texture2D" uid="uid://os3di37wf71y" path="res://shared/ui/textures/square_white.tres" id="4_i17dh"]
 [ext_resource type="Texture2D" uid="uid://c67kbbyxxeafv" path="res://shared/ui/textures/square_border_white.tres" id="4_kbh2m"]
-[ext_resource type="LabelSettings" uid="uid://b0dqld51kajy0" path="res://shared/ui/label_settings/skill_slot_progress.tres" id="5_mmhvd"]
 
 [node name="ChargingSkillSlot" type="VBoxContainer" unique_id=1104187296]
 offset_right = 64.0
@@ -41,12 +39,12 @@ tint_progress = Color(0.39215687, 0.78431374, 0.39215687, 1)
 
 [node name="Progress" type="Label" parent="MarginContainer" unique_id=405523373]
 layout_mode = 2
-label_settings = ExtResource("5_mmhvd")
+theme_type_variation = &"SmallActionableLabel"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Key" type="Label" parent="." unique_id=425541990]
 layout_mode = 2
-label_settings = ExtResource("2_j0d3l")
+theme_type_variation = &"SmallActionableLabel"
 horizontal_alignment = 1
 vertical_alignment = 2
