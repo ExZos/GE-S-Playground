@@ -62,7 +62,7 @@ func _physics_process(_delta: float) -> void:
 	
 	# TODO: have a separate node handle this?
 	if just_pressed_mask & InputConstants.Bit.GO_TO_MAIN_MENU:
-		EventBus.go_to_screen.emit(RegistryKeys.Screens.MAIN_MENU_SCREEN)
+		EventBus.screen_change_requested.emit(RegistryKeys.Screens.MAIN_MENU_SCREEN)
 	elif just_pressed_mask & InputConstants.Bit.PAUSE:
 		is_paused = !is_paused  
 	

@@ -1,6 +1,5 @@
 extends Node
 
-# TODO: packed scene for assigning default values
 @export var screen_registry: ScreenRegistry
 
 func init() -> void:

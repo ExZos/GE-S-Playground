@@ -20,10 +20,10 @@ func _exit_tree() -> void:
 		exit_button.button_up.disconnect(_exit_game)
 
 func _go_to_gameplay() -> void:
-	EventBus.go_to_screen.emit(RegistryKeys.Screens.GAMEPLAY_SCREEN)
+	EventBus.screen_change_requested.emit(RegistryKeys.Screens.GAMEPLAY_SCREEN)
 
 func _go_to_settings() -> void:
 	print("TODO: go to settings")
 
 func _exit_game() -> void:
-	print("TODO: exit game")
+	EventBus.exit_game_requested.emit()
